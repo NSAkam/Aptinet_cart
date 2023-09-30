@@ -36,8 +36,11 @@ class WeightSensorWorker(QThread):
         super().__init__()
         self._startUpHandler = self.noise_reduction_buffer_size
         self.hx = HX711(23, 24)
+        # Creating a list named read_weight_buffer containing of zeros as much as read_weight_buffer_size
         for i in range(self.read_weight_buffer_size):
             self.read_weight_buffer.append(0)
+
+        # Creating a list named noise_reduction_buffer containing of zeros as much as noise_reduction_buffer_size
         for i in range(self.noise_reduction_buffer_size):
             self.noise_reduction_buffer.append(0)
         with open("/home/kast/offset.txt", 'r') as f:
@@ -119,10 +122,16 @@ class WeightSensorWorker(QThread):
     isstable = Property(bool, getisstable, setisstable, notify=isstable_changed)
 
     def outlierRemover(self, data_list, outlier_margin=1.5):
+        """
+        Removes outlier data from weghit sensor's output
+        :param data_list: receiving data from weight sensor
+        :param outlier_margin: a constant with is multiplied to extend the range of data
+        :return: the mean of selected weights list
+        """
         a = np.array(data_list)
-        upper_quartile = np.percentile(a, 75)
-        lower_quartile = np.percentile(a, 25)
-        IQR = max(((upper_quartile - lower_quartile) * outlier_margin), 8)
+        upper_quartile = np.percentile(a, 75)  # q3
+        lower_quartile = np.percentile(a, 25)  # q1
+        IQR = max(((upper_quartile - lower_quartile) * outlier_margin), 8)  # IQR = (q3 - q1 )
         quartileSet = (lower_quartile - IQR, upper_quartile + IQR)
         resultList = []
         for raw_number in a.tolist():
@@ -135,14 +144,16 @@ class WeightSensorWorker(QThread):
         while True:
             result: int = self.hx.get_grams(times=1)
 
-            self.noise_reduction_buffer.pop(0)
-            self.noise_reduction_buffer.append(int(result))
+            self.noise_reduction_buffer.pop(0)  # Removing zeros from noise_reduction_buffer list
+            self.noise_reduction_buffer.append(int(result))  # Adding receiving weights from sensor
+            # to the noise_reduction_buffer list
 
+            # Removing outliers from the noise_reduction_buffer list and set the result to _currentWeight
             self.setcurrentweight(self.outlierRemover(self.noise_reduction_buffer, 1))
 
-            self.read_weight_buffer.pop(0)
-            self.read_weight_buffer.append(self.getcurrentweight())
-            if self._startUpHandler > 0:
+            self.read_weight_buffer.pop(0)  # Removing zeros from read_weight_buffer list
+            self.read_weight_buffer.append(self.getcurrentweight())  # Adding _currentWeight to read_weight_buffer
+            if self._startUpHandler > 0:  # It has been set to self.noise_reduction_buffer_size=20 at first
                 self._startUpHandler = self._startUpHandler - 1
             else:
                 self.setisstable(True)
