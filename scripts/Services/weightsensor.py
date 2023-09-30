@@ -8,11 +8,12 @@ from copy import copy
 
 class WeightSensorWorker(QThread):
 
-    _offset: float
-    _scale: float
-    _startWeight: int = 0 
-    _BasketWeight1: int = 0
-    _BasketWeight2: int = 0
+    _offset: float  # A variable to store offset.txt receiving from the sensor
+    _scale: float  # A variable to store scale.txt receiving from the sensor
+    _startWeight: int = 0  # If _atstartUp is true, it means we are at the start of weighting.Then this variable
+    # will set on the mean of read_weight_buffer
+    _BasketWeight1: int = 0  # A variable to store _BasketWeight2
+    _BasketWeight2: int = 0  # A variable to store weight (mean of the read_weight_buffer)
     _currentWeight: int = 0
     _tolerance: float = 25
     _basketweight = 0
@@ -160,6 +161,7 @@ class WeightSensorWorker(QThread):
                 self._canread = True
                 for i in range(self.read_weight_buffer_size):
                     for j in range(i, self.read_weight_buffer_size):
+                        # Calculating the absolute difference between a value with other values in read_weight_buffer
                         diff = abs(self.read_weight_buffer[i] - self.read_weight_buffer[j])
                         if diff >= self.is_stable_tolerance:
                             self.setisstable(False)
@@ -170,21 +172,22 @@ class WeightSensorWorker(QThread):
 
                 if self._canread:
                     if self._atstartUp == True:
+                        # Set _startWeight, _BasketWeight2 and _BasketWeight1 on the mean of read_weight_buffer
                         self.setstartWeight(mean(self.read_weight_buffer))
                         self._BasketWeight2 = mean(self.read_weight_buffer)
                         self._BasketWeight1 = self._BasketWeight2
                         self._atstartUp = False
                     else:
                         if mean(self.read_weight_buffer) > self._BasketWeight1:
-                            a = np.array(self.read_weight_buffer)
-                            half_quartile = np.percentile(a, 50)
-                            c = 0
-                            s = 0
+                            a = np.array(self.read_weight_buffer)  # Converting read_weight_buffer to a numpy array
+                            half_quartile = np.percentile(a, 50)  # Calculating the q2 of the a
+                            c = 0  # A counter
+                            s = 0  # A summation
                             for w in self.read_weight_buffer:
-                                if w >= half_quartile:
-                                    c += 1
-                                    s += w
-                            self._BasketWeight2 = int(s / c)
+                                if w >= half_quartile: # If a weight in read_weight_list is bigger than q2
+                                    c += 1  # Adding 1 to the counter
+                                    s += w  # Summing it with s
+                            self._BasketWeight2 = int(s / c)  # Calculating the mean of weights greater than q2
                         else:
                             self._BasketWeight2 = mean(self.read_weight_buffer)
                         if (self._BasketWeight2 - self._BasketWeight1) >= self.lightest_weight or (
