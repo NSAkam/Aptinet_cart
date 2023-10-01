@@ -44,6 +44,7 @@ class WeightSensorWorker(QThread):
         # Creating a list named noise_reduction_buffer containing of zeros as much as noise_reduction_buffer_size
         for i in range(self.noise_reduction_buffer_size):
             self.noise_reduction_buffer.append(0)
+
         with open("/home/kast/offset.txt", 'r') as f:
             self.setOffset(float(f.readline()))
         self.hx.set_offset(self._offset)
