@@ -8,8 +8,8 @@ from copy import copy
 
 class WeightSensorWorker(QThread):
 
-    _offset: float  # A variable to store offset.txt receiving from the sensor
-    _scale: float  # A variable to store scale.txt receiving from the sensor
+    _offset: float  # A variable to store offset receiving from the offset.txt
+    _scale: float  # A variable to store scale receiving from the scale.txt
     _startWeight: int = 0  # If _atstartUp is true, it means we are at the start of weighting.Then this variable
     # will set on the mean of read_weight_buffer
     _BasketWeight1: int = 0  # A variable to store _BasketWeight2
@@ -146,7 +146,7 @@ class WeightSensorWorker(QThread):
         while True:
             result: int = self.hx.get_grams(times=1)
 
-            self.noise_reduction_buffer.pop(0)  # Removing zeros from noise_reduction_buffer list
+            self.noise_reduction_buffer.pop(0)  # Removing a zero from noise_reduction_buffer list
             self.noise_reduction_buffer.append(int(result))  # Adding receiving weights from sensor
             # to the noise_reduction_buffer list
 
