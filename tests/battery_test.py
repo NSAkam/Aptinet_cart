@@ -2,7 +2,9 @@ import unittest
 from statistics import mean
 import numpy as np
 from unittest.mock import MagicMock, patch
-from battery import BatteryWorker, i2c
+from battery import BatteryWorker, Battery
+from PySide2.QtCore import Signal, Slot
+
 
 class TestBattery(unittest.TestCase):
 
@@ -15,8 +17,9 @@ class TestBattery(unittest.TestCase):
         self.in_init: bool = True
         self.counter = 0
         self.BatteryWorker = BatteryWorker()
+        self.Battery = Battery()
         self.hex_number = [['F0', 'DA']]
-        self.i2c = i2c()
+        # self.i2c = i2c()
 
     def test_set_data_true_value(self):
         data = self.BatteryWorker.set_data(self.hex_number)
@@ -26,10 +29,10 @@ class TestBattery(unittest.TestCase):
         with open("min.txt", "w") as file:
             file.write('1000')
         result = self.BatteryWorker.read_file('min')
-        self.assertEqual(result, 46)
+        self.assertEqual(result, 1000)
 
     def test_read_file_true_value_2(self):
-        with open("min.txt", "w") as file:
+        with open("max.txt", "w") as file:
             file.write("10000")
         result = self.BatteryWorker.read_file('max')
         self.assertEqual(result, 10000)
@@ -74,17 +77,59 @@ class TestBattery(unittest.TestCase):
 
     @patch('time.sleep', MagicMock())  # Mock the time.sleep() function
     def test_run(self):
-        self.i2c = MagicMock(return_value=500)
-        self.BatteryWorker.set_data = MagicMock(return_value=500)
-        self.BatteryWorker.read_file = MagicMock(return_value=100)
-        self.BatteryWorker.write_file = MagicMock()
-        self.BatteryWorker.normalize_data = MagicMock(return_value=50)
+        self.BatteryWorker.in_init = False
+        self.BatteryWorker.level = 6
+        self.BatteryWorker.set_data = MagicMock(return_value=5)
+        self.BatteryWorker.outlierRemover = MagicMock(return_value=8)
+        self.BatteryWorker.meanbuffer = [5, 5, 5, 5]
+        self.BatteryWorker.read_file = MagicMock(side_effect=lambda input: 1 if input == 'min' else 2)
+        self.BatteryWorker.write_file = MagicMock(side_effect=lambda input, data: 1 if input == 'min' else 2)
+        self.BatteryWorker.normalize_data = MagicMock(return_value=5.75) # You can comment this one. If you do it, you
+        # should comment this line: self.BatteryWorker.normalize_data.assert_called_once_with(data=5.75, min=1, max=2)
         self.BatteryWorker.updateLevel = MagicMock()
 
         self.BatteryWorker.run()
 
         self.BatteryWorker.set_data.assert_called_once()
-        self.BatteryWorker.read_file.assert_called_once_with('min')
-        self.BatteryWorker.write_file.assert_called_once_with('min', 500)
-        self.BatteryWorker.normalize_data.assert_called_once_with(data=500, min=100, max=100)
-        self.BatteryWorker.updateLevel.assert_called_once_with(50)
+        self.BatteryWorker.read_file.assert_any_call('min')
+        self.BatteryWorker.read_file.assert_any_call('max')
+        # self.BatteryWorker.write_file.assert_any_call("max", 5)
+        # self.BatteryWorker.write_file.assert_any_call("min", 5)
+        # self.BatteryWorker.write_file.assert_called_once()
+        # self.BatteryWorker.normalize_data.assert_called()
+        self.BatteryWorker.write_file.assert_called_once_with('max',5.75)
+        # self.BatteryWorker.write_file.assert_any_call('min', 5)
+        self.BatteryWorker.normalize_data.assert_called_once_with(data=5.75, min=1, max=2)
+        self.BatteryWorker.updateLevel.emit.assert_called()
+
+    def test_get_level_with_valid_input(self):
+        self.Battery._level = 11
+        self.Battery.getLevel()
+        self.assertEqual(self.Battery._level, 11)
+
+    def test_set_level_with_valid_input(self):
+        self.Battery.changed = MagicMock()
+        self.Battery.setLevel(15)
+        self.assertEqual(self.Battery._level, 15)
+        self.Battery.changed.emit.assert_called_once()
+
+    def test_updateLevel_with_valid_input(self):
+        self.Battery.changed = MagicMock()
+        self.Battery.updateLevel(12)
+        self.assertEqual(self.Battery._level, 12)
+        self.Battery.changed.emit.assert_called_once()
+
+    def test_changed_signal(self):
+        self.assertIsInstance(self.Battery.changed, Signal)
+
+    def test_Battery(self):
+        self.Battery._level = 10
+        self.assertIsInstance(self.Battery._threadUpdate, BatteryWorker)
+        self.assertEqual(self.Battery._level, 10)
+
+
+
+
+
+
+
