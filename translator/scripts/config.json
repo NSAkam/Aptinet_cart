@@ -1,0 +1,8 @@
+{
+  "scanner": {
+    "name": "scanner1",
+    "type": "2",
+    "model": "esg"
+  },
+  "language": "en"
+}
