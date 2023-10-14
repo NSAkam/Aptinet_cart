@@ -5,7 +5,8 @@ from MyAptinetCodes.Models.product import Product
 from PySide2.QtSql import QSqlQuery
 from uuid import uuid1
 
-class ProductRepository():
+
+class ProductRepository:
 
     def __int__(self):
         self.dal = DAL()
@@ -21,12 +22,19 @@ class ProductRepository():
         try:
             product = Product()
             query = QSqlQuery()
-            if query.exec_("SELECT name, description, price, finalprice FROM products WHERE Barcode = '"+barcode+"'"):
+            if query.exec_("SELECT name, description, price, finalprice, rate, CommentCount, meanweight, tolerance,"
+            " insertedweights, isOffer, isPLU, tax, QR, storeID, w1, w2, w3, w4, w5, w6, w7, w8, w9, w10 FROM products "
+            "WHERE Barcode = '"+barcode+"'"):
                 while query.next():
                     product.setName(query.value(0))
                     product.setDescription(query.value(1))
                     product.setPrice(query.value(2))
                     product.setFinalprice(query.value(3))
+                    product.setRate(query.value(4))
+                    product.setCommentCount(query.value(5))
+                    product.setMeanweight(query.value(6))
+                    product.setTolerance(query.value(7))
+                    product.setInsertedweight(query.value(8))
                 return product
             else:
                 return None
@@ -64,7 +72,7 @@ class ProductRepository():
         except Exception as e:
             print(f"An exception has been occurred while trying to delete a product with barcode: {barcode}", e)
 
-    def updateWeightFeatures(self, barcode, meanweight, tolerance, insertedweight, w_index: int, w):
+    def updateWeightFeatures(self, barcode, meanweight, tolerance, insertedweight):
         """
         This function updates the weight features of the barcode.
         :param barcode:
@@ -77,19 +85,34 @@ class ProductRepository():
         """
         try:
             query = QSqlQuery()
-            weight_column_name = "w" + str(w_index)
+            # weight_column_name = "w" + str(w_index)
             if query.exec_(
-                "INSERT INTO products(barcode, meanweight, tolerance, insertedweight, '" + weight_column_name + "') "
-                "VALUES ('"+barcode+"', '"+meanweight+"', '"+tolerance+"', '"+insertedweight+"' WHERE NOT EXISTS "
-                "(SELECT 1 FROM products WHERE barcode = '"+barcode+"') "):
+                "INSERT INTO products(barcode, meanweight, tolerance, insertedweight) "
+                "VALUES ('"+barcode+"', '"+meanweight+"', '"+tolerance+"', '"+insertedweight+"') "
+                "WHERE NOT EXISTS (SELECT 1 FROM products WHERE barcode = '"+barcode+"') "):
 
                     query.exec_("UPDATE products SET meanweight='" + meanweight + "', tolerance = '" + tolerance + "',"
-                                " insertedweight = '" + insertedweight + "', " + weight_column_name + " = '" + w +
-                                "' WHERE Barcode='" + barcode + "'")
+                                " insertedweight = '" + insertedweight + "' WHERE Barcode='" + barcode + "'")
             else:
                 pass
         except Exception as e:
             print("An exception has occurred while trying to get data of this product", e)
+
+    def updateW(self, barcode, w_index, w):
+        try:
+            query = QSqlQuery()
+            weight_column_name = "w" + str(w_index)
+            if query.exec_(
+                "INSERT INTO products(barcode,'" + weight_column_name + "') VALUES ('"+barcode+"', '"+ w +"') "
+                "WHERE NOT EXISTS (SELECT 1 FROM products WHERE barcode = '"+barcode+"') "):
+
+                    query.exec_("UPDATE products SET '" + weight_column_name + "' = '" + w + "' "
+                    "WHERE Barcode='" + barcode + "'")
+            else:
+                pass
+        except Exception as e:
+            print("An exception has occurred while trying to get data of this product", e)
+
 
     def updateProducts(self, barcode, name, price, finalprice, isOffer, isPLU):
         try:
@@ -238,6 +261,7 @@ class ProductRepository():
 
         except Exception as e:
             print("An exception has been occurred while trying to get data of this product", e)
+
 
 
 
