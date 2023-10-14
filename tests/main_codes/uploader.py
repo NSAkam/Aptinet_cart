@@ -23,7 +23,7 @@ class Uploader(QThread):
             pass
 
     def get_basketName(self):
-        with open("basketName.txt", 'r') as f:
+        with open("../basketName.txt", 'r') as f:
             basketName = str(f.readline())
             basketName = basketName[:-1] + ".db"
         return basketName
@@ -45,7 +45,7 @@ class Uploader(QThread):
         multiPart = QHttpMultiPart(QHttpMultiPart.FormDataType)
 
         # file = QFile("/home/kast/KAST.db")
-        file = QFile("basket.db")
+        file = QFile("../basket.db")
         file.open(QIODevice.ReadOnly)
         print(file.size())
 

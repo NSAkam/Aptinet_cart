@@ -1,11 +1,6 @@
 import unittest
-from unittest.mock import MagicMock
-import PIL.Image
-from PySide2.QtQuick import *
 from PySide2.QtGui import QImage
-import code128
-from PIL import Image
-from barcodeGenerator import BarcodeGenerator
+from tests.main_codes.barcodeGenerator import BarcodeGenerator
 
 
 class TestBarcodeGenerator(unittest.TestCase):

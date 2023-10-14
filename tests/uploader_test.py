@@ -1,11 +1,10 @@
 import unittest
-from uploader import Uploader
-from PySide2.QtCore import Signal
+from tests.main_codes.uploader import Uploader
 from unittest.mock import MagicMock, Mock, patch
-from PySide2.QtCore import QThread, Signal,Slot,QEventLoop
-from PySide2 import QtCore, QtGui, QtNetwork
-from PySide2.QtCore import QByteArray,QFile,QIODevice, QTimer
-from PySide2.QtNetwork import QHttpMultiPart,QHttpPart,QNetworkRequest,QNetworkReply
+from PySide2.QtCore import Signal, QEventLoop
+from PySide2 import QtNetwork
+from PySide2.QtCore import QFile,QIODevice
+from PySide2.QtNetwork import QHttpPart, QNetworkReply
 
 
 class TestUploader(unittest.TestCase):

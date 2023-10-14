@@ -143,7 +143,7 @@ class WeightSensorWorker(QThread):
     isstable = Property(bool, getisstable, setisstable, notify=isstable_changed)
 
     def read_offset_from_file(self):
-        with open("offset.txt", 'r') as f:
+        with open("../offset.txt", 'r') as f:
             data = f.readline()
             try:
                 self.setOffset(float(data))
@@ -151,7 +151,7 @@ class WeightSensorWorker(QThread):
                 print('Invalid data! The type of data is', type(data))
 
     def read_scale_from_file(self):
-        with open("scale.txt", 'r') as f:
+        with open("../scale.txt", 'r') as f:
             data = f.readline()
             try:
                 self.setScale(float(data))

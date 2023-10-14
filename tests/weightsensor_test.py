@@ -1,8 +1,6 @@
 import unittest
-import numpy as np
-from statistics import mean
 from PySide2.QtCore import Signal
-from weightsensor import WeightSensorWorker
+from tests.main_codes.weightsensor import WeightSensorWorker
 from unittest.mock import MagicMock
 
 

@@ -70,11 +70,11 @@ class BatteryWorker(QThread):
     def read_file(self, input):
         try:
             if input == 'min':
-                with open("min.txt", "r") as Minfile:
+                with open("../min.txt", "r") as Minfile:
                     mindata = int(Minfile.readline())
                 return mindata
             elif input == 'max':
-                with open("max.txt", "r") as Maxfile:
+                with open("../max.txt", "r") as Maxfile:
                     maxdata = int(Maxfile.readline())
                 return maxdata
         except (ValueError, FileNotFoundError):

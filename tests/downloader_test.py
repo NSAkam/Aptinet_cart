@@ -1,5 +1,5 @@
 import unittest
-from downloader import Downloader
+from tests.main_codes.downloader import Downloader
 from unittest.mock import MagicMock, Mock, patch
 from PySide2.QtCore import Signal,QEventLoop
 from PySide2 import QtNetwork

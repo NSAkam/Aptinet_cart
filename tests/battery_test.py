@@ -1,9 +1,7 @@
 import unittest
-from statistics import mean
-import numpy as np
 from unittest.mock import MagicMock, patch
-from battery import BatteryWorker, Battery
-from PySide2.QtCore import Signal, Slot
+from tests.main_codes.battery import BatteryWorker, Battery
+from PySide2.QtCore import Signal
 
 
 class TestBattery(unittest.TestCase):
