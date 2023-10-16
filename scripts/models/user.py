@@ -2,11 +2,8 @@ from PySide2.QtCore import QObject, Signal, Property
 
 
 class User(QObject):
-    _name: str = ""
-    _email: str = ""
-    _phone: str = ""
-    _offer: float = 0
-    _code: str = ""
+    _regtime: int = 0
+    _rate: int = 0
     
     def __init__(self):
         super().__init__()
@@ -15,55 +12,27 @@ class User(QObject):
     def changed(self):
         pass
         
-    def get_name(self):
-        return self._name
+    def get_regtime(self):
+        return self._regtime
         
-    def set_name(self, value):
+    def set_regtime(self, value):
         if value:
-            self._name = value
+            self._regtime = value
             self.changed.emit()
             
-    read_user_name = Property(str, get_name, set_name, notify=changed)
+    regtime = Property(str, get_regtime, set_regtime, notify=changed)
     
-    def __init__(self):
-        super().__init__()
         
-    def get_emial(self):
-        return self._email
+    def get_rate(self):
+        return self._rate
         
-    def set_email(self, value):
+    def set_rate(self, value):
         if value:
-            self._email = value
+            self._rate = value
             self.changed.emit()
             
-    read_email = Property(str, get_emial, set_email, notify=changed)
+    rate = Property(str, get_rate, set_rate, notify=changed)
     
-    def get_phone(self):
-        return self._phone
-        
-    def set_phone(self, value):
-        if value:
-            self._phone = value
-            self.changed.emit()
-            
-    read_phone = Property(str, get_phone, set_phone, notify=changed)
+
     
-    def get_offer(self):
-        return self._offer
-        
-    def set_offer(self, value):
-        if value:
-            self._offer = value
-            self.changed.emit()
-            
-    read_offer = Property(float, get_offer, set_offer, notify=changed)
     
-    def get_code(self):
-        return self._code
-        
-    def set_code(self, value):
-        if value:
-            self._code = value
-            self.changed.emit()
-            
-    read_code = Property(str, get_code, set_code, notify=changed)
