@@ -18,6 +18,7 @@ class Product(QObject):
     _isOffer: bool
     _isPLU: bool
     _tax: float
+    _taxPrice: int
     _storeID: int
     _QR: str
     _w1: int
@@ -173,6 +174,16 @@ class Product(QObject):
         self.changed.emit()
 
     taxProperty = Property(float, getTax, setTax, notify=changed)
+
+    # Getter, Setter and Property for taxPrice
+    def getTaxPrice(self):
+        return self._taxPrice
+
+    def setTaxPrice(self, val):
+        self._taxPrice = val
+        self.changed.emit()
+
+    taxPriceProperty = Property(int, getTaxPrice, setTaxPrice, notify=changed)
 
     # Getter, Setter and Property for storeID
     def getStoreID(self):
