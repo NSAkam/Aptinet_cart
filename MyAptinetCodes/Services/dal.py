@@ -1,17 +1,16 @@
 from PySide2 import QtCore
 from PySide2.QtCore import QObject, Signal, Property
 from PySide2.QtSql import QSqlDatabase, QSqlQuery, QSqlRecord, QSqlTableModel
-from MyAptinetCodes.Models.product import Product
+from Models.product import Product
 
 
 class DAL():
 
     def __init__(self):
         self.db = QSqlDatabase.addDatabase("QSQLITE")
-        self.db.setDatabaseName("/home/kast/KAST.db")
-        self.CreateTables()
-
-        # print("DataBase Init")
+        self.db.setDatabaseName("aptinet.db")
+        self.db.open()
+        # self.CreateTables()
         super().__init__()
 
     def Connect(self):

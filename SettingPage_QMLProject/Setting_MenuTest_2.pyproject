@@ -1,0 +1,18 @@
+{
+    "files": [
+        "CircularProgressBar.qml",
+        "Resources/Aptinet.png",
+        "Resources/BG.png",
+        "Resources/arrow.png",
+        "Resources/arrow_calibrate.png",
+        "Resources/arrow_popup.png",
+        "Resources/baskets.png",
+        "Resources/light.png",
+        "Resources/scanner.png",
+        "Resources/smart_cart.png",
+        "Resources/sound.png",
+        "Resources/weight.png",
+        "main.py",
+        "main.qml"
+    ]
+}
