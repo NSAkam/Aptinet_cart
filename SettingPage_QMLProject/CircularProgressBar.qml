@@ -43,7 +43,7 @@ Item {
             ctx.reset()
 
             ctx.lineCap = 'butt' // "round" is better
-            ctx.lineWidth = 15
+            ctx.lineWidth = 20
 
             ctx.beginPath()
 //            ctx.arc(canv.archx, canv.archy, canv.radius, canv.startAngle, canv.endAngle)

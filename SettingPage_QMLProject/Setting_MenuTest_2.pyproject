@@ -1,17 +1,24 @@
 {
     "files": [
         "CircularProgressBar.qml",
+        "Menu_Test.qml",
         "Resources/Aptinet.png",
         "Resources/BG.png",
         "Resources/arrow.png",
         "Resources/arrow_calibrate.png",
         "Resources/arrow_popup.png",
         "Resources/baskets.png",
+        "Resources/enable_logo.png",
+        "Resources/gearwheel.png",
+        "Resources/globe.png",
         "Resources/light.png",
         "Resources/scanner.png",
         "Resources/smart_cart.png",
         "Resources/sound.png",
+        "Resources/start_logo.png",
         "Resources/weight.png",
+        "Splash_Disable.qml",
+        "Splash_Enable.qml",
         "main.py",
         "main.qml"
     ]
