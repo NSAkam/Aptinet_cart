@@ -1,7 +1,8 @@
 # TODO: List<Product> / Get_Offer_List() , Product / Get_Product(Barcode), List<Product>/ Get_offer(barcode),
 #  void/ Insert_into_factor_list(barcode/quantity)
-from services.dal import DAL
+from Services.dal import DAL
 from Models.product import Product
+from Models.suggestion import Suggestion
 from PySide2.QtSql import QSqlQuery
 from uuid import uuid1
 
@@ -296,18 +297,28 @@ class ProductRepository():
         :return: a list of instances of products
         """
         try:
-            product = Product()
-            products_list= []
+            products_list = []
+            suggestions_list = []
             query = QSqlQuery()
-            if query.exec_("SELECT DISTINCT suggestion.ps_barcode, product.name FROM suggestion INNER JOIN product"
-                          " ON suggestion.ps_barcode = product.barcode WHERE suggestion.p_barcode = '"+ barcode +"'"):
+            if query.exec_("SELECT DISTINCT s.ps_barcode, p.barcode, p.qr, p.name, p.description, p.price, "
+                           "p.finalprice, p.tax, p.taxPrice FROM product as p INNER JOIN suggestion as s ON "
+                           "s.ps_barcode = p.barcode WHERE s.p_barcode =  '"+ barcode +"'"):
                 while query.next():
-                    product.setName(query.value(0))
-                    product.setDescription(query.value(1))
-                    product.setPrice(query.value(2))
-                    product.setFinalprice(query.value(3))
+                    suggestion = Suggestion()
+                    product = Product()
+                    suggestion.setPsBarcode(query.value(0))
+                    product.setBarcode(query.value(1))
+                    product.setQR(query.value(2))
+                    product.setName(query.value(3))
+                    product.setDescription(query.value(4))
+                    product.setPrice(query.value(5))
+                    product.setFinalprice(query.value(6))
+                    product.setTax(query.value(7))
+                    product.setTaxPrice(query.value(8))
+                    suggestion.setPBarcode(barcode)
                     products_list.append(product)
-                return products_list
+                    suggestions_list.append(suggestion)
+                return products_list, suggestions_list
             else:
                 print("SQL Error:", query.lastError().text())
                 return False
