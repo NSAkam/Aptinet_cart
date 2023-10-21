@@ -11,11 +11,8 @@ Window {
     title: qsTr("Spalsh - Disable")
     id: root
 
-<<<<<<< HEAD
     property alias taptostartbtn: taptostartbutton
 
-=======
->>>>>>> origin/tehrani
     Image {
         id: bg
         source: "Resources/BG.png"
@@ -45,27 +42,18 @@ Window {
     }
 
 
-<<<<<<< HEAD
     Button {
         id: taptostartbutton
-=======
-    Rectangle {
-        id: taptostartrect
-        color: "transparent"
->>>>>>> origin/tehrani
         width: 374
         height: 179
         x: 906
         y: 621
 
-<<<<<<< HEAD
         background:
             Rectangle {
             color: "transparent"
         }
 
-=======
->>>>>>> origin/tehrani
         Text {
             id: taptostarttext
             text: qsTr("Tap to start")
