@@ -2,7 +2,10 @@ import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import QtGraphicalEffects 1.12
+<<<<<<< HEAD
 import "getTimeFromAPI.js" as GetTimeFromAPI
+=======
+>>>>>>> origin/tehrani
 
 
 Window {
@@ -12,11 +15,14 @@ Window {
     title: qsTr("Spalsh - Enable")
     id: root
 
+<<<<<<< HEAD
     property alias startbtn: startbutton
     property alias settingsbtn: settingsiconbutton
     property alias languagebtn: languageiconebutton
 
 
+=======
+>>>>>>> origin/tehrani
     Image {
         id: bg
         source: "Resources/BG.png"
@@ -39,6 +45,7 @@ Window {
         height: 133
     }
 
+<<<<<<< HEAD
     Button {
         id: startbutton
         width: 318
@@ -53,6 +60,17 @@ Window {
             color: "#F08C5A"
             radius: 4
         }
+=======
+    Rectangle {
+        id: startrect
+        width: 318
+        height: 66
+//        color: Qt.rgba(240, 140, 90, 1)
+        color: "#F08C5A"
+        x: 481
+        y: 522
+        radius: 4
+>>>>>>> origin/tehrani
 
         Text {
             id: starttext
@@ -64,14 +82,21 @@ Window {
             font.letterSpacing: 0.04 * 24
             horizontalAlignment: Text.AlignHCenter
             lineHeight: 26.11
+<<<<<<< HEAD
             x: 118
             y: 15
 //            anchors.horizontalCenter: startrect.horizontalCenter
+=======
+//            x: 118
+            y: 15
+            anchors.horizontalCenter: startrect.horizontalCenter
+>>>>>>> origin/tehrani
         }
 
     }
 
 
+<<<<<<< HEAD
     Button {
         id: viewguidebutton
         width: 318
@@ -88,6 +113,19 @@ Window {
             border.width: 1.5
             border.color: "#F08C5A"
         }
+=======
+    Rectangle {
+        id: viewguiderect
+        width: 318
+        height: 66
+//        color: Qt.rgba(240, 140, 90, 1)
+        color: "transparent"
+        x: 481
+        y: 612
+        radius: 4
+        border.width: 1.5
+        border.color: "#F08C5A"
+>>>>>>> origin/tehrani
 
         Text {
             id: viewguidetext
@@ -99,27 +137,44 @@ Window {
             font.letterSpacing: 0.04 * 20
             horizontalAlignment: Text.AlignHCenter
             lineHeight: 21.76
+<<<<<<< HEAD
             x: 100
             y: 17
 //            anchors.horizontalCenter: viewguiderect.horizontalCenter
+=======
+//            x: 118
+            y: 15
+            anchors.horizontalCenter: viewguiderect.horizontalCenter
+>>>>>>> origin/tehrani
         }
 
     }
 
+<<<<<<< HEAD
     Button {
         id: settingsiconbutton
 //        color: Qt.hsla(195, 87, 45, 0.6)
+=======
+    Rectangle {
+        id: settingsiconrect
+//        color: Qt.hsla(195, 87, 45, 0.6)
+        color: "#F05A28"
+        radius: 33
+>>>>>>> origin/tehrani
         width: 48
         height: 48
         x: 1200
         y: 720
 
+<<<<<<< HEAD
         background:
             Rectangle {
             color: "#F05A28"
             radius: 33
         }
 
+=======
+>>>>>>> origin/tehrani
         Image {
             id: gearwhellicon
             source: "Resources/gearwheel.png"
@@ -132,20 +187,31 @@ Window {
 
     }
 
+<<<<<<< HEAD
     Button {
         id: languageiconebutton
 //        color: Qt.hsla(195, 87, 45, 0.6)
+=======
+    Rectangle {
+        id: languageiconerect
+//        color: Qt.hsla(195, 87, 45, 0.6)
+        color: "#F05A28"
+        radius: 33
+>>>>>>> origin/tehrani
         width: 48
         height: 48
         x: 32
         y: 720
 
+<<<<<<< HEAD
         background:
             Rectangle {
             color: "#F05A28"
             radius: 33
         }
 
+=======
+>>>>>>> origin/tehrani
         Image {
             id: globeicon
             source: "Resources/globe.png"
@@ -157,7 +223,10 @@ Window {
 
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/tehrani
     Rectangle{
         id: timerect
         color: "#F05A28"
@@ -180,6 +249,7 @@ Window {
             x: 16
             y: 2
 
+<<<<<<< HEAD
             onTextChanged: {
                     var xhr = new XMLHttpRequest();
                     xhr.open("GET", "https://timeapi.io/api/Time/current/zone?timeZone=Asia/Tehran");
@@ -198,5 +268,11 @@ Window {
 
     }
 
+=======
+        }
+    }
+
+
+>>>>>>> origin/tehrani
 }
 
