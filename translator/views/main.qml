@@ -14,6 +14,10 @@ Window {
         id: languageManager
     }
 
+    Component.onCompleted: {
+        languageManager.change_language("en");
+    }
+
     Rectangle{
         id: myrect
         width: root.width
@@ -24,24 +28,18 @@ Window {
 
     MyText{
         text_property: languageManager.read_how 
-        // id: enhow
-        // text_property: "how"
         x_location: 400
         y_location: 50
     }
 
     MyText{
         text_property: languageManager.read_why 
-        // id: enwhy
-        // text_property: "why"
         x_location: 400
         y_location: 150
     }
 
     MyText{
         text_property: languageManager.read_where 
-        // id: enwhere
-        // text_property: "where"
         x_location: 400
         y_location: 250
     }
@@ -55,9 +53,6 @@ Window {
         y: 350
         onClicked: {
             languageManager.change_language("en")
-        //     enhow.text_property = languageManager.read_how
-        //     enwhy.text_property = languageManager.read_why
-        //     enwhere.text_property = languageManager.read_where 
         }
 
     }
@@ -71,9 +66,6 @@ Window {
         y: 350
         onClicked: {
             languageManager.change_language("fa")
-            // howtext.text_property = languageManager.read_how
-            // whytext.text_property = languageManager.read_why
-            // wheretext.text_property = languageManager.read_where 
         }
 
     }

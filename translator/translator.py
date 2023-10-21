@@ -69,7 +69,12 @@ class QMLLanguageManager(QObject):
     
     @Slot(str)
     def change_language(self, language):
-        self.load_language_data(language)
-        self.config_manager.set_language(language)
-        self.config_manager.save()
+        loaded_data = self.config_manager.load()
+        if loaded_data == language:
+            loaded_language = loaded_data.get("language")
+            self.load_language_data(loaded_language)
+        else:
+            self.load_language_data(language)
+            self.config_manager.set_language(language)
+            self.config_manager.save()
 
