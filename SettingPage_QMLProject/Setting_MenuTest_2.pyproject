@@ -19,6 +19,7 @@
         "Resources/weight.png",
         "Splash_Disable.qml",
         "Splash_Enable.qml",
+        "getTimeFromAPI.js",
         "main.py",
         "main.qml"
     ]

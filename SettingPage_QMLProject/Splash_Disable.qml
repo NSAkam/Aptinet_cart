@@ -11,6 +11,8 @@ Window {
     title: qsTr("Spalsh - Disable")
     id: root
 
+    property alias taptostartbtn: taptostartbutton
+
     Image {
         id: bg
         source: "Resources/BG.png"
@@ -40,13 +42,17 @@ Window {
     }
 
 
-    Rectangle {
-        id: taptostartrect
-        color: "transparent"
+    Button {
+        id: taptostartbutton
         width: 374
         height: 179
         x: 906
         y: 621
+
+        background:
+            Rectangle {
+            color: "transparent"
+        }
 
         Text {
             id: taptostarttext

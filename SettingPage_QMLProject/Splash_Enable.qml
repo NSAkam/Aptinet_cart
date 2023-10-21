@@ -2,6 +2,7 @@ import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import QtGraphicalEffects 1.12
+import "getTimeFromAPI.js" as GetTimeFromAPI
 
 
 Window {
@@ -10,6 +11,11 @@ Window {
     visible: true
     title: qsTr("Spalsh - Enable")
     id: root
+
+    property alias startbtn: startbutton
+    property alias settingsbtn: settingsiconbutton
+    property alias languagebtn: languageiconebutton
+
 
     Image {
         id: bg
@@ -33,15 +39,20 @@ Window {
         height: 133
     }
 
-    Rectangle {
-        id: startrect
+    Button {
+        id: startbutton
         width: 318
         height: 66
 //        color: Qt.rgba(240, 140, 90, 1)
-        color: "#F08C5A"
         x: 481
         y: 522
-        radius: 4
+
+
+        background:
+            Rectangle {
+            color: "#F08C5A"
+            radius: 4
+        }
 
         Text {
             id: starttext
@@ -53,25 +64,30 @@ Window {
             font.letterSpacing: 0.04 * 24
             horizontalAlignment: Text.AlignHCenter
             lineHeight: 26.11
-//            x: 118
+            x: 118
             y: 15
-            anchors.horizontalCenter: startrect.horizontalCenter
+//            anchors.horizontalCenter: startrect.horizontalCenter
         }
 
     }
 
 
-    Rectangle {
-        id: viewguiderect
+    Button {
+        id: viewguidebutton
         width: 318
         height: 66
 //        color: Qt.rgba(240, 140, 90, 1)
-        color: "transparent"
         x: 481
         y: 612
-        radius: 4
-        border.width: 1.5
-        border.color: "#F08C5A"
+
+
+        background:
+            Rectangle {
+            color: "transparent"
+            radius: 4
+            border.width: 1.5
+            border.color: "#F08C5A"
+        }
 
         Text {
             id: viewguidetext
@@ -83,22 +99,26 @@ Window {
             font.letterSpacing: 0.04 * 20
             horizontalAlignment: Text.AlignHCenter
             lineHeight: 21.76
-//            x: 118
-            y: 15
-            anchors.horizontalCenter: viewguiderect.horizontalCenter
+            x: 100
+            y: 17
+//            anchors.horizontalCenter: viewguiderect.horizontalCenter
         }
 
     }
 
-    Rectangle {
-        id: settingsiconrect
+    Button {
+        id: settingsiconbutton
 //        color: Qt.hsla(195, 87, 45, 0.6)
-        color: "#F05A28"
-        radius: 33
         width: 48
         height: 48
         x: 1200
         y: 720
+
+        background:
+            Rectangle {
+            color: "#F05A28"
+            radius: 33
+        }
 
         Image {
             id: gearwhellicon
@@ -112,15 +132,19 @@ Window {
 
     }
 
-    Rectangle {
-        id: languageiconerect
+    Button {
+        id: languageiconebutton
 //        color: Qt.hsla(195, 87, 45, 0.6)
-        color: "#F05A28"
-        radius: 33
         width: 48
         height: 48
         x: 32
         y: 720
+
+        background:
+            Rectangle {
+            color: "#F05A28"
+            radius: 33
+        }
 
         Image {
             id: globeicon
@@ -132,6 +156,7 @@ Window {
         }
 
     }
+
 
     Rectangle{
         id: timerect
@@ -155,9 +180,23 @@ Window {
             x: 16
             y: 2
 
-        }
-    }
+            onTextChanged: {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", "https://timeapi.io/api/Time/current/zone?timeZone=Asia/Tehran");
+                    xhr.onload = function() {
+                      if (xhr.status === 200) {
+                        const { hour, minute } = JSON.parse(xhr.responseText);
 
+                        timetext.text = hour + ":" + minute;
+                      } else {
+                        console.log("خطا در دریافت پاسخ از API");
+                      }
+                    };
+                    xhr.send();
+                  }
+        }
+
+    }
 
 }
 
