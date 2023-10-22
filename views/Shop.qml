@@ -19,7 +19,11 @@ Item {
     }
 
     Image {
+<<<<<<< HEAD
         source: "../Assets/AuthenticationBackground.png"
+=======
+        source: "file://../Assets/AuthenticationBackground.png"
+>>>>>>> origin/main
         anchors.fill: parent
     }
 
@@ -66,19 +70,29 @@ Item {
                 btn_borderWidth:0
                 fontsize: 16
                 ishover: false
+<<<<<<< HEAD
                 onClicked: {
                     stackviewContainer.push(addPluItem)
                 }
             }
             Image {
                 source: "../Assets/Help.png"
+=======
+            }
+            Image {
+                source: "file://../Assets/Help.png"
+>>>>>>> origin/main
                 width: 57
                 height: 57
                 x:1156
                 y:25
             }
             Image {
+<<<<<<< HEAD
                 source: "../Assets/Notification.png"
+=======
+                source: "file://../Assets/Notification.png"
+>>>>>>> origin/main
                 width: 57
                 height: 57
                 x:1208
@@ -108,9 +122,14 @@ Item {
             height: 708
             x:390
             y:92
+<<<<<<< HEAD
 //            initialItem: lstProductHandler
             initialItem:addPluItemview
 //            initialItem: checkout
+=======
+            //initialItem: lstProductHandler
+            initialItem:addPluItem
+>>>>>>> origin/main
             onDepthChanged: {
                 obj_LogicContainer.shoppage.stackviewDepthChanged(stackviewContainer.depth)
             }
@@ -124,18 +143,30 @@ Item {
 
         Image {
             id:rect_Suggestion
+<<<<<<< HEAD
             source: "../Assets/leftSideBar.png"
+=======
+            source: "file://../Assets/leftSideBar.png"
+>>>>>>> origin/main
             anchors.fill: parent
 
         }
         Image {
+<<<<<<< HEAD
             source: "../Assets/AptinetText.png"
+=======
+            source: "file://../Assets/AptinetText.png"
+>>>>>>> origin/main
             x:0
             y:0
         }
         Image {
             id: img_UserCaptured
+<<<<<<< HEAD
             source: "../Assets/UserImage.png"
+=======
+            source: "file://../Assets/UserImage.png"
+>>>>>>> origin/main
             width: 326
             height: 184
             x:32
@@ -195,7 +226,11 @@ Item {
             visible: false
             Image {
                 id: ads_Image
+<<<<<<< HEAD
                 source: "../Assets/Ads.png"
+=======
+                source: "file://../Assets/Ads.png"
+>>>>>>> origin/main
                 width: 326
                 height: 184
                 x:32
@@ -242,7 +277,11 @@ Item {
                             color: "white"
 
                             Image {
+<<<<<<< HEAD
                                 source: "../Assets/product.png"
+=======
+                                source: "file://../Assets/product.png"
+>>>>>>> origin/main
                                 width: 106
                                 height: 106
                                 anchors.verticalCenter: parent.verticalCenter
@@ -304,6 +343,7 @@ Item {
     Component{
         id:addPluItem
         AddPluItems{
+<<<<<<< HEAD
             onClosepanel: {
                 console.log("gasdasd")
                 stackviewContainer.pop()
@@ -324,4 +364,9 @@ Item {
 
 //        }
 //    }
+=======
+
+        }
+    }
+>>>>>>> origin/main
 }

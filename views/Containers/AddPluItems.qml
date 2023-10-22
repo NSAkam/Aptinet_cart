@@ -1,12 +1,17 @@
 import QtQuick 2.15
 
 Item {
+<<<<<<< HEAD
     id:root
     width: 890
     height: 708
 
     signal closepanel()
 
+=======
+    width: 890
+    height: 708
+>>>>>>> origin/main
     Text {
         text: qsTr("Search Results")
         x:32
@@ -22,7 +27,11 @@ Item {
         radius: 4
         color: white
         Image {
+<<<<<<< HEAD
             source: "../Assets/pluAddItem.png"
+=======
+            source: "file://../Assets/pluAddIten.png"
+>>>>>>> origin/main
             x:32
             y:54
         }
@@ -41,7 +50,11 @@ Item {
             font.bold: true
         }
         Image {
+<<<<<<< HEAD
             source: "../Assets/addPluItemsSteps.png"
+=======
+            source: "file://../Assets/addPluItemsSteps.png"
+>>>>>>> origin/main
             x:32
             y:113
         }
@@ -62,7 +75,11 @@ Item {
         y:94
         radius: 4
         Image {
+<<<<<<< HEAD
             source: "../Assets/product.png"
+=======
+            source: "file://../Assets/product.png"
+>>>>>>> origin/main
             anchors.horizontalCenter: parent.horizontalCenter
             width: 128
             height: 128
@@ -95,7 +112,11 @@ Item {
         y:94
         radius: 4
         Image {
+<<<<<<< HEAD
             source: "../Assets/product.png"
+=======
+            source: "file://../Assets/product.png"
+>>>>>>> origin/main
             anchors.horizontalCenter: parent.horizontalCenter
             width: 128
             height: 128
@@ -128,7 +149,11 @@ Item {
         y:359
         radius: 4
         Image {
+<<<<<<< HEAD
             source: "../Assets/product.png"
+=======
+            source: "file://../Assets/product.png"
+>>>>>>> origin/main
             anchors.horizontalCenter: parent.horizontalCenter
             width: 128
             height: 128
@@ -160,7 +185,11 @@ Item {
         y:359
         radius: 4
         Image {
+<<<<<<< HEAD
             source: "../Assets/product.png"
+=======
+            source: "file://../Assets/product.png"
+>>>>>>> origin/main
             anchors.horizontalCenter: parent.horizontalCenter
             width: 128
             height: 128
@@ -202,6 +231,7 @@ Item {
         Text {
             text: qsTr("< Back")
             font.pixelSize: 24
+<<<<<<< HEAD
 
             MouseArea{
                 anchors.fill: parent
@@ -210,6 +240,8 @@ Item {
                     root.closepanel()
                 }
             }
+=======
+>>>>>>> origin/main
         }
     }
 }
