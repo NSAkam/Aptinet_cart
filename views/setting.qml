@@ -16,7 +16,7 @@ Window {
    
 
     Image {     id: q
-                source: "/home/mahnaz/Downloads/akam.png" 
+                source: "Assets/akam.png" 
                 anchors.fill: parent
                 opacity: 0.7
     
@@ -44,7 +44,7 @@ Window {
             color: "white"
 
             Image {
-                source: "/home/mahnaz/Downloads/aptinet.png"
+                source: "Assets/aptinet.png"
                 x: 550
                 y: 32
                 width: 180
@@ -52,7 +52,7 @@ Window {
             }
 
             Image {
-                    source: "/home/mahnaz/Downloads/smartcart.png"
+                    source: "Assets/smartcart.png"
                     x: 578
                     y: 65
                     width: 124
@@ -75,13 +75,6 @@ Window {
                 width: 128
                 height: 160
 
-                onClicked: {
-                    serverPopup.open()
-                    b.z = root.z + 1
-                    b.visible = true
-                    b.opacity = 0.4
-                    
-                }
                 background: Rectangle {
                     
                     color: "white"
@@ -90,7 +83,7 @@ Window {
         
 
                 Image {
-                    source: "/home/mahnaz/Downloads/server.png"
+                    source: "Assets/server.png"
                     width: 64
                     height: 64
                     x: 34
@@ -119,7 +112,7 @@ Window {
                 }
 
                 Image {
-                    source: "/home/mahnaz/Downloads/wifi.png" 
+                    source: "Assets/wifi.png" 
                     height: 64
                     x: 25
                     y: 30
@@ -146,7 +139,7 @@ Window {
                 }
 
                 Image {
-                    source: "/home/mahnaz/Downloads/data.png" 
+                    source: "Assets/data.png" 
                     width: 64
                     height: 64
                     x: 34
@@ -174,7 +167,7 @@ Window {
                 }
 
                 Image {
-                    source: "/home/mahnaz/Downloads/calibrate.png"
+                    source: "Assets/calibrate.png"
                     width: 64
                     height: 64
                     x: 34
@@ -208,7 +201,7 @@ Window {
                 }
 
                 Image {
-                    source: "/home/mahnaz/Downloads/device.png"
+                    source: "Assets/device.png"
                     width: 64
                     height: 64
                     x: 34
@@ -236,7 +229,7 @@ Window {
                 }
 
                 Image {
-                    source: "/home/mahnaz/Downloads/cartinfo.png" 
+                    source: "Assets/cartinfo.png" 
                     height: 64
                     x: 32
                     y: 30
@@ -263,7 +256,7 @@ Window {
                 }
 
                 Image {
-                    source: "/home/mahnaz/Downloads/back.png" 
+                    source: "Assets/back.png" 
                     width: 64
                     height: 64
                     x: 34
@@ -291,7 +284,7 @@ Window {
                 }
 
                 Image {
-                    source: "/home/mahnaz/Downloads/turnoff.png"
+                    source: "Assets/turnoff.png"
                     width: 64
                     height: 64
                     x: 33
@@ -326,6 +319,4 @@ Window {
             radius: 70
         }
     }
-    
-
 }
