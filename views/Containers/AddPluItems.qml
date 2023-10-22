@@ -1,8 +1,12 @@
 import QtQuick 2.15
 
 Item {
+    id:root
     width: 890
     height: 708
+
+    signal closepanel()
+
     Text {
         text: qsTr("Search Results")
         x:32
@@ -18,7 +22,7 @@ Item {
         radius: 4
         color: white
         Image {
-            source: "file://../Assets/pluAddIten.png"
+            source: "../Assets/pluAddItem.png"
             x:32
             y:54
         }
@@ -37,7 +41,7 @@ Item {
             font.bold: true
         }
         Image {
-            source: "file://../Assets/addPluItemsSteps.png"
+            source: "../Assets/addPluItemsSteps.png"
             x:32
             y:113
         }
@@ -58,7 +62,7 @@ Item {
         y:94
         radius: 4
         Image {
-            source: "file://../Assets/product.png"
+            source: "../Assets/product.png"
             anchors.horizontalCenter: parent.horizontalCenter
             width: 128
             height: 128
@@ -91,7 +95,7 @@ Item {
         y:94
         radius: 4
         Image {
-            source: "file://../Assets/product.png"
+            source: "../Assets/product.png"
             anchors.horizontalCenter: parent.horizontalCenter
             width: 128
             height: 128
@@ -124,7 +128,7 @@ Item {
         y:359
         radius: 4
         Image {
-            source: "file://../Assets/product.png"
+            source: "../Assets/product.png"
             anchors.horizontalCenter: parent.horizontalCenter
             width: 128
             height: 128
@@ -156,7 +160,7 @@ Item {
         y:359
         radius: 4
         Image {
-            source: "file://../Assets/product.png"
+            source: "../Assets/product.png"
             anchors.horizontalCenter: parent.horizontalCenter
             width: 128
             height: 128
@@ -198,6 +202,14 @@ Item {
         Text {
             text: qsTr("< Back")
             font.pixelSize: 24
+
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    console.log("asdasdasd")
+                    root.closepanel()
+                }
+            }
         }
     }
 }
