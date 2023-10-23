@@ -17,7 +17,7 @@ Item {
 
     Image {
         id: background
-        source: "file://../Assets/SplashBackground.png"
+        source: "../Assets/SplashBackground.png"
         anchors.fill: parent
         Rectangle{
             id:backgroundOpacity
@@ -42,7 +42,7 @@ Item {
 
     Image {
         id: aptinetIcon
-        source: "file://../Assets/AptinetImage.png"
+        source: "../Assets/AptinetImage.png"
         x:381
         y:251
         width: 518
@@ -153,7 +153,7 @@ Item {
         color: "transparent"
         Image {
             anchors.fill: parent
-            source: "file://../Assets/SettingCircle.png"
+            source: "../Assets/SettingCircle.png"
             width: parent.width
             height: parent.height
         }
@@ -172,7 +172,7 @@ Item {
         color: "transparent"
         Image {
             anchors.fill: parent
-            source: "file://../Assets/LanguageCircle.png"
+            source: "../Assets/LanguageCircle.png"
             width: parent.width
             height: parent.height
         }

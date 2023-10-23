@@ -20,7 +20,10 @@ Window {
     {
         id:stackview
         anchors.fill: parent
-        initialItem: "Splash.qml"
+//        initialItem: "Splash.qml"
+//        initialItem: "AfterPayment.qml"
+        initialItem: "Checkout.qml"
+//        initialItem: "PaymentviaNFC.qml"
         Util.ViewSettings{
             id:viewset
         }
