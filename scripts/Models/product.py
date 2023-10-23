@@ -1,3 +1,4 @@
+import os
 from PySide2.QtCore import QObject, Signal, Property
 
 
@@ -247,6 +248,16 @@ class Product(QObject):
             self.changed.emit()
             
     barcode = Property(int, getBarcode, setBarcode, notify=changed)
+    
+    
+    def getpic(self):
+        if (os.path.isfile("/home/kast/pics/" + self.getBarcode() + ".png") == False):
+            return "file:///home/kast/pics/DefaultProduct.png"
+        else:
+            return "file:///home/kast/pics/" + self.getBarcode() + ".png"
+
+    pic = Property(str, getpic, notify=changed)
+            
             
     def getIsoffer(self):
         return self._isOffer
