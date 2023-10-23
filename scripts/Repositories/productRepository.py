@@ -6,7 +6,7 @@ class ProductRepository:
     def __init__(self) -> None:
         self.query = QSqlQuery()
     
-    def get_products(self, barcode):
+    def get_products_list(self, barcode):
         self.query.prepare(
             "SELECT name, price, finalPrice, description, rate, tax, commentCount, meanWeight"
             "FROM product"
@@ -24,7 +24,7 @@ class ProductRepository:
             meanWeight = self.query.value("meanweight")
             return name , price, finalPrice, description, rate, tax, commentCount, meanWeight
         
-    def get_is_plu_product(self):
+    def get_is_plu_products(self):
         self.query.prepare(
             "SELECT name, price, finalPrice, description, rate, tax, commentCount, meanWeight"
             "FROM product"
@@ -113,7 +113,7 @@ class ProductRepository:
         
     def get_factore_by_id(self, id):
         self.query.prepare(
-            "SELECT p.name, uf.count, uf.price, uf.finalPrice"
+            "SELECT p.name, uf.count, uf.price, uf.finalPrice, uf.tax"
             "FROM userFactor as uf"
             "JOIN product AS p ON uf.productBarcode = p.barcode"
             "WHERE uf.id = :id"
