@@ -109,8 +109,8 @@ Item {
             x:390
             y:92
 //            initialItem: lstProductHandler
-            initialItem:addPluItemview
-//            initialItem: checkout
+//            initialItem:addPluItemview
+            initialItem: checkout
             onDepthChanged: {
                 obj_LogicContainer.shoppage.stackviewDepthChanged(stackviewContainer.depth)
             }
@@ -314,6 +314,29 @@ Item {
     Component{
         id:addPluItemview
         AddPluItemsView{
+
+        }
+    }
+
+    Component {
+        id: checkout
+        Checkoutpage {
+            onNfcPaymentClicked: {
+//                        stackviewContainer.replace(stackviewContainer, {"initialItem":nfcpayment})
+                stackviewContainer.push(nfcpayment)
+
+            }
+
+        }
+    }
+
+    Component {
+        id: nfcpayment
+        PaymentviaNFC {
+            width: 1280
+            height: 800
+            x: 0
+            y: 0
 
         }
     }
