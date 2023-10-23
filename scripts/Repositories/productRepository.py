@@ -58,14 +58,30 @@ class ProductRepository:
             meanWeight = self.query.value("meanweight")
             return name , price, finalPrice, description, rate, tax, commentCount, meanWeight
         
-    def get_email_by_name(self, name):
+    def get_user_by_email(self, email):
         self.query.prepare(
-            "SELECT email FROM ServerUser WHERE name = :name"
+            "SELECT name, email, phone, offer, code FROM ServerUser WHERE email = :email"
         )
-        self.query.bindValue(":name", name)
+        self.query.bindValue(":email", email)
         while self.query.next():
+            name = self.query.value("name")
+            phone = self.query.value("phone")
+            offer = self.query.value("offer")
+            code = self.query.value("code")
+            return name, phone, offer, code
+        
+    def get_user_by_phone(self, phone):
+        self.query.prepare(
+            "SELECT name, email, offer, code FROM ServerUser WHERE phone = :phone"
+        )
+        self.query.bindValue(":phone", phone)
+        while self.query.next():
+            name = self.query.value("name")
             email = self.query.value("email")
-            return email
+            offer = self.query.value("offer")
+            code = self.query.value("code")
+            return name, email, offer, code
+        
         
     def get_factore_by_phone(self, phone):
         self.query.prepare(
