@@ -10,7 +10,7 @@ from Services.Utiles import SpecialOfferWorker
 
 
 
-class ProductList(QAbstractListModel):
+class ProductModel(QAbstractListModel):
     repository: ProductRepository
 
     NameRole = Qt.UserRole
@@ -22,7 +22,6 @@ class ProductList(QAbstractListModel):
     BarcodeRole = Qt.UserRole + 7
     CountInBasketRole = Qt.UserRole + 8
     WeightRole = Qt.UserRole + 9
-    IsOfferRole = Qt.UserRole + 10 # check to delete
     IsPLURole = Qt.UserRole + 11
     TaxRole = Qt.UserRole + 12
     DataModelShow = Qt.UserRole + 13
@@ -81,7 +80,7 @@ class ProductList(QAbstractListModel):
 
     priceToPay = Property(float ,getPriceToPay,setPriceToPay,notify=changed)
 
-    def getSood(self):
+    def getProfit(self):
         price: int = 0
         finalprice: int = 0
 
@@ -90,7 +89,7 @@ class ProductList(QAbstractListModel):
             finalprice = finalprice + (i.finalPrice * i.countInBasket)
         return price - finalprice
 
-    sood = Property(int, getSood, notify=changed) # chage to profit
+    profit = Property(int, getProfit, notify=changed)
     
 
     def getValidBarcodeSetForDelete(self):
