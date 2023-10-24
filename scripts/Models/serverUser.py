@@ -1,7 +1,7 @@
 from PySide2.QtCore import QObject, Signal, Property
 
 
-class Admins(QObject):
+class ServerUser(QObject):
     _name: str = ""
     _email: str = ""
     _phone: str = ""
