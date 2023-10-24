@@ -10,7 +10,7 @@ from Services.Utiles import SpecialOfferWorker
 
 
 
-class Productmodel(QAbstractListModel):
+class ProductList(QAbstractListModel):
     repository: ProductRepository
 
     NameRole = Qt.UserRole
@@ -22,7 +22,7 @@ class Productmodel(QAbstractListModel):
     BarcodeRole = Qt.UserRole + 7
     CountInBasketRole = Qt.UserRole + 8
     WeightRole = Qt.UserRole + 9
-    IsOfferRole = Qt.UserRole + 10
+    IsOfferRole = Qt.UserRole + 10 # check to delete
     IsPLURole = Qt.UserRole + 11
     TaxRole = Qt.UserRole + 12
     DataModelShow = Qt.UserRole + 13
@@ -90,7 +90,7 @@ class Productmodel(QAbstractListModel):
             finalprice = finalprice + (i.finalPrice * i.countInBasket)
         return price - finalprice
 
-    sood = Property(int, getSood, notify=changed)
+    sood = Property(int, getSood, notify=changed) # chage to profit
     
 
     def getValidBarcodeSetForDelete(self):
@@ -234,13 +234,13 @@ class Productmodel(QAbstractListModel):
         self.endResetModel()
         return True
 
-    def getSpecialOffer(self):
-        self.beginResetModel()
-        self.m_data = self.repository.GetSpecialOffer()
-        self.endResetModel()
-        # self.spworker = SpecialOfferWorker(self.repository)
-        # self.spworker.get.connect(self.onGetSpecialOffer)
-        # self.spworker.start()
+    # def getSpecialOffer(self):
+    #     self.beginResetModel()
+    #     self.m_data = self.repository.GetSpecialOffer()
+    #     self.endResetModel()
+    #     # self.spworker = SpecialOfferWorker(self.repository)
+    #     # self.spworker.get.connect(self.onGetSpecialOffer)
+    #     # self.spworker.start()
         
 
     @Slot(list)
@@ -250,8 +250,8 @@ class Productmodel(QAbstractListModel):
         self.endResetModel()
 
     
-    def powerset(self, iterable):
-        return chain.from_iterable(combinations(iterable, r) for r in range(len(iterable) + 1))
+    # def powerset(self, iterable):
+    #     return chain.from_iterable(combinations(iterable, r) for r in range(len(iterable) + 1))
 
     def validBarcodeSetForRemove(self, data, RemovedWight):
         lst_1 = []
@@ -582,6 +582,6 @@ class Productmodel(QAbstractListModel):
 
     def removeObject(self):
         print(
-            ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ProductModel Deleted<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+            ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ProductModel Deleted <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
         self.repository.Disconnect()
         del self.repository

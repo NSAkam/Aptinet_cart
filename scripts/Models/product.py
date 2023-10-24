@@ -28,10 +28,10 @@ class Product(QObject):
     _tax: float = 0.0
     _qr: str = ""
     _taxPrice: float = 0.0
+    
+    
+    _dataModelShow:int = 0 # 1 is normal 2 is PLU
     _weight:int = 0
-
-    _dataModelShow:int = 0 # 0 is normal 1 is PLU
-    _countdownTimer :int = 7
     _CountInBasket:int = 0
     
     def __init__(self):
@@ -312,13 +312,12 @@ class Product(QObject):
     productWeightInBasket = Property(int, getProductWeightInBasket, setProductWeightInBasket, notify=changed)           
 
     def getDataModelShow(self):
-        return self._dataModelShow
-    
-    def setDataModelShow(self,v):
-        self._dataModelShow = v
-        self.changed.emit()
+        if(self.isPlu == True):
+            return 2
+        else:
+            return 1
 
-    dataModelShow = Property(int,getDataModelShow,setDataModelShow,notify=changed)
+    dataModelShow = Property(int,getDataModelShow,notify=changed)
 
         
     def getCountInBasket(self):
@@ -338,15 +337,6 @@ class Product(QObject):
         self.changed.emit()
 
     countInBasket = Property(float, getCountInBasket, setCountInBasket, notify=changed)
-
-    def getcountdownTimer(self):
-        return self._countdownTimer
-
-    def setcountdownTimer(self, val):
-        self._countdownTimer = val
-        self.changed.emit()
-
-    countdownTimer = Property(int, getcountdownTimer, setcountdownTimer, notify=changed)
 
 
     def copy_product(self):
@@ -385,9 +375,9 @@ class Product(QObject):
         param1: weight
         return: avg, tolerance, insertedWeight
         """
-        avg_weight = self.getAvgWeight()
+        avg_weight = self.getMeanweight()
         tolerance = self.getTolerance()
-        iw = self.getInsertedWeight()
+        iw = self.getInsertedweight()
         new_avg_weight = int((((avg_weight * iw) + weight) / (iw + 1)))
         Min = avg_weight - tolerance
         Max = avg_weight + tolerance
