@@ -138,6 +138,41 @@ class ProductRepository:
             finalPrice = self.query.value("finalPrice")
             return finalPrice, name
         
+    
+    def get_product_list(self, barcode, qr):
+        self.query.prepare(
+            "SELECT name, price, finalPrice, description, rate, commentCount, w1, w2, w3, w4 ,w5, w6, w7, w8, w9, w10, meanWeight, tolerance, insertedWeight, isOffer, isPlu, tax, taxPrice"
+            "FROM product"
+            "WHERE barcode = :barcode OR qr = :qr"
+            )
+        self.query.bindValue(":barcode", barcode)
+        self.query.bindValue(":qr", qr)
+        while self.query.next():
+            name = self.query.value("name")
+            price = self.query.value("price")
+            finalprice = self.query.value("finalPrice")
+            description = self.query.value("description")
+            rate = self.query.value("rate")
+            commentCount = self.query.value("commentCount")
+            w1 = self.query.value("w1")
+            w2 = self.query.value("w2")
+            w3 = self.query.value("w3")
+            w4 = self.query.value("w4")
+            w5 = self.query.value("w5")
+            w6 = self.query.value("w6")
+            w7 = self.query.value("w7")
+            w8 = self.query.value("w8")
+            w9 = self.query.value("w9")
+            w10 = self.query.value("w10")
+            meanweight = self.query.value("meanWeight")
+            tolerance = self.query.value("tolerance")
+            insertedWeight = self.query.value("insertedWeight")
+            isOffer = self.query.value("isOffer")
+            isPlu = self.query.value("isPlu")
+            tax = self.query.value("tax")
+            taxPrice = self.query.value("taxPrice")
+
+            return name, price, finalprice, description, rate, commentCount, w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, meanweight, tolerance, insertedWeight, isOffer, isPlu, tax, taxPrice
         
         
     
