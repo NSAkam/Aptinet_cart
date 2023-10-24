@@ -14,7 +14,7 @@ if __name__ == "__main__":
     engine = QQmlApplicationEngine()
 
     ctx = engine.rootContext()
-    qml_file = "../views/Main.qml"
+    qml_file = "../views/main.qml"
     engine.load(str(qml_file))
     if not engine.rootObjects():
         sys.exit(-1)

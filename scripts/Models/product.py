@@ -17,8 +17,8 @@ class Product(QObject):
     _w8: int = 0
     _w9: int = 0
     _w10: int = 0
-    _price: int = 0
-    _finalPrice: int = 0
+    _price: float = 0
+    _finalPrice: float = 0
     _meanWeight: int = 0
     _tolerance: int = 0
     _insertedWeight: int = 0
@@ -27,7 +27,12 @@ class Product(QObject):
     _isPlu: bool = False
     _tax: float = 0.0
     _qr: str = ""
-    _taxPrice: int = 0
+    _taxPrice: float = 0.0
+    
+    
+    _dataModelShow:int = 0 # 1 is normal 2 is PLU
+    _weight:int = 0
+    _CountInBasket:int = 0
     
     def __init__(self):
         super().__init__()
@@ -192,7 +197,7 @@ class Product(QObject):
             self._price = value
             self.changed.emit()
             
-    price = Property(int, getPrice, setPrice, notify=changed)
+    price = Property(float, getPrice, setPrice, notify=changed)
             
     
     def getFinalprice(self):
@@ -203,7 +208,7 @@ class Product(QObject):
             self._finalPrice = value
             self.changed.emit()
             
-    finalPrice = Property(int, getFinalprice, setFinalprice, notify=changed)
+    finalPrice = Property(float, getFinalprice, setFinalprice, notify=changed)
             
     
     def getMeanweight(self):
@@ -243,9 +248,8 @@ class Product(QObject):
         return self._barcode
         
     def setBarcode(self, value):
-        if value:
-            self._barcode = value
-            self.changed.emit()
+        self._barcode = value
+        self.changed.emit()
             
     barcode = Property(int, getBarcode, setBarcode, notify=changed)
     
@@ -263,9 +267,8 @@ class Product(QObject):
         return self._isOffer
         
     def setIsoffer(self, value):
-        if value:
-            self._isOffer = value
-            self.changed.emit()
+        self._isOffer = value
+        self.changed.emit()
             
     isOffer = Property(int, getIsoffer, setIsoffer, notify=changed)
             
@@ -274,9 +277,8 @@ class Product(QObject):
         return self._isPlu
         
     def setIsplu(self, value):
-        if value:
-            self._isPlu = value
-            self.changed.emit()
+        self._isPlu = value
+        self.changed.emit()
             
     isPlu = Property(int, getIsplu, setIsplu, notify=changed)
             
@@ -285,11 +287,20 @@ class Product(QObject):
         return self._tax
         
     def setTax(self, value):
+        self._tax = value
+        self.changed.emit()
+            
+    tax = Property(float, getTax, setTax, notify=changed)
+    
+    def getQr(self):
+        return self._qr
+    
+    def setQr(self, value):
         if value:
-            self._tax = value
+            self._qr = value
             self.changed.emit()
             
-    tax = Property(int, getTax, setTax, notify=changed)
+    qr = Property(str, getQr, setQr, notify=changed)
 
     
     def getTaxprice(self):
@@ -301,4 +312,87 @@ class Product(QObject):
         
     texPrice = Property(int, getTaxprice, setTaxprice, notify=changed)           
     
+    def getProductWeightInBasket(self):
+        return self._taxPrice
+    
+    def setProductWeightInBasket(self, value):
+        self._taxPrice = value
+        self.changed.emit()
         
+    productWeightInBasket = Property(int, getProductWeightInBasket, setProductWeightInBasket, notify=changed)           
+
+    def getDataModelShow(self):
+        if(self.isPlu == True):
+            return 2
+        else:
+            return 1
+
+    dataModelShow = Property(int,getDataModelShow,notify=changed)
+
+        
+    def getCountInBasket(self):
+        return self._CountInBasket
+
+    def setCountInBasket(self, val):
+        self._CountInBasket = val
+        self.changed.emit()
+
+    countInBasket = Property(float, getCountInBasket, setCountInBasket, notify=changed)
+
+    def getCountInBasket(self):
+        return self._CountInBasket
+
+    def setCountInBasket(self, val):
+        self._CountInBasket = val
+        self.changed.emit()
+
+    countInBasket = Property(float, getCountInBasket, setCountInBasket, notify=changed)
+
+
+    def copy_product(self):
+        """
+        create copy of product
+        return Product
+        """
+        prod = Product()
+        prod.setInsertedWeight(self.getInsertedWeight())
+        prod.setTolerance(self.getTolerance())
+        prod.setAvgWeight(self.getAvgWeight())
+        prod.settedad(self.gettedad())
+        prod.setname(self.getname())
+        prod.setfinalprice(self.getfinalprice())
+        prod.setunitCount(self.getunitCount())
+        prod.setnotValid(self.getnotValid())
+        prod.setprice(self.getprice())
+        prod.setBarcode(self.getBarcode())
+        prod.setIrancode(self.getIrancode())
+        prod.setW1(self.getW1())
+        prod.setW2(self.getW2())
+        prod.setW3(self.getW3())
+        prod.setW4(self.getW4())
+        prod.setW5(self.getW5())
+        prod.setW6(self.getW6())
+        prod.setW7(self.getW7())
+        prod.setW8(self.getW8())
+        prod.setW9(self.getW9())
+        prod.setW10(self.getW10())
+        return prod
+
+    def calNewWeightParameter(self, weight: int):
+        """
+        یک وزن که به محصول اضافه میشود مقادیر میانگین ، تعداد وزن ها و تلورانس محاسبه میشود
+        
+        param1: weight
+        return: avg, tolerance, insertedWeight
+        """
+        avg_weight = self.getMeanweight()
+        tolerance = self.getTolerance()
+        iw = self.getInsertedweight()
+        new_avg_weight = int((((avg_weight * iw) + weight) / (iw + 1)))
+        Min = avg_weight - tolerance
+        Max = avg_weight + tolerance
+        new_tolerance = int(
+            max((abs(new_avg_weight - Min)), (abs(Max - new_avg_weight)), (abs(weight - new_avg_weight)),
+                (new_avg_weight * 0.1), 8))
+        iw = int(iw + 1)
+        return new_avg_weight, new_tolerance, iw

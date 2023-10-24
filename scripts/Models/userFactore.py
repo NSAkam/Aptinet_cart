@@ -1,7 +1,7 @@
 from PySide2.QtCore import QObject, Signal, Property
 
 
-class LoggsModel(QObject):
+class UserFactoreModel(QObject):
     _count: int = 0
     _price: int = 0
     _finalPrice: int = 0
