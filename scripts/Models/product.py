@@ -291,6 +291,16 @@ class Product(QObject):
         self.changed.emit()
             
     tax = Property(float, getTax, setTax, notify=changed)
+    
+    def getQr(self):
+        return self._qr
+    
+    def setQr(self, value):
+        if value:
+            self._qr = value
+            self.changed.emit()
+            
+    qr = Property(str, getQr, setQr, notify=changed)
 
     
     def getTaxprice(self):
