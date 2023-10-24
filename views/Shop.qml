@@ -19,7 +19,7 @@ Item {
     }
 
     Image {
-        source: "file://../Assets/AuthenticationBackground.png"
+        source: "../Assets/AuthenticationBackground.png"
         anchors.fill: parent
     }
 
@@ -66,16 +66,19 @@ Item {
                 btn_borderWidth:0
                 fontsize: 16
                 ishover: false
+                onClicked: {
+                    stackviewContainer.push(addPluItem)
+                }
             }
             Image {
-                source: "file://../Assets/Help.png"
+                source: "../Assets/Help.png"
                 width: 57
                 height: 57
                 x:1156
                 y:25
             }
             Image {
-                source: "file://../Assets/Notification.png"
+                source: "../Assets/Notification.png"
                 width: 57
                 height: 57
                 x:1208
@@ -105,8 +108,9 @@ Item {
             height: 708
             x:390
             y:92
-            //initialItem: lstProductHandler
-            initialItem:addPluItem
+//            initialItem: lstProductHandler
+//            initialItem:addPluItemview
+            initialItem: checkout
             onDepthChanged: {
                 obj_LogicContainer.shoppage.stackviewDepthChanged(stackviewContainer.depth)
             }
@@ -120,18 +124,18 @@ Item {
 
         Image {
             id:rect_Suggestion
-            source: "file://../Assets/leftSideBar.png"
+            source: "../Assets/leftSideBar.png"
             anchors.fill: parent
 
         }
         Image {
-            source: "file://../Assets/AptinetText.png"
+            source: "../Assets/AptinetText.png"
             x:0
             y:0
         }
         Image {
             id: img_UserCaptured
-            source: "file://../Assets/UserImage.png"
+            source: "../Assets/UserImage.png"
             width: 326
             height: 184
             x:32
@@ -191,7 +195,7 @@ Item {
             visible: false
             Image {
                 id: ads_Image
-                source: "file://../Assets/Ads.png"
+                source: "../Assets/Ads.png"
                 width: 326
                 height: 184
                 x:32
@@ -238,7 +242,7 @@ Item {
                             color: "white"
 
                             Image {
-                                source: "file://../Assets/product.png"
+                                source: "../Assets/product.png"
                                 width: 106
                                 height: 106
                                 anchors.verticalCenter: parent.verticalCenter
@@ -300,7 +304,47 @@ Item {
     Component{
         id:addPluItem
         AddPluItems{
+            onClosepanel: {
+                console.log("gasdasd")
+                stackviewContainer.pop()
+            }
+        }
+    }
+
+    Component{
+        id:addPluItemview
+        AddPluItemsView{
 
         }
     }
+
+    Component {
+        id: checkout
+        Checkoutpage {
+            onNfcPaymentClicked: {
+//                        stackviewContainer.replace(stackviewContainer, {"initialItem":nfcpayment})
+                stackviewContainer.push(nfcpayment)
+
+            }
+
+        }
+    }
+
+    Component {
+        id: nfcpayment
+        PaymentviaNFC {
+            width: 1280
+            height: 800
+            x: 0
+            y: 0
+
+        }
+    }
+
+//    Component{
+//        id: checkout
+//        Checkout{
+
+//        }
+//    }
 }

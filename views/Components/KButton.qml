@@ -15,6 +15,9 @@ Button {
     property int btn_borderWidth: 1
     property string shadowcolor
     property int borderRadius : 50
+    property alias btn_width: primaryButton.implicitWidth
+    property alias btn_height: primaryButton.implicitHeight
+
 
 
     contentItem: Label {
