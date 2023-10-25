@@ -44,7 +44,7 @@ class ProductModel(QAbstractListModel):
     def changed(self):
         pass
 
-    def getTotalCount(self):
+    def get_totalCount(self):
         count: int = 0
         for i in self.m_data:
             if(i.isPlu == True):
@@ -53,7 +53,7 @@ class ProductModel(QAbstractListModel):
                 count = count + i.countInBasket
         return count
 
-    totalcount = Property(int, getTotalCount, notify=changed)
+    totalcount = Property(int, get_totalCount, notify=changed)
 
     def getPricenodiscount(self):
         price: int = 0
@@ -169,6 +169,9 @@ class ProductModel(QAbstractListModel):
         self.m_data.clear()
         self.changed.emit()
         self.endResetModel()
+
+    def get_productByBarcode(self, barcode: str):
+        return self.repository.get_product(barcode)
 
     def insertNewProduct(self, barcode):
         return self.repository.GetProducts(barcode)
