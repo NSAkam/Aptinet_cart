@@ -7,39 +7,36 @@ class ConfigModel(QObject):
     _storeId: int = 0
     
     @Signal
-    def changed(self):
+    def changedSignal(self):
         pass
     
     def __init__(self):
         super().__init__()
         
-    def getIskg(self):
+    def get_iskg(self):
         return self._isKg
     
-    def setIskg(self, value):
-        if value:
-            self._isKg = value
-            self.changed.emit()
+    def set_iskg(self, value):
+        self._isKg = value
+        self.changedSignal.emit()
             
-    isKg = Property(int, getIskg, setIskg, notify=changed)
+    isKg = Property(int, get_iskg, set_iskg, notify=changedSignal)
     
-    def getCurrency(self):
+    def get_currency(self):
         return self._currrency
     
-    def setCurrency(self, value):
-        if value:
-            self._currrency = value
-            self.changed.emit()
+    def set_currency(self, value):
+        self._currrency = value
+        self.changedSignal.emit()
             
-    currency = Property(str, getCurrency, setCurrency, notify=changed)
+    currency = Property(str, get_currency, set_currency, notify=changedSignal)
     
     
-    def getStoreid(self):
+    def get_storeId(self):
         return self._storeId
     
-    def setStoreid(self, value):
-        if value:
-            self._storeId = value
-            self.changed.emit()
+    def set_storeId(self, value):
+        self._storeId = value
+        self.changedSignal.emit()
             
-    storeId = Property(str, getStoreid, setStoreid, notify=changed)
+    storeId = Property(str, get_storeId, set_storeId, notify=changedSignal)

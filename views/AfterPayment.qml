@@ -184,39 +184,23 @@ Item {
             }
 
         }
-
-        StackView
-        {
-            id:stackviewContainer
+        EnterEmail {
             width: 393
             height: 280
             x: 444
             y: 451
-            initialItem: enteremail
-            onDepthChanged: {
-//                obj_LogicContainer.shoppage.stackviewDepthChanged(stackviewContainer.depth)
-            }
+            visible: false
         }
 
-
-    }
-
-    Component{
-        id: enteremail
-        EnterEmail {
-            onContinueClicked: {
-                console.log("pasokh be Akbar")
-                stackviewContainer.push(ratingpage)
-            }
-
-        }
-    }
-
-    Component{
-        id: ratingpage
         RatingPage {
-
+            width: 393
+            height: 280
+            x: 444
+            y: 451
+            visible: true
         }
+
+
     }
 
 }

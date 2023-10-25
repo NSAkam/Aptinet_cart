@@ -119,7 +119,7 @@ Item {
             y:92
             //            initialItem: lstProductHandler
             //            initialItem:addPluItemview
-            initialItem: plulist
+            initialItem: newProductHandler
             onDepthChanged: {
                 obj_LogicContainer.shoppage.stackviewDepthChanged(stackviewContainer.depth)
             }
@@ -330,7 +330,7 @@ Item {
 
     Component {
         id: checkout
-        Checkoutpage {
+        Checkout {
             onNfcPaymentClicked: {
                 //                        stackviewContainer.replace(stackviewContainer, {"initialItem":nfcpayment})
                 stackview.push(nfcpayment)
@@ -371,6 +371,7 @@ Item {
         PLUListItems {
 
         }
+
     }
 
 

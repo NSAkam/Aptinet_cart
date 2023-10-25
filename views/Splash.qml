@@ -162,7 +162,44 @@ Item {
         Behavior on opacity{
             NumberAnimation{duration: 1000}
         }
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                stackview.push(settingsmenutest)
+            }
+        }
     }
+
+//    KButton {
+//       id:settingButton
+//       x:1168
+//       y:688
+//       width: 112
+//       height: 112
+//       btn_color: "transparent"
+
+//       Image {
+//           anchors.fill: parent
+//           source: "../Assets/SettingCircle.png"
+//           width: parent.width
+//           height: parent.height
+//       }
+//       enabled: false
+//       opacity: 0
+//       Behavior on opacity{
+//           NumberAnimation{duration: 1000}
+//       }
+
+//       MouseArea {
+//           anchors.fill: parent
+//           onClicked: {
+//               stackview.push(settingsmenutest)
+//           }
+//       }
+
+//    }
+
     Rectangle{
         id:languageButton
         x:0
@@ -289,5 +326,13 @@ Item {
         Authentication{
 
         }
+    }
+
+    Component {
+        id: settingsmenutest
+        Menu_Test {
+
+        }
+
     }
 }

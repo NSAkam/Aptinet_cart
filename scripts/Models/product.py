@@ -26,327 +26,309 @@ class Product(QObject):
     _isOffer: bool = False
     _isPlu: bool = False
     _tax: float = 0.0
-    _qr: str = ""
+    _QR: str = ""
     _taxPrice: float = 0.0
     
     
     _dataModelShow:int = 0 # 1 is normal 2 is PLU
     _weight:int = 0
-    _CountInBasket:int = 0
+    _countInBasket:int = 0
     
     def __init__(self):
         super().__init__()
         
     @Signal
-    def changed(self):
+    def changedSignal(self):
         pass
         
-    def getName(self):
+    def get_name(self):
         return self._name
         
-    def setName(self, value):
-        if value:
-            self._name = value
-            self.changed.emit()
-            
-    name = Property(str, getName, setName, notify=changed)
+    def set_name(self, value):
+        self._name = value
+        self.changedSignal.emit()
+        
+    name = Property(str, get_name, set_name, notify=changedSignal)
             
     
-    def getDescription(self):
+    def get_description(self):
         return self._description
         
-    def setDescription(self, value):
-        if value:
-            self._description = value
-            self.changed.emit()
+    def set_description(self, value):
+        self._description = value
+        self.changedSignal.emit()
             
-    description = Property(str, getDescription, setDescription, notify=changed)
+    description = Property(str, get_description, set_description, notify=changedSignal)
            
-    def getRate(self):
+    def get_rate(self):
         return self._rate
         
-    def setRate(self, value):
-        if value:
-            self._rate = value
-            self.changed.emit()
+    def set_rate(self, value):
+        self._rate = value
+        self.changedSignal.emit()
             
-    rate = Property(int, getRate, setRate, notify=changed)
+    rate = Property(int, get_rate, set_rate, notify=changedSignal)
             
     
-    def getCommentcount(self):
+    def get_commentCount(self):
         return self._commentCount
         
-    def setCommentcount(self, value):
-        if value:
-            self._commentCount = value
-            self.changed.emit()
+    def set_commentCount(self, value):
+        self._commentCount = value
+        self.changedSignal.emit()
             
-    commentCount = Property(int, getCommentcount, setCommentcount, notify=changed)
+    commentCount = Property(int, get_commentCount, set_commentCount, notify=changedSignal)
             
-    def getW1(self):
+    def get_w1(self):
         return self._w1
         
-    def setW1(self, value):
-        if value:
-            self._w1 = value
-            self.changed.emit()
+    def set_w1(self, value):
+        self._w1 = value
+        self.changedSignal.emit()
             
-    w1 = Property(int, getW1, setW1, notify=changed)
+    w1 = Property(int, get_w1, set_w1, notify=changedSignal)
             
-    def getW2(self):
+    def get_w2(self):
         return self._w2
         
-    def setW2(self, value):
+    def set_w2(self, value):
         if value:
             self._w2 = value
-            self.changed.emit()
+            self.changedSignal.emit()
             
-    w2 = Property(int, getW2, setW2, notify=changed)
+    w2 = Property(int, get_w2, set_w2, notify=changedSignal)
             
-    def getW3(self):
+    def get_w3(self):
         return self._w3
         
-    def setW3(self, value):
-        if value:
-            self._w3 = value
-            self.changed.emit()
+    def set_w3(self, value):
+        self._w3 = value
+        self.changedSignal.emit()
             
-    w3 = Property(int, getW3, setW3, notify=changed)
+    w3 = Property(int, get_w3, set_w3, notify=changedSignal)
             
-    def getW4(self):
+    def get_w4(self):
         return self._w4
         
-    def setW4(self, value):
-        if value:
-            self._w4 = value
-            self.changed.emit()
+    def set_w4(self, value):
+        self._w4 = value
+        self.changedSignal.emit()
             
-    w4 = Property(int, getW4, setW4, notify=changed)
+    w4 = Property(int, get_w4, set_w4, notify=changedSignal)
             
-    def getW5(self):
+    def get_w5(self):
         return self._w5
         
-    def setW5(self, value):
-        if value:
+    def set_w5(self, value):
             self._w5 = value
-            self.changed.emit()
+            self.changedSignal.emit()
             
-    w5 = Property(int, getW5, setW5, notify=changed)
+    w5 = Property(int, get_w5, set_w5, notify=changedSignal)
             
     
-    def getW6(self):
+    def get_w6(self):
         return self._w6
         
-    def setW6(self, value):
+    def set_w6(self, value):
         if value:
             self._w6 = value
-            self.changed.emit()
+            self.changedSignal.emit()
             
-    w6 = Property(int, getW6, setW6, notify=changed)
+    w6 = Property(int, get_w6, set_w6, notify=changedSignal)
             
     
-    def getW7(self):
+    def get_w7(self):
         return self._w7
         
-    def setW7(self, value):
-        if value:
-            self._w7 = value
-            self.changed.emit()
+    def set_w7(self, value):
+        self._w7 = value
+        self.changedSignal.emit()
             
-    w7 = Property(int, getW7, setW7, notify=changed)
+    w7 = Property(int, get_w7, set_w7, notify=changedSignal)
             
     
-    def getW8(self):
+    def get_w8(self):
         return self._w8
         
-    def setW8(self, value):
-        if value:
-            self._w8 = value
-            self.changed.emit()
+    def set_w8(self, value):
+        self._w8 = value
+        self.changedSignal.emit()
             
-    w8 = Property(int, getW8, setW8, notify=changed)
+    w8 = Property(int, get_w8, set_w8, notify=changedSignal)
             
     
-    def getW9(self):
+    def get_w9(self):
         return self._w9
         
-    def setW9(self, value):
-        if value:
-            self._w9 = value
-            self.changed.emit()
+    def set_w9(self, value):
+        self._w9 = value
+        self.changedSignal.emit()
             
-    w9 = Property(int, getW9, setW9, notify=changed)
+    w9 = Property(int, get_w9, set_w9, notify=changedSignal)
             
     
-    def getW10(self):
+    def get_w10(self):
         return self._w10
         
-    def setW10(self, value):
-        if value:
-            self._w10 = value
-            self.changed.emit()
+    def set_w10(self, value):
+        self._w10 = value
+        self.changedSignal.emit()
             
-    w10 = Property(int, getW10, setW10, notify=changed)
+    w10 = Property(int, get_w10, set_w10, notify=changedSignal)
             
     
-    def getPrice(self):
+    def get_price(self):
         return self._price
         
-    def setPrice(self, value):
-        if value:
-            self._price = value
-            self.changed.emit()
+    def set_price(self, value):
+        self._price = value
+        self.changedSignal.emit()
             
-    price = Property(float, getPrice, setPrice, notify=changed)
+    price = Property(float, get_price, set_price, notify=changedSignal)
             
     
-    def getFinalprice(self):
+    def get_finalPrice(self):
         return self._finalPrice
         
-    def setFinalprice(self, value):
-        if value:
-            self._finalPrice = value
-            self.changed.emit()
+    def set_finalPrice(self, value):
+        self._finalPrice = value
+        self.changedSignal.emit()
             
-    finalPrice = Property(float, getFinalprice, setFinalprice, notify=changed)
+    finalPrice = Property(float, get_finalPrice, set_finalPrice, notify=changedSignal)
             
     
-    def getMeanweight(self):
+    def get_meanWeight(self):
         return self._meanWeight
         
-    def setMeanweight(self, value):
-        if value:
-            self._meanWeight = value
-            self.changed.emit()
+    def set_meanWeight(self, value):
+        self._meanWeight = value
+        self.changedSignal.emit()
             
-    meanWeight = Property(int, getMeanweight, setMeanweight, notify=changed)
+    meanWeight = Property(int, get_meanWeight, set_meanWeight, notify=changedSignal)
             
     
-    def getTolerance(self):
+    def get_tolerance(self):
         return self._tolerance
         
-    def setTolerance(self, value):
-        if value:
-            self._tolerance = value
-            self.changed.emit()
+    def set_tolerance(self, value):
+        self._tolerance = value
+        self.changedSignal.emit()
             
-    tolerance = Property(int, getTolerance, setTolerance, notify=changed)
+    tolerance = Property(int, get_tolerance, set_tolerance, notify=changedSignal)
             
     
-    def getInsertedweight(self):
+    def get_insertedWeight(self):
         return self._insertedWeight
         
-    def setInsertedweight(self, value):
-        if value:
-            self._insertedWeight = value
-            self.changed.emit()
+    def set_insertedWeight(self, value):
+        self._insertedWeight = value
+        self.changedSignal.emit()
             
-    insertedWeight = Property(int, getInsertedweight, setInsertedweight, notify=changed)
+    insertedWeight = Property(int, get_insertedWeight, set_insertedWeight, notify=changedSignal)
             
     
-    def getBarcode(self):
+    def get_barcode(self):
         return self._barcode
         
-    def setBarcode(self, value):
+    def set_barcode(self, value):
         self._barcode = value
-        self.changed.emit()
+        self.changedSignal.emit()
             
-    barcode = Property(int, getBarcode, setBarcode, notify=changed)
+    barcode = Property(int, get_barcode, set_barcode, notify=changedSignal)
     
     
-    def getpic(self):
-        if (os.path.isfile("/home/kast/pics/" + self.getBarcode() + ".png") == False):
+    def get_pic(self):
+        if (os.path.isfile("/home/kast/pics/" + self.get_barcode() + ".png") == False):
             return "file:///home/kast/pics/DefaultProduct.png"
         else:
-            return "file:///home/kast/pics/" + self.getBarcode() + ".png"
+            return "file:///home/kast/pics/" + self.get_barcode + ".png"
 
-    pic = Property(str, getpic, notify=changed)
+    pic = Property(str, get_pic, notify=changedSignal)
             
             
-    def getIsoffer(self):
+    def get_isOffer(self):
         return self._isOffer
         
-    def setIsoffer(self, value):
+    def set_isOffer(self, value):
         self._isOffer = value
-        self.changed.emit()
+        self.changedSignal.emit()
             
-    isOffer = Property(int, getIsoffer, setIsoffer, notify=changed)
+    isOffer = Property(int, get_isOffer, set_isOffer, notify=changedSignal)
             
     
-    def getIsplu(self):
+    def get_isPlu(self):
         return self._isPlu
         
-    def setIsplu(self, value):
+    def set_isPlu(self, value):
         self._isPlu = value
-        self.changed.emit()
+        self.changedSignal.emit()
             
-    isPlu = Property(int, getIsplu, setIsplu, notify=changed)
+    isPlu = Property(int, get_isPlu, set_isPlu, notify=changedSignal)
             
     
-    def getTax(self):
+    def get_tax(self):
         return self._tax
         
-    def setTax(self, value):
+    def set_tax(self, value):
         self._tax = value
-        self.changed.emit()
+        self.changedSignal.emit()
             
-    tax = Property(float, getTax, setTax, notify=changed)
+    tax = Property(float, get_tax, set_tax, notify=changedSignal)
     
-    def getQr(self):
-        return self._qr
+    def get_QR(self):
+        return self._QR
     
-    def setQr(self, value):
-        if value:
-            self._qr = value
-            self.changed.emit()
+    def set_QR(self, value):
+        self._QR = value
+        self.changedSignal.emit()
             
-    qr = Property(str, getQr, setQr, notify=changed)
+    QR = Property(str, get_QR, set_QR, notify=changedSignal)
 
     
-    def getTaxprice(self):
+    def get_taxPrice(self):
         return self._taxPrice
     
-    def setTaxprice(self, value):
+    def set_taxPrice(self, value):
         self._taxPrice = value
-        self.changed.emit()
+        self.changedSignal.emit()
         
-    texPrice = Property(int, getTaxprice, setTaxprice, notify=changed)           
+    taxPrice = Property(int, get_taxPrice, set_taxPrice, notify=changedSignal)           
     
-    def getProductWeightInBasket(self):
-        return self._taxPrice
+    def get_productWeightInBasket(self):
+        return self._weight
     
-    def setProductWeightInBasket(self, value):
-        self._taxPrice = value
-        self.changed.emit()
+    def set_productWeightInBasket(self, value):
+        self._weight = value
+        self.changedSignal.emit()
         
-    productWeightInBasket = Property(int, getProductWeightInBasket, setProductWeightInBasket, notify=changed)           
+    productWeightInBasket = Property(int, get_productWeightInBasket, set_productWeightInBasket, notify=changedSignal)           
 
-    def getDataModelShow(self):
+    def get_dataModelShow(self):
         if(self.isPlu == True):
             return 2
         else:
             return 1
 
-    dataModelShow = Property(int,getDataModelShow,notify=changed)
+    dataModelShow = Property(int, get_dataModelShow, notify=changedSignal)
 
         
-    def getCountInBasket(self):
-        return self._CountInBasket
+    def get_countInBasket(self):
+        return self._countInBasket
 
-    def setCountInBasket(self, val):
-        self._CountInBasket = val
-        self.changed.emit()
+    def set_countInBasket(self, val):
+        self._countInBasket = val
+        self.changedSignal.emit()
 
-    countInBasket = Property(float, getCountInBasket, setCountInBasket, notify=changed)
+    countInBasket = Property(float, get_countInBasket, set_countInBasket, notify=changedSignal)
 
-    def getCountInBasket(self):
-        return self._CountInBasket
+    def get_countInBasket(self):
+        return self._countInBasket
 
-    def setCountInBasket(self, val):
-        self._CountInBasket = val
-        self.changed.emit()
+    def set_countInBasket(self, val):
+        self._countInBasket = val
+        self.changedSignal.emit()
 
-    countInBasket = Property(float, getCountInBasket, setCountInBasket, notify=changed)
+    countInBasket = Property(float, get_countInBasket, set_countInBasket, notify=changedSignal)
 
 
     def copy_product(self):
@@ -354,40 +336,45 @@ class Product(QObject):
         create copy of product
         return Product
         """
-        prod = Product()
-        prod.setInsertedWeight(self.getInsertedWeight())
-        prod.setTolerance(self.getTolerance())
-        prod.setAvgWeight(self.getAvgWeight())
-        prod.settedad(self.gettedad())
-        prod.setname(self.getname())
-        prod.setfinalprice(self.getfinalprice())
-        prod.setunitCount(self.getunitCount())
-        prod.setnotValid(self.getnotValid())
-        prod.setprice(self.getprice())
-        prod.setBarcode(self.getBarcode())
-        prod.setIrancode(self.getIrancode())
-        prod.setW1(self.getW1())
-        prod.setW2(self.getW2())
-        prod.setW3(self.getW3())
-        prod.setW4(self.getW4())
-        prod.setW5(self.getW5())
-        prod.setW6(self.getW6())
-        prod.setW7(self.getW7())
-        prod.setW8(self.getW8())
-        prod.setW9(self.getW9())
-        prod.setW10(self.getW10())
-        return prod
+        product = Product()
+        product.set_name(self.get_name())
+        product.set_barcode(self.get_barcode())
+        product.set_QR(self.get_QR())
+        product.set_price(self.get_price())
+        product.set_finalPrice(self.get_finalPrice())
+        product.set_description(self.get_description())
+        product.set_rate(self.get_rate())
+        product.set_commentCount(self.get_commentCount())
+        product.set_w1(self.get_w1())
+        product.set_w2(self.get_w2())
+        product.set_w3(self.get_w3())
+        product.set_w4(self.get_w4())
+        product.set_w5(self.get_w5())
+        product.set_w6(self.get_w6())
+        product.set_w7(self.get_w7())
+        product.set_w8(self.get_w8())
+        product.set_w9(self.get_w9())
+        product.set_w10(self.get_w10())
+        product.set_meanWeight(self.get_meanWeight())
+        product.set_tolerance(self.get_tolerance())
+        product.set_insertedWeight(self.get_insertedWeight())
+        product.set_isOffer(self.get_isOffer())
+        product.set_isPlu(self.get_isPlu())
+        product.set_tax(self.get_tax())
+        product.set_taxPrice(self.get_taxPrice())
+        return product
+        
 
-    def calNewWeightParameter(self, weight: int):
+    def call_newWeightParameter(self, weight: int):
         """
         یک وزن که به محصول اضافه میشود مقادیر میانگین ، تعداد وزن ها و تلورانس محاسبه میشود
         
         param1: weight
         return: avg, tolerance, insertedWeight
         """
-        avg_weight = self.getMeanweight()
-        tolerance = self.getTolerance()
-        iw = self.getInsertedweight()
+        avg_weight = self.get_meanWeight()
+        tolerance = self.get_tolerance()
+        iw = self.get_insertedWeight()
         new_avg_weight = int((((avg_weight * iw) + weight) / (iw + 1)))
         Min = avg_weight - tolerance
         Max = avg_weight + tolerance

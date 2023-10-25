@@ -8,50 +8,46 @@ class LoggsModel(QObject):
     _userId: int = 0
     
     @Signal
-    def changed(self):
+    def changedSignal(self):
         pass
     
     def __init__(self):
         super().__init__()
         
-    def getRegtime(self):
+    def get_regtime(self):
         return self._regTime
     
-    def setRegtime(self, value):
-        if value:
-            self._regTime = value
-            self.changed.emit()
+    def set_regtime(self, value):
+        self._regTime = value
+        self.changedSignal.emit()
             
-    regTime = Property(int, getRegtime, setRegtime, notify=changed)
+    regTime = Property(int, get_regtime, set_regtime, notify=changedSignal)
     
-    def getAction(self):
+    def get_action(self):
         return self._action
     
-    def setAction(self, value):
-        if value:
-            self._action = value
-            self.changed.emit()
+    def set_action(self, value):
+        self._action = value
+        self.changedSignal.emit()
             
-    action = Property(int, setAction, getAction, notify=changed)
+    action = Property(int, set_action, get_action, notify=changedSignal)
     
-    def getValue(self):
+    def get_value(self):
         return self._value
     
-    def setValue(self, value):
-        if value:
-            self._value = value
-            self.changed.emit()
+    def set_value(self, value):
+        self._value = value
+        self.changedSignal.emit()
             
-    value = Property(str, getValue, setValue, notify=changed)
+    value = Property(str, get_value, set_value, notify=changedSignal)
     
     
-    def getUserid(self):
+    def get_userId(self):
         return self._userId
     
-    def setUserid(self, value):
-        if value:
-            self._userId = value
-            self.changed.emit()
+    def set_userId(self, value):
+        self._userId = value
+        self.changedSignal.emit()
             
-    userId = Property(str, getUserid, setUserid, notify=changed)
+    userId = Property(str, get_userId, set_userId, notify=changedSignal)
             

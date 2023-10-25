@@ -1,7 +1,7 @@
 import QtQuick 2.15
 import QtGraphicalEffects 1.15
-import "../Utiles" as Util
-import "../Components"
+import "Utiles" as Util
+import "Components"
 
 Item {
     id: root

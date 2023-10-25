@@ -25,6 +25,7 @@ Window {
 //        initialItem: "Checkout.qml"
 //        initialItem: "PaymentviaNFC.qml"
         initialItem: "Shop.qml"
+//        initialItem: "Guide_Tips.qml"
         Util.ViewSettings{
             id:viewset
         }
