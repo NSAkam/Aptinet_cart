@@ -89,6 +89,7 @@ class DAL():
             "regTime INTEGER,"
             "rate INTEGER,"
             "usId INTEGER,"
+            "email TEXT"
             ")"
         ):
             print("Failed to create table user")
