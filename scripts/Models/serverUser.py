@@ -9,57 +9,53 @@ class ServerUser(QObject):
     _code: str = ""
     
     @Signal
-    def changed(self):
+    def changedSignal(self):
         pass
     
-    def getName(self):
+    def get_name(self):
         return self._name
     
-    def setName(self, value):
-        if value:
-            self._name = value
-            self.changed.emit()
+    def set_name(self, value):
+        self._name = value
+        self.changedSignal.emit()
             
-    name = Property(str, getName, setName, notify=changed)
+    name = Property(str, get_name, set_name, notify=changedSignal)
     
-    def getEmail(self):
+    def get_email(self):
         return self._email
     
-    def setEmail(self, value):
-        if value:
-            self._email = value
-            self.changed.emit()
+    def set_email(self, value):
+        self._email = value
+        self.changedSignal.emit()
         
-    email = Property(str, getEmail, setEmail, notify=changed)
+    email = Property(str, get_email, set_email, notify=changedSignal)
     
-    def getPhone(self):
+    def get_phone(self):
         return self._phone
     
-    def setPhone(self, value):
-        if value:
-            self._phone = value
+    def set_phone(self, value):
+        self._phone = value
+        self.changedSignal.emit()
             
-    phone = Property(str, getPhone, setPhone, notify=changed)
+    phone = Property(str, get_phone, set_phone, notify=changedSignal)
     
-    def getOffer(self):
+    def get_offer(self):
         return self._offer
     
-    def setOffer(self, value):
-        if value:
-            self._offer = value
-            self.changed.emit()
+    def set_offer(self, value):
+        self._offer = value
+        self.changedSignal.emit()
             
-    offer = Property(float, getOffer, setOffer, notify=changed)
+    offer = Property(float, get_offer, set_offer, notify=changedSignal)
     
     
-    def getCode(self):
+    def get_code(self):
         return self._code
     
-    def setCode(self, value):
-        if value:
-            self._code = value
-            self.changed.emit()
+    def set_code(self, value):
+        self._code = value
+        self.changedSignal.emit()
             
-    code = Property(str, getCode, setCode, notify=changed)
+    code = Property(str, get_code, set_code, notify=changedSignal)
     
     

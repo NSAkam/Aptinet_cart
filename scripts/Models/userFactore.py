@@ -10,71 +10,65 @@ class UserFactoreModel(QObject):
     _productBarcode: str = ""
     
     @Signal
-    def changed(self):
+    def changedSignal(self):
         pass
     
     def __init__(self):
         super().__init__()
         
-    def getCount(self):
+    def get_count(self):
         return self._count
     
-    def setCount(self, value):
-        if value:
-            self._count = value
-            self.changed.emit()
+    def set_count(self, value):
+        self._count = value
+        self.changedSignal.emit()
             
-    count = Property(int, getCount, setCount, notify=changed)
+    count = Property(int, get_count, set_count, notify=changedSignal)
     
-    def getPrice(self):
+    def get_price(self):
         return self._price
     
-    def setPrice(self, value):
-        if value:
-            self._price = value
-            self.changed.emit()
+    def set_price(self, value):
+        self._price = value
+        self.changedSignal.emit()
             
-    price = Property(int, setPrice, getPrice, notify=changed)
+    price = Property(int, set_price, get_price, notify=changedSignal)
     
     
-    def getFinalprice(self):
+    def get_finalPrice(self):
         return self._finalPrice
     
-    def setFinalprice(self, value):
-        if value:
-            self._finalPrice = value
-            self.changed.emit()
+    def set_finalPrice(self, value):
+        self._finalPrice = value
+        self.changedSignal.emit()
             
-    finalPrice = Property(str, getFinalprice, setFinalprice, notify=changed)
+    finalPrice = Property(str, get_finalPrice, set_finalPrice, notify=changedSignal)
     
-    def getTax(self):
+    def get_tax(self):
         return self._tax
     
-    def setTax(self, value):
-        if value:
-            self._tax = value
-            self.changed.emit()
+    def set_tax(self, value):
+        self._tax = value
+        self.changedSignal.emit()
             
-    tax = Property(int, setTax, getTax, notify=changed)
+    tax = Property(int, set_tax, get_tax, notify=changedSignal)
     
     
-    def getUid(self):
+    def get_uId(self):
         return self._uId
     
-    def setUid(self, value):
-        if value:
+    def set_uId(self, value):
             self._uId = value
-            self.changed.emit()
+            self.changedSignal.emit()
             
-    uId = Property(int, setUid, getUid, notify=changed)
+    uId = Property(int, set_uId, get_uId, notify=changedSignal)
     
     
-    def getProductbarcode(self):
+    def get_productBarcode(self):
         return self._productBarcode
     
-    def setProductbarcode(self, value):
-        if value:
-            self._productBarcode = value
-            self.changed.emit()
+    def set_productBarcode(self, value):
+        self._productBarcode = value
+        self.changedSignal.emit()
             
-    productBarcode = Property(str, getProductbarcode, setProductbarcode, notify=changed)
+    productBarcode = Property(str, get_productBarcode, set_productBarcode, notify=changedSignal)

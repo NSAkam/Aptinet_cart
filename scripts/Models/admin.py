@@ -5,7 +5,7 @@ class AdminModel(QObject):
     _name: str = ""
     
     @Signal
-    def changed(self):
+    def changedSignal(self):
         pass
     
     def __init__(self):
@@ -16,7 +16,7 @@ class AdminModel(QObject):
     
     def set_name(self, value):
         self._name = value
-        self.changed.emit()
+        self.changedSignal.emit()
         
-    name = Property(str, get_name, set_name, notify=changed)
+    name = Property(str, get_name, set_name, notify=changedSignal)
     

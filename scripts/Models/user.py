@@ -12,60 +12,55 @@ class User(QObject):
         super().__init__()
         
     @Signal
-    def changed(self):
+    def changedSignal(self):
         pass
 
-    def getId(self):
+    def get_id(self):
         return self._id
         
-    def setId(self, value):
-        if value:
-            self._id = value
-            self.changed.emit()
+    def set_id(self, value):
+        self._id = value
+        self.changedSignal.emit()
             
-    id = Property(int, getId, setId, notify=changed)
+    id = Property(int, get_id, set_id, notify=changedSignal)
         
-    def getRegtime(self):
+    def get_regtime(self):
         return self._regTime
         
-    def setRegtime(self, value):
-        if value:
-            self._regTime = value
-            self.changed.emit()
+    def set_regtime(self, value):
+        self._regTime = value
+        self.changedSignal.emit()
             
-    regTime = Property(str, getRegtime, setRegtime, notify=changed)
+    regTime = Property(str, get_regtime, set_regtime, notify=changedSignal)
     
         
-    def getRate(self):
+    def get_rate(self):
         return self._rate
         
-    def setRate(self, value):
-        if value:
-            self._rate = value
-            self.changed.emit()
+    def set_rate(self, value):
+        self._rate = value
+        self.changedSignal.emit()
             
-    rate = Property(str, getRate, setRate, notify=changed)
+    rate = Property(str, get_rate, set_rate, notify=changedSignal)
    
     
-    def getUsid(self):
+    def get_usId(self):
         return self._usId
         
-    def setUsid(self, value):
-        if value:
-            self._usId = value
-            self.changed.emit()
+    def set_usId(self, value):
+        self._usId = value
+        self.changedSignal.emit()
     
-    usId = Property(str, getUsid, setUsid, notify=changed)
+    usId = Property(str, get_usId, set_usId, notify=changedSignal)
 
-    def getEmail(self):
+    def get_email(self):
         return self._email
         
-    def setEmail(self, value):
-        if value:
-            self._email = value
-            self.changed.emit()
+    def set_email(self, value):
+        self._email = value
+        self.changedSignal.emit()
             
-    email = Property(str, getEmail, setEmail, notify=changed)
+    email = Property(str, get_email, set_email, notify=changedSignal)
             
     
 
