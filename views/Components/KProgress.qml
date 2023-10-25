@@ -53,7 +53,8 @@ Item {
         y:15
         text: kprogress.title
         visible: true
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.horizontalCenter: background.horizontalCenter
+        anchors.verticalCenter: background.verticalCenter
         font.pixelSize: 64
         font.family: viewset.danaFuNumBoldFont
         font.bold: true
