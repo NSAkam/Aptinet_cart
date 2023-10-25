@@ -1,4 +1,5 @@
-/AptinetUI.pyproject
-/AptinetUI.pyproject.user
-AptinetUI.pyproject.user
-AptinetUI.pyproject.user
+/main.py
+/test/
+/miz_test/
+/venv/
+/.gitignore
