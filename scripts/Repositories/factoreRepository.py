@@ -13,7 +13,7 @@ class UserRepository:
         self.dal = dataAccessLayer
         self.dal.Connect()
         
-    def get_factore_by_phone(self, phone):
+    def get_factoreByPhone(self, phone):
         query = QSqlQuery()
         query.exec_(
             "SELECT count, price, finalPrice, tax"
@@ -24,14 +24,14 @@ class UserRepository:
         
         factore = UserFactoreModel()
         while query.next():
-            factore.setCount(query.value(0))
-            factore.setPrice(query.value(1))
-            factore.setFinalprice(query.value(2))
-            factore.setTax(query.value(3))
+            factore.set_count(query.value(0))
+            factore.set_price(query.value(1))
+            factore.set_finalPrice(query.value(2))
+            factore.set_tax(query.value(3))
         return factore
             
         
-    def get_factore_by_email(self, email):
+    def get_factoreByEmail(self, email):
         query = QSqlQuery()
         
         query.exec_(
@@ -42,14 +42,14 @@ class UserRepository:
         )
         factore = UserFactoreModel()
         while query.next():
-            factore.setCount(query.value(0))
-            factore.setPrice(query.value(1))
-            factore.setFinalprice(query.value(2))
-            factore.setTax(query.value(3))
+            factore.set_count(query.value(0))
+            factore.set_price(query.value(1))
+            factore.set_finalPrice(query.value(2))
+            factore.set_tax(query.value(3))
         return factore
             
         
-    def get_factore_by_id(self, id):
+    def get_factoreById(self, id):
         query = QSqlQuery()
         query.exec_(
             "SELECT p.name, uf.count, uf.price, uf.finalPrice, uf.tax"
@@ -60,10 +60,10 @@ class UserRepository:
         p = Product()
         factore = UserFactoreModel()
         while query.next():
-            factore.setCount(query.value(0))
-            factore.setPrice(query.value(1))
-            factore.setFinalprice(query.value(2))
-            factore.setTax(query.value(3))
-            p.setName(query.value(4))
+            factore.set_count(query.value(0))
+            factore.set_price(query.value(1))
+            factore.set_finalPrice(query.value(2))
+            factore.set_tax(query.value(3))
+            p.set_name(query.value(4))
         return factore, p
             

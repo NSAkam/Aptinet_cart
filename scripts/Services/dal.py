@@ -22,14 +22,14 @@ class DAL():
             else:
                 pass
         else:
-            print("DataBase is Connected")
+            print("Database Is Connected")
 
     def Disconnect(self):
         """
         Disconnect from local DB
         """
         self.db.close()
-        print("DataBase DisConnected")
+        print("Database Disconnected")
 
     def CreateTables(self):
         self.Connect()
@@ -40,10 +40,10 @@ class DAL():
             "name TEXT,"
             ")"
         ):
-            print("Failed to create table Admin")
+            print("Failed to create table admins")
         if not query.exec_(
-            "CREATE TABLE IF NOT EXISTS Product ("
-            "barcode TEXT NOT NULL ,"
+            "CREATE TABLE IF NOT EXISTS product ("
+            "barcode TEXT NOT NULL PRIMARY KEY,"
             "qr TEXT,"
             "name TEXT,"
             "price REAL,"
@@ -62,184 +62,74 @@ class DAL():
             "w9 INTEGER,"
             "w10 INTEGER,"
             "meanWeight INTEGER,"
+            "tolerance INTEGER,"
+            "insertedWeight INTEGER,"
+            "isOffer NUMERIC,"
+            "isPlu NUMERIC,"
+            "tax REAL,"
+            "taxPrice INTEGER,"
             ")"
         ):
-            print("Failed to create table Products")
+            print("Failed to create table product")
         if not query.exec_(
-            "CREATE TABLE IF NOT EXISTS ProductsFeatures ("
-            "Barcode INTEGER NOT NULL UNIQUE,"
-            "w1 INTEGER DEFAULT 0,"
-            "w2 INTEGER DEFAULT 0,"
-            "w3 INTEGER DEFAULT 0,"
-            "w4 INTEGER DEFAULT 0,"
-            "w5 INTEGER DEFAULT 0,"
-            "w6 INTEGER DEFAULT 0,"
-            "w7 INTEGER DEFAULT 0,"
-            "w8 INTEGER DEFAULT 0,"
-            "w9 INTEGER DEFAULT 0,"
-            "w1 INTEGER DEFAULT 0,"
-            "IranCode TEXT,"
-            "mean INTEGER DEFAULT 0,"
-            "tolerance INTEGER DEFAULT 0,"
-            "InsertedWeight INTEGER DEFAULT 0,"
-            "FOREIGN KEY(Barcode) REFERENCES ProductsFeatures(Barcode)"
+            "CREATE TABLE IF NOT EXISTS userFactore ("
+            "id INTEGER NOT NULL PRIMARY KEY ,"
+            "uid INTEGER,"
+            "productBarcode TEXT,"
+            "count INTEGER,"
+            "price REAL,"
+            "finalPrice REAL,"
+            "tax REAL,"
             ")"
         ):
-            print("Failed to create table ProductsFeatures")
+            print("Failed to create table userFactore.")
         if not query.exec_(
             "CREATE TABLE IF NOT EXISTS user ("
-            "id INTEGER NOT NULL,"
-            "Regdate TEXT,"
-            "RegTime TEXT,"
-            "factorID TEXT,"
-            "suspendFactorID TEXT,"
-            "Rate INTEGER,"
-            "PRIMARY KEY(id)"
+            "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+            "regTime INTEGER,"
+            "rate INTEGER,"
+            "usId INTEGER,"
+            "email TEXT"
             ")"
         ):
             print("Failed to create table user")
         if not query.exec_(
-            "CREATE TABLE IF NOT EXISTS userFactor ("
-            "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
-            "uid INTEGER,"
-            "Barcode TEXT,"
-            "Counter INTEGER,"
-            "Price INTEGER,"
-            "FinalPrice INTEGER,"
-            "FOREIGN KEY(uid) REFERENCES user(id)"
+            "CREATE TABLE IF NOT EXISTS ServerUser ("
+            "id INTEGER NOT NULL PRIMARY KEY,"
+            "name TEXT,"
+            "email TEXT,"
+            "phone TEXT,"
+            "offer REAL,"
+            "code TEXT"
             ")"
         ):
-            print("Faild to create table userFactor")
+            print("Faild to create table ServerUser")
         if not query.exec_(
-            "CREATE TABLE IF NOT EXISTS userLog ("
+            "CREATE TABLE IF NOT EXISTS Config ("
             "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
-            "weightchanged INTEGER,"
-            "barcode TEXT,"
-            "state INTEGER,"
-            "uid INTEGER NOT NULL,"
-            "RegTime TEXT,"
-            "adminBarcode TEXT,"
-            "FOREIGN KEY(uid) REFERENCES user(id)"
+            "storeId INTEGER,"
+            "currency TEXT"
             ")"
         ):
-            print("Failed to create TABLE userLog")
+            print("Failed to create TABLE Config")
 
+        if not query.exec_(
+            "CREATE TABLE IF NOT EXISTS loggs ("
+            "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+            "regTime INTEGER,"
+            "action INTEGER,"
+            "value TEXT,"
+            "userId INTEGER"
+            ")"
+        ):
+            print("Failed to create TABLE loggs.")
+            
+        if not query.exec_(
+            "CREATE TABLE IF NOT EXISTS suggestion ("
+            "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+            "pBarcode TEXT,"
+            "psBarcode TEXT"
+            ")"
+        ):
+            print("Failed to create TABLE suggestion.")
 
-
-
-
-
-
-
-# class DAL():
-
-#     def __init__(self):
-#         self.db = QSqlDatabase.addDatabase("QSQLITE")
-#         self.db.setDatabaseName("/home/kast/KAST.db")
-#         self.CreateTables()
-
-#         # print("DataBase Init")
-#         super().__init__()
-
-#     def Connect(self):
-#         """
-#         Connect to local DB
-#         """
-#         if (self.db.isOpen() == False):
-#             if (self.db.open() == False):
-#                 print("Error: connection with database failed")
-#             else:
-#                 # qDebug("Connected To Database")
-#                 pass
-#         else:
-#             print("DataBase is Connected")
-
-#     def Disconnect(self):
-#         """
-#         Disconnect from local DB
-#         """
-#         self.db.close()
-#         print("DataBase DisConnected")
-
-#     def CreateTables(self):
-#         self.Connect()
-#         query = QSqlQuery()
-#         if not query.exec_(
-#             "Create table IF NOT EXISTS Admins ("
-#             "ID	TEXT NOT NULL UNIQUE,"
-#             "name TEXT,"
-#             "isSA INTEGER,"
-#             "PRIMARY KEY(ID)"
-#             ")"
-#         ):
-#             print("Failed to create table Admin")
-#         if not query.exec_(
-#             "CREATE TABLE IF NOT EXISTS Products ("
-#             "Barcode INTEGER NOT NULL UNIQUE,"
-#             "name TEXT,"
-#             "Price INTEGER DEFAULT 0,"
-#             "FinalPrice INTEGER DEFAULT 0,"
-#             "UnitCount INTEGER DEFAULT 0,"
-#             "NotValid INTEGER DEFAULT 0,"
-#             "PRIMARY KEY(Barcode)"
-#             ")"
-#         ):
-#             print("Failed to create table Products")
-#         if not query.exec_(
-#             "CREATE TABLE IF NOT EXISTS ProductsFeatures ("
-#             "Barcode INTEGER NOT NULL UNIQUE,"
-#             "w1 INTEGER DEFAULT 0,"
-#             "w2 INTEGER DEFAULT 0,"
-#             "w3 INTEGER DEFAULT 0,"
-#             "w4 INTEGER DEFAULT 0,"
-#             "w5 INTEGER DEFAULT 0,"
-#             "w6 INTEGER DEFAULT 0,"
-#             "w7 INTEGER DEFAULT 0,"
-#             "w8 INTEGER DEFAULT 0,"
-#             "w9 INTEGER DEFAULT 0,"
-#             "w1 INTEGER DEFAULT 0,"
-#             "IranCode TEXT,"
-#             "mean INTEGER DEFAULT 0,"
-#             "tolerance INTEGER DEFAULT 0,"
-#             "InsertedWeight INTEGER DEFAULT 0,"
-#             "FOREIGN KEY(Barcode) REFERENCES ProductsFeatures(Barcode)"
-#             ")"
-#         ):
-#             print("Failed to create table ProductsFeatures")
-#         if not query.exec_(
-#             "CREATE TABLE IF NOT EXISTS user ("
-#             "id INTEGER NOT NULL,"
-#             "Regdate TEXT,"
-#             "RegTime TEXT,"
-#             "factorID TEXT,"
-#             "suspendFactorID TEXT,"
-#             "Rate INTEGER,"
-#             "PRIMARY KEY(id)"
-#             ")"
-#         ):
-#             print("Failed to create table user")
-#         if not query.exec_(
-#             "CREATE TABLE IF NOT EXISTS userFactor ("
-#             "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
-#             "uid INTEGER,"
-#             "Barcode TEXT,"
-#             "Counter INTEGER,"
-#             "Price INTEGER,"
-#             "FinalPrice INTEGER,"
-#             "FOREIGN KEY(uid) REFERENCES user(id)"
-#             ")"
-#         ):
-#             print("Faild to create table userFactor")
-#         if not query.exec_(
-#             "CREATE TABLE IF NOT EXISTS userLog ("
-#             "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
-#             "weightchanged INTEGER,"
-#             "barcode TEXT,"
-#             "state INTEGER,"
-#             "uid INTEGER NOT NULL,"
-#             "RegTime TEXT,"
-#             "adminBarcode TEXT,"
-#             "FOREIGN KEY(uid) REFERENCES user(id)"
-#             ")"
-#         ):
-#             print("Failed to create TABLE userLog")
