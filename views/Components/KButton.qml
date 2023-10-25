@@ -6,7 +6,7 @@ import QtQuick.Controls 2.15
 Button {
     id: controlBt
 
-    property bool ishover: true
+    property bool ishover: false
     property int fontsize: 20
     property bool isBold: true
     property bool shadow: false

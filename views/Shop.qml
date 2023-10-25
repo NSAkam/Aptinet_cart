@@ -7,12 +7,14 @@ import QtGraphicalEffects 1.0
 import "Components"
 import "Containers"
 import "Utiles" as Util
+import "PopUps"
 
 
 Item {
-
+    id: root
     width: 1280
     height: 800
+    signal addpluitemsClicked()
 
     Util.ViewSettings{
         id:viewset
@@ -67,7 +69,14 @@ Item {
                 fontsize: 16
                 ishover: false
                 onClicked: {
-                    stackviewContainer.push(addPluItem)
+                    root.addpluitemsClicked()
+                    //                    removeproduct.open()
+                    notifpopup.open()
+
+                    //                    stackviewContainer.push(addPluItem)
+                    //                    stackviewContainer.push(removeproduct)
+
+
                 }
             }
             Image {
@@ -108,9 +117,9 @@ Item {
             height: 708
             x:390
             y:92
-//            initialItem: lstProductHandler
-//            initialItem:addPluItemview
-            initialItem: checkout
+            //            initialItem: lstProductHandler
+            //            initialItem:addPluItemview
+            initialItem: plulist
             onDepthChanged: {
                 obj_LogicContainer.shoppage.stackviewDepthChanged(stackviewContainer.depth)
             }
@@ -144,6 +153,7 @@ Item {
         Item{
             id:addPlupanel
             width: parent.width
+            visible: false
             Text {
                 text: qsTr("ENTER PLU CODE")
                 font.pixelSize: 24
@@ -192,7 +202,7 @@ Item {
 
         Item {
             id: adsPanel
-            visible: false
+            visible: true
             Image {
                 id: ads_Image
                 source: "../Assets/Ads.png"
@@ -322,8 +332,8 @@ Item {
         id: checkout
         Checkoutpage {
             onNfcPaymentClicked: {
-//                        stackviewContainer.replace(stackviewContainer, {"initialItem":nfcpayment})
-                stackviewContainer.push(nfcpayment)
+                //                        stackviewContainer.replace(stackviewContainer, {"initialItem":nfcpayment})
+                stackview.push(nfcpayment)
 
             }
 
@@ -341,10 +351,27 @@ Item {
         }
     }
 
-//    Component{
-//        id: checkout
-//        Checkout{
+    RemoveProductPopUp {
+        id: removeproduct
 
-//        }
-//    }
+    }
+
+    NotificationPopUp {
+        id: notifpopup
+        //        notiftext: "Please scan its barcode of the selected product to remove !"
+        //        notiftext: "Please scan all the products you have removed from the cart !"
+        notiftext: "Please scan just the products you have removed from the cart !"
+        //        notiftext: "Please remove the products you added to the cart\nand finish the removal process !"
+        //        notiftext: "Please return the products you removed from the cart\nand finish the removal process !"
+
+    }
+
+    Component{
+        id: plulist
+        PLUListItems {
+
+        }
+    }
+
+
 }
