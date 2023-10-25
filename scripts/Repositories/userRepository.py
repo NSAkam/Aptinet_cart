@@ -14,7 +14,7 @@ class UserRepository:
         self.dal = dataAccessLayer
         self.dal.Connect()
         
-    def get_user_by_email(self, email):
+    def get_userByEmail(self, email):
         query = QSqlQuery()
         
         query.exec_(
@@ -22,25 +22,25 @@ class UserRepository:
         )
         user = ServerUser()
         while query.next():
-            user.setName(query.value(0))
-            user.setEmail(query.value(1))
-            user.setPhone(query.value(2))
-            user.setOffer(query.value(3))
-            user.setCode(query.value(4))
+            user.set_name(query.value(0))
+            user.set_email(query.value(1))
+            user.set_phone(query.value(2))
+            user.set_offer(query.value(3))
+            user.set_code(query.value(4))
         return user
             
         
-    def get_user_by_phone(self, phone):
+    def get_userByPhone(self, phone):
         query = QSqlQuery()
         query.exec_(
             "SELECT name, email, offer, code FROM ServerUser WHERE phone = '"+phone+"'"
         )
         user = ServerUser()
         while query.next():
-            user.setName(query.value(0))
-            user.setEmail(query.value(1))
-            user.setOffer(query.value(2))
-            user.setCode(query.value((3)))
+            user.set_name(query.value(0))
+            user.set_email(query.value(1))
+            user.set_offer(query.value(2))
+            user.set_code(query.value((3)))
         return user
     
     def create_user(self, email:str,regTime:int):
