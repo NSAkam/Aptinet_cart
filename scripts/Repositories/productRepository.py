@@ -87,7 +87,7 @@ class ProductRepository:
             "SELECT finalPrice, name"
             "FROM product"
             "JOIN suggestion ON ps_barcode"
-            "WHERE suggestion.ps_barcode = product.barcode"
+            "WHERE suggestion.ps_barcode = product.barcde"
         )
         p = Product()
         while query.next():
