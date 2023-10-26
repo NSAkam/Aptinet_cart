@@ -158,9 +158,9 @@ Item {
         titleFontSize: 10
 //        lineWidth: 50
         fontSize: 10
-        fromAngle: (Math.PI / 180) * 270
-        toAngle: (Math.PI / 180) * 270 + 360
-        kprogressBackgroundColor: "white"
+//        fromAngle: (Math.PI / 180) * 270
+//        toAngle: (Math.PI / 180) * 270 + 360
+        kprogressBackgroundColor: "transparent"
         kprogressColor: "#F08C5A"
         title: parseInt(value)
     }

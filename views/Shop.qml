@@ -119,7 +119,7 @@ Item {
             y:92
             //            initialItem: lstProductHandler
             //            initialItem:addPluItemview
-            initialItem: newProductHandler
+            initialItem: notifpopup
             onDepthChanged: {
                 obj_LogicContainer.shoppage.stackviewDepthChanged(stackviewContainer.depth)
             }
