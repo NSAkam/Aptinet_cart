@@ -20,11 +20,12 @@ Window {
     {
         id:stackview
         anchors.fill: parent
+//<<<<<<< HEAD
 //        initialItem: "Splash.qml"
-//        initialItem: "AfterPayment.qml"
-//        initialItem: "Checkout.qml"
-//        initialItem: "PaymentviaNFC.qml"
-        initialItem: "Shop.qml"
+        initialItem: "Splash.qml"
+//=======
+//        initialItem: "Splash.qml"
+//>>>>>>> origin/main
         Util.ViewSettings{
             id:viewset
         }

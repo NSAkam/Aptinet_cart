@@ -34,10 +34,28 @@ Popup {
         height: 40
 
         Image {
-            source: "../../Assets/alarm.png"
+            source: "../../Assets/bluealarm.png"
             width: 18
             height: 20
             anchors.centerIn: parent
+        }
+    }
+
+
+    KButton {
+        x: 630 + 390
+        y: 32
+        borderRadius: 4
+        width: 164
+        height: 40
+
+        Text {
+            text: qsTr("+  Enter Barcode")
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            font.pixelSize: 16
+            font.weight: Font.DemiBold
+            color: "white"
         }
     }
 
