@@ -60,16 +60,16 @@ Popup {
 
         ColumnLayout {
             spacing: 0
-            x: 40
-            y: 40
+            x: 492
+            y: 180
 
             Text {
                 Layout.fillWidth: true
                 text: "Please scan the"
                 font.pixelSize: 32
                 color: "black"
-                x: 40
-                y: 274
+                x: 492
+                y: 180
             }
 
             Text {
@@ -77,8 +77,8 @@ Popup {
                 text: "item barcode"
                 font.pixelSize: 32
                 color: "black"
-                x: 40
-                y: 274
+                x: 492
+                y: 180
             }
     }
 

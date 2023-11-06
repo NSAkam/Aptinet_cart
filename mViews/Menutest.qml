@@ -7,14 +7,11 @@ import QtQuick.Window 2.14
 
 
 
-
-
-ApplicationWindow{
+Item {
     id: root
     visible: true
     width: 1280
     height: 800
-    property StackView stackView
 
 
     Image {     id: q
@@ -77,9 +74,9 @@ ApplicationWindow{
                     width: 40
                     height: 38
                 }
-                onClicked: {
-                    StackView.pop();
-                }
+                onClicked: 
+                    stackview.pop();
+                
             }
 
         }
@@ -109,7 +106,7 @@ ApplicationWindow{
                     s.z = root.z + 1
                     s.visible = true
                     s.opacity = 0.8
-                    stackView.push(weightsensorPopupComponent)
+                    stackview.push(test)
                 }
         
 
@@ -191,6 +188,7 @@ ApplicationWindow{
                     b.z = root.z + 1
                     b.visible = true
                     b.opacity = 0.8
+                    stackview.push(lights)
                 }
 
                 background: Rectangle {
@@ -313,6 +311,16 @@ ApplicationWindow{
             source: q
             radius: 70
         }
+    }
+
+    Component {
+        id:test
+        WeightsensorPopup {}
+    }
+
+    Component {
+        id: lights
+        LightsPopup{}
     }
     
     }
