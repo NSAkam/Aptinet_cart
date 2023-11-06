@@ -87,7 +87,7 @@ Item {
 
     Rectangle {
         width: 287
-        height: 344
+        height: 438
         radius: 4
         color: "white"
         x: 120
@@ -151,40 +151,16 @@ Item {
             x: 134
             y: 298.5
         }
-    }
 
-    Rectangle {
-        width: 287
-        height: 62
-        x: 120
-        y: 568
-
-        Button {
-        width: 287
-        height: 62
-        onClicked: {
-            dataEntryPopup.open()
-            dataQr.z = root.z + 1
-            dataQr.visible = true
-            dataQr.opacity = 0.8
-            stackview.push(qr)
-        }
-        background: Rectangle {
-            radius: 4
-            color: "#F08C5A"
-
-            Text {
-                text: "Add QR Code"
-                color: "white"
-                font.pixelSize: 20
-                width: 129
-                height: 22
-                x: 79
-                y: 20
-            }
+        Image {
+            source: "/home/mahnaz/akam/ui_aptinet/assets/scan2.png"
+            width: 77
+            height: 77
+            x: 105
+            y: 341
         }
     }
-    }
+
 
     Rectangle {
         width: 208
@@ -593,22 +569,6 @@ Item {
         }
     }
 
-    
-
-
-
-  
-
-
-
-
-
-
-    DataEntryPopup {
-        id: dataEntryPopup
-    }
-      
-
        
     Rectangle {
         id: b
@@ -627,31 +587,8 @@ Item {
             radius: 70
         }
     }
-    
 
-    Rectangle {
-        id: dataQr
-        color: "gray"
-        width: 825
-        height: 708
-        visible: true
-        opacity: 0
-        x: 455
-        y: 92
 
-        FastBlur {
-
-            anchors.fill: dataQr
-            source: q
-            radius: 70
-        }
-    }
-
-    Component {
-        id: qr
-        DataEntryPopup{}
-    }
-    
     
 }
 

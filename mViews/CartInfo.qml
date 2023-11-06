@@ -125,6 +125,9 @@ Item {
             height: 38
             x: 556
             y: 24
+            onClicked: {
+                stackview.push(cartinfo2)
+            }
             background: Rectangle {
                 color: "white"
                 radius: 2
@@ -398,6 +401,11 @@ Item {
             source: q
             radius: 70
         }
+    }
+
+    Component { 
+        id: cartinfo2
+        CartInfo2 {}
     }
     
     }
