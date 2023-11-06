@@ -10,8 +10,20 @@ Popup {
     background: Rectangle {
         width: 652
        height: 72
+       radius: 4
        color: "#4696FA"
-       x:  87
-       y: 131
+       x:  542
+       y: 223
+
+       Text {
+        text: "Please scan the Product QR Code"
+        color: "white"
+        font.family: "Archivo"
+        font.pixelSize: 24
+        width: 412
+        height: 48
+        x: 120
+        y: 12
+       }
     }
 }

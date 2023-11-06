@@ -148,7 +148,13 @@ Item {
         }
     }
 
-    Button {
+    Rectangle {
+        width: 287
+        height: 62
+        x: 120
+        y: 568
+
+        Button {
         width: 287
         height: 62
         onClicked: {
@@ -158,14 +164,9 @@ Item {
             dataQr.opacity = 0.8
             stackview.push(qr)
         }
-        // background: Item{}
         background: Rectangle {
-            width: 287
-            height: 62
             radius: 4
             color: "#F08C5A"
-            x: 120
-            y: 568
 
             Text {
                 text: "Add QR Code"
@@ -177,6 +178,7 @@ Item {
                 y: 20
             }
         }
+    }
     }
 
     Rectangle {
@@ -624,7 +626,7 @@ Item {
 
     Rectangle {
         id: dataQr
-        color: "white"
+        color: "gray"
         width: 825
         height: 708
         visible: true
