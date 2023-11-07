@@ -65,6 +65,11 @@ Item {
                 height: 92
                 x: 0
                 y: 0
+
+                onClicked: {
+                    stackview.pop()
+                }
+
                 background: Rectangle {
                     color: "#EDEDED"
                 }
@@ -82,7 +87,7 @@ Item {
 
     Rectangle {
         width: 287
-        height: 344
+        height: 438
         radius: 4
         color: "white"
         x: 120
@@ -146,8 +151,8 @@ Item {
             x: 134
             y: 298.5
         }
-    }
 
+<<<<<<< HEAD:mViews/dataEntry.qml
     Button {
         width: 287
         height: 62
@@ -176,8 +181,17 @@ Item {
                 x: 79
                 y: 20
             }
+=======
+        Image {
+            source: "/home/mahnaz/akam/ui_aptinet/assets/scan2.png"
+            width: 77
+            height: 77
+            x: 105
+            y: 341
+>>>>>>> b056f0334a0a1517df55c9885375e31df01ec07e:mViews/DataEntry4.qml
         }
     }
+
 
     Rectangle {
         width: 208
@@ -586,6 +600,7 @@ Item {
         }
     }
 
+<<<<<<< HEAD:mViews/dataEntry.qml
     
 
 
@@ -602,6 +617,8 @@ Item {
     }
       
 
+=======
+>>>>>>> b056f0334a0a1517df55c9885375e31df01ec07e:mViews/DataEntry4.qml
        
     Rectangle {
         id: b
@@ -620,6 +637,7 @@ Item {
             radius: 70
         }
     }
+<<<<<<< HEAD:mViews/dataEntry.qml
     
 
     Rectangle {
@@ -644,6 +662,10 @@ Item {
         id: qr
         DataEntryPopup{}
     }
+=======
+
+
+>>>>>>> b056f0334a0a1517df55c9885375e31df01ec07e:mViews/DataEntry4.qml
     
 }
 

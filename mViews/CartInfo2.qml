@@ -7,6 +7,11 @@ import QtQuick.Window 2.14
 
 
 
+<<<<<<< HEAD:mViews/calibrate1.qml
+=======
+
+
+>>>>>>> b056f0334a0a1517df55c9885375e31df01ec07e:mViews/CartInfo2.qml
 Item {
     id: root
     visible: true
@@ -63,7 +68,13 @@ Item {
                 height: 92
                 x: 0
                 y: 0
+<<<<<<< HEAD:mViews/calibrate1.qml
                 // onClicked: stackview.pop()
+=======
+                onClicked: {
+                    stackview.pop();
+                }
+>>>>>>> b056f0334a0a1517df55c9885375e31df01ec07e:mViews/CartInfo2.qml
                 background: Rectangle {
                     color: "#EDEDED"
                 }
@@ -80,63 +91,70 @@ Item {
         }
 
         Rectangle {
-            width: 128
-            height: 70
-            radius: 4
-            color: "#F08C5A"
-            x: 195.98
-            y: 226
-
-            Text {
-                text: "gr"
-                font.family: "Archivo"
-                color: "white"
-                font.pixelSize: 24
-                x: 52
-                y: 21
-            }
-        }
-
-        Button {
-            width: 256
-            height: 70
-
-            background: Rectangle {
-            width: 256
-            height: 70
-            color: "white"
-            x: 323.98
-            y: 226
-            layer.enabled: true
+        width: 672
+        height: 104
+        color: "white"
+        x: 304
+        y: 312
+        layer.enabled: true
             layer.effect: DropShadow {
             horizontalOffset: 1
             verticalOffset: 1
             radius: 10
             samples: 16
             color: "#d3d3d3"
+        }
+
+        Text {
+            text: "Software Version"
+            font.pixelSize: 20
+            font.family: "Archivo"
+            color: "black"
+            width: 160
+            height: 22
+            x: 24
+            y: 24
+        }
+
+        Text {
+            text: "2.8 is available"
+            font.pixelSize: 20
+            font.family: "Aechivo"
+            color: "#9D9D9D"
+            width: 139
+            height: 22
+            x: 24
+            y: 58
+        }
+
+        Rectangle {
+            width: 244
+            height: 50
+            x: 404
+            y: 27
+
+            Button {
+                width: 244
+                height: 50
+                background: Rectangle {
+                color: "white"
+                border.color: "#4696FA"
+                border.width: 2
+                }
             }
 
             Text {
-                text: "Change Unit"
-                font.family: "Archivo"
-                color: "black"
-                font.pixelSize: 20
-                width: 122
+                text: "Download and Install"
+                color: "#4696FA"
+                width: 196
                 height: 22
-                x: 32
-                y: 24
+                x: 24
+                y: 14
+                font.pixelSize: 20
             }
-
-        //     Image {
-        //     source: "/home/mahnaz/akam/ui_aptinet/assets/menu.png"
-        //     width: 9
-        //     height: 16
-        //     x: 216
-        //     y: 30.5   
-        // }
-    }
         }
 
+<<<<<<< HEAD:mViews/calibrate1.qml
     Button {
         // background: Item{}
         width: 384
@@ -186,6 +204,8 @@ Item {
             }
                 
             }
+=======
+>>>>>>> b056f0334a0a1517df55c9885375e31df01ec07e:mViews/CartInfo2.qml
         }
 
     }
@@ -597,8 +617,9 @@ Item {
         }
     }
     
+    }
+
     
-}
 
 
 
