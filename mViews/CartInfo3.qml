@@ -9,7 +9,7 @@ import QtQuick.Window 2.14
 
 
 
-ApplicationWindow{
+Item {
     id: root
     visible: true
     width: 1280
@@ -65,6 +65,9 @@ ApplicationWindow{
                 height: 92
                 x: 0
                 y: 0
+                onClicked: {
+                    stackview.pop();
+                }
                 background: Rectangle {
                     color: "#EDEDED"
                 }
@@ -75,9 +78,6 @@ ApplicationWindow{
                     y: 28
                     width: 40
                     height: 38
-                }
-                onClicked: {
-                    StackView.pop();
                 }
             }
 
@@ -120,29 +120,15 @@ ApplicationWindow{
             font.family: "Archivo"
         }
 
-        Button {
-            width: 92
-            height: 38
-            x: 556
-            y: 24
-            background: Rectangle {
-                color: "white"
-                radius: 2
-                border.color: "#4696FA"
-                border.width: 1
-                
-
-                Text {
-                    text: "Update"
-                    width: 68
-                    height: 22
-                    x: 12
-                    y: 8
-                    color: "#4696FA"
-                    font.pixelSize: 20
-                }
-        }
-    }
+        Text {
+                text: "Up to date"
+                width: 96
+                height: 22
+                x: 552
+                y: 32
+                color: "#4696FA"
+                font.pixelSize: 20
+            }
 }
 
     Rectangle {
@@ -260,12 +246,12 @@ ApplicationWindow{
         }
 
         Text {
-                text: "Expired"
+                text: "Valid"
                 width: 73
                 height: 22
                 x: 567
                 y: 32
-                color: "#F08C5A"
+                color: "#4696FA"
                 font.pixelSize: 20
             }
     }
@@ -398,6 +384,11 @@ ApplicationWindow{
             source: q
             radius: 70
         }
+    }
+
+    Component { 
+        id: cartinfo2
+        CartInfo2 {}
     }
     
     }
