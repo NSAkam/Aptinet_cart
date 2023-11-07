@@ -8,7 +8,7 @@ import QtQuick.Window 2.14
 
 
 
-Window {
+Item{
     id: root
     visible: true
     width: 1280
@@ -57,6 +57,28 @@ Window {
                     y: 65
                     width: 124
                     height: 12
+            }
+
+            Button {
+                width: 92
+                height: 92
+                x: 0
+                y: 0
+                onClicked: 
+                    stackview.pop();
+                    
+                background: Rectangle {
+                    color: "#EDEDED"
+                }
+
+                Image {
+                    source: "/home/mahnaz/akam/ui_aptinet/assets/back.png"
+                    x: 28
+                    y: 28
+                    width: 40
+                    height: 38
+                }
+                
             }
 
         }
@@ -118,10 +140,11 @@ Window {
                     
                 }
                 onClicked: {
-                    wifiPopup.open()
-                    wi.z = root.z + 1
-                    wi.visible = true
-                    wi.opacity = 0.8
+                    stackview.push(wifi)
+                    // wifiPopup.open()
+                    // wi.z = root.z + 1
+                    // wi.visible = true
+                    // wi.opacity = 0.8
                 }
 
                 Image {
@@ -144,6 +167,7 @@ Window {
             Button {
                 width: 128
                 height: 160
+                onClicked: stackview.push(calibrate)
 
                 background: Rectangle {
                     
@@ -172,6 +196,9 @@ Window {
             Button {
                 width: 128
                 height: 160
+                onClicked: {
+                    stackview.push(dataEntry)
+                }
 
                 background: Rectangle {
                     
@@ -235,10 +262,7 @@ Window {
                     
                 }
                 onClicked: {
-                    cartinfopopup.open()
-                    cart.z = root.z + 1
-                    cart.visible = true
-                    cart.opacity = 0.8
+                    stackview.push(cartinfo)
                 }
 
                 Image {
@@ -395,13 +419,6 @@ Window {
 
     }
 
-    WifiPopup {
-        id: wifiPopup
-    }
-
-    CartinfoPopup {
-        id: cartinfopopup
-    }
 
      Rectangle {
         id: b
@@ -421,43 +438,44 @@ Window {
         }
     }
 
-     Rectangle {
-        id: wi
-        color: "gray"
-        width: 1280
-        height: 708
-        visible: true
-        opacity: 0
-        x: 0
-        y: 92
+    //  Rectangle {
+    //     id: wi
+    //     color: "gray"
+    //     width: 1280
+    //     height: 708
+    //     visible: true
+    //     opacity: 0
+    //     x: 0
+    //     y: 92
 
-        FastBlur {
+    //     FastBlur {
 
-            anchors.fill: wi
-            source: q
-            radius: 70
-        }
+    //         anchors.fill: wi
+    //         source: q
+    //         radius: 70
+    //     }
+    // }
+
+
+    Component {
+        id:wifi
+        Wifi{}
     }
 
-    Rectangle {
-        id: cart
-        color: "white"
-        width: 1280
-        height: 708
-        visible: true
-        opacity: 0
-        x: 0
-        y: 92
-
-        FastBlur {
-
-            anchors.fill: cart
-            source: q
-            radius: 70
-        }
+    Component {
+        id: cartinfo
+        CartInfo{}
     }
 
+    Component {
+        id: calibrate
+        Calibrate1{}
+    }
     
+    Component {
+        id: dataEntry
+        DataEntry{}
+    }
 
 }
 

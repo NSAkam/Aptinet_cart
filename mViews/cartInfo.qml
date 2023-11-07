@@ -9,7 +9,7 @@ import QtQuick.Window 2.14
 
 
 
-ApplicationWindow{
+Item {
     id: root
     visible: true
     width: 1280
@@ -65,6 +65,9 @@ ApplicationWindow{
                 height: 92
                 x: 0
                 y: 0
+                onClicked: {
+                    stackview.pop();
+                }
                 background: Rectangle {
                     color: "#EDEDED"
                 }
@@ -75,9 +78,6 @@ ApplicationWindow{
                     y: 28
                     width: 40
                     height: 38
-                }
-                onClicked: {
-                    StackView.pop();
                 }
             }
 

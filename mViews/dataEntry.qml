@@ -9,7 +9,7 @@ import QtQuick.Window 2.14
 
 
 
-ApplicationWindow{
+Item {
     id: root
     visible: true
     width: 1280
@@ -149,8 +149,17 @@ ApplicationWindow{
     }
 
     Button {
-        background: Item{}
-        Rectangle {
+        width: 287
+        height: 62
+        onClicked: {
+            dataEntryPopup.open()
+            dataQr.z = root.z + 1
+            dataQr.visible = true
+            dataQr.opacity = 0.8
+            stackview.push(qr)
+        }
+        // background: Item{}
+        background: Rectangle {
             width: 287
             height: 62
             radius: 4
@@ -588,7 +597,9 @@ ApplicationWindow{
 
 
 
-
+    DataEntryPopup {
+        id: dataEntryPopup
+    }
       
 
        
@@ -610,6 +621,29 @@ ApplicationWindow{
         }
     }
     
+
+    Rectangle {
+        id: dataQr
+        color: "white"
+        width: 825
+        height: 708
+        visible: true
+        opacity: 0
+        x: 455
+        y: 92
+
+        FastBlur {
+
+            anchors.fill: dataQr
+            source: q
+            radius: 70
+        }
+    }
+
+    Component {
+        id: qr
+        DataEntryPopup{}
+    }
     
 }
 
