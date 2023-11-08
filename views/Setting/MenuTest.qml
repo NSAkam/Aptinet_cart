@@ -13,10 +13,13 @@ Item {
     width: 1280
     height: 800
 
+    property bool havePopUp : false
+    property bool scannerPopUp : false
+    property bool weightsensorPopup : false
 
     Image {
         id: q
-        source: "../assets/AuthenticationBackground.png"
+        source: "../../Assets/AuthenticationBackground.png"
         anchors.fill: parent
     }
 
@@ -47,12 +50,13 @@ Item {
                 s.z = root.z + 1
                 s.visible = true
                 s.opacity = 0.8
-                stackview.push(test)
+                weightsensorPopup = true
+                
             }
 
 
             Image {
-                source: "../assets/weightsensor.png"
+                source: "../../Assets/weightsensor.png"
                 width: 64
                 height: 64
                 x: 34
@@ -101,10 +105,11 @@ Item {
                 w.z = root.z + 1
                 w.visible = true
                 w.opacity = 0.8
+                scannerPopUp = true
             }
 
             Image {
-                source: "../assets/scanner.png"
+                source: "../../Assets/scanner.png"
                 height: 64
                 x: 25
                 y: 30
@@ -129,7 +134,7 @@ Item {
                 b.z = root.z + 1
                 b.visible = true
                 b.opacity = 0.8
-                stackview.push(lights)
+                havePopUp = true
             }
 
             background: Rectangle {
@@ -139,7 +144,7 @@ Item {
             }
 
             Image {
-                source: "../assets/lights.png"
+                source: "../../Assets/lights.png"
                 width: 64
                 height: 64
                 x: 24
@@ -168,7 +173,7 @@ Item {
             }
 
             Image {
-                source: "../assets/sound.png"
+                source: "../../Assets/sound.png"
                 width: 72
                 height: 60
                 x: 34
@@ -202,7 +207,7 @@ Item {
 
     Rectangle {
         id: b
-        color: "gray"
+        color: "black"
         width: 1280
         height: 708
         visible: true
@@ -220,7 +225,7 @@ Item {
 
     Rectangle {
         id: w
-        color: "gray"
+        color: "black"
         width: 1280
         height: 708
         visible: true
@@ -238,7 +243,7 @@ Item {
 
     Rectangle {
         id: s
-        color: "gray"
+        color: "black"
         width: 1280
         height: 708
         visible: true
@@ -254,23 +259,39 @@ Item {
         }
     }
 
-    Component {
-        id:test
-        WeightsensorPopup {}
-    }
 
-    Component {
-        id: lights
-        LightsPopup{}
-    }
     TopNav{
         backvisible: true
         onBackClicked: {
-            stackview.pop()
+            if(parent.havePopUp ===  true)
+            {
+                serverPopup.close()
+                 b.visible = false
+            }
+            else{
+                stackview.pop()
+            }
+            if(parent.scannerPopUp === true)
+            {
+                sensorPopup.close()
+                w.visible = false
+            }
+            else{
+                stackview.pop()
+            }
+            if(parent.weightsensorPopup === true)
+            {
+                weightsensorPopup.close()
+                s.visible = false
+            }
+            else{
+                stackview.pop()
+            }
+        }
         }
     }
     
-}
+// }
 
 
 

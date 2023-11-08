@@ -18,6 +18,6 @@ Window {
     {
         id:stackview
         anchors.fill: parent
-        initialItem: "Setting.qml"
+        initialItem: "SettingPage.qml"
     }
 }
