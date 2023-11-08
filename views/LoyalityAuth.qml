@@ -28,7 +28,7 @@ Item {
     }
 
     Image {
-        source: "file://../Assets/AuthenticationBackground.png"
+        source: "../Assets/AuthenticationBackground.png"
         anchors.fill: parent
     }
 
@@ -42,7 +42,7 @@ Item {
     }
     Image {
         id:icon_loyality
-        source: "file://../Assets/loyalityIcon.png"
+        source: "../Assets/loyalityIcon.png"
         anchors.horizontalCenter: parent.horizontalCenter
         y:228
         visible: true

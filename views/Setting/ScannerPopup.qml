@@ -26,7 +26,7 @@ Popup {
 
 
             Image {
-                source: "file://../assets/subtract.png"
+                source: "../assets/subtract.png"
                 width: 295
                 height: 101
                 x: 40
@@ -34,7 +34,7 @@ Popup {
             }
 
             Image {
-                source: "file://../assets/barcode2.png"
+                source: "../assets/barcode2.png"
                 width: 259
                 height: 64
                 x: 58
@@ -42,7 +42,7 @@ Popup {
             }
 
             Image {
-                source: "file://../assets/line2.png"
+                source: "../assets/line2.png"
                 width: 295
                 height: 6
                 x: 40

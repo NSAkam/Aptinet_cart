@@ -23,7 +23,7 @@ Popup {
                     radius: 4
 
                     Image {
-                        source: "file://../assets/greenlight.png"
+                        source: "../assets/greenlight.png"
                         width: 68
                         height: 60
                         x: 30
@@ -50,7 +50,7 @@ Popup {
                     y: 328
 
                     Image {
-                        source: "file://../assets/blueLight.png"
+                        source: "../assets/blueLight.png"
                         width: 68
                         height: 60
                         x: 30

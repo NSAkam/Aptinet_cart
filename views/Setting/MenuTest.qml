@@ -16,7 +16,7 @@ Item {
 
     Image {
         id: q
-        source: "file://../assets/AuthenticationBackground.png"
+        source: "../assets/AuthenticationBackground.png"
         anchors.fill: parent
     }
 
@@ -52,7 +52,7 @@ Item {
 
 
             Image {
-                source: "file://../assets/weightsensor.png"
+                source: "../assets/weightsensor.png"
                 width: 64
                 height: 64
                 x: 34
@@ -104,7 +104,7 @@ Item {
             }
 
             Image {
-                source: "file://../assets/scanner.png"
+                source: "../assets/scanner.png"
                 height: 64
                 x: 25
                 y: 30
@@ -139,7 +139,7 @@ Item {
             }
 
             Image {
-                source: "file://../assets/lights.png"
+                source: "../assets/lights.png"
                 width: 64
                 height: 64
                 x: 24
@@ -168,7 +168,7 @@ Item {
             }
 
             Image {
-                source: "file://../assets/sound.png"
+                source: "../assets/sound.png"
                 width: 72
                 height: 60
                 x: 34

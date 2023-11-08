@@ -17,7 +17,7 @@ ApplicationWindow{
 
 
     Image {     id: q
-                source: "file://../assets/AuthenticationBackground.png"
+                source: "../assets/AuthenticationBackground.png"
                 anchors.fill: parent
                 opacity: 0.7
     
@@ -45,7 +45,7 @@ ApplicationWindow{
             color: "white"
 
             Image {
-                source: "file://../assets/aptinet.png"
+                source: "../assets/aptinet.png"
                 x: 550
                 y: 32
                 width: 180
@@ -53,7 +53,7 @@ ApplicationWindow{
             }
 
             Image {
-                    source: "file://../assets/smartcart.png"
+                    source: "../assets/smartcart.png"
                     x: 578
                     y: 65
                     width: 124
@@ -70,7 +70,7 @@ ApplicationWindow{
                 }
 
                 Image {
-                    source: "file://../assets/back.png"
+                    source: "../assets/back.png"
                     x: 28
                     y: 28
                     width: 40
@@ -129,7 +129,7 @@ ApplicationWindow{
             }
 
         //     Image {
-        //     source: "file://../assets/menu.png"
+        //     source: "../assets/menu.png"
         //     width: 9
         //     height: 16
         //     x: 216

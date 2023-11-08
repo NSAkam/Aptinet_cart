@@ -66,7 +66,7 @@ Item {
         width: 343
         height: 340
         Image {
-            source: "file://../Assets/Union.png"
+            source: "../Assets/Union.png"
             anchors.horizontalCenter: parent.horizontalCenter
             y:24
         }

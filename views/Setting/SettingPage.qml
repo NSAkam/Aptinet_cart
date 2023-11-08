@@ -15,7 +15,7 @@ Item {
 
 
     Image {     id: q
-        source: "file://../assets/AuthenticationBackground.png"
+        source: "../assets/AuthenticationBackground.png"
         anchors.fill: parent
     }
 
@@ -52,7 +52,7 @@ Item {
 
 
             Image {
-                source: "file://../assets/server.png"
+                source: "../assets/server.png"
                 width: 64
                 height: 64
                 x: 34
@@ -87,7 +87,7 @@ Item {
             }
 
             Image {
-                source: "file://../assets/wifi.png"
+                source: "../assets/wifi.png"
                 height: 64
                 x: 25
                 y: 30
@@ -114,7 +114,7 @@ Item {
             }
 
             Image {
-                source: "file://../assets/calibrate.png"
+                source: "../assets/calibrate.png"
                 width: 64
                 height: 64
                 x: 34
@@ -142,7 +142,7 @@ Item {
             }
 
             Image {
-                source: "file://../assets/data.png"
+                source: "../assets/data.png"
                 width: 64
                 height: 64
                 x: 34
@@ -170,7 +170,7 @@ Item {
             }
 
             Image {
-                source: "file://../assets/device.png"
+                source: "../assets/device.png"
                 width: 64
                 height: 64
                 x: 34
@@ -204,7 +204,7 @@ Item {
             }
 
             Image {
-                source: "file://../assets/cartinfo.png"
+                source: "../assets/cartinfo.png"
                 height: 64
                 x: 32
                 y: 30
@@ -226,7 +226,7 @@ Item {
             color: "white"
         }
         Image {
-            source: "file://../assets/turnOff.png"
+            source: "../assets/turnOff.png"
             width: 76
             height: 76
             x: 684
@@ -239,7 +239,7 @@ Item {
             color: "white"
         }
         Image {
-            source: "file://../assets/restart.png"
+            source: "../assets/restart.png"
             width: 76
             height: 76
             x: 530
@@ -267,7 +267,7 @@ Item {
                     radius: 4
 
                     Image {
-                        source: "file://../assets/flashback.png"
+                        source: "../assets/flashback.png"
                         width: 92
                         height: 92
                         x: -360
@@ -301,7 +301,7 @@ Item {
                         radius: 3
 
                         Image {
-                            source: "file://../assets/upload.png"
+                            source: "../assets/upload.png"
                             x: 20
                             y: 12
                         }
@@ -344,7 +344,7 @@ Item {
                         y: 280
 
                         Image {
-                            source: "file://../assets/frame.png"
+                            source: "../assets/frame.png"
                             x: 20
                             y: 2
                         }

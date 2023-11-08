@@ -44,7 +44,7 @@ Popup {
             }
 
             Image {
-                source: "file://../assets/tick.png"
+                source: "../assets/tick.png"
                 width: 27.11
                 height: 20
                 x: 24
@@ -249,7 +249,7 @@ Popup {
         }
 
         Image {
-            source: "file://../assets/loading.png"
+            source: "../assets/loading.png"
             width: 20
             height: 20
             x: 870

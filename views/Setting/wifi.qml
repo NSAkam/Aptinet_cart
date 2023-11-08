@@ -16,7 +16,7 @@ Window {
    
 
     Image {     id: q
-                source: "file://../assets/AuthenticationBackground.png"
+                source: "../assets/AuthenticationBackground.png"
                 anchors.fill: parent
                 opacity: 0.7
     
@@ -44,7 +44,7 @@ Window {
             color: "white"
 
             Image {
-                source: "file://../assets/aptinet.png"
+                source: "../assets/aptinet.png"
                 x: 550
                 y: 32
                 width: 180
@@ -52,7 +52,7 @@ Window {
             }
 
             Image {
-                    source: "file://../assets/smartcart.png"
+                    source: "../assets/smartcart.png"
                     x: 578
                     y: 65
                     width: 124
@@ -90,7 +90,7 @@ Window {
         //     }
 
         //     Image {
-        //         source: "file://../assets/tick.png"
+        //         source: "../assets/tick.png"
         //         width: 27.11
         //         height: 20
         //         x: 24
@@ -263,7 +263,7 @@ Window {
         // }
 
         // Image {
-        //     source: "file://../assets/loading.png"
+        //     source: "../assets/loading.png"
         //     width: 20
         //     height: 20
         //     x: 870

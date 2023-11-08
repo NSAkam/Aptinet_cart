@@ -45,7 +45,7 @@ Item{
 
     Image {
         id: img_battery
-        source: "file://../Assets/Battery.png"
+        source: "../Assets/Battery.png"
         width: 36.67
         height: 23.33
     }
@@ -54,7 +54,7 @@ Item{
         anchors.leftMargin: 5
         anchors.left: img_battery.right
         y:2.5
-        font.family: viewset.helveticaFont
+        // font.family: viewset.helveticaFont
         font.bold: true
         font.pixelSize: 16
         color: "white"

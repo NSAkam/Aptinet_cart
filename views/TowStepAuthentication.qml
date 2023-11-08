@@ -20,14 +20,14 @@ Item {
 
 
     Image {
-        source: "file://../Assets/AuthenticationBackground.png"
+        source: "../Assets/AuthenticationBackground.png"
         anchors.fill: parent
     }
 
     Image {
         anchors.top: parent.top
         anchors.left: parent.left
-        source: "file://../Assets/NavBar.png"
+        source: "../Assets/NavBar.png"
     }
     Rectangle{
         id:imgUser

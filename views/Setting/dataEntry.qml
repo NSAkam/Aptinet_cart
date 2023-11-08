@@ -17,7 +17,7 @@ ApplicationWindow{
 
 
     Image {     id: q
-                source: "file://../assets/akam.png"
+                source: "../assets/akam.png"
                 anchors.fill: parent
                 opacity: 0.7
     
@@ -45,7 +45,7 @@ ApplicationWindow{
             color: "white"
 
             Image {
-                source: "file://../assets/aptinet.png"
+                source: "../assets/aptinet.png"
                 x: 550
                 y: 32
                 width: 180
@@ -53,7 +53,7 @@ ApplicationWindow{
             }
 
             Image {
-                    source: "file://../assets/smartcart.png"
+                    source: "../assets/smartcart.png"
                     x: 578
                     y: 65
                     width: 124
@@ -70,7 +70,7 @@ ApplicationWindow{
                 }
 
                 Image {
-                    source: "file://../assets/back.png"
+                    source: "../assets/back.png"
                     x: 28
                     y: 28
                     width: 40
@@ -122,7 +122,7 @@ ApplicationWindow{
             }
 
         Image {
-            source: "file://../assets/nutella.png"
+            source: "../assets/nutella.png"
             width: 126
             height: 126
             x: 80
@@ -524,7 +524,7 @@ ApplicationWindow{
                 radius: 4
 
                 Image {
-                    source: "file://../assets/question.png"
+                    source: "../assets/question.png"
                     width: 16
                     height: 16
                     x: 12
@@ -556,7 +556,7 @@ ApplicationWindow{
                 radius: 4
 
                 Image {
-                    source: "file://../assets/plus.png"
+                    source: "../assets/plus.png"
                     width: 12
                     height: 12
                     x: 12

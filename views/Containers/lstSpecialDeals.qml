@@ -34,7 +34,7 @@ Item {
 
                 Image {
                     id: factorItemPic
-                    source: "file:///home/kast/pics/" + model.QRCode + ".png"
+                    source: "/home/kast/pics/" + model.QRCode + ".png"
                     anchors.right: parent.right
                     anchors.top: parent.top
                     width: 75

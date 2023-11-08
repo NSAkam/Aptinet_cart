@@ -28,7 +28,7 @@ Popup {
         }
         
         Image {
-            source: "file://../assets/bag1.png"
+            source: "../assets/bag1.png"
             width: 49.97
             height: 56.52
             x: 40
@@ -37,7 +37,7 @@ Popup {
         }
 
         Image {
-            source: "file://../assets/bag2.png"
+            source: "../assets/bag2.png"
             width: 40.14
             height: 45.05
             x: 76.86
@@ -110,7 +110,7 @@ Popup {
                 }
 
                 Image {
-                    source: "file://../assets/whiteflash.png"
+                    source: "../assets/whiteflash.png"
                     width: 9
                     height: 16
                     x: 24

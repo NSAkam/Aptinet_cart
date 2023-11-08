@@ -15,7 +15,7 @@ Item {
 
     Image {
         id: q
-        source: "file://../Assets/AuthenticationBackground.png"
+        source: "../Assets/AuthenticationBackground.png"
         anchors.fill: parent
     }
 
@@ -60,7 +60,7 @@ Item {
         }
 
         Image {
-            source: "file://../assets/Qr.png"
+            source: "../assets/Qr.png"
             width: 170
             height: 170
             x: 75

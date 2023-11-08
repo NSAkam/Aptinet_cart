@@ -245,7 +245,7 @@ Item {
                             color: "white"
 
                             Image {
-                                source: "file://../Assets/product.png"
+                                source: "../Assets/product.png"
                                 width: 106
                                 height: 106
                                 anchors.verticalCenter: parent.verticalCenter
