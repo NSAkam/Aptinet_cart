@@ -13,29 +13,20 @@ Item {
     visible: true
     width: 1280
     height: 800
-   
+
 
     Image {     id: q
-                source: "/home/mahnaz/akam/ui_aptinet/assets/akam.png" 
-                anchors.fill: parent
-                opacity: 0.7
-    
-
-                Rectangle {
-                    width: parent.width
-                    height: parent.height
-                    color: "white" 
-                    opacity: 0.7
-                    anchors.fill: parent
-            }
-        }
+        source: "../../Assets/AuthenticationBackground.png"
+        anchors.fill: parent
+        opacity: 1
+    }
 
     FastBlur {
 
-            anchors.fill: q
-            source: q
-            radius: 70
-        }
+        anchors.fill: q
+        source: q
+        radius: 70
+    }
 
     Rectangle {
         width: 1280
@@ -67,12 +58,30 @@ Item {
         y: 224
 
         Image {
-            source: "/home/mahnaz/akam/ui_aptinet/assets/basket1.png"
+            source: "../../Assets/basket1.png"
             width: 48
             height: 48
-            x: 24
-            y: 24
-    }
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+        }
+        Rectangle{
+            id:rect1
+            width:499
+            height: parent.height
+            anchors.left: parent.right
+            anchors.leftMargin: -5
+            color: "white"
+            opacity: 0
+            Text {
+                text: qsTr("Make sure the cart is empty.")
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.pixelSize: 32
+            }
+            Behavior on opacity{
+                NumberAnimation{duration :500}
+            }
+        }
     }
 
     Rectangle {
@@ -84,13 +93,31 @@ Item {
         y: 352
 
         Image {
-            source: "/home/mahnaz/akam/ui_aptinet/assets/basket2.png"
+            source: "../../Assets/basket2.png"
             width: 48
             height: 48
             x: 24
             y: 24
-    }
         }
+        Rectangle{
+            id:rect2
+            width:845
+            height: parent.height
+            anchors.left: parent.right
+            anchors.leftMargin: -5
+            color: "white"
+            opacity: 0
+            Text {
+                text: qsTr("Don’t move the cart when add or remove products.")
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.pixelSize: 32
+            }
+            Behavior on opacity{
+                NumberAnimation{duration :1500}
+            }
+        }
+    }
 
     Rectangle {
         color: "white"
@@ -101,17 +128,31 @@ Item {
         y: 480
 
         Image {
-            source: "/home/mahnaz/akam/ui_aptinet/assets/basket1.png"
+            source: "../../Assets/basket3.png"
             width: 48
             height: 48
             x: 24
             y: 24
+        }
+    }
+
+    Timer{
+        running: true
+        interval: 3000
+        repeat: true
+        onTriggered: {
+            if(rect1.opacity === 0)
+            {
+                rect1.opacity = 1
+            }
+            else if(rect1.opacity === 1 && rect2.opacity === 0)
+            {
+                rect2.opacity = 1
+            }
+        }
     }
 }
-    
-
-}
 
 
-    
+
 
