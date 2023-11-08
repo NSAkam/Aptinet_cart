@@ -128,8 +128,6 @@ Item {
             text: "Apply"
             x: 465
             y: 214
-            btn_width: 119
-            btn_height: 54
             borderRadius: 4
             btn_color: viewset.secondaryColor
             btn_bordercolor: viewset.secondaryColor
@@ -180,8 +178,6 @@ Item {
             fontsize: 24
             x: 43
             y: 99
-            btn_width: 215
-            btn_height: 75
             borderRadius: 4
         }
 
@@ -190,8 +186,6 @@ Item {
             fontsize: 24
             x: 274
             y: 99
-            btn_width: 315
-            btn_height: 75
             borderRadius: 4
             btn_color: viewset.secondaryColor
             btn_bordercolor: viewset.secondaryColor
@@ -202,13 +196,13 @@ Item {
                 y: 28
 
             }
-            
+
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
                     root.nfcPaymentClicked()
                 }
-                
+
             }
         }
     }

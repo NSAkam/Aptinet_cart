@@ -45,7 +45,7 @@ Item{
 
     Image {
         id: img_battery
-        source: "../../Assets/Battery.png"
+        source: "file://../Assets/Battery.png"
         width: 36.67
         height: 23.33
     }

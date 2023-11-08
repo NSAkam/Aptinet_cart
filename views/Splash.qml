@@ -42,11 +42,11 @@ Item {
 
     Image {
         id: aptinetIcon
-        source: "../Assets/AptinetImage.png"
-        x:381
-        y:251
-        width: 518
-        height: 240
+        source: "../Assets/AptinetIcon1.png"
+        x:486
+        y:283
+        width: 308
+        height: 233
         Behavior on x {
             NumberAnimation { duration: 1000 }
         }
@@ -93,10 +93,10 @@ Item {
             anchors.fill: parent
             onClicked: {
                 backgroundOpacity.opacity = 0
-                aptinetIcon.x=497;
-                aptinetIcon.y=89;
-                aptinetIcon.width=287;
-                aptinetIcon.height=133;
+                aptinetIcon.x=536;
+                aptinetIcon.y=124;
+                aptinetIcon.width=208;
+                aptinetIcon.height=154;
                 startshoppingButton.opacity = 1;
                 guideButton.opacity = 1;
                 statrtButton.visible = false
@@ -106,9 +106,33 @@ Item {
                 settingButton.opacity = 1;
                 languageButton.enabled = true
                 languageButton.opacity = 1
+                txt_welcome.opacity = 1
+                txt_welcomebot.opacity = 1
             }
         }
 
+    }
+    Text {
+        id:txt_welcome
+        text: qsTr("welcome!")
+        font.pixelSize: 64
+        x:485
+        y:342
+        opacity: 0
+        Behavior on opacity {
+            NumberAnimation { duration: 1000 }
+        }
+    }
+    Text {
+        id:txt_welcomebot
+        text: qsTr("To a quick shopping experience")
+        font.pixelSize: 20
+        x:487
+        y:428
+        opacity: 0
+        Behavior on opacity {
+            NumberAnimation { duration: 1000 }
+        }
     }
     KButton{
         id:startshoppingButton
@@ -328,11 +352,4 @@ Item {
         }
     }
 
-    Component {
-        id: settingsmenutest
-        Menu_Test {
-
-        }
-
-    }
 }

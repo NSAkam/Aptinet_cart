@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 
 Rectangle{
+    //color: "red"
     signal shiftClicked(state:int);
     signal input(key:string);
     signal close();
@@ -12,20 +13,21 @@ Rectangle{
     height: 458
     color: "#1D1D1D"
     opacity: 0.75
+
     Grid {
         anchors.horizontalCenter: parent.horizontalCenter
         y:20
-
         rows: 5
         columns: 1
-        spacing: 8
+        spacing: 15
         Row{
-            spacing: 8
+            spacing: 15
             KKeyboardButton{
-
+                radius: width
                 width: 70
                 height: 70
                 text: "1"
+
                 onClicked: {
                     parent.parent.parent.input(this.text)
                 }
@@ -102,32 +104,14 @@ Rectangle{
                     parent.parent.parent.input(this.text)
                 }
             }
-            KKeyboardButton{
-                width: 70
-                height: 70
-                text: "-"
-                onClicked: {
-                    parent.parent.parent.input(this.text)
-                }
-            }
-            KKeyboardButton{
-                width: 70
-                height: 70
-                text: "="
-                onClicked: {
-                    parent.parent.parent.input(this.text)
-                }
-            }
-            KKeyboardButton{
-                width: 114
-                text: "<--"
-                onClicked: {
-                    parent.parent.parent.backspace()
-                }
+            Image {
+                source: "file://../Assets/AptinetKeyboard.png"
+                width: 118
+                height: 64
             }
         }
         Row{
-            spacing: 8
+            spacing: 15
             KKeyboardButton{
                 width: 70
                 height: 70
@@ -209,31 +193,17 @@ Rectangle{
                 }
             }
             KKeyboardButton{
-                width: 70
+                width: 140
                 height: 70
-                text: "["
+                text: "<--"
+                color: "black"
                 onClicked: {
-                    parent.parent.parent.input(this.text)
-                }
-            }
-            KKeyboardButton{
-                width: 70
-                height: 70
-                text: "]"
-                onClicked: {
-                    parent.parent.parent.input(this.text)
-                }
-            }
-            KKeyboardButton{
-                width: 114
-                text: "\\"
-                onClicked: {
-                    parent.parent.parent.input(this.text)
+                    parent.parent.parent.backspace()
                 }
             }
         }
         Row{
-            spacing: 8
+            spacing: 15
             KKeyboardButton{
                 width: 70
                 height: 70
@@ -306,46 +276,33 @@ Rectangle{
                     parent.parent.parent.input(this.text)
                 }
             }
+
             KKeyboardButton{
-                width: 70
+                width: 225
                 height: 70
-                text: ";"
-                onClicked: {
-                    parent.parent.parent.input(this.text)
-                }
-            }
-            KKeyboardButton{
-                width: 70
-                height: 70
-                text: "'"
-                onClicked: {
-                    parent.parent.parent.input(this.text)
-                }
-            }
-            KKeyboardButton{
-                width: 172
-                text: "enter"
-                color: viewset.primaryColor
+                text: "Enter"
+                color: "#F08C5A"
                 onClicked: {
                     parent.parent.parent.enter()
                 }
             }
         }
         Row{
-            spacing: 8
+            spacing: 15
 
             KKeyboardButton{
-                width: 114
+                width: 100
+                height: 70
                 text: "shift"
-                checked: true
                 onClicked: {
-                    parent.parent.parent.shiftClicked(2);
+                    parent.parent.parent.shiftClicked(1)
                 }
             }
             KKeyboardButton{
                 width: 70
                 height: 70
                 text: "Z"
+
                 onClicked: {
                     parent.parent.parent.input(this.text)
                 }
@@ -354,6 +311,7 @@ Rectangle{
                 width: 70
                 height: 70
                 text: "X"
+
                 onClicked: {
                     parent.parent.parent.input(this.text)
                 }
@@ -415,27 +373,20 @@ Rectangle{
                 }
             }
             KKeyboardButton{
-                width: 70
-                height: 70
-                text: "/"
-                onClicked: {
-                    parent.parent.parent.input(this.text)
-                }
-            }
-            KKeyboardButton{
                 width: 114
+                height: 70
                 text: "shift"
-                checked: true
                 onClicked: {
-                    parent.parent.parent.shiftClicked(2);
+                    parent.parent.parent.shiftClicked(1)
                 }
             }
         }
         Row{
-            spacing: 8
+            spacing: 15
             KKeyboardButton{
-                width: 114
-                text: "123 ..."
+                width: 100
+                height: 70
+                text: "123?"
                 onClicked: {
                     parent.parent.parent.shiftClicked(3);
                 }
@@ -445,12 +396,29 @@ Rectangle{
                 height: 70
                 text: "fn"
                 onClicked: {
-                    parent.parent.parent.shiftClicked(3);
+                    parent.parent.parent.shiftClicked(3)
                 }
             }
             KKeyboardButton{
-                width: 462
-                text: "space"
+                width: 70
+                height: 70
+                text: "@"
+                onClicked: {
+                    parent.parent.parent.input(this.text)
+                }
+            }
+            KKeyboardButton{
+                width: 410
+                height: 70
+                text: ""
+                onClicked: {
+                    parent.parent.parent.input(" ")
+                }
+            }
+            KKeyboardButton{
+                width: 100
+                height: 70
+                text: ".com"
                 onClicked: {
                     parent.parent.parent.input(" ")
                 }
@@ -458,15 +426,16 @@ Rectangle{
             KKeyboardButton{
                 width: 70
                 height: 70
-                text: "fn"
+                text: "_"
                 onClicked: {
-                    parent.parent.parent.shiftClicked(3);
+                    parent.parent.parent.input("_")
                 }
             }
             KKeyboardButton{
-                width: 114
+                width: 70
+                height: 70
                 text: "close"
-
+                color: "black"
                 onClicked: {
                     parent.parent.parent.close()
                 }

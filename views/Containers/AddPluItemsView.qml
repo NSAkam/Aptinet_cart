@@ -98,8 +98,6 @@ Item {
             text: "Cancel"
             x: 32
             y: 354
-            btn_width: 225
-            btn_height: 64
             borderRadius: 4
             btn_color: viewset.primaryColor
         }
@@ -108,8 +106,6 @@ Item {
             text: "Confirm"
             x: 273
             y: 354
-            btn_width: 267
-            btn_height: 64
             borderRadius: 4
             btn_color: viewset.secondaryColor
             btn_bordercolor: viewset.secondaryColor

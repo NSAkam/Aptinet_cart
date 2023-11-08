@@ -147,22 +147,30 @@ Item {
         }
     }
 
-    KProgress {
-        value: 3
-        x: 778 - 30
-        y: 596 - 30
-        height: 140
-        from: 0
-        to: 7
-        reverse: true
-        titleFontSize: 10
-//        lineWidth: 50
-        fontSize: 10
-//        fromAngle: (Math.PI / 180) * 270
-//        toAngle: (Math.PI / 180) * 270 + 360
-        kprogressBackgroundColor: "transparent"
-        kprogressColor: "#F08C5A"
-        title: parseInt(value)
-    }
 
+    CircularProgressBar {
+        id: progress1
+        lineWidth: 10
+        x: 678 + 50
+        y: 496 + 50
+        value: 0.0
+        size: 150
+        secondaryColor: "#e0e0e0"
+        primaryColor: "#F08C5A"
+
+        Text {
+            text: parseInt(progress1.value * 100) / 7 + "%"
+            anchors.centerIn: parent
+            font.pointSize: 20
+            color: progress1.primaryColor
+        }
+    }
+    Timer{
+        interval: 1000
+        onTriggered: {
+            progress1.value += 0.14285
+        }
+        running: true
+       repeat: true
+    }
 }

@@ -69,13 +69,6 @@ Item {
                 fontsize: 16
                 ishover: false
                 onClicked: {
-                    root.addpluitemsClicked()
-                    //                    removeproduct.open()
-                    notifpopup.open()
-
-                    //                    stackviewContainer.push(addPluItem)
-                    //                    stackviewContainer.push(removeproduct)
-
 
                 }
             }
@@ -119,7 +112,7 @@ Item {
             y:92
             //            initialItem: lstProductHandler
             //            initialItem:addPluItemview
-            initialItem: notifpopup
+            initialItem: newProductHandler
             onDepthChanged: {
                 obj_LogicContainer.shoppage.stackviewDepthChanged(stackviewContainer.depth)
             }
@@ -252,7 +245,7 @@ Item {
                             color: "white"
 
                             Image {
-                                source: "../Assets/product.png"
+                                source: "file://../Assets/product.png"
                                 width: 106
                                 height: 106
                                 anchors.verticalCenter: parent.verticalCenter
@@ -331,11 +324,11 @@ Item {
     Component {
         id: checkout
         Checkout {
-            onNfcPaymentClicked: {
-                //                        stackviewContainer.replace(stackviewContainer, {"initialItem":nfcpayment})
-                stackview.push(nfcpayment)
+//            onNfcPaymentClicked: {
+//                //                        stackviewContainer.replace(stackviewContainer, {"initialItem":nfcpayment})
+//                stackview.push(nfcpayment)
 
-            }
+//            }
 
         }
     }
@@ -358,12 +351,7 @@ Item {
 
     NotificationPopUp {
         id: notifpopup
-        //        notiftext: "Please scan its barcode of the selected product to remove !"
-        //        notiftext: "Please scan all the products you have removed from the cart !"
         notiftext: "Please scan just the products you have removed from the cart !"
-        //        notiftext: "Please remove the products you added to the cart\nand finish the removal process !"
-        //        notiftext: "Please return the products you removed from the cart\nand finish the removal process !"
-
     }
 
     Component{

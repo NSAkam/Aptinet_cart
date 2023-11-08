@@ -6,7 +6,7 @@ import QtQuick.Controls 2.15
 Button {
     id: controlBt
 
-    property bool ishover: false
+    property bool ishover: true
     property int fontsize: 20
     property bool isBold: true
     property bool shadow: false
@@ -15,9 +15,6 @@ Button {
     property int btn_borderWidth: 1
     property string shadowcolor
     property int borderRadius : 50
-    property alias btn_width: primaryButton.implicitWidth
-    property alias btn_height: primaryButton.implicitHeight
-
 
 
     contentItem: Label {

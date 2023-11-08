@@ -34,7 +34,6 @@ Rectangle {
     property string imagesource: ""
     property int imagewidth: 15;
     property int imageheight: 18;
-    property alias btn_color: primaryButton.color
 
 
     Rectangle {

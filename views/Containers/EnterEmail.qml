@@ -1,7 +1,7 @@
 import QtQuick 2.15
 import QtGraphicalEffects 1.15
-import "Utiles" as Util
-import "Components"
+import "../Utiles" as Util
+import "../Components"
 
 Item {
     id: root
@@ -38,6 +38,8 @@ Item {
         text: "Continue with Aptinet Card"
         x: 0.5
         y: 200
+        btn_width: 392
+        btn_height: 56
         borderRadius: 4
         btn_color: viewset.primaryColor
 
