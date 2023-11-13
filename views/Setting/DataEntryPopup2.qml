@@ -47,103 +47,53 @@ Popup {
             width: 295
             height: 64
             x: 24
-            y: 212
+            y: 192
             background: Rectangle {
                 color: "#4696FA"
                 radius: 4
             }
+
+            Text {
+                text: "Confirm          >"
+                width: 92
+                height: 26
+                color: "white"
+                font.pixelSize: 24
+                x: 98
+                y: 19
+            }
+        }
+
+        Button {
+            width: 295
+            height: 64
+            x: 24
+            y: 272
+            background: Rectangle {
+                color: "#F5AF8C"
+                radius: 4
+            }
+
+            Text {
+                text: "Cancel"
+                width: 92
+                height: 26
+                color: "white"
+                font.pixelSize: 24
+                x: 98
+                y: 19
+            }
         }
     }
 
-    
-
-    // Rectangle {
-    //     width: 343
-    //     height: 284
-    //     color: "white"
-    //     x: 851
-    //     y: 315
-    //     radius: 4
-
-    //     Column {
-    //             spacing: -20
-    //             y: 24
-
-    //         Text {
-    //             text: "Nutella Hazelnut Spread"
-    //             width: 239
-    //             height: 64
-    //             x: 30
-    //             font.family: "Archivo"
-    //             color: "black"
-    //             font.pixelSize: 20
-    //         }
-
-    //         Text {
-    //             text: "with Cocoa, 750g"
-    //             width: 239
-    //             height: 64
-    //             x: 40
-    //             font.family: "Archivo"
-    //             color: "black"
-    //             font.pixelSize: 20
-    //         }
-    //         }
-
-    //     Rectangle {
-    //         width: 295
-    //         height: 64
-
-    //         Button {
-    //             width: 295
-    //             height: 64
-    //             onClicked: {
-    //                 stackview.push(dataEntry2)
-    //                 toggleRectangles()
-    //             }
-    //             background: Rectangle {
-    //                 color: "#4696FA"
-    //                 radius: 4
-
-    //                 Text {
-    //                     text: "Save"
-    //                     font.pixelSize: 24
-    //                     color: "white"
-    //                     x: 118
-    //                     y: 19
-    //                 }
-    //             }
-    //             x: 24
-    //             y: 124
-    //         }
-    //     }
-
-    //     Rectangle {
-    //         width: 295
-    //         height: 56
-
-    //         Button {
-    //             width: 295
-    //             height: 56
-    //             x: 24
-    //             y: 204                                   
-    //             background: Rectangle {
-    //                 color: "#F5AF8C"
-
-    //                 Text {
-    //                     text: "Cancel"
-    //                     width: 67
-    //                     height: 22
-    //                     color: "white"
-    //                     font.family: "Archivo"
-    //                     font.pixelSize: 20
-    //                     x: 114
-    //                     y: 17
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
+    Rectangle {
+        width: 276
+        height: 348
+        color: "white"
+        x: 548
+        y: 284
+        radius: 4
+    }
 
     function toggleRectangles() {
             dataEntryPopup.visible = !dataEntryPopup.visible;

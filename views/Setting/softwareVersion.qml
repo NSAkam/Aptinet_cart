@@ -9,76 +9,18 @@ import QtQuick.Window 2.14
 
 
 
-ApplicationWindow{
+Item{
     id: root
     visible: true
     width: 1280
     height: 800
 
 
-    Image {     id: q
-                source: "../assets/AuthenticationBackground.png"
-                anchors.fill: parent
-                opacity: 0.7
-    
-
-                Rectangle {
-                    width: parent.width
-                    height: parent.height
-                    color: "white" 
-                    opacity: 0.7
-                    anchors.fill: parent
-            }
-        }
-
-    FastBlur {
-
-            anchors.fill: q
-            source: q
-            radius: 70
-        }
-
-
-        Rectangle {
-            width: parent.width
-            height: 92 
-            color: "white"
-
-            Image {
-                source: "../assets/aptinet.png"
-                x: 550
-                y: 32
-                width: 180
-                height: 21
-            }
-
-            Image {
-                    source: "../assets/smartcart.png"
-                    x: 578
-                    y: 65
-                    width: 124
-                    height: 12
-            }
-
-            Button {
-                width: 92
-                height: 92
-                x: 0
-                y: 0
-                background: Rectangle {
-                    color: "#EDEDED"
-                }
-
-                Image {
-                    source: "../assets/back.png"
-                    x: 28
-                    y: 28
-                    width: 40
-                    height: 38
-                }
-            }
-
-        }
+    Image {     
+        id: q
+        source: "../../Assets/AuthenticationBackground.png"
+        anchors.fill: parent
+    }
 
     Rectangle {
         width: 672

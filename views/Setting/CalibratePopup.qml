@@ -15,6 +15,39 @@ Item {
     width: 1280
     height: 800
 
+    Rectangle {
+        width: root.width
+        height: root.height
+        color: "black"  
+        opacity: 0.5     
+        visible: true
+        z: 10
+
+        Rectangle {
+                width: 471
+                height: 112
+                color: "pink"
+                x: 612
+                y: 430
+                z: 100
+                radius: 3
+                opacity: 100
+                
+
+                // Text {
+                //     text: "Hold to Realize"
+                //     width: 184
+                //     height: 26
+                //     color: "white"
+                //     x: 143.5
+                //     y: 43
+                //     font.pixelSize: 24
+                // }
+            }
+        }           
+
+    
+
     Image {     
         id: q
         source: "../../Assets/AuthenticationBackground.png"

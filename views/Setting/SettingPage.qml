@@ -107,8 +107,7 @@ Item {
             x: 494
             y: 312
             onClicked: {
-                // calibrateLoader.source = "calibrate1.qml"
-                stackview.push("calibrate")
+                stackview.push(calibrate)
             }
 
             background: Rectangle {
@@ -133,12 +132,6 @@ Item {
                 y: 124
                 color: "gray"
             }
-
-            // Loader {
-            //     id: calibrateLoader
-                
-            //     anchors.fill: parent
-            // }
         }
 
         Button {
@@ -146,6 +139,9 @@ Item {
             height: 160
             x: 658
             y: 312
+            onClicked: {
+                stackview.push(dataEntry)
+            }
 
             background: Rectangle {
 
@@ -176,6 +172,9 @@ Item {
             height: 160
             x: 822
             y: 312
+            onClicked: {
+                stackview.push(deviceTest)
+            }
 
             background: Rectangle {
 
@@ -213,10 +212,7 @@ Item {
 
             }
             onClicked: {
-                cartinfopopup.open()
-                cart.z = root.z + 1
-                cart.visible = true
-                cart.opacity = 0.8
+                stackview.push(cartinfo)
             }
 
             Image {
@@ -408,7 +404,22 @@ Item {
 
     Component {
         id:calibrate
-        Calibrate1{}
+        CalibratePopup{}
+    }
+
+    Component {
+        id: dataEntry
+        DataEntry1{}
+    }
+
+    Component {
+        id: cartinfo
+        CartInfo{}
+    }
+
+    Component {
+        id: deviceTest
+        MenuTest{}
     }
 
     TopNav{
