@@ -7,6 +7,7 @@ import "../Components"
 
 
 
+
 Item {
     id: root
     visible: true
@@ -41,13 +42,6 @@ Item {
             x: 166
             y: 312
 
-            // onClicked: {
-            //     serverPopup.open()
-            //     b.z = root.z + 1
-            //     b.visible = true
-            //     b.opacity = 0.4
-
-            // }
             background: Rectangle {
 
                 color: "white"
@@ -87,7 +81,7 @@ Item {
             }
 
             onClicked: {
-                pageLoader.source = "wifi.qml"
+                stackview.push(wifi)
             }
 
             Image {
@@ -107,20 +101,14 @@ Item {
             }
         }
 
-        Loader {
-            id: pageLoader
-            
-            anchors.fill: parent
-            
-        }
-
         Button {
             width: 128
             height: 160
             x: 494
             y: 312
             onClicked: {
-                calibrateLoader.source = "calibrate1.qml"
+                // calibrateLoader.source = "calibrate1.qml"
+                stackview.push("calibrate")
             }
 
             background: Rectangle {
@@ -146,101 +134,107 @@ Item {
                 color: "gray"
             }
 
-            Loader {
-                id: calibrateLoader
+            // Loader {
+            //     id: calibrateLoader
                 
-                anchors.fill: parent
+            //     anchors.fill: parent
+            // }
+        }
+
+        Button {
+            width: 128
+            height: 160
+            x: 658
+            y: 312
+
+            background: Rectangle {
+
+                color: "white"
+
+            }
+
+            Image {
+                source: "../../Assets/data.png"
+                width: 64
+                height: 64
+                x: 34
+                y: 30
+            }
+
+            Text {
+                text: "Data Entry"
+                x: 33
+                y: 124
+                width: 56
+                height: 20
+                color: "gray"
             }
         }
 
-    //     Button {
-    //         width: 128
-    //         height: 160
+        Button {
+            width: 128
+            height: 160
+            x: 822
+            y: 312
 
-    //         background: Rectangle {
+            background: Rectangle {
 
-    //             color: "white"
+                color: "white"
 
-    //         }
+            }
 
-    //         Image {
-    //             source: "../../Assets/data.png"
-    //             width: 64
-    //             height: 64
-    //             x: 34
-    //             y: 30
-    //         }
+            Image {
+                source: "../../Assets/device.png"
+                width: 64
+                height: 64
+                x: 34
+                y: 30
+            }
 
-    //         Text {
-    //             text: "Data Entry"
-    //             x: 33
-    //             y: 124
-    //             width: 56
-    //             height: 20
-    //             color: "gray"
-    //         }
-    //     }
+            Text {
+                text: "Device Test"
+                width: 70
+                height: 20
+                x: 30
+                y: 124
+                font.family: "Archivo"
+                color: "gray"
+            }
+        }
 
-    //     Button {
-    //         width: 128
-    //         height: 160
+        Button {
+            width: 128
+            height: 160
+            x: 986
+            y: 312
+            background: Rectangle {
 
-    //         background: Rectangle {
+                color: "white"
 
-    //             color: "white"
+            }
+            onClicked: {
+                cartinfopopup.open()
+                cart.z = root.z + 1
+                cart.visible = true
+                cart.opacity = 0.8
+            }
 
-    //         }
+            Image {
+                source: "../../Assets/cartinfo.png"
+                height: 64
+                x: 32
+                y: 30
+            }
 
-    //         Image {
-    //             source: "../../Assets/device.png"
-    //             width: 64
-    //             height: 64
-    //             x: 34
-    //             y: 30
-    //         }
-
-    //         Text {
-    //             text: "Device Test"
-    //             width: 70
-    //             height: 20
-    //             x: 30
-    //             y: 124
-    //             font.family: "Archivo"
-    //             color: "gray"
-    //         }
-    //     }
-
-    //     Button {
-    //         width: 128
-    //         height: 160
-    //         background: Rectangle {
-
-    //             color: "white"
-
-    //         }
-    //         onClicked: {
-    //             cartinfopopup.open()
-    //             cart.z = root.z + 1
-    //             cart.visible = true
-    //             cart.opacity = 0.8
-    //         }
-
-    //         Image {
-    //             source: "../../Assets/cartinfo.png"
-    //             height: 64
-    //             x: 32
-    //             y: 30
-    //         }
-
-    //         Text {
-    //             text: "Cart Info"
-    //             width: 56
-    //             height: 20
-    //             x: 38
-    //             y: 124
-    //             color: "gray"
-    //         }
-    //     }
+            Text {
+                text: "Cart Info"
+                width: 56
+                height: 20
+                x: 38
+                y: 124
+                color: "gray"
+            }
+        }
     // }
 
     // // Button {
@@ -406,6 +400,17 @@ Item {
     //     y: 92
 
     // }
+
+    Component {
+        id: wifi
+        Wifi{}
+    }
+
+    Component {
+        id:calibrate
+        Calibrate1{}
+    }
+
     TopNav{
         backvisible: true
         onBackClicked: {
