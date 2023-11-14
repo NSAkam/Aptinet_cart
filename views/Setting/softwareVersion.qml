@@ -3,6 +3,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtGraphicalEffects 1.12
 import QtQuick.Window 2.14
+import "../Components"
 
 
 
@@ -96,6 +97,14 @@ Item{
             source: q
             radius: 70
         }
+    }
+
+    TopNav{
+        backvisible: true
+        onBackClicked: {
+            stackview.pop()
+        }
+
     }
     
     
