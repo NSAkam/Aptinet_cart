@@ -233,18 +233,53 @@ Item {
         }
     // }
 
-    // // Button {
-    // //     background: Rectangle {
-    // //         color: "white"
-    // //     }
-    // //     Image {
-    // //         source: "../../Assets/turnOff.png"
-    // //         width: 76
-    // //         height: 76
-    // //         x: 684
-    // //         y: 607
-    // //     }
-    // // }
+    Button {
+        width: 76
+        height: 76
+        background: Rectangle {
+            color: "white"
+        }
+        Image {
+            source: "../../Assets/turnoff.png"
+            width: 76
+            height: 76
+            x: 684
+            y: 607
+        }
+
+        Text {
+            text: "Turn Off"
+            width: 59
+            height: 17
+            color: "#1D1D1D"
+            x: 692.5
+            y: 703
+        }
+    }
+
+    Button {
+        width: 76
+        height: 76
+        background: Rectangle {
+            color: "white"
+        }
+        Image {
+            source: "../../Assets/restart.png"
+            width: 76
+            height: 76
+            x: 520.5
+            y: 607
+        }
+
+        Text {
+            text: "Restart Device"
+            width: 109
+            height: 17
+            color: "#6D6D6D"
+            x: 504
+            y: 703
+        }
+    }
 
     // Button {
     //     background: Rectangle {

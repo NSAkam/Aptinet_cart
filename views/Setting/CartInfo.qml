@@ -69,6 +69,9 @@ Item{
             height: 38
             x: 556
             y: 24
+            onClicked: {
+                stackview.push(update)
+            }
             background: Rectangle {
                 color: "white"
                 radius: 2
@@ -342,6 +345,11 @@ Item{
             source: q
             radius: 70
         }
+    }
+
+    Component {
+        id: update
+        SoftwareVersion{}
     }
 
     TopNav{

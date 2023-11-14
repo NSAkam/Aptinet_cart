@@ -549,7 +549,7 @@ Item {
 
 
 
-    DataEntryPopup {
+    DataEntryPopup2 {
         id: dataEntryPopup
     }
 

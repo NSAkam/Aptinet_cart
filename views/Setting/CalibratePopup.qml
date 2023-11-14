@@ -26,23 +26,59 @@ Item {
         Rectangle {
                 width: 471
                 height: 112
-                color: "pink"
+                color: "#4696FA"
                 x: 612
                 y: 430
-                z: 100
                 radius: 3
-                opacity: 100
                 
+                Button {
+                    width: 471
+                    height: 112
+                    x: 0
+                    y: 0
+                    onClicked: {
+                        stackview.push(calibrate)
+                    }
+                    background: Rectangle {
+                        color: "#4696FA"
+                    }
+                }
 
-                // Text {
-                //     text: "Hold to Realize"
-                //     width: 184
-                //     height: 26
-                //     color: "white"
-                //     x: 143.5
-                //     y: 43
-                //     font.pixelSize: 24
-                // }
+                Text {
+                    text: "Hold to Realize"
+                    width: 184
+                    height: 26
+                    color: "white"
+                    x: 143.5
+                    y: 43
+                    font.pixelSize: 24
+                }
+            }
+
+            Rectangle {
+                width: 384
+                height: 112
+                x: 194
+                y: 430
+                color: "white"
+
+                Column {
+                    
+                    anchors.centerIn: parent
+                    Text {
+                        text: "Make sure the cart is empty"
+                        font.pixelSize: 24
+                        color: "#6D6D6D"
+                    }
+
+                    Text {
+                        text: "and then hold the button"
+                        font.pixelSize: 24
+                        color: "#6D6D6D"
+                    }
+                    
+                }
+                
             }
         }           
 
@@ -566,6 +602,13 @@ Item {
             radius: 70
         }
     }
+
+    
+    Component {
+        id: calibrate
+        Calibrate1{}
+    }
+    
 
     TopNav{
         backvisible: true

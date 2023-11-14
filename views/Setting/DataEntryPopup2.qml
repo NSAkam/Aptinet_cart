@@ -93,6 +93,331 @@ Popup {
         x: 548
         y: 284
         radius: 4
+
+        Rectangle{
+            width: 60
+            height: 60
+            color: "white"
+            x: 32
+            y: 36
+
+            Button {
+                width: 60
+                height: 60
+                background: Rectangle {
+                    color: "white"
+                }
+            Text {
+                text: "1"
+                width: 12
+                height: 44
+                x: 24
+                y: 8
+                font.pixelSize: 40
+                color: "#9D9D9D"
+            }
+            }
+        }
+
+        Rectangle{
+            width: 60
+            height: 60
+            color: "white"
+            x: 32
+            y: 108
+
+            Button {
+                width: 60
+                height: 60
+                background: Rectangle {
+                    color: "white"
+                }
+            Text {
+                text: "4"
+                width: 12
+                height: 44
+                x: 24
+                y: 8
+                font.pixelSize: 40
+                color: "#9D9D9D"
+            }
+            }
+        }
+
+        Rectangle{
+            width: 60
+            height: 60
+            color: "white"
+            x: 32
+            y: 180
+
+            Button {
+                width: 60
+                height: 60
+                background: Rectangle {
+                    color: "white"
+                }
+            Text {
+                text: "7"
+                width: 12
+                height: 44
+                x: 24
+                y: 8
+                font.pixelSize: 40
+                color: "#9D9D9D"
+            }
+            }
+        }
+
+        Rectangle{
+            width: 60
+            height: 60
+            color: "white"
+            x: 32
+            y: 252
+
+            Button {
+                width: 60
+                height: 60
+                background: Rectangle {
+                    color: "white"
+                }
+            Text {
+                text: "#"
+                width: 12
+                height: 44
+                x: 24
+                y: 8
+                font.pixelSize: 40
+                color: "#9D9D9D"
+            }
+        }
+        }
+
+        Rectangle{
+            width: 60
+            height: 60
+            color: "white"
+            x: 104
+            y: 36
+
+            Button {
+                width: 60
+                height: 60
+
+                background: Rectangle {
+                    color: "white"
+                }
+            Text {
+                text: "2"
+                width: 12
+                height: 44
+                x: 24
+                y: 8
+                font.pixelSize: 40
+                color: "#9D9D9D"
+            }
+            }
+        }
+
+        Rectangle{
+            width: 60
+            height: 60
+            color: "white"
+            x: 104
+            y: 108
+
+            Button {
+                width: 60
+                height: 60
+                background: Rectangle {
+                    color: "white"
+                }
+            Text {
+                text: "5"
+                width: 12
+                height: 44
+                x: 24
+                y: 8
+                font.pixelSize: 40
+                color: "#9D9D9D"
+            }
+            }
+        }
+
+        Rectangle{
+            width: 60
+            height: 60
+            color: "white"
+            x: 104
+            y: 180
+
+            Button {
+                width: 60
+                height: 60
+                background: Rectangle {
+                    color: "white"
+                }
+            Text {
+                text: "8"
+                width: 12
+                height: 44
+                x: 24
+                y: 8
+                font.pixelSize: 40
+                color: "#9D9D9D"
+            }
+            }
+        }
+
+        Rectangle{
+            width: 60
+            height: 60
+            color: "white"
+            x: 104
+            y: 252
+
+            Button {
+                width: 60
+                height: 60
+                background: Rectangle {
+                    color: "white"
+                }
+            Text {
+                text: "0"
+                width: 12
+                height: 44
+                x: 24
+                y: 8
+                font.pixelSize: 40
+                color: "#9D9D9D"
+            }
+            }
+        }
+
+        Rectangle{
+            width: 60
+            height: 60
+            color: "white"
+            x: 176
+            y: 36
+
+            Button {
+                width: 60
+                height: 60
+                background: Rectangle {
+                    color: "white"
+                }
+            Text {
+                text: "3"
+                width: 12
+                height: 44
+                x: 24
+                y: 8
+                font.pixelSize: 40
+                color: "#9D9D9D"
+            }
+            }
+        }
+
+        Rectangle{
+            width: 60
+            height: 60
+            color: "white"
+            x: 176
+            y: 108
+
+            Button {
+                width: 60
+                height: 60
+                background: Rectangle {
+                    color: "white"
+                }
+            Text {
+                text: "6"
+                width: 12
+                height: 44
+                x: 24
+                y: 8
+                font.pixelSize: 40
+                color: "#9D9D9D"
+            }
+            }
+        }
+
+        Rectangle{
+            width: 60
+            height: 60
+            color: "white"
+            x: 176
+            y: 180
+
+            Button {
+                width: 60
+                height: 60
+                background: Rectangle {
+                    color: "white"
+                }
+                
+            Text {
+                text: "9"
+                width: 12
+                height: 44
+                x: 24
+                y: 8
+                font.pixelSize: 40
+                color: "#9D9D9D"
+            }
+            }
+        }
+
+        Rectangle{
+            width: 60
+            height: 60
+            color: "white"
+            x: 176
+            y: 180
+
+            Button {
+                width: 60
+                height: 60
+                background: Rectangle {
+                    color: "white"
+                }
+            Text {
+                text: "9"
+                width: 12
+                height: 44
+                x: 24
+                y: 8
+                font.pixelSize: 40
+                color: "#9D9D9D"
+            }
+            }
+        }
+
+        Rectangle{
+            width: 60
+            height: 60
+            color: "white"
+            x: 176
+            y: 252
+
+            Button {
+                width: 60
+                height: 60
+                background: Rectangle {
+                    color: "white"
+                }
+                Image {
+                source: "../../Assets/calcback.png"
+                width: 36
+                height: 26
+                x: 10
+                y: 17
+            }
+            }
+        }
     }
 
     function toggleRectangles() {
