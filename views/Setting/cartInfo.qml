@@ -3,85 +3,29 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtGraphicalEffects 1.12
 import QtQuick.Window 2.14
+import "../Components"
 
 
 
 
 
-
-ApplicationWindow{
+Item{
     id: root
     visible: true
     width: 1280
     height: 800
 
 
-    Image {     id: q
-                source: "../assets/AuthenticationBackground.png"
-                anchors.fill: parent
-                opacity: 0.7
+    Image {     
+        id: q
+        source: "../../Assets/AuthenticationBackground.png"
+        anchors.fill: parent
+    }
+
+
     
 
-                Rectangle {
-                    width: parent.width
-                    height: parent.height
-                    color: "white" 
-                    opacity: 0.7
-                    anchors.fill: parent
-            }
-        }
 
-    FastBlur {
-
-            anchors.fill: q
-            source: q
-            radius: 70
-        }
-
-
-        Rectangle {
-            width: parent.width
-            height: 92 
-            color: "white"
-
-            Image {
-                source: "../assets/aptinet.png"
-                x: 550
-                y: 32
-                width: 180
-                height: 21
-            }
-
-            Image {
-                    source: "../assets/smartcart.png"
-                    x: 578
-                    y: 65
-                    width: 124
-                    height: 12
-            }
-
-            Button {
-                width: 92
-                height: 92
-                x: 0
-                y: 0
-                background: Rectangle {
-                    color: "#EDEDED"
-                }
-
-                Image {
-                    source: "../assets/back.png"
-                    x: 28
-                    y: 28
-                    width: 40
-                    height: 38
-                }
-                onClicked: {
-                    StackView.pop();
-                }
-            }
-
-        }
 
         Rectangle {
         width: 672
@@ -125,6 +69,9 @@ ApplicationWindow{
             height: 38
             x: 556
             y: 24
+            onClicked: {
+                stackview.push(update)
+            }
             background: Rectangle {
                 color: "white"
                 radius: 2
@@ -398,6 +345,19 @@ ApplicationWindow{
             source: q
             radius: 70
         }
+    }
+
+    Component {
+        id: update
+        SoftwareVersion{}
+    }
+
+    TopNav{
+        backvisible: true
+        onBackClicked: {
+            stackview.pop()
+        }
+
     }
     
     }
