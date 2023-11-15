@@ -29,9 +29,9 @@ Item {
     Rectangle
     {
         id:rect1
-        x:126
+        x:108
         y:96
-        width: 639
+        width: 660
         height: 72
         radius: 4
         color: "#F05A28"
@@ -50,7 +50,7 @@ Item {
         y:188
         color: "White"
         width: 276
-        height: 340
+        height: 348
         radius: 4
         Numpad {
             id:numpad
@@ -61,12 +61,12 @@ Item {
 
     Rectangle{
         x:422
-        y:188
+        y:175
         color: "White"
         width: 343
-        height: 340
+        height: 375
         Image {
-            source: "../Assets/Union.png"
+            source: "../../Assets/Union.png"
             anchors.horizontalCenter: parent.horizontalCenter
             y:24
         }
@@ -104,15 +104,25 @@ Item {
         KButton{
             ishover: false
             btn_color: viewset.secondaryColor
-            text: "Confirm >"
+            text: "Confirm"
             x:24
             y:192
+            width: 295
+            height: 64
             borderRadius: 4
             btn_borderWidth: 0
             onClicked: {
                 tanzimat.shoppage.insertManualBarcodeClicked(txt_ManualBarcodeInput.text)
                 manualBarcode_Panel.ok()
 
+            }
+            Text {
+                text: qsTr(">")
+                anchors.verticalCenter: parent.verticalCenter
+                font.pixelSize: 24
+                color: "white"
+                x:254
+                font.bold: true
             }
         }
         KButton{
@@ -121,6 +131,8 @@ Item {
             text: "Cancel"
             x:24
             y:272
+            width: 295
+            height: 64
             borderRadius: 4
             btn_borderWidth: 0
         }

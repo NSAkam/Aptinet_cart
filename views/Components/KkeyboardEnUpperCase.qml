@@ -105,7 +105,7 @@ Rectangle{
                 }
             }
             Image {
-                source: "../Assets/AptinetKeyboard.png"
+                source: "file://../Assets/AptinetKeyboard.png"
                 width: 118
                 height: 64
             }

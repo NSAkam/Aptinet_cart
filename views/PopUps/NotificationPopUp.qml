@@ -8,6 +8,7 @@ import "../Utiles"
 
 Popup {
     property alias notiftext: notiftext.text
+    property bool showManualBarcode: false
 
     id: root
     width: 1280
@@ -15,14 +16,9 @@ Popup {
     modal: true
     focus: true
 
-    background:
-        Rectangle {
-        color: "black"
-        opacity: 0.4
-        x: 0
-        y: 0
-        width: parent.width
-        height: parent.height
+    background:Image {
+        source: "../../Assets/notifBackGround.png"
+        anchors.fill: parent
     }
 
     Rectangle {
@@ -34,7 +30,7 @@ Popup {
         height: 40
 
         Image {
-            source: "../../Assets/bluealarm.png"
+            source: "../../Assets/Bell.png"
             width: 18
             height: 20
             anchors.centerIn: parent
@@ -43,6 +39,7 @@ Popup {
 
 
     KButton {
+        visible:showManualBarcode
         x: 630 + 390
         y: 32
         borderRadius: 4
@@ -65,7 +62,7 @@ Popup {
         height: 252
         radius: 4
         y: 274
-//        x: 106 + 390/2
+        //        x: 106 + 390/2
         anchors.horizontalCenter: parent.horizontalCenter
 
         Image {
@@ -85,7 +82,7 @@ Popup {
             color: "black"
             font.pixelSize: 24
             font.weight: Font.DemiBold
-//            font.letterSpacing: 0.8
+            //            font.letterSpacing: 0.8
         }
     }
 

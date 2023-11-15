@@ -14,15 +14,15 @@ Item {
     visible: true
     width: 1280
     height: 800
-   
 
-    Image {     
+
+    Image {
         id: q
         source: "../../Assets/AuthenticationBackground.png"
         anchors.fill: parent
     }
 
-   
+
 
 
         Rectangle {
@@ -58,7 +58,7 @@ Item {
                 height: 20
                 x: 24
                 y: 27
-                
+
             }
 
             Text {
@@ -68,7 +68,7 @@ Item {
                 x: 227.11
                 y: 28
                 font.family: "Archivo"
-                
+
             }
 
             Text {
@@ -78,7 +78,7 @@ Item {
                 x: 503
                 y: 27
                 font.family: "Archivo"
-                
+
             }
 
             Image {
@@ -107,13 +107,13 @@ Item {
         }
 
 
-            Text { 
+            Text {
                text: "WifiName-2"
                 font.pixelSize: 24
                 color: "#6D6D6D"
                 x: 36
                 y: 24
-                font.family: "Archivo" 
+                font.family: "Archivo"
             }
         }
 
@@ -143,13 +143,13 @@ Item {
         }
 
 
-            Text { 
+            Text {
                text: "WifiName-3"
                 font.pixelSize: 24
                 color: "#6D6D6D"
                 x: 36
                 y: 24
-                font.family: "Archivo" 
+                font.family: "Archivo"
             }
         }
 
@@ -178,13 +178,13 @@ Item {
         }
 
 
-            Text { 
+            Text {
                text: "WifiName-4"
                 font.pixelSize: 24
                 color: "#6D6D6D"
                 x: 36
                 y: 24
-                font.family: "Archivo" 
+                font.family: "Archivo"
             }
         }
 
@@ -213,13 +213,13 @@ Item {
         }
 
 
-            Text { 
+            Text {
                text: "WifiName-5"
                 font.pixelSize: 24
                 color: "#6D6D6D"
                 x: 36
                 y: 24
-                font.family: "Archivo" 
+                font.family: "Archivo"
             }
         }
 
@@ -229,8 +229,8 @@ Item {
             color: "#4696FA"
             x: 900
             y: 650
-            font.family: "Archivo" 
-        
+            font.family: "Archivo"
+
         }
 
         Image {
@@ -240,7 +240,7 @@ Item {
             x: 870
             y: 654
         }
-        
+
     TopNav{
         backvisible: true
         onBackClicked: {
@@ -248,12 +248,12 @@ Item {
         }
 
     }
-    
+
     }
 
-    
 
 
 
-    
+
+
 

@@ -17,7 +17,7 @@ Item{
     height: 800
 
 
-    Image {     
+    Image {
         id: q
         source: "../../Assets/AuthenticationBackground.png"
         anchors.fill: parent
@@ -65,7 +65,7 @@ Item{
                 radius: 2
                 border.color: "#4696FA"
                 border.width: 1
-                
+
 
             Text {
                 text: "Download and install"
@@ -80,7 +80,7 @@ Item{
     }
     }
 
-       
+
     Rectangle {
         id: b
         color: "white"
@@ -106,11 +106,11 @@ Item{
         }
 
     }
-    
-    
+
+
 }
 
 
 
-    
+
 

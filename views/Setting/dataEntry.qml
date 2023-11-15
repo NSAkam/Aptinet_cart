@@ -20,12 +20,12 @@ ApplicationWindow{
                 source: "../assets/akam.png"
                 anchors.fill: parent
                 opacity: 0.7
-    
+
 
                 Rectangle {
                     width: parent.width
                     height: parent.height
-                    color: "white" 
+                    color: "white"
                     opacity: 0.7
                     anchors.fill: parent
             }
@@ -41,7 +41,7 @@ ApplicationWindow{
 
         Rectangle {
             width: parent.width
-            height: 92 
+            height: 92
             color: "white"
 
             Image {
@@ -252,8 +252,8 @@ ApplicationWindow{
             font.pixelSize: 20
             font.family: "Archivo"
         }
-    } 
-    
+    }
+
     Rectangle {
         width: 208
         height: 62
@@ -577,11 +577,6 @@ ApplicationWindow{
         }
     }
 
-    
-
-
-
-  
 
 
 
@@ -589,9 +584,14 @@ ApplicationWindow{
 
 
 
-      
 
-       
+
+
+
+
+
+
+
     Rectangle {
         id: b
         color: "white"
@@ -609,11 +609,11 @@ ApplicationWindow{
             radius: 70
         }
     }
-    
-    
+
+
 }
 
 
 
-    
+
 

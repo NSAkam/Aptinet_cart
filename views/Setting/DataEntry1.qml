@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.15
 import QtGraphicalEffects 1.12
 import QtQuick.Window 2.14
 import "../Components"
+import "../PopUps"
 
 
 
@@ -16,7 +17,7 @@ Item {
     width: 1280
     height: 800
 
-    Image {     
+    Image {
         id: q
         source: "../../Assets/AuthenticationBackground.png"
         anchors.fill: parent
@@ -26,7 +27,7 @@ Item {
 
         // Rectangle {
         //     width: 120
-        //     height: 41 
+        //     height: 41
         //     color: "#4696FA"
         //     Button {
         //         width: 120
@@ -220,8 +221,8 @@ Item {
             font.pixelSize: 20
             font.family: "Archivo"
         }
-    } 
-    
+    }
+
     Rectangle {
         width: 208
         height: 62
@@ -545,7 +546,7 @@ Item {
         }
     }
 
-    
+
 
 
 
@@ -559,9 +560,9 @@ Item {
 
 
 
-      
 
-       
+
+
     Rectangle {
         id: b
         color: "black"
@@ -587,10 +588,10 @@ Item {
         }
 
     }
-    
+
 }
 
 
 
-    
+
 

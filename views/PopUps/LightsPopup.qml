@@ -14,7 +14,7 @@ Popup {
             Item {
                 width: 128
                 height: 160
-                
+
                 Rectangle {
                     width: 128
                     height: 160
@@ -23,7 +23,7 @@ Popup {
                     radius: 4
 
                     Image {
-                        source: "file://../assets/greenlight.png"
+                        source: "../../Assets/greenlight.png"
                         width: 68
                         height: 60
                         x: 30
@@ -40,7 +40,7 @@ Popup {
                         font.pixelSize: 18
                         font.family: "Archivo"
                     }
-                    
+
                 }
 
                 Rectangle {
@@ -50,7 +50,7 @@ Popup {
                     y: 328
 
                     Image {
-                        source: "file://../assets/blueLight.png"
+                        source: "../../Assets/blueLight.png"
                         width: 68
                         height: 60
                         x: 30

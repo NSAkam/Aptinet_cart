@@ -49,7 +49,7 @@ Popup {
                 height: 20
                 x: 24
                 y: 27
-                
+
             }
 
             Text {
@@ -59,7 +59,7 @@ Popup {
                 x: 227.11
                 y: 28
                 font.family: "Archivo"
-                
+
             }
 
             Text {
@@ -69,7 +69,7 @@ Popup {
                 x: 503
                 y: 27
                 font.family: "Archivo"
-                
+
             }
         }
 
@@ -98,13 +98,13 @@ Popup {
         // }
 
 
-            Text { 
+            Text {
                text: "WifiName-2"
                 font.pixelSize: 24
                 color: "#6D6D6D"
                 x: 36
                 y: 24
-                font.family: "Archivo" 
+                font.family: "Archivo"
             }
         }
 
@@ -142,13 +142,13 @@ Popup {
         // }
 
 
-            Text { 
+            Text {
                text: "WifiName-3"
                 font.pixelSize: 24
                 color: "#6D6D6D"
                 x: 36
                 y: 24
-                font.family: "Archivo" 
+                font.family: "Archivo"
             }
         }
 
@@ -185,13 +185,13 @@ Popup {
         // }
 
 
-            Text { 
+            Text {
                text: "WifiName-4"
                 font.pixelSize: 24
                 color: "#6D6D6D"
                 x: 36
                 y: 24
-                font.family: "Archivo" 
+                font.family: "Archivo"
             }
         }
 
@@ -228,13 +228,13 @@ Popup {
         // }
 
 
-            Text { 
+            Text {
                text: "WifiName-5"
                 font.pixelSize: 24
                 color: "#6D6D6D"
                 x: 36
                 y: 24
-                font.family: "Archivo" 
+                font.family: "Archivo"
             }
         }
 
@@ -244,8 +244,8 @@ Popup {
             color: "#4696FA"
             x: 900
             y: 650
-            font.family: "Archivo" 
-        
+            font.family: "Archivo"
+
         }
 
         Image {
@@ -255,5 +255,5 @@ Popup {
             x: 870
             y: 654
         }
-        
+
 }

@@ -48,15 +48,6 @@ Item {
         y: 224
         spacing: 32
 
-        TipsText {
-            imagesource: "../Assets/blankbasket.png"
-            textcontent: "<font color='#6D6D6D'>Make sure the cart is</font><font color='" + viewset.primaryColor + "'> empty</font>"
-        }
-
-        TipsText {
-            imagesource: "../Assets/plusbasket.png"
-            textcontent: "<font color='#6D6D6D'>Don’t <font color='" + viewset.primaryColor + "'>move</font> the cart when add or remove products.</font>"
-        }
 
     }
 

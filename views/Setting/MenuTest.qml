@@ -51,7 +51,7 @@ Item {
                 s.visible = true
                 s.opacity = 0.8
                 weightsensorPopup = true
-                
+
             }
 
 
@@ -192,7 +192,7 @@ Item {
             }
         }
     }
-    
+
     LightsPopup {
         id: serverPopup
     }
@@ -290,7 +290,7 @@ Item {
         }
         }
     }
-    
+
 // }
 
 

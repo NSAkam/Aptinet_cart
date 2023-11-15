@@ -69,7 +69,8 @@ Item {
                 fontsize: 16
                 ishover: false
                 onClicked: {
-
+                    console.log("asdasdasd");
+                    notifpopup.open();
                 }
             }
             Image {
@@ -110,25 +111,31 @@ Item {
             height: 708
             x:390
             y:92
-            //            initialItem: lstProductHandler
-            //            initialItem:addPluItemview
-            initialItem: newProductHandler
+            initialItem: lstProductHandler
+            //initialItem:addPluItemview
+            //initialItem: newProductHandler
+            //initialItem: addPluItem
+            //initialItem: manualBarcodeHandler
+            //initialItem: plulist
+            //initialItem: specialdealslist
+            //initialItem: checkout
             onDepthChanged: {
                 obj_LogicContainer.shoppage.stackviewDepthChanged(stackviewContainer.depth)
             }
         }
     }
 
+
     Item{
-        id:leftPanel
+        id:addPlupanel
+        visible: true
         width: 390
         height: parent.height
 
-        Image {
+        Rectangle {
             id:rect_Suggestion
-            source: "../Assets/leftSideBar.png"
             anchors.fill: parent
-
+            color: "white"
         }
         Image {
             source: "../Assets/AptinetText.png"
@@ -143,144 +150,168 @@ Item {
             x:32
             y:105
         }
-        Item{
-            id:addPlupanel
-            width: parent.width
-            visible: false
-            Text {
-                text: qsTr("ENTER PLU CODE")
-                font.pixelSize: 24
-                font.bold: true
-                x:32
-                y:327
-            }
-            Rectangle{
-                id:rectEnterPLU
-                x:32
-                y:378
-                width: 326
-                height: 56
-                color: "#F1F1F1"
-                radius: 4
-                TextInput{
-                    id:txt_PLUBarcodeInput
-                    anchors.fill: parent
-                    font.pixelSize: 18
-                    layer.enabled: true
-                    horizontalAlignment: TextInput.AlignHCenter
-                    verticalAlignment:  TextInput.AlignVCenter
-                    font.family: viewset.danaFuNumFont
-                    property string placeholderText: " "
+        Text {
+            text: qsTr("ENTER PLU CODE")
+            font.pixelSize: 24
+            font.bold: true
+            x:32
+            y:327
+            color: viewset.primaryColor
+        }
+        Image {
+            source: "../Assets/EnterPLUIcon.png"
+            x:313
+            y:327
+        }
+        Rectangle{
+            id:rectEnterPLU
+            x:32
+            y:378
+            width: 326
+            height: 56
+            color: "#F1F1F1"
+            radius: 4
+            TextInput{
+                id:txt_PLUBarcodeInput
+                anchors.fill: parent
+                font.pixelSize: 18
+                layer.enabled: true
+                horizontalAlignment: TextInput.AlignHCenter
+                verticalAlignment:  TextInput.AlignVCenter
+                font.family: viewset.danaFuNumFont
+                property string placeholderText: " "
 
-                    onFocusChanged: {
-                        numpad.inputtext = txt_PLUBarcodeInput
-                    }
-                    Text {
-                        text: txt_PLUBarcodeInput.placeholderText
-                        color: "#C6C5CE"
-                        visible: !txt_PLUBarcodeInput.text
-                        font.pixelSize: 18
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        font.family: viewset.danaFuNumFont
-                    }
+                onFocusChanged: {
+                    numpad.inputtext = txt_PLUBarcodeInput
+                }
+                Text {
+                    text: txt_PLUBarcodeInput.placeholderText
+                    color: "#C6C5CE"
+                    visible: !txt_PLUBarcodeInput.text
+                    font.pixelSize: 18
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.family: viewset.danaFuNumFont
                 }
             }
-            Numpad{
-                anchors.top: rectEnterPLU.bottom
-                anchors.topMargin: 30
-                x:32
-            }
         }
+        Numpad{
+            anchors.top: rectEnterPLU.bottom
+            anchors.topMargin: 0
+            x:32
+        }
+    }
 
-        Item {
-            id: adsPanel
-            visible: true
-            Image {
-                id: ads_Image
-                source: "../Assets/Ads.png"
-                width: 326
-                height: 184
-                x:32
-                y:309
-            }
-            Text {
-                text: qsTr("Special Deals")
-                font.pixelSize: 24
-                color: "white"
-                x:32
-                y:521
-                font.bold: true
-            }
-            ListView {
-                id:slideshow
-                width: 326
-                height: 800 - y
-                x:32
-                y:571
+    Item {
+        id: adsPanel
+        visible: false
+        width: 390
+        height: parent.height
 
-                clip: true
-                spacing: 10
-                model: 10
-                orientation: ListView.vertical
-                delegate:
-                    Item {
+        Image {
+            id:rect_SuggestionadsPanel
+            source: "../Assets/leftSideBar.png"
+            anchors.fill: parent
+
+        }
+        Image {
+            source: "../Assets/AptinetText.png"
+            x:0
+            y:0
+        }
+        Image {
+            id: img_UserCapturedadsPanel
+            source: "../Assets/UserImage.png"
+            width: 326
+            height: 184
+            x:32
+            y:105
+        }
+        Image {
+            id: ads_Image
+            source: "../Assets/Ads.png"
+            width: 326
+            height: 184
+            x:32
+            y:309
+        }
+        Text {
+            text: qsTr("Special Deals")
+            font.pixelSize: 24
+            color: "white"
+            x:32
+            y:521
+            font.bold: true
+        }
+        ListView {
+            id:slideshow
+            width: 326
+            height: 800 - y
+            x:32
+            y:571
+
+            clip: true
+            spacing: 10
+            model: 10
+            orientation: ListView.vertical
+            delegate:
+                Item {
+                width: 326
+                height: 144
+                Rectangle{
                     width: 326
                     height: 144
+                    color: "white"
+                    opacity: 0.3
+                }
+
+                Rectangle{
+                    width: 326
+                    height: 144
+                    color: "transparent"
+
                     Rectangle{
-                        width: 326
+                        width: 144
                         height: 144
                         color: "white"
-                        opacity: 0.3
+
+                        Image {
+                            source: "../Assets/product.png"
+                            width: 106
+                            height: 106
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.horizontalCenter: parent.horizontalCenter
+                        }
                     }
 
-                    Rectangle{
-                        width: 326
-                        height: 144
-                        color: "transparent"
-
-                        Rectangle{
-                            width: 144
-                            height: 144
-                            color: "white"
-
-                            Image {
-                                source: "../Assets/product.png"
-                                width: 106
-                                height: 106
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.horizontalCenter: parent.horizontalCenter
-                            }
-                        }
-
-                        Text {
-                            text: qsTr("Nutella Hazelnut Spread with Cocoa, 750g")
-                            width: 134
-                            height: 66
-                            x:164
-                            y:20
-                            font.pixelSize: 16
-                            wrapMode: Text.WordWrap
-                        }
-                        Text {
-                            x:164
-                            y:98
-                            text: qsTr("$ 9.99")
-                            font.pixelSize: 24
-                            color:viewset.primaryColor
-                            font.bold: true
-                        }
-                        Text {
-                            x:248
-                            y:98
-                            text: qsTr("-9 %")
-                            font.pixelSize: 24
-                            color: viewset.primaryColor
-                        }
+                    Text {
+                        text: qsTr("Nutella Hazelnut Spread with Cocoa, 750g")
+                        width: 134
+                        height: 66
+                        x:164
+                        y:20
+                        font.pixelSize: 16
+                        wrapMode: Text.WordWrap
+                    }
+                    Text {
+                        x:164
+                        y:98
+                        text: qsTr("$ 9.99")
+                        font.pixelSize: 24
+                        color:viewset.primaryColor
+                        font.bold: true
+                    }
+                    Text {
+                        x:248
+                        y:98
+                        text: qsTr("-9 %")
+                        font.pixelSize: 24
+                        color: viewset.primaryColor
                     }
                 }
             }
         }
+
     }
 
     Component{
@@ -308,7 +339,6 @@ Item {
         id:addPluItem
         AddPluItems{
             onClosepanel: {
-                console.log("gasdasd")
                 stackviewContainer.pop()
             }
         }
@@ -323,12 +353,7 @@ Item {
 
     Component {
         id: checkout
-        Checkout {
-//            onNfcPaymentClicked: {
-//                //                        stackviewContainer.replace(stackviewContainer, {"initialItem":nfcpayment})
-//                stackview.push(nfcpayment)
-
-//            }
+        Checkoutpage {
 
         }
     }
@@ -361,6 +386,11 @@ Item {
         }
 
     }
+    Component{
+        id: specialdealslist
+        LstSpecialDeals {
 
+        }
 
+    }
 }

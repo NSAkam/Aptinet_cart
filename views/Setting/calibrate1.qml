@@ -15,7 +15,7 @@ Item {
     width: 1280
     height: 800
 
-    Image {     
+    Image {
         id: q
         source: "../../Assets/AuthenticationBackground.png"
         anchors.fill: parent
@@ -120,13 +120,13 @@ Item {
                 samples: 16
                 color: "#d3d3d3"
             }
-                
+
             }
         }
 
     }
    }
-        
+
     Rectangle {
                 width: 471
                 height: 180
@@ -513,9 +513,9 @@ Item {
             rectangle1.visible = !rectangle1.visible;
         }
 
-      
 
-       
+
+
     Rectangle {
         id: b
         color: "white"
@@ -541,13 +541,13 @@ Item {
         }
 
     }
-    
-    
+
+
 }
 
 
 
-    
+
 
 
 

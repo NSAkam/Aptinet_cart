@@ -106,28 +106,49 @@ Item {
             font.bold: true
         }
 
-        Rectangle {
-            id: discountcartrect
-            width: 417
-            height: 54
+        Rectangle{
+            id:rectEnterPLU
             x: 48
             y: 214
+            width: 417
+            height: 54
+            color: "#F1F1F1"
             radius: 4
+            TextInput{
+                id:txt_PLUBarcodeInput
+                anchors.fill: parent
+                font.pixelSize: 18
+                layer.enabled: true
+                horizontalAlignment: TextInput.AlignHCenter
+                verticalAlignment:  TextInput.AlignVCenter
+                font.family: viewset.danaFuNumFont
+                property string placeholderText: "Enter Discount Code"
 
-            Text {
-                id: discountcarttext
-                text: qsTr("Enter Discount Code")
-                font.pixelSize: 20
-                color: "#9D9D9D"
-                x: 16
-                y: 16
+                onFocusChanged: {
+                    numpad.inputtext = txt_PLUBarcodeInput
+                    numpad.visible = true
+                }
+                Text {
+                    text: txt_PLUBarcodeInput.placeholderText
+                    color: "#C6C5CE"
+                    visible: !txt_PLUBarcodeInput.text
+                    font.pixelSize: 18
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.family: viewset.danaFuNumFont
+                }
             }
         }
+
+
+
 
         KButton {
             text: "Apply"
             x: 465
             y: 214
+            width: 119
+            height: 54
             borderRadius: 4
             btn_color: viewset.secondaryColor
             btn_bordercolor: viewset.secondaryColor
@@ -179,6 +200,8 @@ Item {
             x: 43
             y: 99
             borderRadius: 4
+            width: 205
+            height: 72
         }
 
         KButton {
@@ -186,15 +209,19 @@ Item {
             fontsize: 24
             x: 274
             y: 99
+            width: 304
+            height: 72
             borderRadius: 4
             btn_color: viewset.secondaryColor
             btn_bordercolor: viewset.secondaryColor
 
-            Image {
-                source: "../../Assets/goRightInItemView.png"
-                x: 282
-                y: 28
-
+            Text {
+                font.pixelSize: 24
+                anchors.verticalCenter: parent.verticalCenter
+                text: ">"
+                x:271
+                color: "white"
+                font.bold: true
             }
 
             MouseArea {
@@ -233,18 +260,12 @@ Item {
         x: 553 - 390
     }
 
-    DropShadow {
-        anchors.fill: bottompart
-        cached: true
-        horizontalOffset: 0
-        verticalOffset: 8
-        radius: 2
-        y: 5
-        samples: 30
-        color: "#0000000A"
-        smooth: true
-        source: bottompart
-        visible: shadow?true:false
+
+    Numpad{
+        id:numpad
+        visible: false
+        x:400
+        y:290
     }
 
 }

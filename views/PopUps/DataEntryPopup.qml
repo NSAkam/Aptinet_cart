@@ -113,7 +113,7 @@ Popup {
                 width: 295
                 height: 56
                 x: 24
-                y: 204                                   
+                y: 204
                 background: Rectangle {
                     color: "#F5AF8C"
 

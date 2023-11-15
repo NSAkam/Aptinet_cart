@@ -65,7 +65,7 @@ Item {
         height: 200
         color: "White"
         Image {
-            source: "../../Assets/Product.png"
+            source: "../../Assets/product.png"
             width: 135
             height: 135
             x:33
@@ -109,15 +109,6 @@ Item {
         font.pixelSize: 20
         color: "#6D6D6D"
     }
-//    KBorderButton{
-//        text: "Cancel"
-//        btn_color: "transparent"
-//        color: "transparent"
-//        x: 694
-//        y: 469
-//        width: 164
-//        height: 46
-//    }
 
     Button {
         x: 694
@@ -136,11 +127,9 @@ Item {
         Text {
             text: qsTr("Cancel")
             font.pixelSize: 20
-//            font.weight: Font.DemiBold
             lineHeight: Font.Normal
             font.letterSpacing: 1.28
             color: "#F08C5A"
-//            anchors.horizontalCenter: parent.horizontalCenter
             x: 48
             y: 12
             horizontalAlignment: Text.AlignHCenter
@@ -171,6 +160,6 @@ Item {
             progress1.value += 0.14285
         }
         running: true
-       repeat: true
+        repeat: true
     }
 }

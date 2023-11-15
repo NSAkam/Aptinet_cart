@@ -16,14 +16,14 @@ Item{
     height: 800
 
 
-    Image {     
+    Image {
         id: q
         source: "../../Assets/AuthenticationBackground.png"
         anchors.fill: parent
     }
 
 
-    
+
 
 
 
@@ -77,7 +77,7 @@ Item{
                 radius: 2
                 border.color: "#4696FA"
                 border.width: 1
-                
+
 
                 Text {
                     text: "Update"
@@ -148,7 +148,7 @@ Item{
                 radius: 2
                 border.color: "#4696FA"
                 border.width: 1
-                
+
 
                 Text {
                     text: "Change"
@@ -328,7 +328,7 @@ Item{
             rectangle3.visible = !rectangle3.visible;
         }
 
-       
+
     Rectangle {
         id: b
         color: "white"
@@ -359,12 +359,12 @@ Item{
         }
 
     }
-    
+
     }
 
-    
 
 
 
-    
+
+
 

@@ -358,7 +358,7 @@ Popup {
                 background: Rectangle {
                     color: "white"
                 }
-                
+
             Text {
                 text: "9"
                 width: 12

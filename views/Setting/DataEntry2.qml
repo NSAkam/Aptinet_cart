@@ -16,7 +16,7 @@ Item {
     width: 1280
     height: 800
 
-    Image {     
+    Image {
         id: q
         source: "../../Assets/AuthenticationBackground.png"
         anchors.fill: parent
@@ -181,8 +181,8 @@ Item {
             font.pixelSize: 20
             font.family: "Archivo"
         }
-    } 
-    
+    }
+
     Rectangle {
         width: 208
         height: 62
@@ -453,5 +453,5 @@ Item {
 
 
 
-    
+
 

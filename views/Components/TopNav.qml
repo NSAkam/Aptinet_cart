@@ -13,13 +13,13 @@ Item {
         anchors.fill: parent
         color: "white"
         Image {
-            source: "../../Assets/AptinetLogo.png"
+            source: "file://../Assets/AptinetLogo.png"
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
         }
         Image {
             id: btn_back
-            source: "../../Assets/back.png"
+            source: "file://../Assets/back.png"
             anchors.left: parent.left
             anchors.leftMargin: 10
             visible: backvisible

@@ -120,7 +120,7 @@ Item {
         y:342
         opacity: 0
         Behavior on opacity {
-            NumberAnimation { duration: 1000 }
+            NumberAnimation { duration: 2000 }
         }
     }
     Text {
@@ -131,7 +131,7 @@ Item {
         y:428
         opacity: 0
         Behavior on opacity {
-            NumberAnimation { duration: 1000 }
+            NumberAnimation { duration: 2000 }
         }
     }
     KButton{

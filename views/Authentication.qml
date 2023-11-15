@@ -202,6 +202,7 @@ Item {
         y:645
         height: 56
         borderRadius: 5
+        btn_borderWidth: 0
         onClicked: {
             stackview.push(loyalityAuth)
         }
@@ -225,7 +226,6 @@ Item {
         id:topnavbar
         backvisible: false
         onBackClicked: {
-            topnavbar.backvisible = false
             txt_phone.focus = false
             numpad.visible = false
             numpad.opacity = 0
@@ -237,11 +237,12 @@ Item {
             btn_Continue.btn_color = viewset.secondaryColor
             txt_enterPhone.x = 455
             txt_enterPhone.y = 519
-            input_enterPhone.x=428
+            input_enterPhone.x=455
             input_enterPhone.y = 565
             btn_skip.y=659
             btn_Continue.visible=true
             txt_start.visible = true
+            topnavbar.backvisible = false
         }
     }
     Component{

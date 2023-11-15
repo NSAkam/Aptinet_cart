@@ -26,7 +26,7 @@ Popup {
             color: "black"
             font.pixelSize: 32
         }
-        
+
         Image {
             source: "../../Assets/bag1.png"
             width: 49.97

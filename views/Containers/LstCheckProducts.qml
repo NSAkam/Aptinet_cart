@@ -48,7 +48,7 @@ Item {
 
                 Image {
                     id: factorItemPic
-                    source:  "../Assets/product.png"
+                    source:  "file://../Assets/product.png"
                     anchors.left: parent.left
                     width: 90
                     height: 90
