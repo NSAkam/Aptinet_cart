@@ -29,6 +29,7 @@ Item {
         anchors.left: parent.left
         source: "../Assets/NavBar.png"
     }
+
     Rectangle{
         id:imgUser
         width: 300
@@ -36,9 +37,13 @@ Item {
         x:490
         y:135
         color: viewset.primaryColor
-        radius: 390/2
+        radius: width/2
         border.width: 20
         border.color: "#D9D9D9"
+        Image {
+            source: "../Assets/FaceScanning.png"
+            anchors.fill: parent
+        }
         Behavior on width {
             NumberAnimation{duration: 500}
         }
@@ -63,6 +68,12 @@ Item {
         font.pixelSize: 24
         x:1080
         y:659
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                stackview.push(shoppage)
+            }
+        }
     }
 
     //    Timer{
@@ -78,7 +89,7 @@ Item {
     Text {
         id:txt_start
         text: qsTr("Get Started ")
-        anchors.horizontalCenter: parent.horizontalCenter
+        x:523
         y:459
         font.pixelSize: 40
         font.bold: true
@@ -86,8 +97,8 @@ Item {
     }
     Text {
         id:txt_enterPhone
-        text: qsTr("Please enter your Email or Phone Number")
-        x : 455
+        text: qsTr("Please enter your Phone Number")
+        x : 480
         y:519
         font.pixelSize: 20
         font.bold: false
@@ -107,10 +118,38 @@ Item {
     }
 
     Rectangle{
+        id:btn_blueContinue
+        width: 70
+        height: 56
+        anchors.top : input_enterPhone.top
+        anchors.left: input_enterPhone.right
+        anchors.leftMargin: -14
+        visible: false
+        color: "#4696FA"
+        radius: 4
+        Image {
+            source: "../Assets/arrow_calibrate.png"
+//            font.pixelSize: 24
+//            color: "white"
+//            text:"  >"
+//            font.bold: true
+            rotation: 180
+            x:35
+            anchors.verticalCenter: parent.verticalCenter
+        }
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                stackview.push(tostepAuthPage)
+            }
+        }
+    }
+
+    Rectangle{
         id:input_enterPhone
-        x: 455
+        x: 428
         y: 565
-        width: 308
+        width: 425
         height: 56
         color: "white"
         radius: 5
@@ -121,7 +160,7 @@ Item {
             font.pixelSize: 18
             layer.enabled: true
             x:50
-            //horizontalAlignment: TextInput.AlignHCenter
+            horizontalAlignment: TextInput.AlignLeft
             verticalAlignment:  TextInput.AlignVCenter
             font.family: viewset.danaFuNumFont
             property string placeholderText: "Email / Phone Number"
@@ -129,18 +168,18 @@ Item {
             onFocusChanged: {
                 //numpad.inputtext = txt_phone
                 topnavbar.backvisible = true
-                numpad.visible = true
-                numpad.opacity = 1
+
                 imgUser.width = 106
                 imgUser.height = 106
                 imgUser.border.width = 5
                 imgUser.x=323
                 imgUser.y=178
-                btn_Continue.btn_color=viewset.secondaryColor
-                txt_enterPhone.x = 434
+                txt_enterPhone.x = 455
                 txt_enterPhone.y = 180
-                input_enterPhone.x=434
+                input_enterPhone.width = 308
+                input_enterPhone.x=455
                 input_enterPhone.y = 218
+                btn_blueContinue.visible = true
                 btn_skip.y=233
                 btn_Continue.visible=false
                 txt_start.visible = false
@@ -149,11 +188,20 @@ Item {
                 text: txt_phone.placeholderText
                 color: "#C6C5CE"
                 visible: !txt_phone.text
-                font.pixelSize: 18
+                font.pixelSize: 20
                 anchors.verticalCenter: parent.verticalCenter
                 x:50
                 //anchors.horizontalCenter: parent.horizontalCenter
                 // font.family: viewset.danaFuNumFont
+            }
+            onWidthChanged: {
+                if(width == 425){
+                    txt_start.visible = true
+                }
+                if(width == 308){
+                    numpad.visible = true
+                    numpad.opacity = 1
+                }
             }
         }
         Behavior on width {
@@ -172,37 +220,18 @@ Item {
             NumberAnimation{duration: 500}
         }
     }
-    Rectangle{
-        width: 56
-        height: 56
-        anchors.top : input_enterPhone.top
-        anchors.left: input_enterPhone.right
-        color: "#4696FA"
-        radius: 4
-        Text{
-            font.pixelSize: 24
-            color: "white"
-            text:"->"
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-        }
-        MouseArea{
-            anchors.fill: parent
-            onClicked: {
-                stackview.push(tostepAuthPage)
-            }
-        }
-    }
+
 
     KButton{
         id:btn_Continue
-        text: "Continue with Loyalty Card"
+        text: "Continue with Loyalty Card              "
         anchors.horizontalCenter: parent.horizontalCenter
-        width: 365
+        width: 428
         y:645
         height: 56
         borderRadius: 5
         btn_borderWidth: 0
+        isBold: false
         onClicked: {
             stackview.push(loyalityAuth)
         }
@@ -234,14 +263,15 @@ Item {
             imgUser.border.width = 5
             imgUser.x=490
             imgUser.y=135
-            btn_Continue.btn_color = viewset.secondaryColor
-            txt_enterPhone.x = 455
+            txt_enterPhone.x = 480
             txt_enterPhone.y = 519
-            input_enterPhone.x=455
+            btn_blueContinue.visible=false
+            input_enterPhone.width = 425
+            input_enterPhone.x=428
             input_enterPhone.y = 565
             btn_skip.y=659
             btn_Continue.visible=true
-            txt_start.visible = true
+            //txt_start.visible = true
             topnavbar.backvisible = false
         }
     }
@@ -254,6 +284,12 @@ Item {
     Component{
         id:loyalityAuth
         LoyalityAuth{
+
+        }
+    }
+    Component{
+        id:shoppage
+        Shop{
 
         }
     }

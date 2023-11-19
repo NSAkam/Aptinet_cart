@@ -50,20 +50,6 @@ Item {
             }
         }
 
-        DropShadow {
-            anchors.fill: questionmarkrect
-            cached: true
-            horizontalOffset: 0
-            verticalOffset: 5
-            radius: 16.0
-            y: 5
-            samples: 30
-            color: "#0000000A"
-            smooth: true
-            source: questionmarkrect
-            visible: shadow?true:false
-
-        }
 
         Rectangle {
             id: alarmrect
@@ -82,20 +68,7 @@ Item {
             }
         }
 
-        DropShadow {
-            anchors.fill: alarmrect
-            cached: true
-            horizontalOffset: 0
-            verticalOffset: 5
-            radius: 16.0
-            y: 5
-            samples: 30
-            color: "#0000000A"
-            smooth: true
-            source: alarmrect
-            visible: shadow?true:false
 
-        }
 
     }
 
@@ -105,9 +78,9 @@ Item {
         height: parent.height
 
         Image {
-            source: "../Assets/AptinetTextWhite.png"
-            x:0
-            y:0
+            source: "../Assets/AptinetText1.png"
+            x:32
+            y:32
         }
     }
 
@@ -159,15 +132,15 @@ Item {
                 x: 167
                 y: 47.2
 
-//                Image {
-//                    source: "../Assets/Tick.png"
-//                    anchors.fill: parent
-//                }
+                AnimatedImage {
+                    source: "../Assets/5601968.gif"
+                    anchors.fill: parent
+                }
             }
 
             Text {
                 text: qsTr("You’re good to go!")
-                font.pixelSize: 48
+                font.pixelSize: 40
                 color: "#36EB00"
                 x: 32
                 y: 246

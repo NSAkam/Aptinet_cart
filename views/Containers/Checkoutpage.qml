@@ -6,6 +6,7 @@ import "../Components"
 Item {
     id: root
     signal nfcPaymentClicked()
+    signal back()
 
     Rectangle{
         id: toppart
@@ -202,6 +203,9 @@ Item {
             borderRadius: 4
             width: 205
             height: 72
+            onClicked: {
+                root.back()
+            }
         }
 
         KButton {
@@ -224,13 +228,11 @@ Item {
                 font.bold: true
             }
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    root.nfcPaymentClicked()
-                }
-
+            onClicked: {
+                root.nfcPaymentClicked()
             }
+
+
         }
     }
 
@@ -266,6 +268,9 @@ Item {
         visible: false
         x:400
         y:290
+        onEnter: {
+            numpad.visible = false
+        }
     }
 
 }

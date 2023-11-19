@@ -15,7 +15,7 @@ Item {
         txt_Enterloyality.visible = false
         input_enterEmail.visible = false
         btn_Action.visible = false
-        keyboard.visible = false
+        //keyboard.visible = false
         btn_Enter.visible = true
         icon_loyality.visible = true
         message.visible = true
@@ -55,23 +55,31 @@ Item {
         font.pixelSize: 24
         x:1080
         y:659
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                stackview.push(shoppage)
+            }
+        }
     }
 
 
     KButton{
         id:btn_Enter
-        text: "Enter Loyalty Card >"
+        text: "Enter Loyalty Card  >"
         anchors.horizontalCenter: parent.horizontalCenter
         width: 260
         y:645
         height: 56
         borderRadius: 5
         visible: false
+        isBold: false
+        fontsize: 20
         onClicked: {
             txt_Enterloyality.visible = true
             input_enterEmail.visible = true
             btn_Action.visible = true
-            keyboard.visible = true
+            keyboard.y = keyboard.y- 458
             btn_Enter.visible = false
             icon_loyality.visible = false
             message.visible = false
@@ -89,10 +97,32 @@ Item {
         visible: false
     }
 
-
+    Rectangle{
+        id:btn_Action
+        width: 70
+        height: 56
+        anchors.top : input_enterEmail.top
+        anchors.left: input_enterEmail.right
+        anchors.leftMargin: -14
+        visible: false
+        color: "#4696FA"
+        radius: 4
+        Image {
+            source: "../Assets/arrow_calibrate.png"
+            rotation: 180
+            x:35
+            anchors.verticalCenter: parent.verticalCenter
+        }
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                stackview.push(tostepAuthPage)
+            }
+        }
+    }
     Rectangle{
         id:input_enterEmail
-        x: 455
+        anchors.horizontalCenter: parent.horizontalCenter
         y: 218
         width: 308
         height: 56
@@ -103,7 +133,7 @@ Item {
         TextEdit{
             id:txt_Email
             anchors.fill: parent
-            font.pixelSize: 18
+            font.pixelSize: 20
             layer.enabled: true
             x:50
             //horizontalAlignment: TextInput.AlignHCenter
@@ -142,29 +172,7 @@ Item {
         }
     }
 
-    Rectangle{
-        id:btn_Action
-        width: 56
-        height: 56
-        anchors.top : input_enterEmail.top
-        anchors.left: input_enterEmail.right
-        color: "#4696FA"
-        radius: 4
-        visible: false
-        Text{
-            font.pixelSize: 24
-            color: "white"
-            text:"->"
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-        }
-        MouseArea{
-            anchors.fill: parent
-            onClicked: {
-                stackview.push(tostepAuthPage)
-            }
-        }
-    }
+
 
 
     KKeyboard{
@@ -172,9 +180,9 @@ Item {
         inputtext : txt_Email
         toppad: 500
         leftpad: 500
-        y:parent.height - 430
+        y:parent.height - 0
         x:0
-        visible: false
+        visible: true
 
         Behavior on y{
             NumberAnimation{duration: 500}
@@ -191,6 +199,12 @@ Item {
     Component{
         id:tostepAuthPage
         TowStepAuthentication{
+
+        }
+    }
+    Component{
+        id:shoppage
+        Shop{
 
         }
     }

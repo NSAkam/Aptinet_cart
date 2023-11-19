@@ -11,6 +11,7 @@ Rectangle {
         id:viewset
     }
 
+    signal enter();
     id:numpad
     width: 308
     height: 375
@@ -80,11 +81,19 @@ Rectangle {
         onClicked: inputtext.text += "9"
 
     }
-    KNumberButton{
-        x:32
-        y:280
-        text: "#"
 
+    Image {
+        source: "../../Assets/backspace.png"
+        x:32 +10
+        y:280 +15
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                onClicked:{
+                    inputtext.text = inputtext.text.slice(0,-1)
+                }
+            }
+        }
     }
     KNumberButton{
         x:124
@@ -93,13 +102,24 @@ Rectangle {
         onClicked: inputtext.text += "0"
 
     }
-    KNumberButton{
-        x:216
-        y:280
-        font.pixelSize: 16
-        text: "<--"
-        onClicked:{
-            inputtext.text = inputtext.text.slice(0,-1)
+    Image {
+        source: "../../Assets/NumpadEnter.png"
+        x:216 +0
+        y:280 +10
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                numpad.enter()
+            }
         }
     }
+    //    KNumberButton{
+    //        x:216
+    //        y:280
+    //        font.pixelSize: 16
+    //        text: "<--"
+    //        onClicked:{
+    //            inputtext.text = inputtext.text.slice(0,-1)
+    //        }
+    //    }
 }

@@ -5,7 +5,8 @@ Item {
     width: 890
     height: 708
 
-    signal closepanel()
+    signal back()
+    signal seeAll()
 
     Text {
         text: qsTr("Search Results")
@@ -220,6 +221,12 @@ Item {
         Text {
             text: qsTr("See All >")
             font.pixelSize: 24
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    root.seeAll()
+                }
+            }
 
         }
     }
@@ -234,7 +241,7 @@ Item {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    root.closepanel()
+                    root.back()
                 }
             }
         }

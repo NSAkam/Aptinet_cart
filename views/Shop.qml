@@ -19,6 +19,14 @@ Item {
     Util.ViewSettings{
         id:viewset
     }
+    Timer{
+        id:t1
+        interval: 3000
+        running: true
+        onTriggered: {
+            loader.opacity = 0
+        }
+    }
 
     Image {
         source: "../Assets/AuthenticationBackground.png"
@@ -69,8 +77,26 @@ Item {
                 fontsize: 16
                 ishover: false
                 onClicked: {
-                    console.log("asdasdasd");
-                    notifpopup.open();
+                    stackviewContainer.push(addPluItem)
+                    adsPanel.visible = false
+                    addPlupanel.visible = true
+
+                }
+            }
+            KButton{
+                btn_color: viewset.primaryColor
+                x:819
+                y:32
+                borderRadius: 5
+                width: 164
+                height: 40
+                text: "+ Enter Barcode"
+                btn_borderWidth:0
+                fontsize: 16
+                ishover: false
+                onClicked: {
+                    stackviewContainer.push(manualBarcodeHandler)
+
                 }
             }
             Image {
@@ -94,6 +120,7 @@ Item {
     Item {
         id:main_Panel
         Text {
+            id:toaddItem
             text: qsTr("To add an item,\n scan its barcode or\n tap the button below.")
             width: 369
             height: 144
@@ -101,7 +128,61 @@ Item {
             y:326
             font.pixelSize: 36
             color: "#9D9D9D"
+            font.bold: true
             horizontalAlignment:  TextInput.AlignHCenter
+        }
+        Rectangle{
+            id:loader
+            x:635
+            y:200
+            width: 400
+            height: 400
+            color: "#343434"
+            radius: width /2
+            AnimatedImage{
+                source: "../Assets/sphere-line-loader.gif"
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 220
+                height: 220
+            }
+            Text {
+                text: qsTr("Loading")
+                color: "white"
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                font.pixelSize: 24
+            }
+            onOpacityChanged: {
+                if(opacity == 1){
+                    visible = true
+                    t1.restart()
+                    t1.running = true
+                }
+                if(opacity == 0){
+                    visible = false
+                }
+            }
+            Behavior on opacity {
+                NumberAnimation{duration: 1000}
+            }
+        }
+
+
+
+        KButton{
+            id:btn_entermanualBarcode
+            text: "+ Enter barcode manually"
+            x:645
+            y:610
+            width: 382
+            height: 62
+            borderRadius: 4
+            onClicked: {
+
+                stackviewContainer.push(manualBarcodeHandler)
+
+            }
         }
 
         StackView
@@ -111,7 +192,7 @@ Item {
             height: 708
             x:390
             y:92
-            initialItem: lstProductHandler
+            //initialItem: lstProductHandler
             //initialItem:addPluItemview
             //initialItem: newProductHandler
             //initialItem: addPluItem
@@ -120,7 +201,20 @@ Item {
             //initialItem: specialdealslist
             //initialItem: checkout
             onDepthChanged: {
-                obj_LogicContainer.shoppage.stackviewDepthChanged(stackviewContainer.depth)
+                if(stackviewContainer.depth > 0){
+                    loader.opacity =0;
+                    loader.visible = false;
+                    toaddItem.visible = false
+                    btn_entermanualBarcode.visible = false
+                }
+                else{
+                    loader.opacity =1;
+                    loader.visible = true;
+                    toaddItem.visible = true
+                    btn_entermanualBarcode.visible = true
+                }
+
+                //obj_LogicContainer.shoppage.stackviewDepthChanged(stackviewContainer.depth)
             }
         }
     }
@@ -128,7 +222,7 @@ Item {
 
     Item{
         id:addPlupanel
-        visible: true
+        visible: false
         width: 390
         height: parent.height
 
@@ -138,9 +232,9 @@ Item {
             color: "white"
         }
         Image {
-            source: "../Assets/AptinetText.png"
-            x:0
-            y:0
+            source: "../Assets/AptinetText1.png"
+            x:32
+            y:32
         }
         Image {
             id: img_UserCaptured
@@ -193,9 +287,17 @@ Item {
                     anchors.horizontalCenter: parent.horizontalCenter
                     font.family: viewset.danaFuNumFont
                 }
+                onTextChanged: {
+                    if(text == "665566")
+                    {
+                        stackviewContainer.replace(addPluItemview)
+                    }
+                }
             }
+
         }
         Numpad{
+            id:numpad
             anchors.top: rectEnterPLU.bottom
             anchors.topMargin: 0
             x:32
@@ -204,7 +306,7 @@ Item {
 
     Item {
         id: adsPanel
-        visible: false
+        visible: true
         width: 390
         height: parent.height
 
@@ -215,9 +317,9 @@ Item {
 
         }
         Image {
-            source: "../Assets/AptinetText.png"
-            x:0
-            y:0
+            source: "../Assets/AptinetText1.png"
+            x:32
+            y:32
         }
         Image {
             id: img_UserCapturedadsPanel
@@ -242,6 +344,26 @@ Item {
             x:32
             y:521
             font.bold: true
+        }
+        Text {
+            text: qsTr("more >")
+            color: viewset.primaryColor
+            x:290
+            y:525
+            font.pixelSize: 20
+            font.bold: true
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    if(stackviewContainer.currentItem != specialdealslist)
+                    {
+                        console.log(stackviewContainer.currentItem)
+                        stackviewContainer.push(specialdealslist)
+                    }
+
+
+                }
+            }
         }
         ListView {
             id:slideshow
@@ -313,33 +435,167 @@ Item {
         }
 
     }
+    Item {
+        id: checkoutPanel
+        visible: false
+        width: 390
+        height: parent.height
+
+        Rectangle {
+            color: "white"
+            id:rect_SuggestionadsPanel1
+            anchors.fill: parent
+        }
+        Image {
+            source: "../Assets/AptinetText1.png"
+            x:32
+            y:32
+        }
+        Image {
+            id: img_UserCapturedadsPanel1
+            source: "../Assets/UserImage.png"
+            width: 326
+            height: 184
+            x:32
+            y:105
+        }
+
+        Text {
+            text: qsTr("My Cart")
+            font.pixelSize: 24
+            color: "gray"
+            x:32
+            y:326
+            font.bold: true
+        }
+        Rectangle{
+            width: 40
+            height: 40
+            radius: width / 2
+            x:142
+            y:321
+            color: viewset.secondaryColor
+            Text {
+                text: qsTr("2")
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                color: "white"
+                font.pixelSize: 24
+                font.bold: true
+            }
+        }
+
+
+        ListView {
+            id:slideshow1
+            width: 326
+            height: 800 - y
+            x:32
+            y:360
+
+            clip: true
+            spacing: 10
+            model: 10
+            orientation: ListView.vertical
+            delegate:
+                Item {
+                width: 326
+                height: 78
+                Text {
+                    text: qsTr("Nutella Hazelnut Spread with...")
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 16
+                }
+                Rectangle{
+                    color: viewset.primaryColor
+                    width: 30
+                    height: 30
+                    radius: 5
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.right: parent.right
+                    Text {
+                        text: qsTr("1")
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        color: "white"
+                    }
+                }
+            }
+        }
+
+    }
+
 
     Component{
         id:newProductHandler
         BarcodeScanned{
-            tanzimat:obj_LogicContainer
+            onPass: {
+                stackviewContainer.push(lstProductHandler)
+            }
+
+            onCancel: {
+                if(stackviewContainer.depth == 1)
+                {
+                    stackviewContainer.clear()
+                }
+                else
+                {
+                    stackviewContainer.pop()
+                }
+            }
         }
     }
 
     Component{
         id:lstProductHandler
         LstCheckProducts{
-            tanzimat:obj_LogicContainer
+            onGocheckout: {
+                adsPanel.visible = false
+                checkoutPanel.visible = true
+                stackviewContainer.push(checkout)
+            }
         }
     }
 
     Component{
         id:manualBarcodeHandler
         ManualBarcode{
+            onOk: {
+                stackviewContainer.replace(newProductHandler)
+            }
 
-            tanzimat: obj_LogicContainer
+            onCancle: {
+                if(stackviewContainer.depth == 1)
+                {
+                    stackviewContainer.clear()
+                }
+                else
+                {
+                    stackviewContainer.pop()
+                }
+
+            }
         }
     }
     Component{
         id:addPluItem
         AddPluItems{
-            onClosepanel: {
-                stackviewContainer.pop()
+            onSeeAll: {
+                stackviewContainer.push(plulist)
+            }
+
+            onBack: {
+                adsPanel.visible = true
+                addPlupanel.visible = false
+                if(stackviewContainer.depth == 1)
+                {
+                    stackviewContainer.clear()
+                }
+                else
+                {
+                    stackviewContainer.pop()
+                }
+
             }
         }
     }
@@ -347,6 +603,26 @@ Item {
     Component{
         id:addPluItemview
         AddPluItemsView{
+            onConfirm:
+            {
+                adsPanel.visible = true
+                addPlupanel.visible = false
+                stackviewContainer.replace(lstProductHandler)
+            }
+
+            onCancel:
+            {
+                adsPanel.visible = true
+                addPlupanel.visible = false
+                if(stackviewContainer.depth == 1)
+                {
+                    stackviewContainer.clear()
+                }
+                else
+                {
+                    stackviewContainer.pop()
+                }
+            }
 
         }
     }
@@ -354,17 +630,22 @@ Item {
     Component {
         id: checkout
         Checkoutpage {
+            onNfcPaymentClicked: {
+                stackview.push(nfcpayment)
+            }
 
+            onBack: {
+                adsPanel.visible = true
+                checkoutPanel.visible = false
+                stackviewContainer.pop()
+            }
         }
     }
 
     Component {
         id: nfcpayment
         PaymentviaNFC {
-            width: 1280
-            height: 800
-            x: 0
-            y: 0
+
 
         }
     }
@@ -382,15 +663,26 @@ Item {
     Component{
         id: plulist
         PLUListItems {
-
+            onBack: {
+                stackviewContainer.pop()
+            }
         }
 
     }
+
     Component{
         id: specialdealslist
         LstSpecialDeals {
-
+            onBack: {
+                if(stackviewContainer.depth == 1)
+                {
+                    stackviewContainer.clear()
+                }
+                else
+                {
+                    stackviewContainer.pop()
+                }
+            }
         }
-
     }
 }

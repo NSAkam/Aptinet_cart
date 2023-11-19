@@ -112,9 +112,9 @@ Item {
             borderRadius: 4
             btn_borderWidth: 0
             onClicked: {
-                tanzimat.shoppage.insertManualBarcodeClicked(txt_ManualBarcodeInput.text)
-                manualBarcode_Panel.ok()
-
+                if(txt_ManualBarcodeInput.text == "665566"){
+                    manualBarcode_Panel.ok()
+                }
             }
             Text {
                 text: qsTr(">")
@@ -135,6 +135,9 @@ Item {
             height: 64
             borderRadius: 4
             btn_borderWidth: 0
+            onClicked: {
+                manualBarcode_Panel.cancle()
+            }
         }
     }
 }

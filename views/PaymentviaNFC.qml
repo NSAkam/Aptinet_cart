@@ -140,6 +140,12 @@ Item {
         source: "../Assets/GooglePay.png"
         x: 672
         y: 550 + topPanel.height
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                stackview.push(afterpaymentPage)
+            }
+        }
     }
 
     Text {
@@ -151,7 +157,12 @@ Item {
         horizontalAlignment: Text.AlignHCenter
     }
 
+    Component{
+        id:afterpaymentPage
+        AfterPayment{
 
+        }
+    }
 
 
 }

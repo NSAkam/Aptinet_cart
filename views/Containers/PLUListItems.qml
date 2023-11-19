@@ -5,7 +5,7 @@ import "../Components"
 
 Item {
     id: root
-    signal closepanel()
+    signal back()
 
     GridView {
         id: productsgridview
@@ -24,7 +24,7 @@ Item {
             lineHeight: Font.Normal
             font.weight: Font.DemiBold
             x: 0
-            y: -(94 -  28)
+            y: -(94 -28)
         }
 
         model: 15
@@ -90,8 +90,7 @@ Item {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    console.log("asdasdasd")
-                    root.closepanel()
+                    root.back()
                 }
             }
         }

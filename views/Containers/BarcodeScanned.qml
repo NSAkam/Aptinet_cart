@@ -10,6 +10,9 @@ import "../Components"
 Item {
     id:barcode_scanned
 
+    signal cancel()
+    signal pass()
+
     property QtObject tanzimat
 
     anchors.fill: parent
@@ -18,6 +21,7 @@ Item {
     }
 
     Rectangle{
+        id:rect_move
         color: "#4696FA"
         x:32
         y:125
@@ -36,6 +40,7 @@ Item {
     }
 
     Rectangle{
+        id:rect_dontmove
         color: "#F05A28"
         x:32
         y:125
@@ -133,6 +138,12 @@ Item {
             x: 48
             y: 12
             horizontalAlignment: Text.AlignHCenter
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    barcode_scanned.cancel()
+                }
+            }
         }
     }
 
@@ -148,10 +159,20 @@ Item {
         primaryColor: "#F08C5A"
 
         Text {
-            text: parseInt(progress1.value * 100) / 7 + "%"
+            text: parseInt((progress1.value * 100) / 14)
             anchors.centerIn: parent
             font.pointSize: 20
             color: progress1.primaryColor
+            onTextChanged: {
+                if(text == "8"){
+                    barcode_scanned.pass()
+                }
+                if(text =="5")
+                {
+                    rect_move.visible = false
+                    rect_dontmove.visible = true
+                }
+            }
         }
     }
     Timer{

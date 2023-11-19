@@ -9,6 +9,9 @@ Item {
     width: 572
     height: 450
 
+    signal cancel()
+    signal confirm()
+
     Rectangle{
         id: viewitemrect
         width: parent.width
@@ -104,6 +107,9 @@ Item {
             btn_color: viewset.primaryColor
             width: 225
             height: 64
+            onClicked: {
+                root.cancel()
+            }
         }
 
         KButton {
@@ -121,6 +127,9 @@ Item {
                 x: 226
                 y: 24
 
+            }
+            onClicked: {
+                root.confirm()
             }
         }
 

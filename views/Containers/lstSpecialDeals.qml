@@ -5,7 +5,7 @@ import "../Components"
 
 Item {
     id: root
-    signal closepanel()
+    signal back()
 
     GridView {
         id: productsgridview
@@ -32,60 +32,60 @@ Item {
         delegate:
 
             Item {
+            width: 326
+            height: 144
+            Rectangle{
                 width: 326
                 height: 144
+                color: "white"
+                opacity: 0.3
+            }
+
+            Rectangle{
+                width: 326
+                height: 144
+                color: "transparent"
+
                 Rectangle{
-                    width: 326
+                    width: 144
                     height: 144
                     color: "white"
-                    opacity: 0.3
+
+                    Image {
+                        source: "../../Assets/product.png"
+                        width: 106
+                        height: 106
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
                 }
 
-                Rectangle{
-                    width: 326
-                    height: 144
-                    color: "transparent"
-
-                    Rectangle{
-                        width: 144
-                        height: 144
-                        color: "white"
-
-                        Image {
-                            source: "../../Assets/product.png"
-                            width: 106
-                            height: 106
-                            anchors.verticalCenter: parent.verticalCenter
-                            anchors.horizontalCenter: parent.horizontalCenter
-                        }
-                    }
-
-                    Text {
-                        text: qsTr("Nutella Hazelnut Spread with Cocoa, 750g")
-                        width: 134
-                        height: 66
-                        x:164
-                        y:20
-                        font.pixelSize: 16
-                        wrapMode: Text.WordWrap
-                    }
-                    Text {
-                        x:164
-                        y:98
-                        text: qsTr("$ 9.99")
-                        font.pixelSize: 24
-                        color:viewset.primaryColor
-                        font.bold: true
-                    }
-                    Text {
-                        x:248
-                        y:98
-                        text: qsTr("-9 %")
-                        font.pixelSize: 24
-                        color: viewset.primaryColor
-                    }
+                Text {
+                    text: qsTr("Nutella Hazelnut Spread with Cocoa, 750g")
+                    width: 134
+                    height: 66
+                    x:164
+                    y:20
+                    font.pixelSize: 16
+                    wrapMode: Text.WordWrap
+                }
+                Text {
+                    x:164
+                    y:98
+                    text: qsTr("$ 9.99")
+                    font.pixelSize: 24
+                    color:viewset.primaryColor
+                    font.bold: true
+                }
+                Text {
+                    x:248
+                    y:98
+                    text: qsTr("-9 %")
+                    font.pixelSize: 24
+                    color: viewset.primaryColor
                 }
             }
+        }
 
     }
 
@@ -100,7 +100,7 @@ Item {
                 anchors.fill: parent
                 onClicked: {
                     console.log("asdasdasd")
-                    root.closepanel()
+                    root.back()
                 }
             }
         }

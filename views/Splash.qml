@@ -3,7 +3,7 @@ import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
 import "Components"
 import "Utiles" as Util
-
+import "Setting"
 
 
 Item {
@@ -36,9 +36,7 @@ Item {
         source: background
         radius: 32
     }
-    KBattery{
-        battery_level: 45
-    }
+
 
     Image {
         id: aptinetIcon
@@ -58,6 +56,12 @@ Item {
         }
         Behavior on height {
             NumberAnimation { duration: 1000 }
+        }
+        onWidthChanged: {
+            if(width == 208){
+                txt_welcome.opacity = 1
+                txt_welcomebot.opacity = 1
+            }
         }
     }
 
@@ -106,8 +110,7 @@ Item {
                 settingButton.opacity = 1;
                 languageButton.enabled = true
                 languageButton.opacity = 1
-                txt_welcome.opacity = 1
-                txt_welcomebot.opacity = 1
+
             }
         }
 
@@ -167,6 +170,12 @@ Item {
         Behavior on opacity{
             NumberAnimation{duration: 1000}
         }
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                stackview.push(guidpage)
+            }
+        }
     }
     Rectangle{
         id:settingButton
@@ -190,39 +199,39 @@ Item {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                stackview.push(settingsmenutest)
+                stackview.push(settingPage)
             }
         }
     }
 
-//    KButton {
-//       id:settingButton
-//       x:1168
-//       y:688
-//       width: 112
-//       height: 112
-//       btn_color: "transparent"
+    //    KButton {
+    //       id:settingButton
+    //       x:1168
+    //       y:688
+    //       width: 112
+    //       height: 112
+    //       btn_color: "transparent"
 
-//       Image {
-//           anchors.fill: parent
-//           source: "../Assets/SettingCircle.png"
-//           width: parent.width
-//           height: parent.height
-//       }
-//       enabled: false
-//       opacity: 0
-//       Behavior on opacity{
-//           NumberAnimation{duration: 1000}
-//       }
+    //       Image {
+    //           anchors.fill: parent
+    //           source: "../Assets/SettingCircle.png"
+    //           width: parent.width
+    //           height: parent.height
+    //       }
+    //       enabled: false
+    //       opacity: 0
+    //       Behavior on opacity{
+    //           NumberAnimation{duration: 1000}
+    //       }
 
-//       MouseArea {
-//           anchors.fill: parent
-//           onClicked: {
-//               stackview.push(settingsmenutest)
-//           }
-//       }
+    //       MouseArea {
+    //           anchors.fill: parent
+    //           onClicked: {
+    //               stackview.push(settingsmenutest)
+    //           }
+    //       }
 
-//    }
+    //    }
 
     Rectangle{
         id:languageButton
@@ -250,13 +259,46 @@ Item {
             }
         }
     }
+    KBattery{
+        battery_level: 40
+        x:32
+        y:32
 
+    }
+    Rectangle{
+        id:rect_Clock
+        width: 100
+        height: 38
+        color: viewset.primaryColor
+        radius: 50
+        x:1148
+        y:32
+        Text {
+            text: qsTr("12:36")
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            font.pixelSize: 24
+            color: "white"
+            font.bold: true
+        }
+    }
     Item{
         id: languageButtons
         anchors.fill: parent
         width: parent.width
         height: parent.height
         visible: false
+        Rectangle{
+            anchors.fill: parent
+            color: "transparent"
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    backgroundOpacity.opacity = 0
+                    languageButtons.visible = false
+                }
+            }
+        }
 
         Rectangle{
             id:backgroundselectLangOpacity
@@ -345,9 +387,25 @@ Item {
             textColor: "black"
         }
     }
+
+
     Component{
         id:authenticationPage
         Authentication{
+
+        }
+    }
+
+    Component{
+        id:guidpage
+        GuideTips{
+
+        }
+    }
+
+    Component{
+        id:settingPage
+        SettingPage{
 
         }
     }

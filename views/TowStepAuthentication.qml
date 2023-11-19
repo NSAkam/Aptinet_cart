@@ -39,6 +39,10 @@ Item {
         radius: 390/2
         border.width: 20
         border.color: "#D9D9D9"
+        Image {
+            source: "../Assets/FaceScanning.png"
+            anchors.fill: parent
+        }
         Behavior on width {
             NumberAnimation{duration: 500}
         }
@@ -81,10 +85,11 @@ Item {
     KButton{
         id:btn_Continue
         text: "START SHOPPING"
+        fontsize: 24
         anchors.horizontalCenter: parent.horizontalCenter
-        width: 425
+        width: 351
         y:566
-        height: 56
+        height: 66
         borderRadius: 5
         onClicked: {
             stackview.push(shoppage)

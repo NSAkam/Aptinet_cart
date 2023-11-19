@@ -57,7 +57,7 @@ Item{
         font.family: viewset.helveticaFont
         font.bold: true
         font.pixelSize: 16
-        color: "white"
+        color: "black"
 
     }
 }
