@@ -1,97 +1,86 @@
-import quick2wire.i2c as i2c
-from PySide2.QtCore import QObject, Signal, Property, Slot, QUrl, QThread
-import numpy as np
-from statistics import mean
-
 import time
+import numpy as np
+import smbus
+from PySide2.QtCore import Signal, QThread
 
 
 class BatteryWorker(QThread):
-    updateLevel = Signal(int)
-    buffer = []
-    size = 5
-    meanbuffer = []
-    meansize = 5
-    level: int = 100
-    in_init: bool = True
+    _level: int = 50
+    _elecNoiseReducBufferSize: int
+    _elecNoiseReducBuffer = []
+    _minElecNumber: int
+    _maxElecNumber: int
+    _i2cBus: smbus
+    _devAddress: int
 
     def __init__(self):
-        QThread.__init__(self)
-        for i in range(self.size):
-            self.buffer.append(0)
-        for i in range(self.meansize):
-            self.meanbuffer.append(0)
+        super().__init__()
+        self._i2cBus = smbus.SMBus(1)
+        self._devAddress = 0x4d
+
+        self._elecNoiseReducBufferSize = 15
+
+        self._minElecNumber = 4096  # MCP3221 maximum electrical number
+        self._maxElecNumber = 0  # MCP3221 minimum electrical number
+
+        with open("/home/aptinet/min.txt", 'r') as f:
+            minimum = int(float(f.readline()))
+            if minimum < self._minElecNumber:
+                self._minElecNumber = minimum
+        with open("/home/aptinet/max.txt", 'r') as f:
+            maximum = int(float(f.readline()))
+            if maximum > self._maxElecNumber:
+                self._maxElecNumber = maximum
+
+    newLevelSignal = Signal()
+
+    def get_level(self):
+        return self._level
+
+    def set_level(self, v: int):
+        if v < 0:
+            self._level = 0
+        elif v > 100:
+            self._level = 100
+        else:
+            self._level = v
+        self.newLevelSignal.emit()
 
     def run(self):
         try:
-            counter = 0
-            with i2c.I2CMaster() as bus:
-                while True:
-                    results = bus.transaction(i2c.reading(0x48, 2))
-                    hight = results[0][0]
-                    low = results[0][1]
+            inStartUp: int = 0
+            while True:
+                if inStartUp < self._elecNoiseReducBufferSize:
+                    readBytes = self._i2cBus.read_i2c_block_data(self._devAddress, 0x00, 2)
+                    res = (readBytes[0] << 8) + readBytes[1]
+                    self._elecNoiseReducBuffer.append(res)
+                    inStartUp += 1
+                else:
+                    self._elecNoiseReducBuffer.pop(0)
+                    readBytes = self._i2cBus.read_i2c_block_data(self._devAddress, 0x00, 2)
+                    res = (readBytes[0] << 8) + readBytes[1]
+                    self._elecNoiseReducBuffer.append(res)
+                    elecNumber = self.outlierRemover(self._elecNoiseReducBuffer)
 
-                    data = hight * 256
-                    data = data + low
-                    self.buffer.pop(0)
-                    self.buffer.append(data)
-                    res = self.outlierRemover(self.buffer)
-                    self.meanbuffer.pop(0)
-                    self.meanbuffer.append(res)
-                    if (mean(self.meanbuffer) <= 0 or counter <= 10):
-                        counter = counter + 1
-                        # print(counter)
-                        # continue
-                    else:
-                        Minfile = open("/home/kast/min.txt", "r")
-                        mindata = int(Minfile.readline())
-                        Minfile.close()
+                    if elecNumber < self._minElecNumber:
+                        self.save_minElecNumber(elecNumber)
+                    if elecNumber > self._maxElecNumber:
+                        self.save_maxElecNumber(elecNumber)
 
-                        if mean(self.meanbuffer) < mindata:
-                            Minfile = open("/home/kast/min.txt", "w")
-                            Minfile.write(str(int(mean(self.meanbuffer))))
-                            Minfile.close()
-
-                        Maxfile = open("/home/kast/max.txt", "r")
-                        maxdata = int(Maxfile.readline())
-                        Maxfile.close()
-                        if mean(self.meanbuffer) > maxdata:
-                            Maxfile = open("/home/kast/max.txt", "w")
-                            Maxfile.write(str(int(mean(self.meanbuffer))))
-                            Maxfile.close()
-
-                        if self.in_init:
-                            # if (mean(self.meanbuffer) != 0):
-                            self.in_init = False
-                            self.level = int(round((mean(self.meanbuffer) - mindata) * 100 / (maxdata - mindata)))
-                        else:
-
-                            # print(str(mindata) + ">>>>" + str(maxdata) + ">>>>>>>" + str(mean(self.meanbuffer)))
-                            # if (mean(self.meanbuffer) != 0):
-                            new_level = int(round((mean(self.meanbuffer) - mindata) * 100 / (maxdata - mindata)))
-                            if new_level == (self.level - 1):
-                                self.level = new_level
-                                self.updateLevel.emit(self.level)
-                            elif new_level < (self.level - 1):
-                                self.level = self.level - 1
-                                self.updateLevel.emit(self.level)
-                            elif new_level > (self.level + 4):
-                                self.level = self.level + 1
-                                self.updateLevel.emit(self.level)
-                            # self.level = int(round((mean(self.meanbuffer) - mindata) * 100 / (maxdata - mindata)))
-                            # self.updateLevel.emit(self.level)
-
-                        # print(data)
-                        # voltage = data * 2.048
-                        # voltage = voltage / 32768.0
-                        # print(voltage)
-                        # self.updateLevel.emit(voltage)
-                        if self.level > 100:
-                            self.level = 100
-                        self.updateLevel.emit(self.level)
-                    time.sleep(0.1)
+                    self.set_level(int(((elecNumber - self._minElecNumber) / (self._maxElecNumber - self._minElecNumber)) * 100))
+                    time.sleep(0.03)
         except:
             pass
+
+    def save_minElecNumber(self, v: int):
+        self._minElecNumber = v
+        with open("/home/aptinet/min.txt", 'w') as f:
+            f.write(str(v))
+
+    def save_maxElecNumber(self, v: int):
+        self._maxElecNumber = v
+        with open("/home/aptinet/max.txt", 'w') as f:
+            f.write(str(v))
 
     def outlierRemover(self, data_list, outlier_margin=1.5):
         a = np.array(data_list)
@@ -107,29 +96,130 @@ class BatteryWorker(QThread):
         return int(sum(resultList) / len(resultList)) if len(resultList) > 0 else 0
 
 
-class Battery(QObject):
-    _level: float = 50
-    _threadUpdate: BatteryWorker
-
-    def __init__(self):
-        super().__init__()
-        self._threadUpdate = BatteryWorker()
-        self._threadUpdate.updateLevel.connect(self.updateLevel)
-        self._threadUpdate.start()
-
-    @Slot(int)
-    def updateLevel(self, v: int):
-        self.setLevel(v)
-
-    @Signal
-    def changed(self):
-        pass
-
-    def getLevel(self):
-        return self._level
-
-    def setLevel(self, v):
-        self._level = v
-        self.changed.emit()
-
-    batterylevel = Property(float, getLevel, setLevel, notify=changed)
+# class BatteryWorker2(QThread):
+#     updateLevel = Signal(int)
+#     buffer = []
+#     size = 5
+#     meanbuffer = []
+#     meansize = 5
+#     level: int = 100
+#     in_init: bool = True
+#
+#     def __init__(self):
+#         QThread.__init__(self)
+#         for i in range(self.size):
+#             self.buffer.append(0)
+#         for i in range(self.meansize):
+#             self.meanbuffer.append(0)
+#
+#     def run(self):
+#         try:
+#             counter = 0
+#             with i2c.I2CMaster() as bus:
+#                 while True:
+#                     results = bus.transaction(i2c.reading(0x48, 2))
+#                     hight = results[0][0]
+#                     low = results[0][1]
+#
+#                     data = hight * 256
+#                     data = data + low
+#                     self.buffer.pop(0)
+#                     self.buffer.append(data)
+#                     res = self.outlierRemover(self.buffer)
+#                     self.meanbuffer.pop(0)
+#                     self.meanbuffer.append(res)
+#                     if (mean(self.meanbuffer) <= 0 or counter <= 10):
+#                         counter = counter + 1
+#                         # print(counter)
+#                         # continue
+#                     else:
+#                         Minfile = open("/home/kast/min.txt", "r")
+#                         mindata = int(Minfile.readline())
+#                         Minfile.close()
+#
+#                         if mean(self.meanbuffer) < mindata:
+#                             Minfile = open("/home/kast/min.txt", "w")
+#                             Minfile.write(str(int(mean(self.meanbuffer))))
+#                             Minfile.close()
+#
+#                         Maxfile = open("/home/kast/max.txt", "r")
+#                         maxdata = int(Maxfile.readline())
+#                         Maxfile.close()
+#                         if mean(self.meanbuffer) > maxdata:
+#                             Maxfile = open("/home/kast/max.txt", "w")
+#                             Maxfile.write(str(int(mean(self.meanbuffer))))
+#                             Maxfile.close()
+#
+#                         if self.in_init:
+#                             # if (mean(self.meanbuffer) != 0):
+#                             self.in_init = False
+#                             self.level = int(round((mean(self.meanbuffer) - mindata) * 100 / (maxdata - mindata)))
+#                         else:
+#
+#                             # print(str(mindata) + ">>>>" + str(maxdata) + ">>>>>>>" + str(mean(self.meanbuffer)))
+#                             # if (mean(self.meanbuffer) != 0):
+#                             new_level = int(round((mean(self.meanbuffer) - mindata) * 100 / (maxdata - mindata)))
+#                             if new_level == (self.level - 1):
+#                                 self.level = new_level
+#                                 self.updateLevel.emit(self.level)
+#                             elif new_level < (self.level - 1):
+#                                 self.level = self.level - 1
+#                                 self.updateLevel.emit(self.level)
+#                             elif new_level > (self.level + 4):
+#                                 self.level = self.level + 1
+#                                 self.updateLevel.emit(self.level)
+#                             # self.level = int(round((mean(self.meanbuffer) - mindata) * 100 / (maxdata - mindata)))
+#                             # self.updateLevel.emit(self.level)
+#
+#                         # print(data)
+#                         # voltage = data * 2.048
+#                         # voltage = voltage / 32768.0
+#                         # print(voltage)
+#                         # self.updateLevel.emit(voltage)
+#                         if self.level > 100:
+#                             self.level = 100
+#                         self.updateLevel.emit(self.level)
+#                     time.sleep(0.1)
+#         except:
+#             pass
+#
+#     def outlierRemover(self, data_list, outlier_margin=1.5):
+#         a = np.array(data_list)
+#         upper_quartile = np.percentile(a, 75)
+#         lower_quartile = np.percentile(a, 25)
+#         IQR = (upper_quartile - lower_quartile) * outlier_margin
+#         quartileSet = (lower_quartile - IQR, upper_quartile + IQR)
+#         resultList = []
+#         for raw_number in a.tolist():
+#             if quartileSet[0] <= raw_number <= quartileSet[1]:
+#                 resultList.append(raw_number)
+#         # print(resultList)
+#         return int(sum(resultList) / len(resultList)) if len(resultList) > 0 else 0
+#
+#
+# class Battery(QObject):
+#     _level: float = 50
+#     _threadUpdate: BatteryWorker
+#
+#     def __init__(self):
+#         super().__init__()
+#         self._threadUpdate = BatteryWorker()
+#         self._threadUpdate.updateLevel.connect(self.updateLevel)
+#         self._threadUpdate.start()
+#
+#     @Slot(int)
+#     def updateLevel(self, v: int):
+#         self.setLevel(v)
+#
+#     @Signal
+#     def changed(self):
+#         pass
+#
+#     def getLevel(self):
+#         return self._level
+#
+#     def setLevel(self, v):
+#         self._level = v
+#         self.changed.emit()
+#
+#     batterylevel = Property(float, getLevel, setLevel, notify=changed)
