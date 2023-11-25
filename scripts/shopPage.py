@@ -18,8 +18,8 @@ class ShopPage(QObject):
     ### Settings #####################
     _insertProductTime: int = 8  # actual time = n -1
     _validInsertedWeightForCalTol: int = 3  # Accept inserted product without checking weight under this limit
-    _basketWeightLimit: int = 20000   # grams
-    _lightestProductWeight: int = 11   # grams
+    _basketWeightLimit: int = 20000  # grams
+    _lightestProductWeight: int = 11  # grams
 
     ### Models #######################
     _factorList: ProductModel
@@ -73,6 +73,7 @@ class ShopPage(QObject):
     changedSignal = Signal()
     loyaltyCartLoginScannedSignal = Signal()
     goToSoppingPageSignal = Signal()
+    showNewProductScannedSignal = Signal()
 
     ### Properties ###################
     def get_countDownTimer(self):
@@ -121,11 +122,6 @@ class ShopPage(QObject):
             self.set_countDownTimer(self._insertProductTime)
             self.set_newProduct(product)
             self.set_state(2)
-
-
-
-
-
 
     @Slot()
     def basketWeightChanged(self, val2: int, val1: int):
@@ -198,7 +194,8 @@ class ShopPage(QObject):
         L_Wire(1)
         self._factorList.insertProduct(p, c)
         self._bypassList.insertProduct(p.copy_product(), c)
-        if u : self._factorList.updateWeight(p, w2 - w1)
+        if u:
+            self._factorList.updateWeight(p, w2 - w1)
         self._basketWeightShouldBe = w2
         self.cal_basketLoad(w2)
 
@@ -208,5 +205,3 @@ class ShopPage(QObject):
             load = min(max(load, 0), 100)
             self.set_basketLoad(load)
             self.set_basketIsFull(True) if load == 100 else self.set_basketIsFull(False)
-
-
