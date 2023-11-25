@@ -6,7 +6,7 @@ import QtQuick.Controls 2.15
 Item {
 
     width: 1280
-    height: 800
+    height: 462
 
 
     id:obj

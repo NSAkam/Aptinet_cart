@@ -10,6 +10,9 @@ import "../Components"
 Item {
     id:barcode_scanned
 
+    signal cancel()
+    signal pass()
+
     property QtObject tanzimat
 
     anchors.fill: parent
@@ -18,6 +21,7 @@ Item {
     }
 
     Rectangle{
+        id:rect_move
         color: "#4696FA"
         x:32
         y:125
@@ -36,6 +40,7 @@ Item {
     }
 
     Rectangle{
+        id:rect_dontmove
         color: "#F05A28"
         x:32
         y:125
@@ -65,7 +70,7 @@ Item {
         height: 200
         color: "White"
         Image {
-            source: "../../Assets/Product.png"
+            source: "../../Assets/product.png"
             width: 135
             height: 135
             x:33
@@ -109,15 +114,6 @@ Item {
         font.pixelSize: 20
         color: "#6D6D6D"
     }
-//    KBorderButton{
-//        text: "Cancel"
-//        btn_color: "transparent"
-//        color: "transparent"
-//        x: 694
-//        y: 469
-//        width: 164
-//        height: 46
-//    }
 
     Button {
         x: 694
@@ -136,33 +132,55 @@ Item {
         Text {
             text: qsTr("Cancel")
             font.pixelSize: 20
-//            font.weight: Font.DemiBold
             lineHeight: Font.Normal
             font.letterSpacing: 1.28
             color: "#F08C5A"
-//            anchors.horizontalCenter: parent.horizontalCenter
             x: 48
             y: 12
             horizontalAlignment: Text.AlignHCenter
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    barcode_scanned.cancel()
+                }
+            }
         }
     }
 
-    KProgress {
-        value: 3
-        x: 778 - 30
-        y: 596 - 30
-        height: 140
-        from: 0
-        to: 7
-        reverse: true
-        titleFontSize: 10
-//        lineWidth: 50
-        fontSize: 10
-        fromAngle: (Math.PI / 180) * 270
-        toAngle: (Math.PI / 180) * 270 + 360
-        kprogressBackgroundColor: "white"
-        kprogressColor: "#F08C5A"
-        title: parseInt(value)
-    }
 
+    CircularProgressBar {
+        id: progress1
+        lineWidth: 10
+        x: 678 + 50
+        y: 496 + 50
+        value: 0.0
+        size: 150
+        secondaryColor: "#e0e0e0"
+        primaryColor: "#F08C5A"
+
+        Text {
+            text: parseInt((progress1.value * 100) / 14)
+            anchors.centerIn: parent
+            font.pointSize: 20
+            color: progress1.primaryColor
+            onTextChanged: {
+                if(text == "8"){
+                    barcode_scanned.pass()
+                }
+                if(text =="5")
+                {
+                    rect_move.visible = false
+                    rect_dontmove.visible = true
+                }
+            }
+        }
+    }
+    Timer{
+        interval: 1000
+        onTriggered: {
+            progress1.value += 0.14285
+        }
+        running: true
+        repeat: true
+    }
 }

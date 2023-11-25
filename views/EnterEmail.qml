@@ -38,8 +38,6 @@ Item {
         text: "Continue with Aptinet Card"
         x: 0.5
         y: 200
-        btn_width: 392
-        btn_height: 56
         borderRadius: 4
         btn_color: viewset.primaryColor
 

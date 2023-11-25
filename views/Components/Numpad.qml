@@ -11,95 +11,115 @@ Rectangle {
         id:viewset
     }
 
+    signal enter();
     id:numpad
-    width: 244
-    height: 308
+    width: 308
+    height: 375
     radius: 4
-    anchors.verticalCenter: parent.verticalCenter
-    anchors.horizontalCenter: parent.horizontalCenter
+    //anchors.verticalCenter: parent.verticalCenter
+    //anchors.horizontalCenter: parent.horizontalCenter
 
     property TextInput inputtext
 
 
 
     KNumberButton{
-        x:0
-        y:0
+        x:32
+        y:34
         text: "1"
         onClicked: inputtext.text += "1"
     }
 
     KNumberButton{
-        x:82
-        y:0
+        x:124
+        y:34
         text: "2"
         onClicked: inputtext.text += "2"
     }
     KNumberButton{
-        x:164
-        y:0
+        x:216
+        y:34
         text: "3"
         onClicked: inputtext.text += "3"
     }
     KNumberButton{
-        x:0
-        y:62
+        x:32
+        y:116
         text: "4"
         onClicked: inputtext.text += "4"
     }
     KNumberButton{
-        x:82
-        y:62
+        x:124
+        y:116
         text: "5"
         onClicked: inputtext.text += "5"
     }
     KNumberButton{
-        x:164
-        y:62
+        x:216
+        y:116
         text: "6"
         onClicked: inputtext.text += "6"
     }
     KNumberButton{
-        x:0
-        y:124
+        x:32
+        y:199
         text: "7"
         onClicked: inputtext.text += "7"
 
     }
     KNumberButton{
-        x:82
-        y:124
+        x:124
+        y:199
         text: "8"
         onClicked: inputtext.text += "8"
 
     }
     KNumberButton{
-        x:164
-        y:124
+        x:216
+        y:199
         text: "9"
         onClicked: inputtext.text += "9"
 
     }
-    KNumberButton{
-        x:0
-        y:186
-        text: "-"
 
+    Image {
+        source: "../../Assets/backspace.png"
+        x:32 +10
+        y:280 +15
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                onClicked:{
+                    inputtext.text = inputtext.text.slice(0,-1)
+                }
+            }
+        }
     }
     KNumberButton{
-        x:82
-        y:186
+        x:124
+        y:280
         text: "0"
         onClicked: inputtext.text += "0"
 
     }
-    KNumberButton{
-        x:164
-        y:186
-        font.pixelSize: 16
-        text: "حذف"
-        onClicked:{
-            inputtext.text = inputtext.text.slice(0,-1)
+    Image {
+        source: "../../Assets/NumpadEnter.png"
+        x:216 +0
+        y:280 +10
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                numpad.enter()
+            }
         }
     }
+    //    KNumberButton{
+    //        x:216
+    //        y:280
+    //        font.pixelSize: 16
+    //        text: "<--"
+    //        onClicked:{
+    //            inputtext.text = inputtext.text.slice(0,-1)
+    //        }
+    //    }
 }

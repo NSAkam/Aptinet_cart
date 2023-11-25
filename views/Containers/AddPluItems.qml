@@ -5,7 +5,8 @@ Item {
     width: 890
     height: 708
 
-    signal closepanel()
+    signal back()
+    signal seeAll()
 
     Text {
         text: qsTr("Search Results")
@@ -22,9 +23,33 @@ Item {
         radius: 4
         color: white
         Image {
-            source: "../Assets/pluAddItem.png"
+            source: "../../Assets/pluAddItem.png"
             x:32
             y:54
+        }
+        Text {
+            x:204
+            y:56
+            font.pixelSize: 24
+            font.bold: true
+            color: "#D9D9D9"
+            text: qsTr("#0000")
+        }
+        Text {
+            x:204
+            y:106
+            font.pixelSize: 24
+            font.bold: true
+            color: "#D9D9D9"
+            text: qsTr("Name")
+        }
+        Text {
+            x:204
+            y:156
+            font.pixelSize: 24
+            font.bold: true
+            color: "#D9D9D9"
+            text: qsTr("$ 0.0 /kg")
         }
     }
     Rectangle{
@@ -41,7 +66,7 @@ Item {
             font.bold: true
         }
         Image {
-            source: "../Assets/addPluItemsSteps.png"
+            source: "../../Assets/addPluItemsSteps.png"
             x:32
             y:113
         }
@@ -62,7 +87,7 @@ Item {
         y:94
         radius: 4
         Image {
-            source: "../Assets/product.png"
+            source: "../../Assets/product.png"
             anchors.horizontalCenter: parent.horizontalCenter
             width: 128
             height: 128
@@ -85,6 +110,7 @@ Item {
             x:16
             y:211
             font.pixelSize: 20
+            color: viewset.primaryColor
         }
     }
 
@@ -95,7 +121,7 @@ Item {
         y:94
         radius: 4
         Image {
-            source: "../Assets/product.png"
+            source: "../../Assets/product.png"
             anchors.horizontalCenter: parent.horizontalCenter
             width: 128
             height: 128
@@ -118,6 +144,7 @@ Item {
             x:16
             y:211
             font.pixelSize: 20
+             color: viewset.primaryColor
         }
     }
 
@@ -128,7 +155,7 @@ Item {
         y:359
         radius: 4
         Image {
-            source: "../Assets/product.png"
+            source: "../../Assets/product.png"
             anchors.horizontalCenter: parent.horizontalCenter
             width: 128
             height: 128
@@ -151,6 +178,7 @@ Item {
             x:16
             y:211
             font.pixelSize: 20
+             color: viewset.primaryColor
         }
     }
     Rectangle{
@@ -160,7 +188,7 @@ Item {
         y:359
         radius: 4
         Image {
-            source: "../Assets/product.png"
+            source: "../../Assets/product.png"
             anchors.horizontalCenter: parent.horizontalCenter
             width: 128
             height: 128
@@ -183,6 +211,7 @@ Item {
             x:16
             y:211
             font.pixelSize: 20
+             color: viewset.primaryColor
         }
     }
 
@@ -192,6 +221,12 @@ Item {
         Text {
             text: qsTr("See All >")
             font.pixelSize: 24
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    root.seeAll()
+                }
+            }
 
         }
     }
@@ -206,8 +241,7 @@ Item {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    console.log("asdasdasd")
-                    root.closepanel()
+                    root.back()
                 }
             }
         }

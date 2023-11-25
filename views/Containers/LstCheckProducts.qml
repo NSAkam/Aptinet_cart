@@ -9,6 +9,7 @@ import "../Components"
 Item {
     id:lstFactor
     property QtObject tanzimat
+    signal gocheckout()
 
     anchors.fill: parent
     Rectangle{
@@ -48,7 +49,7 @@ Item {
 
                 Image {
                     id: factorItemPic
-                    source:  "file://../Assets/product.png"
+                    source:  "../../Assets/product.png"
                     anchors.left: parent.left
                     width: 90
                     height: 90
@@ -115,7 +116,7 @@ Item {
     ListView {
         id:lst_prd
         focus: true
-        model: 10
+        model: 2
         delegate: factorDelegate
         x:0
         y:103
@@ -136,6 +137,7 @@ Item {
         height: 132
         x:0
         y:576
+
 
         Text {
             id:check_TotalItems
@@ -186,6 +188,13 @@ Item {
             x:489
             y:83
         }
+        Image {
+            source: "../../Assets/fullBasket.png"
+            width: 84
+            height: 84
+            x:32
+            y:28
+        }
         KButton{
             id:btn_Checkout
             text: "Checkout"
@@ -197,6 +206,9 @@ Item {
             width: 229
             height: 72
             btn_borderWidth: 0
+            onClicked: {
+                lstFactor.gocheckout()
+            }
         }
     }
 

@@ -5,7 +5,7 @@ from Models.userFactore import UserFactoreModel
 from Models.product import Product
 
 
-class UserRepository:
+class UserFactoreRepository:
     
     dal: DAL
     

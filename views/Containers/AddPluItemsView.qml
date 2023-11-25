@@ -9,6 +9,9 @@ Item {
     width: 572
     height: 450
 
+    signal cancel()
+    signal confirm()
+
     Rectangle{
         id: viewitemrect
         width: parent.width
@@ -21,10 +24,10 @@ Item {
         Image {
             id: productimage
             source: "../../Assets/product.png"
-//            width: 158.57
-//            height: 121.57
-            x: 45.21
-            y: 55.71
+            width: 185
+            height: 185
+            x: 32
+            y: 24
         }
 
         Text {
@@ -61,7 +64,9 @@ Item {
 
         Image {
             id: weightimage
-            source: "../../Assets/weight.png"
+            source: "../../Assets/weighticon.png"
+            width: 48
+            height: 48
             x: 44
             y: 264
         }
@@ -98,18 +103,21 @@ Item {
             text: "Cancel"
             x: 32
             y: 354
-            btn_width: 225
-            btn_height: 64
             borderRadius: 4
             btn_color: viewset.primaryColor
+            width: 225
+            height: 64
+            onClicked: {
+                root.cancel()
+            }
         }
 
         KButton {
             text: "Confirm"
             x: 273
             y: 354
-            btn_width: 267
-            btn_height: 64
+            width: 267
+            height: 64
             borderRadius: 4
             btn_color: viewset.secondaryColor
             btn_bordercolor: viewset.secondaryColor
@@ -120,24 +128,10 @@ Item {
                 y: 24
 
             }
+            onClicked: {
+                root.confirm()
+            }
         }
 
     }
-
-    DropShadow {
-        anchors.fill: viewitemrect
-        cached: true
-        horizontalOffset: 0
-        verticalOffset: 8
-        radius: 2
-        y: 5
-        samples: 30
-        color: "#0000000A"
-        smooth: true
-        source: viewitemrect
-        visible: shadow?true:false
-    }
-
-
-
 }

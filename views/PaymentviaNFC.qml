@@ -17,6 +17,7 @@ Item {
         id:viewset
     }
 
+
     Image {
         source: "../Assets/AuthenticationBackground.png"
         anchors.fill: parent
@@ -34,10 +35,43 @@ Item {
         x:0
         y:0
     }
-
+    TopNav{
+        backvisible: true
+    }
+    Rectangle{
+        width: 50
+        height: 50
+        color: viewset.primaryColor
+        x:530 + 390
+        y:24
+        radius: width /2
+    }
+    Text {
+        text: qsTr("user Email")
+        color: "#6D6D6D"
+        width: 148
+        height: 15
+        font.pixelSize: 14
+        x:586 + 390
+        y:40.5
+    }
+    Image {
+        source: "../Assets/Help.png"
+        width: 57
+        height: 57
+        x:1156
+        y:25
+    }
+    Image {
+        source: "../Assets/Notification.png"
+        width: 57
+        height: 57
+        x:1208
+        y:25
+    }
     Item{
         id:topPanel
-        width: parent.width
+        width: 0
         height: 92
         Rectangle{
             width: parent.width
@@ -79,27 +113,7 @@ Item {
         }
     }
 
-    Item{
-        id:leftPanel
-        width: 390
-        height: parent.height
 
-        Rectangle {
-            id:rect_leftPanel
-            color: "white"
-            width: 390
-            height: 92
-            x: 0
-            y: 0
-
-        }
-
-        Image {
-            source: "../Assets/AptinetText.png"
-            x:0
-            y:0
-        }
-    }
 
     Image {
         source: "../Assets/payment_animation.png"
@@ -126,6 +140,12 @@ Item {
         source: "../Assets/GooglePay.png"
         x: 672
         y: 550 + topPanel.height
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                stackview.push(afterpaymentPage)
+            }
+        }
     }
 
     Text {
@@ -137,7 +157,12 @@ Item {
         horizontalAlignment: Text.AlignHCenter
     }
 
+    Component{
+        id:afterpaymentPage
+        AfterPayment{
 
+        }
+    }
 
 
 }

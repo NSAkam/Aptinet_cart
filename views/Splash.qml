@@ -3,7 +3,7 @@ import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
 import "Components"
 import "Utiles" as Util
-
+import "Setting"
 
 
 Item {
@@ -36,17 +36,15 @@ Item {
         source: background
         radius: 32
     }
-    KBattery{
-        battery_level: 45
-    }
+
 
     Image {
         id: aptinetIcon
-        source: "../Assets/AptinetImage.png"
-        x:381
-        y:251
-        width: 518
-        height: 240
+        source: "../Assets/AptinetIcon1.png"
+        x:486
+        y:283
+        width: 308
+        height: 233
         Behavior on x {
             NumberAnimation { duration: 1000 }
         }
@@ -58,6 +56,12 @@ Item {
         }
         Behavior on height {
             NumberAnimation { duration: 1000 }
+        }
+        onWidthChanged: {
+            if(width == 208){
+                txt_welcome.opacity = 1
+                txt_welcomebot.opacity = 1
+            }
         }
     }
 
@@ -93,10 +97,10 @@ Item {
             anchors.fill: parent
             onClicked: {
                 backgroundOpacity.opacity = 0
-                aptinetIcon.x=497;
-                aptinetIcon.y=89;
-                aptinetIcon.width=287;
-                aptinetIcon.height=133;
+                aptinetIcon.x=536;
+                aptinetIcon.y=124;
+                aptinetIcon.width=208;
+                aptinetIcon.height=154;
                 startshoppingButton.opacity = 1;
                 guideButton.opacity = 1;
                 statrtButton.visible = false
@@ -106,9 +110,32 @@ Item {
                 settingButton.opacity = 1;
                 languageButton.enabled = true
                 languageButton.opacity = 1
+
             }
         }
 
+    }
+    Text {
+        id:txt_welcome
+        text: qsTr("welcome!")
+        font.pixelSize: 64
+        x:485
+        y:342
+        opacity: 0
+        Behavior on opacity {
+            NumberAnimation { duration: 2000 }
+        }
+    }
+    Text {
+        id:txt_welcomebot
+        text: qsTr("To a quick shopping experience")
+        font.pixelSize: 20
+        x:487
+        y:428
+        opacity: 0
+        Behavior on opacity {
+            NumberAnimation { duration: 2000 }
+        }
     }
     KButton{
         id:startshoppingButton
@@ -143,6 +170,12 @@ Item {
         Behavior on opacity{
             NumberAnimation{duration: 1000}
         }
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                stackview.push(guidpage)
+            }
+        }
     }
     Rectangle{
         id:settingButton
@@ -166,39 +199,39 @@ Item {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                stackview.push(settingsmenutest)
+                stackview.push(settingPage)
             }
         }
     }
 
-//    KButton {
-//       id:settingButton
-//       x:1168
-//       y:688
-//       width: 112
-//       height: 112
-//       btn_color: "transparent"
+    //    KButton {
+    //       id:settingButton
+    //       x:1168
+    //       y:688
+    //       width: 112
+    //       height: 112
+    //       btn_color: "transparent"
 
-//       Image {
-//           anchors.fill: parent
-//           source: "../Assets/SettingCircle.png"
-//           width: parent.width
-//           height: parent.height
-//       }
-//       enabled: false
-//       opacity: 0
-//       Behavior on opacity{
-//           NumberAnimation{duration: 1000}
-//       }
+    //       Image {
+    //           anchors.fill: parent
+    //           source: "../Assets/SettingCircle.png"
+    //           width: parent.width
+    //           height: parent.height
+    //       }
+    //       enabled: false
+    //       opacity: 0
+    //       Behavior on opacity{
+    //           NumberAnimation{duration: 1000}
+    //       }
 
-//       MouseArea {
-//           anchors.fill: parent
-//           onClicked: {
-//               stackview.push(settingsmenutest)
-//           }
-//       }
+    //       MouseArea {
+    //           anchors.fill: parent
+    //           onClicked: {
+    //               stackview.push(settingsmenutest)
+    //           }
+    //       }
 
-//    }
+    //    }
 
     Rectangle{
         id:languageButton
@@ -226,13 +259,46 @@ Item {
             }
         }
     }
+    KBattery{
+        battery_level: 40
+        x:32
+        y:32
 
+    }
+    Rectangle{
+        id:rect_Clock
+        width: 100
+        height: 38
+        color: viewset.primaryColor
+        radius: 50
+        x:1148
+        y:32
+        Text {
+            text: qsTr("12:36")
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            font.pixelSize: 24
+            color: "white"
+            font.bold: true
+        }
+    }
     Item{
         id: languageButtons
         anchors.fill: parent
         width: parent.width
         height: parent.height
         visible: false
+        Rectangle{
+            anchors.fill: parent
+            color: "transparent"
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    backgroundOpacity.opacity = 0
+                    languageButtons.visible = false
+                }
+            }
+        }
 
         Rectangle{
             id:backgroundselectLangOpacity
@@ -321,6 +387,8 @@ Item {
             textColor: "black"
         }
     }
+
+
     Component{
         id:authenticationPage
         Authentication{
@@ -328,11 +396,18 @@ Item {
         }
     }
 
-    Component {
-        id: settingsmenutest
-        Menu_Test {
+    Component{
+        id:guidpage
+        GuideTips{
 
         }
-
     }
+
+    Component{
+        id:settingPage
+        SettingPage{
+
+        }
+    }
+
 }

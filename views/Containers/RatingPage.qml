@@ -38,19 +38,7 @@ Item {
                     anchors.centerIn: parent
                 }
 
-                DropShadow {
-                    anchors.fill: parent
-                    cached: true
-                    horizontalOffset: 0
-                    verticalOffset: 4
-                    radius: 4.0
-                    y: 0
-                    samples: 30
-                    color: "#6c9bd7"
-                    smooth: true
-                    source: parent
-                    visible: shadow?true:false
-                }
+
             }
 
         }
@@ -72,19 +60,7 @@ Item {
                     anchors.centerIn: parent
                 }
 
-                DropShadow {
-                    anchors.fill: parent
-                    cached: true
-                    horizontalOffset: 0
-                    verticalOffset: 4
-                    radius: 4.0
-                    y: 0
-                    samples: 30
-                    color: "#6c9bd7"
-                    smooth: true
-                    source: parent
-                    visible: shadow?true:false
-                }
+
             }
 
         }
@@ -105,22 +81,7 @@ Item {
                     source: "../../Assets/verygoodrate.png"
                     anchors.centerIn: parent
                 }
-
-                DropShadow {
-                    anchors.fill: parent
-                    cached: true
-                    horizontalOffset: 0
-                    verticalOffset: 4
-                    radius: 4.0
-                    y: 0
-                    samples: 30
-                    color: "#6c9bd7"
-                    smooth: true
-                    source: parent
-                    visible: shadow?true:false
-                }
             }
-
         }
 
 
@@ -139,21 +100,6 @@ Item {
                     source: "../../Assets/excellentrate.png"
                     anchors.centerIn: parent
                 }
-
-                DropShadow {
-                    anchors.fill: parent
-                    cached: true
-                    horizontalOffset: 0
-                    verticalOffset: 4
-                    radius: 4.0
-                    y: 0
-                    samples: 30
-                    color: "#6c9bd7"
-                    smooth: true
-                    source: parent
-                    visible: shadow?true:false
-                }
-
             }
         }
     }
