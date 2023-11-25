@@ -16,6 +16,10 @@ class Logic(QObject):
         self.gpioWorkerThread.finished.connect(self.gpioWorkerThread.deleteLater)
         self.gpioWorkerThread.start()
         
+    #Signals ################################################
+    goToShoppageSignal = Signal()
+    goToSettingPageSignal = Signal()
+
     @Signal
     def changed(self):
         pass
@@ -39,10 +43,10 @@ class Logic(QObject):
     settingPage = Property(SettingPage,getSettingPage,setSettingPage,notify=changed)
 
     @Slot()
-    def gotoShopping(self):
+    def gotoShoppingCliked(self):
         self.setShopPage(ShopPage())
 
     @Slot()
-    def gotoSetting(self) -> None:
+    def gotoSettingCliked(self) -> None:
         self.setSettingPage(SettingPage())
     
