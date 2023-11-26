@@ -388,7 +388,7 @@ Item {
     }
     Connections{
         target:obj_logic
-        function onGoToShoppageSignal(){
+        function onGoToShopPageSignal(){
             stackview.push(authenticationPage)
         }
 
