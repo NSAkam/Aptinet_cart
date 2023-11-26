@@ -1,12 +1,10 @@
-from PySide2.QtCore import QObject, Signal, Property,Slot,QUrl
-from Services.wifi import WirelessModel
-from Helpers.scannerHelper import ScannerHelper
+from PySide2.QtCore import QObject, Signal, Property, Slot, QUrl
 from Repositories.adminRepository import AdminRepository
 from Services.dal import DAL
 from Repositories.configRepository import ConfigRepositories
 from Models.config import Config
 from API.apiHandler import Apihandler
-
+from updateSoftware import UpdateSoftware
 
 
 class SettingPage(QObject):
@@ -14,7 +12,6 @@ class SettingPage(QObject):
 
     ### Models #########################################################################################################
     _configs: Config
-    _apiHandler: Apihandler
 
     ### Repositories ###################################################################################################
     _adminRepository: AdminRepository
@@ -22,13 +19,8 @@ class SettingPage(QObject):
     ### Private ########################################################################################################
     _dal: DAL
     _configsRepository: ConfigRepositories
+    _apiHandler: Apihandler
     _lastSoftwareVersion: str
-
-
-
-    # _wifimodel : WirelessModel
-    # _scanner: ScannerHelper
-
 
     def __init__(self):
         super().__init__()
@@ -36,7 +28,7 @@ class SettingPage(QObject):
         self._adminRepository = AdminRepository(self._dal)
         self._configsRepository = ConfigRepositories(self._dal)
         self._apiHandler = Apihandler(self._dal)
-
+        self._updateSoftware = None
 
     ### Signals ########################################################################################################
     changedSignal = Signal()
@@ -70,11 +62,18 @@ class SettingPage(QObject):
         self._lastSoftwareVersion = val
         self.changedSignal.emit()
 
-    lastSoftwareVersion = Property(str,get_lastSoftwareVersion, set_lastSoftwareVersion, notify=changedSignal)
+    lastSoftwareVersion = Property(str, get_lastSoftwareVersion, set_lastSoftwareVersion, notify=changedSignal)
 
+    def get_updateSoftware(self):
+        return self._updateSoftware
+
+    def set_updateSoftware(self, val: UpdateSoftware):
+        self._updateSoftware = val
+        self.changedSignal.emit()
+
+    updateSoftware = Property(UpdateSoftware, get_updateSoftware, set_updateSoftware, notify=changedSignal)
 
     ### Sluts ##########################################################################################################
-
     @Slot(str, str)
     def confirm_clicked(self, username: str, password: str):
         if self._adminRepository.Login(username) and (password == "123456"):
@@ -87,7 +86,6 @@ class SettingPage(QObject):
         self.set_lastSoftwareVersion(self._apiHandler.get_appVersion())
         if self._configs.get_appVersion() != self._lastSoftwareVersion:
             self.updateAvailableSignal.emit()
-
-
+            self.set_updateSoftware(UpdateSoftware())
 
     ### Functions ######################################################################################################
