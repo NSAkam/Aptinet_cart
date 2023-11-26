@@ -7,9 +7,6 @@ import "../PopUps"
 import KAST.Logic 1.0
 
 
-
-
-
 Item {
     id: root
     visible: true
@@ -211,7 +208,7 @@ Item {
 
         }
         onClicked: {
-            stackview.push(cartinfo)
+            obj_Logic.settingPage.cart_infoClicked()
         }
 
         Image {
@@ -301,7 +298,9 @@ Item {
 
     Component {
         id: cartinfo
-        CartInfo{}
+        CartInfo{
+            
+        }
     }
 
     Component {
