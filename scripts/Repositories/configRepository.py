@@ -1,5 +1,6 @@
 from Services.dal import DAL
 from PySide2.QtSql import QSqlQuery
+from Models.config import Config
 import os
 
 
@@ -34,3 +35,17 @@ class ConfigRepositories():
         while query.next():
             appversion = query.value(0)
         return appversion
+    
+    def get_Config(self):
+        query = QSqlQuery()
+        query.exec_("select storeId,is_kg,currency,appVersion,dbVersion,imagesVersion,basketName from Config LIMIT 1")
+        c = Config()
+        while query.next():
+            c.storeId = query.value(0)
+            c.isKg = query.value(1)
+            c.currency = query.value(2)
+            c.appVersion = query.value(3)
+            c.dbVersion = query.value(4)
+            c.imagesVersion = query.value(5)
+            c.basketName = query.value(6)
+        return c
