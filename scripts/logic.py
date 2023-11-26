@@ -3,9 +3,18 @@ from shopPage import ShopPage
 from settingPage import SettingPage
 from Helpers.scannerHelper import ScannerHelper
 from Services.gpio import GreenLight
+import os
+import sys
 
 
 class Logic(QObject):
+    ### Settings #######################################################################################################
+
+    ### Models #########################################################################################################
+
+    ### Repositories ###################################################################################################
+
+    ### Private ########################################################################################################
     _shopPage: ShopPage
     _settingPage: SettingPage
     _greenLightWorkerThread: GreenLight
@@ -14,12 +23,12 @@ class Logic(QObject):
         super().__init__()
         self.turnoff_greenLight()
 
-    # Signals ################################################
+    ### Signals ########################################################################################################
     changedSignal = Signal()
     goToShopPageSignal = Signal()
     goToSettingPageSignal = Signal()
 
-    # Properties #############################################
+    ### Properties #####################################################################################################
     def get_shopPage(self):
         return self._shopPage
 
@@ -38,7 +47,7 @@ class Logic(QObject):
 
     settingPage = Property(SettingPage, get_settingPage, set_settingPage, notify=changedSignal)
 
-    # Sluts ##################################################
+    ### Sluts ##########################################################################################################
     @Slot()
     def go_toShoppingClicked(self):
         self.goToShopPageSignal.emit()
@@ -49,7 +58,16 @@ class Logic(QObject):
         self.goToSettingPageSignal.emit()
         self.set_settingPage(SettingPage())
 
-    # Functions ##############################################
+    @Slot()
+    def reset_app(self):
+        os.execl(sys.executable, sys.executable, *sys.argv)
+
+    @Slot()
+    def turnoff(self):
+        os.system("sudo shutdown now")
+
+
+    ### Functions ######################################################################################################
     def turnoff_greenLight(self):
         self._greenLightWorkerThread = GreenLight(False)
         self._greenLightWorkerThread.finished.connect(self._greenLightWorkerThread.deleteLater)
