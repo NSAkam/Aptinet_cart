@@ -30,7 +30,10 @@ Item {
                 onShiftClicked:function (state) { parent.parent.keyboardState(state) }
                 onInput:function (key){inputtext.text = inputtext.text + key}
                 onBackspace: function (){inputtext.text = inputtext.text.slice(0,-1)}
-                onClose: function (){obj.destroy()}
+                onClose: function (){
+                    obj.visible=false
+                    //obj.destroy()
+                }
             }
         }
         Component {
@@ -40,7 +43,10 @@ Item {
                 onShiftClicked:function (state) { parent.parent.keyboardState(state) }
                 onInput:function (key){inputtext.text = inputtext.text + key}
                 onBackspace: function (){inputtext.text = inputtext.text.slice(0,-1)}
-                onClose: function (){obj.destroy()}
+                onClose: function (){
+                    obj.visible=false
+                    //obj.destroy()
+                }
             }
         }
         Component {
@@ -50,7 +56,10 @@ Item {
                 onShiftClicked:function (state) { parent.parent.keyboardState(state) }
                 onInput:function (key){inputtext.text = inputtext.text + key}
                 onBackspace: function (){inputtext.text = inputtext.text.slice(0,-1)}
-                onClose: function (){obj.destroy()}
+                onClose: function (){
+                    obj.visible=false
+                    //obj.destroy()
+                }
             }
         }
 
