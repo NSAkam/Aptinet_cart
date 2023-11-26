@@ -2,9 +2,8 @@ import sys
 from PySide2.QtCore import Qt 
 from PySide2.QtGui import QGuiApplication
 from PySide2.QtQml import QQmlApplicationEngine,qmlRegisterType,QQmlDebuggingEnabler
-from Services.battery import Battery
+# from Services.battery import BatteryWorker
 from logic import Logic
-from Services.barcodeGenerator import *
 
 
 if __name__ == "__main__":
