@@ -83,6 +83,7 @@ class SettingPage(QObject):
 
     @Slot()
     def cart_infoClicked(self):
+        print("cart_infoClicked")
         self.set_configs(self._configsRepository.get_Config())
         print(self._configs.get_appVersion())
         self.cartInfoClickedSignal.emit()

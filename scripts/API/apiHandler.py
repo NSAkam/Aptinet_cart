@@ -178,6 +178,7 @@ class Apihandler(QObject):
     
     @Slot(str)
     def appVersion_Recived(self, v: str):
+        print("appVersion_Recived" + v)
         self.appVersionRecievedSignal.emit(v)
 
     @Slot()
