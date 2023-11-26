@@ -4,6 +4,7 @@ import QtGraphicalEffects 1.15
 import "Components"
 import "Utiles" as Util
 import "Setting"
+import KAST.Logic 1.0
 
 
 Item {
@@ -13,6 +14,10 @@ Item {
 
     Util.ViewSettings{
         id:viewset
+    }
+
+    Logic{
+        id:obj_logic
     }
 
     Image {
@@ -154,7 +159,7 @@ Item {
             NumberAnimation{duration: 1000}
         }
         onClicked: {
-            stackview.push(authenticationPage)
+            obj_logic.gotoShoppingCliked();
         }
     }
     KBorderButton{
@@ -199,39 +204,11 @@ Item {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                stackview.push(settingPage)
+                stackview.push(membershipLogin)
+                obj_logic.gotoSettingCliked();
             }
         }
     }
-
-    //    KButton {
-    //       id:settingButton
-    //       x:1168
-    //       y:688
-    //       width: 112
-    //       height: 112
-    //       btn_color: "transparent"
-
-    //       Image {
-    //           anchors.fill: parent
-    //           source: "../Assets/SettingCircle.png"
-    //           width: parent.width
-    //           height: parent.height
-    //       }
-    //       enabled: false
-    //       opacity: 0
-    //       Behavior on opacity{
-    //           NumberAnimation{duration: 1000}
-    //       }
-
-    //       MouseArea {
-    //           anchors.fill: parent
-    //           onClicked: {
-    //               stackview.push(settingsmenutest)
-    //           }
-    //       }
-
-    //    }
 
     Rectangle{
         id:languageButton
@@ -404,10 +381,19 @@ Item {
     }
 
     Component{
-        id:settingPage
-        SettingPage{
-
+        id:membershipLogin
+        MembershipLogin{
+            obj_LogicContainer:obj_logic;
         }
     }
+    Connections{
+        target:obj_logic
+        function onGoToShoppageSignal(){
+            stackview.push(authenticationPage)
+        }
 
+        function onGoToSettingPageSignal(){
+            stackview.push(settingPage)
+        }
+    }
 }

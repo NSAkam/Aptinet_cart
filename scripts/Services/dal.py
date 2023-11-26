@@ -8,7 +8,7 @@ class DAL():
 
     def __init__(self):
         self.db = QSqlDatabase.addDatabase("QSQLITE")
-        self.db.setDatabaseName("/home/kast/aptinet.db")
+        self.db.setDatabaseName("/home/aptinet/aptinet.db")
         # self.CreateTables()
         super().__init__()
 

@@ -4,28 +4,32 @@ import QtQuick.Layouts 1.15
 import QtGraphicalEffects 1.12
 import "../Components"
 import "../Utiles"
+import KAST.Logic 1.0
 
 
 
 Item {
     id: root
+
+    property Logic obj_LogicContainer
+
     visible: true
     width: 1280
     height: 800
-    
+
     ViewSettings{
         id:viewset
     }
-    
+
     Image {
         id: q
         source: "../../Assets/AuthenticationBackground.png"
         anchors.fill: parent
     }
-    
-    
-    
-    
+
+
+
+
     Rectangle {
         width: 687
         height: 72
@@ -33,7 +37,7 @@ Item {
         x: 296
         y: 212
         radius: 6
-        
+
         Text {
             text: "Please scan the membership card"
             width: 413
@@ -46,14 +50,14 @@ Item {
             font.weight: Font.Bold
         }
     }
-    
+
     Rectangle {
         width: 320
         height: 328
         color: "white"
         x: 300
         y: 304
-        
+
         layer.enabled: true
         layer.effect: DropShadow {
             horizontalOffset: 3
@@ -62,7 +66,7 @@ Item {
             samples: 19
             color: "#BDBDBD"
         }
-        
+
         Image {
             source: "../../Assets/QR.png"
             width: 170
@@ -71,14 +75,14 @@ Item {
             y: 79
         }
     }
-    
+
     Rectangle {
         width: 343
         height: 328
         color: "white"
         x: 641
         y: 304
-        
+
         layer.enabled: true
         layer.effect: DropShadow {
             horizontalOffset: 3
@@ -106,13 +110,13 @@ Item {
                 verticalAlignment:  TextInput.AlignVCenter
                 font.family: viewset.danaFuNumFont
                 property string placeholderText: "Username"
-                
+
                 onFocusChanged: {
                     console.log("1")
-                    
+
                     keyboard.visible = true
                     keyboard.inputtext = txt_username
-                    
+
                 }
                 Text {
                     text: txt_username.placeholderText
@@ -126,7 +130,7 @@ Item {
                 }
             }
         }
-        
+
         Rectangle{
             id:input_password
             width: 295
@@ -146,12 +150,12 @@ Item {
                 verticalAlignment:  TextInput.AlignVCenter
                 font.family: viewset.danaFuNumFont
                 property string placeholderText: "Password"
-                
+
                 onFocusChanged: {
                     console.log("asdasdasdasd")
                     keyboard.visible = true
                     keyboard.inputtext = txt_password
-                    
+
                 }
                 Text {
                     text: txt_password.placeholderText
@@ -165,8 +169,8 @@ Item {
                 }
             }
         }
-        
-        
+
+
         KButton{
             width: 295
             height: 64
@@ -179,10 +183,11 @@ Item {
             btn_color: "#4696FA"
             btn_borderWidth: 0
             onClicked: {
-                stackview.push(settingPage)
+                obj_LogicContainer.settingPage.confirm_clicked(txt_username.text,txt_password.text)
+
             }
         }
-        
+
         KButton{
             width: 295
             height: 64
@@ -193,13 +198,15 @@ Item {
             fontsize: 25
             isBold: false
             onClicked: {
-                stackview.pop()
+                obj_LogicContainer.reset_app()
             }
         }
-        
+
     }
     TopNav{
-        
+        backClicked: {
+            obj_LogicContainer.reset_app()
+        }
     }
     KKeyboard{
         id:keyboard
@@ -209,12 +216,18 @@ Item {
         y:parent.height - 450
         x:0
         visible: false
-        
+
     }
     Component{
         id:settingPage
         SettingPage{
-            
+            obj_Logic: obj_LogicContainer
+        }
+    }
+    Connections{
+        target:obj_LogicContainer.settingPage
+        function onLoginConfirmedSignal(){
+            stackview.push(settingPage)
         }
     }
 }
