@@ -27,6 +27,7 @@ Rectangle {
         }
     }
     property int borderwidth: 1
+    property string bordercolor: viewset.primaryColor;
     property string color: "white";
     property string text: "Primary";
     property string textColor: viewset.primaryColor;
@@ -41,7 +42,7 @@ Rectangle {
         anchors.fill: parent;
         color: root.color;
         radius: root.radius;
-        border.color: viewset.primaryColor
+        border.color: root.bordercolor
         border.width: borderwidth
 
         Text {
