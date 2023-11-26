@@ -28,6 +28,7 @@ class SettingPage(QObject):
         self._adminRepository = AdminRepository(self._dal)
         self._configsRepository = ConfigRepositories(self._dal)
         self._apiHandler = Apihandler(self._dal)
+        self._apiHandler.appVersionRecievedSignal.connect(self.set_lastSoftwareVersion)
         self._updateSoftware = None
 
     ### Signals ########################################################################################################
@@ -58,6 +59,7 @@ class SettingPage(QObject):
     def get_lastSoftwareVersion(self):
         return self._lastSoftwareVersion
 
+    @Slot(str)
     def set_lastSoftwareVersion(self, val: str):
         self._lastSoftwareVersion = val
         self.changedSignal.emit()
@@ -85,7 +87,7 @@ class SettingPage(QObject):
         self.set_configs(self._configsRepository.get_Config())
         print(self._configs.get_appVersion())
         self.cartInfoClickedSignal.emit()
-        self.set_lastSoftwareVersion(self._apiHandler.get_appVersion())
+        self._apiHandler.get_appVersion()
         if self._configs.get_appVersion() != self._lastSoftwareVersion:
             self.updateAvailableSignal.emit()
             self.set_updateSoftware(UpdateSoftware())
