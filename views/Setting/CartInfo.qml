@@ -46,7 +46,7 @@ Item{
         }
 
         Text {
-            text: "2.3"
+            text: obj_LogicContainer.settingPage.configs.appVersion
             width: 30
             height: 22
             x: 502
@@ -56,6 +56,7 @@ Item{
             font.family: "Archivo"
         }
         KBorderButton{
+            id:btn_update
             width: 92
             height: 38
             x: 556
@@ -64,6 +65,7 @@ Item{
             pixelSize: 20
             textColor: "#4696FA"
             bordercolor: "#4696FA"
+            visible: false
         }
 
 
@@ -326,14 +328,11 @@ Item{
         onBackClicked: {
             stackview.pop()
         }
-
     }
-
+    Connections{
+        target:obj_LogicContainer.settingPage
+        function onUpdateAvailableSignal(){
+            btn_update.visible = true
+        }
+    }
 }
-
-
-
-
-
-
-

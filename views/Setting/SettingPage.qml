@@ -299,7 +299,7 @@ Item {
     Component {
         id: cartinfo
         CartInfo{
-            
+            obj_LogicContainer: obj_Logic
         }
     }
 
@@ -314,6 +314,12 @@ Item {
             obj_Logic.reset_app()
         }
 
+    }
+    Connections{
+        target:obj_Logic.settingPage
+        function onCartInfoClickedSignal(){
+            stackview.push(cartinfo)
+        }
     }
 }
 

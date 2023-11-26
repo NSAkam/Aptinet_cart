@@ -4,8 +4,9 @@ from PySide2.QtCore import QThread, Signal,Slot,QEventLoop,QFile,QIODevice
 
 class Downloader(QThread):
 
-    setCurrentProgress = Signal(int,arguments=["v"])
-    succeeded = Signal()
+    setTotalProgressSignal = Signal(int,arguments=["v"])
+    setCurrentProgressSignal = Signal(int,arguments=["v"])
+    succeededSignal = Signal()
 
     def __init__(self):
         super().__init__()
@@ -14,7 +15,7 @@ class Downloader(QThread):
     def progressbar(self,a:int,b:int):
         if(a > 0 and b > 0):
             print(int((float(a)/float(b))*100.0))
-            self.setCurrentProgress.emit(int((float(a)/float(b))*100.0))
+            self.setCurrentProgressSignal.emit(int((float(a)/float(b))*100.0))
         else:
             pass
     
@@ -26,7 +27,7 @@ class Downloader(QThread):
             dfile.write(reply.readAll())
 
         dfile.close()
-        self.succeeded.emit()
+        self.succeededSignal.emit()
         self.loop.quit()
 
     def run(self):
