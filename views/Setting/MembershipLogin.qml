@@ -204,7 +204,7 @@ Item {
 
     }
     TopNav{
-        backClicked: {
+        onBackClicked: {
             obj_LogicContainer.reset_app()
         }
     }

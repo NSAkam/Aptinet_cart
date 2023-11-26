@@ -20,7 +20,7 @@ Window {
     {
         id:stackview
         anchors.fill: parent
-        initialItem: "Shop.qml"
+        initialItem: "Splash.qml"
         Util.ViewSettings{
             id:viewset
         }

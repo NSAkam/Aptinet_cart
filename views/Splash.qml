@@ -204,8 +204,7 @@ Item {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                stackview.push(membershipLogin)
-                obj_logic.gotoSettingCliked();
+                obj_logic.go_toSettingClicked();
             }
         }
     }
@@ -393,7 +392,7 @@ Item {
         }
 
         function onGoToSettingPageSignal(){
-            stackview.push(settingPage)
+            stackview.push(membershipLogin)
         }
     }
 }
