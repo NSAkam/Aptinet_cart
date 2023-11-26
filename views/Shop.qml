@@ -1,398 +1,688 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
+import QtQuick.Window 2.0
+import QtQuick.Controls.Styles 1.4
+import QtGraphicalEffects 1.0
 import "Components"
+import "Containers"
 import "Utiles" as Util
-import "Setting"
-import KAST.Logic 1.0
+import "PopUps"
 
 
 Item {
-    
+    id: root
     width: 1280
     height: 800
-    
+    signal addpluitemsClicked()
+
     Util.ViewSettings{
         id:viewset
     }
-    
-    Logic{
-        id:obj_logic
+    Timer{
+        id:t1
+        interval: 3000
+        running: true
+        onTriggered: {
+            loader.opacity = 0
+        }
     }
-    
+
     Image {
-        id: background
-        source: "../Assets/SplashBackground.png"
+        source: "../Assets/AuthenticationBackground.png"
         anchors.fill: parent
-        Rectangle{
-            id:backgroundOpacity
-            anchors.fill: parent
-            color: "#1D1D1D"
-            opacity: 0.75
-            Behavior on opacity {
-                NumberAnimation { duration: 1000 }
-            }
-        }
     }
-    
-    FastBlur {
-        
-        anchors.fill: background
-        source: background
-        radius: 32
-    }
-    
-    
-    Image {
-        id: aptinetIcon
-        source: "../Assets/AptinetIcon1.png"
-        x:486
-        y:283
-        width: 308
-        height: 233
-        Behavior on x {
-            NumberAnimation { duration: 1000 }
-        }
-        Behavior on y {
-            NumberAnimation { duration: 1000 }
-        }
-        Behavior on width {
-            NumberAnimation { duration: 1000 }
-        }
-        Behavior on height {
-            NumberAnimation { duration: 1000 }
-        }
-        onWidthChanged: {
-            if(width == 208){
-                txt_welcome.opacity = 1
-                txt_welcomebot.opacity = 1
-            }
-        }
-    }
-    
+
     Rectangle{
-        id:statrtButton
-        width: 374
-        height: 179
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        color: "transparent"
-        Text {
-            id: txtStartButton
-            color: "#F5AF8C"
-            text: qsTr("Tap To Start >")
-            font.bold: true
-            font.pixelSize: 32
-            font.letterSpacing: -0.5
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-        }
-        
-        NumberAnimation {
-            target: txtStartButton
-            property: "opacity"
-            duration: 1000
-            easing.type: Easing.InOutQuad
-            from:0.25
-            to:1
-            running: true
-            loops: Animation.Infinite
-        }
-        MouseArea{
-            anchors.fill: parent
-            onClicked: {
-                backgroundOpacity.opacity = 0
-                aptinetIcon.x=536;
-                aptinetIcon.y=124;
-                aptinetIcon.width=208;
-                aptinetIcon.height=154;
-                startshoppingButton.opacity = 1;
-                guideButton.opacity = 1;
-                statrtButton.visible = false
-                startshoppingButton.enabled = true;
-                guideButton.enabled = true;
-                settingButton.enabled=true;
-                settingButton.opacity = 1;
-                languageButton.enabled = true
-                languageButton.opacity = 1
-                
-            }
-        }
-        
-    }
-    Text {
-        id:txt_welcome
-        text: qsTr("welcome!")
-        font.pixelSize: 64
-        x:485
-        y:342
-        opacity: 0
-        Behavior on opacity {
-            NumberAnimation { duration: 2000 }
-        }
-    }
-    Text {
-        id:txt_welcomebot
-        text: qsTr("To a quick shopping experience")
-        font.pixelSize: 20
-        x:487
-        y:428
-        opacity: 0
-        Behavior on opacity {
-            NumberAnimation { duration: 2000 }
-        }
-    }
-    KButton{
-        id:startshoppingButton
-        width: 318
-        height: 66
-        x:477
-        y:522
-        fontsize: 24
-        text:  qsTr("START")
-        borderRadius: 5
-        ishover: false
-        shadow: false
-        enabled: false
-        opacity: 0
-        Behavior on opacity{
-            NumberAnimation{duration: 1000}
-        }
-        onClicked: {
-            obj_logic.go_toShoppingClicked();
-        }
-    }
-    KBorderButton{
-        id:guideButton
-        width: 318
-        height: 66
-        radius: 5
-        x:477
-        y:612
-        text: "VIEW GUIDE"
-        enabled: false
-        opacity: 0
-        Behavior on opacity{
-            NumberAnimation{duration: 1000}
-        }
-        MouseArea{
-            anchors.fill: parent
-            onClicked: {
-                stackview.push(guidpage)
-            }
-        }
-    }
-    Rectangle{
-        id:settingButton
-        x:1168
-        y:688
-        width: 112
-        height: 112
-        color: "transparent"
-        Image {
-            anchors.fill: parent
-            source: "../Assets/SettingCircle.png"
-            width: parent.width
-            height: parent.height
-        }
-        enabled: false
-        opacity: 0
-        Behavior on opacity{
-            NumberAnimation{duration: 1000}
-        }
-        
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                obj_logic.go_toSettingClicked();
-            }
-        }
-    }
-    
-    Rectangle{
-        id:languageButton
+        width: parent.width
+        height: 92
         x:0
-        y:688
-        width: 112
-        height: 112
-        color: "transparent"
-        Image {
-            anchors.fill: parent
-            source: "../Assets/LanguageCircle.png"
-            width: parent.width
-            height: parent.height
-        }
-        enabled: false
-        opacity: 0
-        Behavior on opacity{
-            NumberAnimation{duration: 1000}
-        }
-        MouseArea{
-            anchors.fill: parent
-            onClicked: {
-                backgroundOpacity.opacity = 0.75
-                languageButtons.visible = true
-            }
-        }
-    }
-    KBattery{
-        battery_level: 40
-        x:32
-        y:32
-        
-    }
-    Rectangle{
-        id:rect_Clock
-        width: 100
-        height: 38
-        color: viewset.primaryColor
-        radius: 50
-        x:1148
-        y:32
-        Text {
-            text: qsTr("12:36")
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-            font.pixelSize: 24
-            color: "white"
-            font.bold: true
-        }
+        y:0
     }
     Item{
-        id: languageButtons
-        anchors.fill: parent
+        id:top_Panel
         width: parent.width
-        height: parent.height
-        visible: false
+        height: 92
         Rectangle{
+            width: parent.width
+            height: parent.height
+            x:0
+            y:0
+            Rectangle{
+                width: 50
+                height: 50
+                color: viewset.primaryColor
+                x:421
+                y:25
+                radius: width /2
+            }
+            Text {
+                text: qsTr("user Email")
+                color: "#6D6D6D"
+                width: 148
+                height: 15
+                font.pixelSize: 14
+                x:478
+                y:40
+            }
+            KButton{
+                btn_color: "#9D9D9D"
+                x:995
+                y:32
+                borderRadius: 5
+                width: 149
+                height: 40
+                text: "Add PLU Items"
+                btn_borderWidth:0
+                fontsize: 16
+                ishover: false
+                onClicked: {
+                    stackviewContainer.push(addPluItem)
+                    adsPanel.visible = false
+                    addPlupanel.visible = true
+
+                }
+            }
+            KButton{
+                btn_color: viewset.primaryColor
+                x:819
+                y:32
+                borderRadius: 5
+                width: 164
+                height: 40
+                text: "+ Enter Barcode"
+                btn_borderWidth:0
+                fontsize: 16
+                ishover: false
+                onClicked: {
+                    stackviewContainer.push(manualBarcodeHandler)
+
+                }
+            }
+            Image {
+                source: "../Assets/Help.png"
+                width: 57
+                height: 57
+                x:1156
+                y:25
+            }
+            Image {
+                source: "../Assets/Notification.png"
+                width: 57
+                height: 57
+                x:1208
+                y:25
+            }
+
+        }
+    }
+
+    Item {
+        id:main_Panel
+        Text {
+            id:toaddItem
+            text: qsTr("To add an item,\n scan its barcode or\n tap the button below.")
+            width: 369
+            height: 144
+            x:261+ 390
+            y:326
+            font.pixelSize: 36
+            color: "#9D9D9D"
+            font.bold: true
+            horizontalAlignment:  TextInput.AlignHCenter
+        }
+        Rectangle{
+            id:loader
+            x:635
+            y:200
+            width: 400
+            height: 400
+            color: "#343434"
+            radius: width /2
+            AnimatedImage{
+                source: "../Assets/sphere-line-loader.gif"
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 220
+                height: 220
+            }
+            Text {
+                text: qsTr("Loading")
+                color: "white"
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                font.pixelSize: 24
+            }
+            onOpacityChanged: {
+                if(opacity == 1){
+                    visible = true
+                    t1.restart()
+                    t1.running = true
+                }
+                if(opacity == 0){
+                    visible = false
+                }
+            }
+            Behavior on opacity {
+                NumberAnimation{duration: 1000}
+            }
+        }
+
+
+
+        KButton{
+            id:btn_entermanualBarcode
+            text: "+ Enter barcode manually"
+            x:645
+            y:610
+            width: 382
+            height: 62
+            borderRadius: 4
+            onClicked: {
+
+                stackviewContainer.push(manualBarcodeHandler)
+
+            }
+        }
+
+        StackView
+        {
+            id:stackviewContainer
+            width: 890
+            height: 708
+            x:390
+            y:92
+            //initialItem: lstProductHandler
+            //initialItem:addPluItemview
+            initialItem: newProductHandler
+            //initialItem: addPluItem
+            //initialItem: manualBarcodeHandler
+            //initialItem: plulist
+            //initialItem: specialdealslist
+            //initialItem: checkout
+            onDepthChanged: {
+                if(stackviewContainer.depth > 0){
+                    loader.opacity =0;
+                    loader.visible = false;
+                    toaddItem.visible = false
+                    btn_entermanualBarcode.visible = false
+                }
+                else{
+                    loader.opacity =1;
+                    loader.visible = true;
+                    toaddItem.visible = true
+                    btn_entermanualBarcode.visible = true
+                }
+
+                //obj_LogicContainer.shoppage.stackviewDepthChanged(stackviewContainer.depth)
+            }
+        }
+    }
+
+
+    Item{
+        id:addPlupanel
+        visible: false
+        width: 390
+        height: parent.height
+
+        Rectangle {
+            id:rect_Suggestion
             anchors.fill: parent
-            color: "transparent"
+            color: "white"
+        }
+        Image {
+            source: "../Assets/AptinetText1.png"
+            x:32
+            y:32
+        }
+        Image {
+            id: img_UserCaptured
+            source: "../Assets/UserImage.png"
+            width: 326
+            height: 184
+            x:32
+            y:105
+        }
+        Text {
+            text: qsTr("ENTER PLU CODE")
+            font.pixelSize: 24
+            font.bold: true
+            x:32
+            y:327
+            color: viewset.primaryColor
+        }
+        Image {
+            source: "../Assets/EnterPLUIcon.png"
+            x:313
+            y:327
+        }
+        Rectangle{
+            id:rectEnterPLU
+            x:32
+            y:378
+            width: 326
+            height: 56
+            color: "#F1F1F1"
+            radius: 4
+            TextInput{
+                id:txt_PLUBarcodeInput
+                anchors.fill: parent
+                font.pixelSize: 18
+                layer.enabled: true
+                horizontalAlignment: TextInput.AlignHCenter
+                verticalAlignment:  TextInput.AlignVCenter
+                font.family: viewset.danaFuNumFont
+                property string placeholderText: " "
+
+                onFocusChanged: {
+                    numpad.inputtext = txt_PLUBarcodeInput
+                }
+                Text {
+                    text: txt_PLUBarcodeInput.placeholderText
+                    color: "#C6C5CE"
+                    visible: !txt_PLUBarcodeInput.text
+                    font.pixelSize: 18
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.family: viewset.danaFuNumFont
+                }
+                onTextChanged: {
+                    if(text == "665566")
+                    {
+                        stackviewContainer.replace(addPluItemview)
+                    }
+                }
+            }
+
+        }
+        Numpad{
+            id:numpad
+            anchors.top: rectEnterPLU.bottom
+            anchors.topMargin: 0
+            x:32
+        }
+    }
+
+    Item {
+        id: adsPanel
+        visible: true
+        width: 390
+        height: parent.height
+
+        Image {
+            id:rect_SuggestionadsPanel
+            source: "../Assets/leftSideBar.png"
+            anchors.fill: parent
+
+        }
+        Image {
+            source: "../Assets/AptinetText1.png"
+            x:32
+            y:32
+        }
+        Image {
+            id: img_UserCapturedadsPanel
+            source: "../Assets/UserImage.png"
+            width: 326
+            height: 184
+            x:32
+            y:105
+        }
+        Image {
+            id: ads_Image
+            source: "../Assets/Ads.png"
+            width: 326
+            height: 184
+            x:32
+            y:309
+        }
+        Text {
+            text: qsTr("Special Deals")
+            font.pixelSize: 24
+            color: "white"
+            x:32
+            y:521
+            font.bold: true
+        }
+        Text {
+            text: qsTr("more >")
+            color: viewset.primaryColor
+            x:290
+            y:525
+            font.pixelSize: 20
+            font.bold: true
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    backgroundOpacity.opacity = 0
-                    languageButtons.visible = false
+                    if(stackviewContainer.currentItem != specialdealslist)
+                    {
+                        console.log(stackviewContainer.currentItem)
+                        stackviewContainer.push(specialdealslist)
+                    }
+
+
                 }
             }
         }
-        
+        ListView {
+            id:slideshow
+            width: 326
+            height: 800 - y
+            x:32
+            y:571
+
+            clip: true
+            spacing: 10
+            model: 10
+            orientation: ListView.vertical
+            delegate:
+                Item {
+                width: 326
+                height: 144
+                Rectangle{
+                    width: 326
+                    height: 144
+                    color: "white"
+                    opacity: 0.3
+                }
+
+                Rectangle{
+                    width: 326
+                    height: 144
+                    color: "transparent"
+
+                    Rectangle{
+                        width: 144
+                        height: 144
+                        color: "white"
+
+                        Image {
+                            source: "../Assets/product.png"
+                            width: 106
+                            height: 106
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.horizontalCenter: parent.horizontalCenter
+                        }
+                    }
+
+                    Text {
+                        text: qsTr("Nutella Hazelnut Spread with Cocoa, 750g")
+                        width: 134
+                        height: 66
+                        x:164
+                        y:20
+                        font.pixelSize: 16
+                        wrapMode: Text.WordWrap
+                    }
+                    Text {
+                        x:164
+                        y:98
+                        text: qsTr("$ 9.99")
+                        font.pixelSize: 24
+                        color:viewset.primaryColor
+                        font.bold: true
+                    }
+                    Text {
+                        x:248
+                        y:98
+                        text: qsTr("-9 %")
+                        font.pixelSize: 24
+                        color: viewset.primaryColor
+                    }
+                }
+            }
+        }
+
+    }
+    Item {
+        id: checkoutPanel
+        visible: false
+        width: 390
+        height: parent.height
+
+        Rectangle {
+            color: "white"
+            id:rect_SuggestionadsPanel1
+            anchors.fill: parent
+        }
+        Image {
+            source: "../Assets/AptinetText1.png"
+            x:32
+            y:32
+        }
+        Image {
+            id: img_UserCapturedadsPanel1
+            source: "../Assets/UserImage.png"
+            width: 326
+            height: 184
+            x:32
+            y:105
+        }
+
+        Text {
+            text: qsTr("My Cart")
+            font.pixelSize: 24
+            color: "gray"
+            x:32
+            y:326
+            font.bold: true
+        }
         Rectangle{
-            id:backgroundselectLangOpacity
-            anchors.fill: parent
-            color: "#1D1D1D"
-            opacity: 0.75
+            width: 40
+            height: 40
+            radius: width / 2
+            x:142
+            y:321
+            color: viewset.secondaryColor
+            Text {
+                text: qsTr("2")
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                color: "white"
+                font.pixelSize: 24
+                font.bold: true
+            }
         }
-        FastBlur {
-            
-            anchors.fill: parent
-            source: parent
-            radius: 32
+
+
+        ListView {
+            id:slideshow1
+            width: 326
+            height: 800 - y
+            x:32
+            y:360
+
+            clip: true
+            spacing: 10
+            model: 10
+            orientation: ListView.vertical
+            delegate:
+                Item {
+                width: 326
+                height: 78
+                Text {
+                    text: qsTr("Nutella Hazelnut Spread with...")
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 16
+                }
+                Rectangle{
+                    color: viewset.primaryColor
+                    width: 30
+                    height: 30
+                    radius: 5
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.right: parent.right
+                    Text {
+                        text: qsTr("1")
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        color: "white"
+                    }
+                }
+            }
         }
-        
-        KBorderButton{
-            borderwidth:0
-            text: "English"
-            x:213
-            y:315
-            width: 185
-            height: 66
-        }
-        KBorderButton{
-            borderwidth:0
-            text: "Deutsch"
-            x:436
-            y:315
-            width: 185
-            height: 66
-            textColor: "black"
-        }
-        KBorderButton{
-            borderwidth:0
-            text: "Français"
-            x:659
-            y:315
-            width: 185
-            height: 66
-            
-            textColor: "black"
-        }
-        KBorderButton{
-            borderwidth:0
-            text: "Italiano"
-            x:882
-            y:315
-            width: 185
-            height: 66
-            textColor: "black"
-        }
-        KBorderButton{
-            borderwidth:0
-            text: "Español"
-            x:213
-            y:419
-            width: 185
-            height: 66
-            textColor: "black"
-            
-        }
-        KBorderButton{
-            borderwidth:0
-            text: "Português"
-            x:436
-            y:419
-            width: 185
-            height: 66
-            textColor: "black"
-        }
-        KBorderButton{
-            borderwidth:0
-            text: "Türkçe"
-            x:659
-            y:419
-            width: 185
-            height: 66
-            textColor: "black"
-        }
-        KBorderButton{
-            borderwidth:0
-            text: "العربية"
-            x:882
-            y:419
-            width: 185
-            height: 66
-            textColor: "black"
-        }
+
     }
-    
-    
+
+
     Component{
-        id:authenticationPage
-        Authentication{
-            
+        id:newProductHandler
+        BarcodeScanned{
+            onPass: {
+                stackviewContainer.push(lstProductHandler)
+            }
+
+            onCancel: {
+                if(stackviewContainer.depth == 1)
+                {
+                    stackviewContainer.clear()
+                }
+                else
+                {
+                    stackviewContainer.pop()
+                }
+            }
         }
     }
-    
+
     Component{
-        id:guidpage
-        GuideTips{
-            
+        id:lstProductHandler
+        LstCheckProducts{
+            onGocheckout: {
+                adsPanel.visible = false
+                checkoutPanel.visible = true
+                stackviewContainer.push(checkout)
+            }
         }
     }
-    
+
     Component{
-        id:settingPage
-        SettingPage{
-            
+        id:manualBarcodeHandler
+        ManualBarcode{
+            onOk: {
+                stackviewContainer.replace(newProductHandler)
+            }
+
+            onCancle: {
+                if(stackviewContainer.depth == 1)
+                {
+                    stackviewContainer.clear()
+                }
+                else
+                {
+                    stackviewContainer.pop()
+                }
+
+            }
         }
     }
-    Connections{
-        target:obj_logic
-        function onGoToShopPageSignal(){
-            stackview.push(authenticationPage)
+    Component{
+        id:addPluItem
+        AddPluItems{
+            onSeeAll: {
+                stackviewContainer.push(plulist)
+            }
+
+            onBack: {
+                adsPanel.visible = true
+                addPlupanel.visible = false
+                if(stackviewContainer.depth == 1)
+                {
+                    stackviewContainer.clear()
+                }
+                else
+                {
+                    stackviewContainer.pop()
+                }
+
+            }
         }
-        
-        function onGoToSettingPageSignal(){
-            stackview.push(settingPage)
+    }
+
+    Component{
+        id:addPluItemview
+        AddPluItemsView{
+            onConfirm:
+            {
+                adsPanel.visible = true
+                addPlupanel.visible = false
+                stackviewContainer.replace(lstProductHandler)
+            }
+
+            onCancel:
+            {
+                adsPanel.visible = true
+                addPlupanel.visible = false
+                if(stackviewContainer.depth == 1)
+                {
+                    stackviewContainer.clear()
+                }
+                else
+                {
+                    stackviewContainer.pop()
+                }
+            }
+
+        }
+    }
+
+    Component {
+        id: checkout
+        Checkoutpage {
+            onNfcPaymentClicked: {
+                stackview.push(nfcpayment)
+            }
+
+            onBack: {
+                adsPanel.visible = true
+                checkoutPanel.visible = false
+                stackviewContainer.pop()
+            }
+        }
+    }
+
+    Component {
+        id: nfcpayment
+        PaymentviaNFC {
+
+
+        }
+    }
+
+    RemoveProductPopUp {
+        id: removeproduct
+
+    }
+
+    NotificationPopUp {
+        id: notifpopup
+        notiftext: "Please scan just the products you have removed from the cart !"
+    }
+
+    Component{
+        id: plulist
+        PLUListItems {
+            onBack: {
+                stackviewContainer.pop()
+            }
+        }
+
+    }
+
+    Component{
+        id: specialdealslist
+        LstSpecialDeals {
+            onBack: {
+                if(stackviewContainer.depth == 1)
+                {
+                    stackviewContainer.clear()
+                }
+                else
+                {
+                    stackviewContainer.pop()
+                }
+            }
         }
     }
 }
