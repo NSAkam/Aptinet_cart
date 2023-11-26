@@ -119,7 +119,7 @@ Item{
             visible: false
             x:605
             y:78
-            text: qsTr(progressBar.value *100 + "%")
+            text: qsTr(progressBar.value + "%")
 
             font.pixelSize: 20
             color:  "#4696FA"
