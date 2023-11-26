@@ -1,7 +1,7 @@
 from PySide2.QtCore import QObject, Signal, Property
 
 
-class ConfigModel(QObject):
+class Config(QObject):
     _storeId: int = 0
     _isKg: bool = 0
     _currency: str = 0

@@ -3,6 +3,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtGraphicalEffects 1.12
 import "../Components"
+import "../Utiles"
 
 
 
@@ -11,17 +12,20 @@ Item {
     visible: true
     width: 1280
     height: 800
-
-
+    
+    ViewSettings{
+        id:viewset
+    }
+    
     Image {
         id: q
-        source: "../Assets/AuthenticationBackground.png"
+        source: "../../Assets/AuthenticationBackground.png"
         anchors.fill: parent
     }
-
-
-
-
+    
+    
+    
+    
     Rectangle {
         width: 687
         height: 72
@@ -29,7 +33,7 @@ Item {
         x: 296
         y: 212
         radius: 6
-
+        
         Text {
             text: "Please scan the membership card"
             width: 413
@@ -42,14 +46,14 @@ Item {
             font.weight: Font.Bold
         }
     }
-
+    
     Rectangle {
         width: 320
         height: 328
         color: "white"
         x: 300
         y: 304
-
+        
         layer.enabled: true
         layer.effect: DropShadow {
             horizontalOffset: 3
@@ -58,23 +62,23 @@ Item {
             samples: 19
             color: "#BDBDBD"
         }
-
+        
         Image {
-            source: "../assets/Qr.png"
+            source: "../../Assets/QR.png"
             width: 170
             height: 170
             x: 75
             y: 79
         }
     }
-
+    
     Rectangle {
         width: 343
         height: 328
         color: "white"
         x: 641
         y: 304
-
+        
         layer.enabled: true
         layer.effect: DropShadow {
             horizontalOffset: 3
@@ -83,92 +87,134 @@ Item {
             samples: 19
             color: "#BDBDBD"
         }
-
-        TextInput {
-            id: myrectangel
+        Rectangle{
+            id:input_username
             width: 295
             height: 56
             x: 24
             y: 24
-            // InnerShadow {
-            //     cached: true
-            //     horizontalOffset: 0
-            //     verticalOffset: 0
-            //     radius: 16
-            //     samples: 32
-            //     color: "#b0000000"
-            //     smooth: true
-            //     source: myrectangel
-
-//            Text {
-//                text: "Username"
-//                width: 99
-//                height: 22
-//                x: 24
-//                y: 15
-//                color: "#BDBDBD"
-//                font.pixelSize: 20
-//                font.family: "Archivo"
-//            }
-            // }
+            color: "white"
+            radius: 5
+            border.color: "#C6C5CE"
+            TextEdit{
+                id:txt_username
+                anchors.fill: parent
+                font.pixelSize: 18
+                layer.enabled: true
+                x:50
+                horizontalAlignment: TextInput.AlignLeft
+                verticalAlignment:  TextInput.AlignVCenter
+                font.family: viewset.danaFuNumFont
+                property string placeholderText: "Username"
+                
+                onFocusChanged: {
+                    console.log("1")
+                    
+                    keyboard.visible = true
+                    keyboard.inputtext = txt_username
+                    
+                }
+                Text {
+                    text: txt_username.placeholderText
+                    color: "#C6C5CE"
+                    visible: !txt_username.text
+                    font.pixelSize: 20
+                    anchors.verticalCenter: parent.verticalCenter
+                    x:50
+                    //anchors.horizontalCenter: parent.horizontalCenter
+                    // font.family: viewset.danaFuNumFont
+                }
+            }
         }
-
-        TextInput {
+        
+        Rectangle{
+            id:input_password
             width: 295
             height: 56
             x: 24
             y: 92
-
+            color: "white"
+            radius: 5
+            border.color: "#C6C5CE"
+            TextEdit{
+                id:txt_password
+                anchors.fill: parent
+                font.pixelSize: 18
+                layer.enabled: true
+                x:50
+                horizontalAlignment: TextInput.AlignLeft
+                verticalAlignment:  TextInput.AlignVCenter
+                font.family: viewset.danaFuNumFont
+                property string placeholderText: "Password"
+                
+                onFocusChanged: {
+                    console.log("asdasdasdasd")
+                    keyboard.visible = true
+                    keyboard.inputtext = txt_password
+                    
+                }
+                Text {
+                    text: txt_password.placeholderText
+                    color: "#C6C5CE"
+                    visible: !txt_password.text
+                    font.pixelSize: 20
+                    anchors.verticalCenter: parent.verticalCenter
+                    x:50
+                    //anchors.horizontalCenter: parent.horizontalCenter
+                    // font.family: viewset.danaFuNumFont
+                }
+            }
         }
-
-        Button {
+        
+        
+        KButton{
             width: 295
             height: 64
-            background: Rectangle {
-                color: "#4696FA"
-                radius: 6
-            }
             x: 24
             y: 168
-
-
-            Text {
-                text: "Confirm >"
-                width: 92
-                height: 26
-                x: 100
-                y: 17
-                color: "white"
-                font.pixelSize: 25
-                font.family: "Archivo"
-
+            borderRadius: 4
+            text: "Confirm >"
+            fontsize: 25
+            isBold: false
+            btn_color: "#4696FA"
+            btn_borderWidth: 0
+            onClicked: {
+                stackview.push(settingPage)
             }
         }
-
-        Button {
+        
+        KButton{
             width: 295
             height: 64
-            background: Rectangle {
-                color: "#F5AF8C"
-                radius: 6
-            }
             x: 24
             y: 248
-
-            Text {
-                text: "Back"
-                width: 49
-                height: 22
-                x: 123
-                y: 17
-                color: "white"
-                font.pixelSize: 25
-                font.family: "Archivo"
-
+            borderRadius: 4
+            text: "Back"
+            fontsize: 25
+            isBold: false
+            onClicked: {
+                stackview.pop()
             }
         }
+        
     }
     TopNav{
-
+        
+    }
+    KKeyboard{
+        id:keyboard
+        inputtext : txt_username
+        toppad: 500
+        leftpad: 500
+        y:parent.height - 450
+        x:0
+        visible: false
+        
+    }
+    Component{
+        id:settingPage
+        SettingPage{
+            
+        }
     }
 }

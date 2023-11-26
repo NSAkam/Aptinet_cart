@@ -1,7 +1,7 @@
 from PySide2.QtCore import QObject, Signal, Property
 
 
-class AdminModel(QObject):
+class Admin(QObject):
     _barcode:str = ""
     _name: str = ""
     

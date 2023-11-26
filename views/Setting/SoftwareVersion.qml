@@ -5,24 +5,19 @@ import QtGraphicalEffects 1.12
 import QtQuick.Window 2.14
 import "../Components"
 
-
-
-
-
-
 Item{
     id: root
     visible: true
     width: 1280
     height: 800
-
-
+    
+    
     Image {
         id: q
         source: "../../Assets/AuthenticationBackground.png"
         anchors.fill: parent
     }
-
+    
     Rectangle {
         width: 672
         height: 104
@@ -31,14 +26,17 @@ Item{
         x: 304
         y: 312
         layer.enabled: true
-            layer.effect: DropShadow {
+        layer.effect: DropShadow {
             horizontalOffset: 1
             verticalOffset: 1
             radius: 10
             samples: 16
             color: "#d3d3d3"
         }
-
+        Behavior on height {
+            NumberAnimation{duration: 500}
+        }
+        
         Text {
             text: "Software Version"
             font.pixelSize: 20
@@ -46,68 +44,92 @@ Item{
             x: 24
             y: 24
         }
-
+        
         Text {
+            id:txt_newversionid
             text: "2.8 is available"
             font.pixelSize: 20
             color: "#9D9D9D"
             x: 24
             y: 58
         }
-
-         Button {
+        
+        
+        KBorderButton{
+            id:btn_download
             width: 244
             height: 50
             x: 404
             y: 27
+            pixelSize: 20
+            textColor: "#4696FA"
+            bordercolor: "#4696FA"
+            text: "Download and install"
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    parent.parent.height =132
+                    btn_download.visible = false
+                    txt_newversionid.visible = false
+                    progressBar.visible = true
+                    txt_percentage.visible = true
+                }
+            }
+            
+        }
+        
+        ProgressBar {
+            id:progressBar
+            value: 0.5
+            x:24
+            y:89
+            width: 524
+            height: 5
+            visible: false
             background: Rectangle {
+                anchors.fill: progressBar
                 color: "white"
-                radius: 2
-                border.color: "#4696FA"
-                border.width: 1
-
-
-            Text {
-                text: "Download and install"
-                width: 196
-                height: 22
-                x: 24
-                y: 14
-                color: "#4696FA"
-                font.pixelSize: 20
+                radius: 4
+                border.width: 0
+                border.color: "white"
+            }
+            contentItem:
+                Item {
+                implicitWidth: 200
+                implicitHeight: 4
+                Rectangle {
+                    anchors.left: progressBar.left
+                    anchors.bottom: progressBar.bottom
+                    height: progressBar.height
+                    width: progressBar.width * progressBar.value
+                    color: "#4696FA"
+                    radius: 4
+                }
+                
             }
         }
-    }
-    }
-
-
-    Rectangle {
-        id: b
-        color: "white"
-        width: 1280
-        height: 708
-        visible: true
-        opacity: 0
-        x: 0
-        y: 92
-
-        FastBlur {
-
-            anchors.fill: b
-            source: q
-            radius: 70
+        Text {
+            id:txt_percentage
+            visible: false
+            x:605
+            y:78
+            text: qsTr(progressBar.value *100 + "%")
+            
+            font.pixelSize: 20
+            color:  "#4696FA"
+            font.bold: true
         }
     }
-
+    
     TopNav{
         backvisible: true
         onBackClicked: {
             stackview.pop()
         }
-
+        
     }
-
-
+    
+    
 }
 
 

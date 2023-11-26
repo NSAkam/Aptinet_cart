@@ -1,7 +1,7 @@
 from PySide2.QtCore import QObject, Signal, Property
 
 
-class SuggestionModel(QObject):
+class Suggestion(QObject):
     _Productid: str = ""
     _Productidsuggested: str = ""
     

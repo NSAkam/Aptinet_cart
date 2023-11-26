@@ -11,6 +11,27 @@ class ProductRepository:
     def __init__(self, dataAccessLayer: DAL) -> None:
         self.dal = dataAccessLayer
         self.dal.Connect()
+
+    def insertALLData(self, productList: [Product]):
+        res = True
+        query = QSqlQuery()
+        for prod in productList:
+            if (query.exec_("insert into product " 
+                            "(name,description,rate,commentCount,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,price,finalprice,meanWeight,tolerance,insertedWeight,barcode,isOffer,isPlu,tax,qrCode,productType) "
+					        "values "
+                            "('"+prod.name+"','"+prod.description+"','"+prod.rate+"','"+prod.commentCount+"','"+prod.w1+"','"+prod.w2+"','"+prod.w3+"','"+prod.w4+"','"+prod.w5+"','"+prod.w6+"','"+prod.w7+"','"+prod.w8+"','"+prod.w9+"','"+prod.w10+"','"+prod.price+"','"+prod.finalprice+"','"+prod.meanWeight+"','"+prod.tolerance+"','"+prod.insertedWeight+"','"+prod.barcode+"','"+prod.isOffer+"','"+prod.isPlu+"','"+prod.tax+"','"+prod.qrCode+"','"+prod.productType+"')") == False):
+                res = False
+        return res
+    
+    def insertData(self, name:str,description:str,rate:int,commentCount:int,w1:int,w2:int,w3:int,w4:int,w5:int,w6:int,w7:int,w8:int,w9:int,w10:int,price:float,finalprice:float,meanWeight:int,tolerance:int,insertedWeight:int,barcode:str,isOffer:int,isPlu:int,tax:int,qrCode:str,productType:str):
+        query = QSqlQuery()
+        if (query.exec_("insert into product " 
+                        "(name,description,rate,commentCount,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,price,finalprice,meanWeight,tolerance,insertedWeight,barcode,isOffer,isPlu,tax,qrCode,productType) "
+		                "values "
+                        "('"+name+"','"+description+"','"+rate+"','"+commentCount+"','"+w1+"','"+w2+"','"+w3+"','"+w4+"','"+w5+"','"+w6+"','"+w7+"','"+w8+"','"+w9+"','"+w10+"','"+price+"','"+finalprice+"','"+meanWeight+"','"+tolerance+"','"+insertedWeight+"','"+barcode+"','"+isOffer+"','"+isPlu+"','"+tax+"','"+qrCode+"','"+productType+"')") == False):
+            return True
+        else:
+            return False
     
     def get_product(self, barcode):
         query = QSqlQuery()
