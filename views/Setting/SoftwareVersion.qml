@@ -4,20 +4,24 @@ import QtQuick.Layouts 1.15
 import QtGraphicalEffects 1.12
 import QtQuick.Window 2.14
 import "../Components"
+import KAST.Logic 1.0
+
 
 Item{
     id: root
     visible: true
     width: 1280
     height: 800
-    
-    
+
+    property Logic obj_Logic
+
+
     Image {
         id: q
         source: "../../Assets/AuthenticationBackground.png"
         anchors.fill: parent
     }
-    
+
     Rectangle {
         width: 672
         height: 104
@@ -36,7 +40,7 @@ Item{
         Behavior on height {
             NumberAnimation{duration: 500}
         }
-        
+
         Text {
             text: "Software Version"
             font.pixelSize: 20
@@ -44,17 +48,17 @@ Item{
             x: 24
             y: 24
         }
-        
+
         Text {
             id:txt_newversionid
-            text: "2.8 is available"
+            text: obj_Logic.settingPage.lastSoftwareVersion + " is available"
             font.pixelSize: 20
             color: "#9D9D9D"
             x: 24
             y: 58
         }
-        
-        
+
+
         KBorderButton{
             id:btn_download
             width: 244
@@ -73,14 +77,16 @@ Item{
                     txt_newversionid.visible = false
                     progressBar.visible = true
                     txt_percentage.visible = true
+                    obj_Logic.settingPage.updateSoftware.startDownload()
                 }
             }
-            
+
         }
-        
+
         ProgressBar {
             id:progressBar
-            value: 0.5
+            from: 0
+            to: 100
             x:24
             y:89
             width: 524
@@ -101,11 +107,11 @@ Item{
                     anchors.left: progressBar.left
                     anchors.bottom: progressBar.bottom
                     height: progressBar.height
-                    width: progressBar.width * progressBar.value
+                    width: progressBar.width * (progressBar.value /10)
                     color: "#4696FA"
                     radius: 4
                 }
-                
+
             }
         }
         Text {
@@ -114,22 +120,36 @@ Item{
             x:605
             y:78
             text: qsTr(progressBar.value *100 + "%")
-            
+
             font.pixelSize: 20
             color:  "#4696FA"
             font.bold: true
         }
     }
-    
+
     TopNav{
         backvisible: true
         onBackClicked: {
             stackview.pop()
         }
-        
+
     }
-    
-    
+    Connections{
+            target: obj_Logic.settingPage.updateSoftware
+            onSetTotalProgress:{
+                //btn1.enabled = false
+                //btn1.opacity = 0.5
+                progressBar.to = v
+            }
+            onSetCurrentProgress:{
+                progressBar.value = v
+            }
+            onSucceeded:{
+                //btn1.enabled = true
+                //btn1.opacity = 1
+            }
+        }
+
 }
 
 

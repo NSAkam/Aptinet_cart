@@ -21,7 +21,8 @@ class UpdateSoftware(QObject):
 
     @Slot()
     def startDownload(self):     
-        self._downloader = Downloader("http://irannk.com/FASKET.zip","../FASKET.zip")
+        # self._downloader = Downloader("http://irannk.com/FASKET.zip","../FASKET.zip")
+        self._downloader = Downloader()
         self._downloader.setTotalProgressSignal.connect(self.setTotalProgressSignal)
         self._downloader.setCurrentProgressSignal.connect(self.setCurrentProgressSignal)
         print("started Download")
