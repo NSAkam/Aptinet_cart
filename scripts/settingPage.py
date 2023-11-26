@@ -82,6 +82,7 @@ class SettingPage(QObject):
     @Slot()
     def cart_infoClicked(self):
         self.set_configs(self._configsRepository.get_Config())
+        print(self._configs.get_appVersion())
         self.cartInfoClickedSignal.emit()
         self.set_lastSoftwareVersion(self._apiHandler.get_appVersion())
         if self._configs.get_appVersion() != self._lastSoftwareVersion:
