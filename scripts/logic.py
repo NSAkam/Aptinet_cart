@@ -55,8 +55,9 @@ class Logic(QObject):
 
     @Slot()
     def go_toSettingClicked(self):
-        self.goToSettingPageSignal.emit()
         self.set_settingPage(SettingPage())
+        self.goToSettingPageSignal.emit()
+
 
     @Slot()
     def reset_app(self):
