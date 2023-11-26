@@ -136,15 +136,15 @@ Item{
     }
     Connections{
             target: obj_Logic.settingPage.updateSoftware
-            onSetTotalProgress:{
+            onSetTotalProgressSignal:{
                 //btn1.enabled = false
                 //btn1.opacity = 0.5
                 progressBar.to = v
             }
-            onSetCurrentProgress:{
+            onSetCurrentProgressSignal:{
                 progressBar.value = v
             }
-            onSucceeded:{
+            onSucceededSignal:{
                 //btn1.enabled = true
                 //btn1.opacity = 1
             }
