@@ -392,7 +392,7 @@ Item {
         }
 
         function onGoToSettingPageSignal(){
-            stackview.push(settingPage)
+            stackview.push(membershipLogin)
         }
     }
 }
