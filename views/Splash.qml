@@ -204,7 +204,6 @@ Item {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                stackview.push(membershipLogin)
                 obj_logic.gotoSettingCliked();
             }
         }
@@ -388,7 +387,7 @@ Item {
     }
     Connections{
         target:obj_logic
-        function onGoToShopPageSignal(){
+        function onGoToShoppageSignal(){
             stackview.push(authenticationPage)
         }
 
