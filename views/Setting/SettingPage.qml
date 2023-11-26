@@ -238,7 +238,7 @@ Item {
             color: "white"
         }
         Image {
-            source: "../../Assets/turnoff.png"
+            source: "../../Assets/turnOff.png"
             width: 76
             height: 76
             x: 684
