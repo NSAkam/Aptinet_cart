@@ -11,7 +11,7 @@ class ConfigRepositories():
         self.dal = dataAccessLayer
         self.dal.Connect()
     
-    def get_appVersion():
+    def get_appVersion(self):
         query = QSqlQuery()
         appversion = -1
         query.exec_("select appVersion from Config")
@@ -19,7 +19,7 @@ class ConfigRepositories():
             appversion = query.value(0)
         return appversion
     
-    def get_dbVersion():
+    def get_dbVersion(self):
         query = QSqlQuery()
         appversion = -1
         query.exec_("select dbVersion from Config")
@@ -27,7 +27,7 @@ class ConfigRepositories():
             appversion = query.value(0)
         return appversion
     
-    def get_imagesVersion():
+    def get_imagesVersion(self):
         query = QSqlQuery()
         appversion = -1
         query.exec_("select imagesVersion from Config")

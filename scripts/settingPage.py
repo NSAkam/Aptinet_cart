@@ -40,5 +40,9 @@ class SettingPage(QObject):
         if self._adminRepository.Login(username) and (password == "123456"):
             self.loginConfirmedSignal.emit()
 
+    @Slot()
+    def cart_infoClicked(self):
+        pass
+
 
     ### Functions ######################################################################################################
