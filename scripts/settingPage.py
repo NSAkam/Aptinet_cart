@@ -4,6 +4,8 @@ from Helpers.scannerHelper import ScannerHelper
 from Repositories.adminRepository import AdminRepository
 from Services.dal import DAL
 from Repositories.configRepository import ConfigRepositories
+from Models.config import Config
+from API.apiHandler import Apihandler
 
 
 
@@ -11,12 +13,16 @@ class SettingPage(QObject):
     ### Settings #######################################################################################################
 
     ### Models #########################################################################################################
-    _configsRepository: ConfigRepositories
+    _configs: Config
+    _apiHandler: Apihandler
+
     ### Repositories ###################################################################################################
     _adminRepository: AdminRepository
 
     ### Private ########################################################################################################
     _dal: DAL
+    _configsRepository: ConfigRepositories
+    _lastSoftwareVersion: str
 
 
 
@@ -29,22 +35,44 @@ class SettingPage(QObject):
         self._dal = DAL()
         self._adminRepository = AdminRepository(self._dal)
         self._configsRepository = ConfigRepositories(self._dal)
-
+        self._apiHandler = Apihandler(self._dal)
 
 
     ### Signals ########################################################################################################
     changedSignal = Signal()
     loginConfirmedSignal = Signal()
+    cartInfoClickedSignal = Signal()
+    updateAvailableSignal = Signal()
 
     ### Properties #####################################################################################################
-    def get_configsRepository(self):
-        return self._configsRepository
+    def get_configs(self):
+        return self._configs
 
-    def set_configsRepository(self, v: ConfigRepositories):
-        self._configsRepository = v
+    def set_configs(self, val: Config):
+        self._configs = val
         self.changedSignal.emit()
 
-    configsRepository = Property(ConfigRepositories, get_configsRepository, set_configsRepository, notify=changedSignal)
+    configs = Property(Config, get_configs, set_configs, notify=changedSignal)
+
+    def get_apiHandler(self):
+        return self._apiHandler
+
+    def set_apiHandler(self, val: Apihandler):
+        self._apiHandler = val
+        self.changedSignal.emit()
+
+    apiHandler = Property(Apihandler, get_apiHandler, set_apiHandler, notify=changedSignal)
+
+    def get_lastSoftwareVersion(self):
+        return self._lastSoftwareVersion
+
+    def set_lastSoftwareVersion(self, val: str):
+        self._lastSoftwareVersion = val
+        self.changedSignal.emit()
+
+    lastSoftwareVersion = Property(str,get_lastSoftwareVersion, set_lastSoftwareVersion, notify=changedSignal)
+
+
     ### Sluts ##########################################################################################################
 
     @Slot(str, str)
@@ -54,7 +82,12 @@ class SettingPage(QObject):
 
     @Slot()
     def cart_infoClicked(self):
-        pass
+        self.set_configs(self._configsRepository.get_Config())
+        self.cartInfoClickedSignal.emit()
+        self.set_lastSoftwareVersion(self._apiHandler.get_appVersion())
+        if self._configs.get_appVersion() != self._lastSoftwareVersion:
+            self.updateAvailableSignal.emit()
+
 
 
     ### Functions ######################################################################################################
