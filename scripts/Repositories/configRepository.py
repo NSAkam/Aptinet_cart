@@ -38,8 +38,8 @@ class ConfigRepositories():
     
     def get_Config(self):
         query = QSqlQuery()
-        query.exec_("select storeId,is_kg,currency,appVersion,dbVersion,imagesVersion,basketName from Config LIMIT 1")
         c = Config()
+        query.exec_("select storeId,is_kg,currency,appVersion,dbVersion,imagesVersion,basketName from Config LIMIT 1")
         while query.next():
             print("sdiashodkasdjuiasjdopas")
             c.storeId = query.value(0)

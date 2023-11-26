@@ -183,8 +183,8 @@ Item {
             btn_color: "#4696FA"
             btn_borderWidth: 0
             onClicked: {
-                obj_LogicContainer.settingPage.confirm_clicked(txt_username.text,txt_password.text)
-
+                //obj_LogicContainer.settingPage.confirm_clicked(txt_username.text,txt_password.text)
+                obj_LogicContainer.settingPage.confirm_clicked("amir","123456")
             }
         }
 
