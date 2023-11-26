@@ -204,7 +204,7 @@ Item {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                obj_logic.gotoSettingCliked();
+                obj_logic.go_toSettingClicked();
             }
         }
     }
