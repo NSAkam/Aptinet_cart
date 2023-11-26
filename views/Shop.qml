@@ -159,7 +159,7 @@ Item {
             NumberAnimation{duration: 1000}
         }
         onClicked: {
-            obj_logic.gotoShoppingCliked();
+            obj_logic.go_toShoppingClicked();
         }
     }
     KBorderButton{
@@ -204,7 +204,7 @@ Item {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                obj_logic.gotoSettingCliked();
+                obj_logic.go_toSettingClicked();
             }
         }
     }
@@ -387,7 +387,7 @@ Item {
     }
     Connections{
         target:obj_logic
-        function onGoToShoppageSignal(){
+        function onGoToShopPageSignal(){
             stackview.push(authenticationPage)
         }
         

@@ -40,12 +40,12 @@ class Logic(QObject):
 
     # Sluts ##################################################
     @Slot()
-    def go_toShoppingCliked(self):
+    def go_toShoppingClicked(self):
         self.goToShopPageSignal.emit()
         self.set_shopPage(ShopPage())
 
     @Slot()
-    def go_toSettingCliked(self):
+    def go_toSettingClicked(self):
         self.goToSettingPageSignal.emit()
         self.set_settingPage(SettingPage())
 
