@@ -5,7 +5,7 @@ import numpy as np
 
 class WeightSensorWorker(QThread):
 
-    _readWeight: bool = True
+    _canReadWeight: bool
     _hx = HX711
     _offset: float
     _scale: float
@@ -20,6 +20,7 @@ class WeightSensorWorker(QThread):
         super().__init__()
 
         self.hx = HX711(23, 24)
+        self._canReadWeight = True
         with open("/home/kast/offset.txt", 'r') as f:
             self.set_offset(float(f.readline()))
         self.hx.set_offset(self._offset)
@@ -83,7 +84,7 @@ class WeightSensorWorker(QThread):
         return int(sum(resultList) / len(resultList)) if len(resultList) > 0 else 0
 
     def run(self):
-        while self._readWeight:
+        while self._canReadWeight:
             result: int = self.hx.get_grams(times=1)
 
             if self._startUpHandler < self._elecNoiseReducBufferSize:
@@ -95,9 +96,6 @@ class WeightSensorWorker(QThread):
 
                 self.set_weight(self.outlier_remover(self._elecNoiseReducBuffer, 1))
 
-
-
-
-    def stop_weightSensorRead(self):
-        self._readWeight = False
+    def stop(self):
+        self._canReadWeight = False
         del self.hx

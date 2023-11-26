@@ -7,11 +7,16 @@ class ScannerHelper(QObject):
     _barcode: str
     _IDBarcode: str
 
+    ### Setting ###################
+    _productBarcodeLength: int = 13
+    _IDBarcodeLength: int = 20
+
     def __init__(self):
         super().__init__()
-
         self._scannerWorker = ScannerWorker()
         self._scannerWorker.barcodeValueReadSignal.connect(self.barcode_read)
+        self.start()
+
 
     EAN13ReadSignal = Signal()
     QRReadSignal = Signal()
@@ -25,16 +30,20 @@ class ScannerHelper(QObject):
 
     @Slot()
     def barcode_read(self):
-        if len(self._scannerWorker.get_readBytes()) == 15:
-            self.barcode = self._scannerWorker.get_readBytes()[1:-1].decode('latin1')
+        productBarcodeLength = self._productBarcodeLength + self._scannerWorker.get_extraCharacter()
+        IDBarcodeLength = self._IDBarcodeLength + self._scannerWorker.get_extraCharacter()
+        if len(self._scannerWorker.get_readBytes()) == productBarcodeLength:
+            self._barcode = self._scannerWorker.get_readBytes()[1:-1].decode('latin1')
             self.EAN13ReadSignal.emit()
-        elif len(self._scannerWorker.get_readBytes()) == 22 or len(self._scannerWorker.get_readBytes()) == 12:
-            self.ID_barcode = self._scannerWorker.get_readBytes()[1:-1].decode('latin1')
+        elif len(self._scannerWorker.get_readBytes()) == IDBarcodeLength or len(self._scannerWorker.get_readBytes()) == 12:
+            self._IDBarcode = self._scannerWorker.get_readBytes()[1:-1].decode('latin1')
             self.IDBarcodeReadSignal.emit()
         # elif len(self._scannerWorker.readed_bytes) > 3:
         #     self.iranbarcode = self._scannerWorker.readed_bytes[1:-1].decode('latin1')
         #     self.Qr_Readed.emit()
 
-    @Slot()
     def start(self):
         self._scannerWorker.start()
+
+    def stop(self):
+        self._scannerWorker.stop()

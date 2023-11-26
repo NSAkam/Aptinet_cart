@@ -29,6 +29,7 @@ class WeightSensorHelper(QObject):
 
         self._weighSensorWorker = WeightSensorWorker()
         self._weighSensorWorker.newWeightSignal.connect(self.new_weight)
+        self.start()
 
         for i in range(self._mecNoiseReducBufferSize):
             self._mecNoiseReducBuffer.append(0)
@@ -151,3 +152,6 @@ class WeightSensorHelper(QObject):
 
     def start(self):
         self._weighSensorWorker.start()
+
+    def stop(self):
+        self._weighSensorWorker.stop()

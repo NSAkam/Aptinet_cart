@@ -12,6 +12,7 @@ class BatteryWorker(QThread):
     _maxElecNumber: int
     _i2cBus: smbus
     _devAddress: int
+    _canReadBarcode: bool
 
     def __init__(self):
         super().__init__()
@@ -32,6 +33,8 @@ class BatteryWorker(QThread):
             if maximum > self._maxElecNumber:
                 self._maxElecNumber = maximum
 
+        self._canReadBarcode = True
+
     newLevelSignal = Signal()
 
     def get_level(self):
@@ -49,7 +52,7 @@ class BatteryWorker(QThread):
     def run(self):
         try:
             inStartUp: int = 0
-            while True:
+            while self._canReadBarcode:
                 if inStartUp < self._elecNoiseReducBufferSize:
                     readBytes = self._i2cBus.read_i2c_block_data(self._devAddress, 0x00, 2)
                     res = (readBytes[0] << 8) + readBytes[1]
@@ -94,6 +97,9 @@ class BatteryWorker(QThread):
                 resultList.append(raw_number)
         # print(resultList)
         return int(sum(resultList) / len(resultList)) if len(resultList) > 0 else 0
+
+    def stop(self):
+        self._canReadBarcode = False
 
 
 # class BatteryWorker2(QThread):
