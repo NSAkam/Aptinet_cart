@@ -107,7 +107,7 @@ Item{
                     anchors.left: progressBar.left
                     anchors.bottom: progressBar.bottom
                     height: progressBar.height
-                    width: progressBar.width * (progressBar.value /10)
+                    width: progressBar.width * (progressBar.value /100)
                     color: "#4696FA"
                     radius: 4
                 }
