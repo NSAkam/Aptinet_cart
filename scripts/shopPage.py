@@ -40,7 +40,7 @@ class ShopPage(QObject):
     _basketIsFull: bool = False
     _basketLoad: int = 0
 
-    def __init__(self, datetime: DateTime, scanner: ScannerHelper):
+    def __init__(self):
         super().__init__()
         self._startProcess = None
         dal = DAL()

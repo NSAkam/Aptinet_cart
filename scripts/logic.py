@@ -1,52 +1,56 @@
-from PySide2.QtCore import QObject, Signal, Property,Slot,QUrl
+from PySide2.QtCore import QObject, Signal, Property, Slot, QUrl
 from shopPage import ShopPage
 from settingPage import SettingPage
 from Helpers.scannerHelper import ScannerHelper
-from Services.gpio import *
+from Services.gpio import GreenLight
 
 
-class Logic(QObject): 
-    _shopPage : ShopPage
-    _settingPage : SettingPage
+class Logic(QObject):
+    _shopPage: ShopPage
+    _settingPage: SettingPage
+    _greenLightWorkerThread: GreenLight
 
     def __init__(self) -> None:
         super().__init__()
-        ### Turn off lights At the Start
-        self.gpioWorkerThread = GpioWorker(False)
-        self.gpioWorkerThread.finished.connect(self.gpioWorkerThread.deleteLater)
-        self.gpioWorkerThread.start()
-        
-    #Signals ################################################
-    goToShoppageSignal = Signal()
+        self.turnoff_greenLight()
+
+    # Signals ################################################
+    changedSignal = Signal()
+    goToShopPageSignal = Signal()
     goToSettingPageSignal = Signal()
 
-    @Signal
-    def changed(self):
-        pass
-
-    #Properties #############################################
-    def getShopPage(self):
+    # Properties #############################################
+    def get_shopPage(self):
         return self._shopPage
-    
-    def setShopPage(self,val):
+
+    def set_shopPage(self, val: ShopPage):
+        self.changedSignal.emit()
         self._shopPage = val
-        self.changed.emit()
-    
-    shoppage = Property(ShopPage,getShopPage,setShopPage,notify=changed)
-    
-    def getSettingPage(self) -> SettingPage:
+
+    shopPage = Property(ShopPage, get_shopPage, set_shopPage, notify=changedSignal)
+
+    def get_settingPage(self):
         return self._settingPage
 
-    def setSettingPage(self,val) -> None:
+    def set_settingPage(self, val: SettingPage):
+        self.changedSignal.emit()
         self._settingPage = val
 
-    settingPage = Property(SettingPage,getSettingPage,setSettingPage,notify=changed)
+    settingPage = Property(SettingPage, get_settingPage, set_settingPage, notify=changedSignal)
+
+    # Sluts ##################################################
+    @Slot()
+    def go_toShoppingCliked(self):
+        self.goToShopPageSignal.emit()
+        self.set_shopPage(ShopPage())
 
     @Slot()
-    def gotoShoppingCliked(self):
-        self.setShopPage(ShopPage())
+    def go_toSettingCliked(self):
+        self.goToSettingPageSignal.emit()
+        self.set_settingPage(SettingPage())
 
-    @Slot()
-    def gotoSettingCliked(self) -> None:
-        self.setSettingPage(SettingPage())
-    
+    # Functions ##############################################
+    def turnoff_greenLight(self):
+        self._greenLightWorkerThread = GreenLight(False)
+        self._greenLightWorkerThread.finished.connect(self._greenLightWorkerThread.deleteLater)
+        self._greenLightWorkerThread.start()
