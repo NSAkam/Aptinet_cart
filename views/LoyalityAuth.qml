@@ -9,12 +9,12 @@ import KAST.Logic 1.0
 
 
 Item {
-
+    
     width: 1280
     height: 800
-
+    
     property Logic obj_LogicContainerLoyalityAuth
-
+    
     Component.onCompleted: {
         txt_Enterloyality.visible = false
         input_enterEmail.visible = false
@@ -24,18 +24,18 @@ Item {
         icon_loyality.visible = true
         message.visible = true
     }
-
-
-
+    
+    
+    
     Util.ViewSettings{
         id:viewset
     }
-
+    
     Image {
         source: "../Assets/AuthenticationBackground.png"
         anchors.fill: parent
     }
-
+    
     Text {
         id:message
         text: qsTr("Please scan the Loyalty card or Enter Loyalty Code")
@@ -51,7 +51,7 @@ Item {
         y:228
         visible: true
     }
-
+    
     Text {
         id:btn_skip
         text: qsTr("Skip >")
@@ -66,8 +66,8 @@ Item {
             }
         }
     }
-
-
+    
+    
     KButton{
         id:btn_Enter
         text: "Enter Loyalty Card  >"
@@ -89,9 +89,9 @@ Item {
             message.visible = false
         }
     }
-
-
-
+    
+    
+    
     Text{
         id:txt_Enterloyality
         text: "Please enter your loyalty code"
@@ -100,7 +100,7 @@ Item {
         y:172
         visible: false
     }
-
+    
     Rectangle{
         id:btn_Action
         width: 70
@@ -120,7 +120,7 @@ Item {
         MouseArea{
             anchors.fill: parent
             onClicked: {
-                stackview.push(tostepAuthPage)
+                obj_LogicContainerLoyalityAuth.shopPage.enter_loyaltyCardBarcode(txt_loyal.text)
             }
         }
     }
@@ -135,7 +135,7 @@ Item {
         border.color: "#C6C5CE"
         visible: false
         TextEdit{
-            id:txt_Email
+            id:txt_loyal
             anchors.fill: parent
             font.pixelSize: 20
             layer.enabled: true
@@ -144,14 +144,14 @@ Item {
             verticalAlignment:  TextInput.AlignVCenter
             font.family: viewset.danaFuNumFont
             property string placeholderText: "Loyalty Code"
-
+            
             onFocusChanged: {
-
+                
             }
             Text {
-                text: txt_Email.placeholderText
+                text: txt_loyal.placeholderText
                 color: "#C6C5CE"
-                visible: !txt_Email.text
+                visible: !txt_loyal.text
                 font.pixelSize: 18
                 anchors.verticalCenter: parent.verticalCenter
                 x:50
@@ -175,24 +175,24 @@ Item {
             NumberAnimation{duration: 500}
         }
     }
-
-
-
-
+    
+    
+    
+    
     KKeyboard{
         id:keyboard
-        inputtext : txt_Email
+        inputtext : txt_loyal
         toppad: 500
         leftpad: 500
         y:parent.height - 0
         x:0
         visible: true
-
+        
         Behavior on y{
             NumberAnimation{duration: 500}
         }
     }
-
+    
     TopNav{
         id:topnavbar
         backvisible: true
@@ -212,7 +212,7 @@ Item {
             obj_LogicContainerShop: obj_LogicContainerLoyalityAuth
         }
     }
-
+    
     Connections{
         target:obj_LogicContainerLoyalityAuth.shopPage
         function onSuccessfulLoginSignal(){
