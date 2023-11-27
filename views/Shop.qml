@@ -8,12 +8,18 @@ import "Components"
 import "Containers"
 import "Utiles" as Util
 import "PopUps"
+import KAST.Logic 1.0
+
 
 
 Item {
     id: root
     width: 1280
     height: 800
+    
+    property Logic obj_LogicContainerShop
+    
+    
     signal addpluitemsClicked()
 
     Util.ViewSettings{

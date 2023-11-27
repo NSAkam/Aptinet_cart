@@ -6,12 +6,16 @@ import QtQuick.Controls.Styles 1.4
 import "Components"
 import "Containers"
 import "Utiles" as Util
+import KAST.Logic 1.0
 
 
 Item {
 
     width: 1280
     height: 800
+    
+    property Logic obj_LogicContainerPaymentNFC
+    
 
     Util.ViewSettings{
         id:viewset

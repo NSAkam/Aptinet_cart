@@ -2,11 +2,15 @@ import QtQuick 2.15
 import QtGraphicalEffects 1.15
 import "Utiles" as Util
 import "Components"
+import KAST.Logic 1.0
+
 
 Item {
 
     property int sizeVal: 70
     property int radiusVal: 40
+
+    property Logic obj_LogicContainerRatingPage
 
 
     Text {

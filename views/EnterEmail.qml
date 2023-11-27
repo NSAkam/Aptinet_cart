@@ -2,11 +2,15 @@ import QtQuick 2.15
 import QtGraphicalEffects 1.15
 import "Utiles" as Util
 import "Components"
+import KAST.Logic 1.0
+
 
 Item {
     id: root
     signal continueClicked()
 
+    property Logic obj_LogicContainerEnterEmail
+    
 
     Text {
         text: qsTr("Please enter your Email or\n Phone Number to get a receipt")

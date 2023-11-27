@@ -5,12 +5,15 @@ import QtQuick.Window 2.0
 import "Components"
 import "Containers"
 import "Utiles" as Util
+import KAST.Logic 1.0
 
 
 Item {
 
     width: 1280
     height: 800
+    
+    property Logic obj_LogicContainerAfterPayment    
 
     Util.ViewSettings{
         id:viewset
