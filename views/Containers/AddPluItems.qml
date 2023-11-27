@@ -7,7 +7,7 @@ Item {
     width: 890
     height: 708
     property Logic obj_LogicContainerAddPluItems
-    
+
 
 
     signal back()
@@ -85,138 +85,68 @@ Item {
         color: "#6D6D6D"
 
     }
-    Rectangle{
-        width: 190
-        height: 249
+    GridView {
+        id: productsgridview
         x:462
-        y:94
-        radius: 4
-        Image {
-            source: "../../Assets/product.png"
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: 128
-            height: 128
-        }
+        width: 410
+        height: 640
+        cellWidth: 190 + 22
+        cellHeight: 249 + 16
+        focus: true
+        y: 94
+        flow: GridView.FlowTopToBottom
+        clip: true
+        interactive: false
 
-        Text {
-            text: qsTr("#2540")
-            x:16
-            y:144
-            font.pixelSize: 16
-        }
-        Text {
-            text: qsTr("Apple")
-            x:16
-            y:173
-            font.pixelSize: 24
-        }
-        Text {
-            text: qsTr("$ 2.99/kg")
-            x:16
-            y:211
-            font.pixelSize: 20
-            color: viewset.primaryColor
-        }
-    }
 
-    Rectangle{
-        width: 190
-        height: 249
-        x:668
-        y:94
-        radius: 4
-        Image {
-            source: "../../Assets/product.png"
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: 128
-            height: 128
-        }
+        model: obj_LogicContainerPLUListItems.shopPage.pluTopFour
+        delegate:
+            Item {
+            Rectangle {
+                id: mainrect
+                width: 190
+                height: 249
+                color: "white"
+                radius: 4
 
-        Text {
-            text: qsTr("#2540")
-            x:16
-            y:144
-            font.pixelSize: 16
-        }
-        Text {
-            text: qsTr("Apple")
-            x:16
-            y:173
-            font.pixelSize: 24
-        }
-        Text {
-            text: qsTr("$ 2.99/kg")
-            x:16
-            y:211
-            font.pixelSize: 20
-             color: viewset.primaryColor
-        }
-    }
+                Image {
+                    id: productimage
+                    source: model.pic
+                    width: 120
+                    height: 120
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    y: 8
+                }
 
-    Rectangle{
-        width: 190
-        height: 249
-        x:462
-        y:359
-        radius: 4
-        Image {
-            source: "../../Assets/product.png"
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: 128
-            height: 128
-        }
+                Text {
+                    text: qsTr("# "+model.barcode)
+                    x: 16
+                    y: 144
+                    font.pixelSize: 16
+                    color: "#9D9D9D"
+                    lineHeight: Font.Normal
+                }
+                Text {
+                    text: qsTr(model.name)
+                    x: 16
+                    y: 173
+                    font.pixelSize: 24
+                    color: "#1D1D1D"
+                    lineHeight: Font.Normal
+                }
 
-        Text {
-            text: qsTr("#2540")
-            x:16
-            y:144
-            font.pixelSize: 16
-        }
-        Text {
-            text: qsTr("Apple")
-            x:16
-            y:173
-            font.pixelSize: 24
-        }
-        Text {
-            text: qsTr("$ 2.99/kg")
-            x:16
-            y:211
-            font.pixelSize: 20
-             color: viewset.primaryColor
-        }
-    }
-    Rectangle{
-        width: 190
-        height: 249
-        x:668
-        y:359
-        radius: 4
-        Image {
-            source: "../../Assets/product.png"
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: 128
-            height: 128
-        }
+                Text {
+                    text: qsTr("$ "+model.finalPrice+"/kg")
+                    x: 16
+                    y: 211
+                    font.pixelSize: 20
+                    color: "#F08C5A"
+                    lineHeight: Font.Normal
+                    font.bold: true
+                }
 
-        Text {
-            text: qsTr("#2540")
-            x:16
-            y:144
-            font.pixelSize: 16
-        }
-        Text {
-            text: qsTr("Apple")
-            x:16
-            y:173
-            font.pixelSize: 24
-        }
-        Text {
-            text: qsTr("$ 2.99/kg")
-            x:16
-            y:211
-            font.pixelSize: 20
-             color: viewset.primaryColor
+            }
+
         }
     }
 
@@ -232,7 +162,6 @@ Item {
                     root.seeAll()
                 }
             }
-
         }
     }
 

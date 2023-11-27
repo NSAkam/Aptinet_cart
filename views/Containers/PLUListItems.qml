@@ -8,9 +8,9 @@ import KAST.Logic 1.0
 Item {
     id: root
     signal back()
-    
+
     property Logic obj_LogicContainerPLUListItems
-    
+
 
     GridView {
         id: productsgridview
@@ -32,7 +32,7 @@ Item {
             y: -(94 -28)
         }
 
-        model: 15
+        model: obj_LogicContainerPLUListItems.shopPage.pluList
         delegate:
             Item {
             Rectangle {
@@ -44,7 +44,7 @@ Item {
 
                 Image {
                     id: productimage
-                    source: "../../Assets/product.png"
+                    source: model.pic
                     width: 120
                     height: 120
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -52,7 +52,7 @@ Item {
                 }
 
                 Text {
-                    text: qsTr("#2540")
+                    text: qsTr("# "+model.barcode)
                     x: 16
                     y: 144
                     font.pixelSize: 16
@@ -60,7 +60,7 @@ Item {
                     lineHeight: Font.Normal
                 }
                 Text {
-                    text: qsTr("Apple")
+                    text: qsTr(model.name)
                     x: 16
                     y: 173
                     font.pixelSize: 24
@@ -69,7 +69,7 @@ Item {
                 }
 
                 Text {
-                    text: qsTr("$ 2.99/kg")
+                    text: qsTr("$ "+model.finalPrice+"/kg")
                     x: 16
                     y: 211
                     font.pixelSize: 20

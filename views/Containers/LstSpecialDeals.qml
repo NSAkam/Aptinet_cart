@@ -8,8 +8,8 @@ import KAST.Logic 1.0
 Item {
     id: root
     signal back()
-    
-    property Logic obj_LogicContainerLstSpecialDeals 
+
+    property Logic obj_LogicContainerLstSpecialDeals
 
     GridView {
         id: productsgridview
@@ -32,7 +32,7 @@ Item {
             y: -(94 -  28)
         }
 
-        model: 15
+        model: obj_LogicContainerLstSpecialDeals.shopPage.offersList
         delegate:
 
             Item {
@@ -56,7 +56,7 @@ Item {
                     color: "white"
 
                     Image {
-                        source: "../../Assets/product.png"
+                        source: model.pic
                         width: 106
                         height: 106
                         anchors.verticalCenter: parent.verticalCenter
@@ -65,7 +65,7 @@ Item {
                 }
 
                 Text {
-                    text: qsTr("Nutella Hazelnut Spread with Cocoa, 750g")
+                    text: qsTr(model.name)
                     width: 134
                     height: 66
                     x:164
@@ -76,7 +76,7 @@ Item {
                 Text {
                     x:164
                     y:98
-                    text: qsTr("$ 9.99")
+                    text: qsTr("$ "+model.finalPrice)
                     font.pixelSize: 24
                     color:viewset.primaryColor
                     font.bold: true
@@ -87,6 +87,7 @@ Item {
                     text: qsTr("-9 %")
                     font.pixelSize: 24
                     color: viewset.primaryColor
+                    visible: false
                 }
             }
         }

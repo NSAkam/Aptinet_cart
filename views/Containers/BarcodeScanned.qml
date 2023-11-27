@@ -9,8 +9,8 @@ import KAST.Logic 1.0
 
 Item {
     id:barcode_scanned
-    
-    property Logic obj_LogicContainerBarcodeScanned  
+
+    property Logic obj_LogicContainerBarcodeScanned
 
     signal cancel()
     signal pass()
@@ -72,7 +72,7 @@ Item {
         height: 200
         color: "White"
         Image {
-            source: "../../Assets/product.png"
+            source: obj_LogicContainerBarcodeScanned.shopPage.newProduct.pic
             width: 135
             height: 135
             x:33
@@ -80,33 +80,75 @@ Item {
 
         }
         Text {
-            text: qsTr("Nutella Hazelnut Spread with Cocoa, 750g")
+            text: obj_LogicContainerBarcodeScanned.shopPage.newProduct.name
             x:232
             y:32
             font.pixelSize:24
         }
         Text {
-            text: qsTr("-9%")
+            text: obj_LogicContainerBarcodeScanned.shopPage.newProduct.rate
+            x:245
+            y:145
+            font.pixelSize: 18
+        }
+        Image {
+            id:star1
+            source: "../../Assets/star.png"
+            x:275
+            y:146
+        }
+        Image {
+            id:star2
+            source: "../../Assets/star.png"
+            anchors.left: star1.right
+            anchors.leftMargin: 7
+            y:146
+        }
+        Image {
+            id:star3
+            source: "../../Assets/star.png"
+            anchors.left: star2.right
+            anchors.leftMargin: 7
+            y:146
+        }
+        Image {
+            id:star4
+            source: "../../Assets/star.png"
+            anchors.left: star3.right
+            anchors.leftMargin: 7
+            y:146
+        }
+        Image {
+            id:star5
+            source: "../../Assets/star.png"
+            anchors.left: star4.right
+            anchors.leftMargin: 7
+            y:146
+        }
+        Text {
+            text: qsTr(obj_LogicContainerBarcodeScanned.shopPage.newProduct.finalPrice - obj_LogicContainerBarcodeScanned.shopPage.newProduct.price)
             x:639
             y:146
             font.pixelSize: 24
             color: "#F08C5A"
         }
         Text {
-            text: qsTr("$ 9.99")
+            text: qsTr("$ " + obj_LogicContainerBarcodeScanned.shopPage.newProduct.finalPrice)
             x:699
             y:146
             font.pixelSize: 32
             color: "#F05A28"
         }
         Text {
-            text: qsTr("The original hazelnut and cocoa spread that has been on the breakfast \ntables of millions worldwide.")
+            text: qsTr(obj_LogicContainerBarcodeScanned.shopPage.newProduct.description)
             color: "#1D1D1D"
             font.pixelSize: 16
             x: 232
             y: 70
+            width: parent.width - x
             lineHeight: 1.5
-            font.letterSpacing: 0.64
+            font.letterSpacing: 0.
+            wrapMode: Text.WordWrap
         }
     }
     Text {

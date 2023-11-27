@@ -10,9 +10,9 @@ Item {
     id:lstFactor
     property QtObject tanzimat
     signal gocheckout()
-    
+
     property Logic obj_LogicContainerLstCheckProducts
-    
+
 
     anchors.fill: parent
     Rectangle{
@@ -52,7 +52,7 @@ Item {
 
                 Image {
                     id: factorItemPic
-                    source:  "../../Assets/product.png"
+                    source:  modelData.pic
                     anchors.left: parent.left
                     width: 90
                     height: 90
@@ -62,7 +62,7 @@ Item {
 
                 Text {
                     id: factorItemName
-                    text: "Nutella Hazelnut Spread with Cocoa, 750g"
+                    text: modelData.name
                     font.pixelSize: 16
                     anchors.left: factorItemPic.right
                     width: 562
@@ -74,7 +74,7 @@ Item {
                 }
                 Text {
                     id: factorItemprice
-                    text: qsTr("$ 99.99") + " each"
+                    text: qsTr("$ " + modelData.finalPrice + " each")
                     font.pixelSize: 18
                     anchors.left: factorItemPic.right
                     anchors.leftMargin: 57
@@ -82,7 +82,7 @@ Item {
                 }
                 Text {
                     id: factorItemQty
-                    text: "Qty:" + " 2"
+                    text: "Qty:" + modelData.countInBasket
                     font.pixelSize: 18
                     anchors.left: factorItemPic.right
                     anchors.leftMargin: 193
@@ -99,7 +99,87 @@ Item {
                 }
                 Text {
                     id: factorItemTotalPrice
-                    text: "$ 19.98"
+                    text: "$ " + qsTr(modelData.countInBasket * finalPrice)
+                    x:679
+                    y:86
+                    color: viewset.primaryColor
+                    font.pixelSize: 32
+                }
+                Rectangle{
+                    anchors.bottom: parent.bottom
+                    width: parent.width
+                    height: 1
+                    color: "#C9C9C9"
+                }
+            }
+
+        }
+    }
+    Component{
+        id:factorWeightDelegate
+
+
+        Item {
+            id: itemFactorItem
+            x:5
+            width: 826
+            height: 140
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            Rectangle{
+                id:rectFactorItem
+                anchors.fill: parent
+
+                Image {
+                    id: factorItemPic
+                    source: modelData.pic
+                    anchors.left: parent.left
+                    width: 90
+                    height: 90
+                    x:25
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                Text {
+                    id: factorItemName
+                    text: modelData.name
+                    font.pixelSize: 16
+                    anchors.left: factorItemPic.right
+                    width: 562
+                    height: 22
+                    elide: Text.ElideLeft
+                    anchors.leftMargin: 57
+                    font.bold: true
+                    y:32
+                }
+                Text {
+                    id: factorItemprice
+                    text: qsTr("$ "+modelData.finalPrice + " /kg")
+                    font.pixelSize: 18
+                    anchors.left: factorItemPic.right
+                    anchors.leftMargin: 57
+                    y:91
+                }
+                Text {
+                    id: factorItemQty
+                    text: "Wt:" +qsTr(modelData.productWeightInBasket)  + " kg"
+                    font.pixelSize: 18
+                    anchors.left: factorItemPic.right
+                    anchors.leftMargin: 193
+                    y:91
+                }
+                Rectangle{
+                    id: splitterQuantityPrice
+                    anchors.left: factorItemPic.right
+                    color: "#C9C9C9"
+                    anchors.leftMargin: 172
+                    width: 1
+                    height: 20
+                    y:91
+                }
+                Text {
+                    id: factorItemTotalPrice
+                    text: "$ " + qsTr(modelData.finalPrice)
                     x:679
                     y:86
                     color: viewset.primaryColor
@@ -119,8 +199,16 @@ Item {
     ListView {
         id:lst_prd
         focus: true
-        model: 2
-        delegate: factorDelegate
+        model: obj_LogicContainerLstCheckProducts.shopPage.factorList
+        delegate: Loader {
+            property variant modelData: model
+
+            sourceComponent:  switch(dataModelShow) {
+                              case 0: return factorDelegate
+                              case 1: return factorWeightDelegate
+
+                              }
+        }
         x:0
         y:103
         width: parent.width
@@ -144,7 +232,7 @@ Item {
 
         Text {
             id:check_TotalItems
-            text: qsTr("14")
+            text: qsTr(obj_LogicContainerLstCheckProducts.shopPage.factorList.totalcount)
             font.pixelSize: 24
             x:259
             y:39
@@ -161,7 +249,7 @@ Item {
         }
         Text {
             id:check_TotalSaved
-            text: qsTr("$ 22.00 ")
+            text: qsTr("$  " + obj_LogicContainerLstCheckProducts.shopPage.factorList.profit)
             font.pixelSize: 20
             x:344
             y:42
@@ -177,7 +265,7 @@ Item {
         }
         Text {
             id:check_TotalPrice
-            text: qsTr("$ 68.72 ")
+            text: qsTr("$  " + obj_LogicContainerLstCheckProducts.shopPage.factorList.priceToPay)
             font.pixelSize: 32
             x:463
             y:32
@@ -216,5 +304,3 @@ Item {
     }
 
 }
-
-

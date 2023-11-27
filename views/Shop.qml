@@ -18,7 +18,9 @@ Item {
     height: 800
 
     property Logic obj_LogicContainerShop
-
+    Component.onCompleted: {
+        obj_LogicContainerShop.shopPage.login_finished()
+    }
 
     signal addpluitemsClicked()
 
@@ -242,21 +244,21 @@ Item {
             x:32
             y:32
         }
-        // Image {
-        //     id: img_UserCaptured
-        //     source: "image://KCameraProvider/1"
-        //     width: 326
-        //     height: 184
-        //     x:32
-        //     y:105
-        //     property bool counter: false
-        //     cache: false
+         Image {
+             id: img_UserCaptured
+             source: "image://KCameraProvider/1"
+             width: 326
+             height: 184
+             x:32
+             y:105
+             property bool counter: false
+             cache: false
 
-        //     function reloadImage() {
-        //                         counter = !counter
-        //                         source = "image://KCameraProvider/?id=" + counter
-        //                     }
-        // }
+             function reloadImage() {
+                                 counter = !counter
+                                 source = "image://KCameraProvider/?id=" + counter
+                             }
+         }
         Text {
             text: qsTr("ENTER PLU CODE")
             font.pixelSize: 24
@@ -346,9 +348,9 @@ Item {
             cache: true
 
             function reloadImage() {
-                                counter = !counter
-                                source = "image://KCameraProvider/?id=" + counter
-                            }
+                counter = !counter
+                source = "image://KCameraProvider/?id=" + counter
+            }
         }
         Image {
             id: ads_Image
@@ -395,7 +397,7 @@ Item {
 
             clip: true
             spacing: 10
-            model: 10
+            model: obj_LogicContainerShop.shopPage.offersList
             orientation: ListView.vertical
             delegate:
                 Item {
@@ -419,7 +421,7 @@ Item {
                         color: "white"
 
                         Image {
-                            source: "../Assets/product.png"
+                            source: model.pic
                             width: 106
                             height: 106
                             anchors.verticalCenter: parent.verticalCenter
@@ -428,7 +430,7 @@ Item {
                     }
 
                     Text {
-                        text: qsTr("Nutella Hazelnut Spread with Cocoa, 750g")
+                        text: qsTr(model.name)
                         width: 134
                         height: 66
                         x:164
@@ -439,7 +441,7 @@ Item {
                     Text {
                         x:164
                         y:98
-                        text: qsTr("$ 9.99")
+                        text: qsTr("$ "+model.price)
                         font.pixelSize: 24
                         color:viewset.primaryColor
                         font.bold: true
@@ -450,6 +452,7 @@ Item {
                         text: qsTr("-9 %")
                         font.pixelSize: 24
                         color: viewset.primaryColor
+                        visible: false
                     }
                 }
             }
@@ -472,21 +475,21 @@ Item {
             x:32
             y:32
         }
-        // Image {
-        //     id: img_UserCapturedadsPanel1
-        //     source: "image://KCameraProvider/1"
-        //     width: 326
-        //     height: 184
-        //     x:32
-        //     y:105
-        //     property bool counter: false
-        //     cache: false
+        Image {
+            id: img_UserCapturedadsPanel1
+            source: "image://KCameraProvider/1"
+            width: 326
+            height: 184
+            x:32
+            y:105
+            property bool counter: false
+            cache: false
 
-        //     function reloadImage() {
-        //                         counter = !counter
-        //                         source = "image://KCameraProvider/?id=" + counter
-        //                     }
-        // }
+            function reloadImage() {
+                counter = !counter
+                source = "image://KCameraProvider/?id=" + counter
+            }
+        }
 
         Text {
             text: qsTr("My Cart")
@@ -523,14 +526,14 @@ Item {
 
             clip: true
             spacing: 10
-            model: 10
+            model: obj_LogicContainerShop.shopPage.factorList
             orientation: ListView.vertical
             delegate:
                 Item {
                 width: 326
                 height: 78
                 Text {
-                    text: qsTr("Nutella Hazelnut Spread with...")
+                    text: qsTr(model.name)
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: 16
                 }
@@ -542,7 +545,7 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: parent.right
                     Text {
-                        text: qsTr("1")
+                        text: qsTr(model.countInBasket)
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
                         color: "white"
@@ -557,6 +560,8 @@ Item {
     Component{
         id:newProductHandler
         BarcodeScanned{
+            obj_LogicContainerBarcodeScanned: obj_LogicContainerShop
+
             onPass: {
                 stackviewContainer.push(lstProductHandler)
             }
@@ -577,6 +582,7 @@ Item {
     Component{
         id:lstProductHandler
         LstCheckProducts{
+            obj_LogicContainerLstCheckProducts: obj_LogicContainerShop
             onGocheckout: {
                 adsPanel.visible = false
                 checkoutPanel.visible = true
@@ -588,6 +594,7 @@ Item {
     Component{
         id:manualBarcodeHandler
         ManualBarcode{
+            obj_LogicContainerManualBarcode: obj_LogicContainerShop
             onOk: {
                 stackviewContainer.replace(newProductHandler)
             }
@@ -608,6 +615,7 @@ Item {
     Component{
         id:addPluItem
         AddPluItems{
+            obj_LogicContainerAddPluItems: obj_LogicContainerShop
             onSeeAll: {
                 stackviewContainer.push(plulist)
             }
@@ -631,6 +639,7 @@ Item {
     Component{
         id:addPluItemview
         AddPluItemsView{
+            obj_LogicContainerAddPluItemsView: obj_LogicContainerShop
             onConfirm:
             {
                 adsPanel.visible = true
@@ -658,6 +667,7 @@ Item {
     Component {
         id: checkout
         Checkoutpage {
+            obj_LogicContainerCheckoutPage: obj_LogicContainerShop
             onNfcPaymentClicked: {
                 stackview.push(nfcpayment)
             }
@@ -673,7 +683,7 @@ Item {
     Component {
         id: nfcpayment
         PaymentviaNFC {
-
+            obj_LogicContainerPaymentNFC: obj_LogicContainerShop
 
         }
     }
@@ -683,14 +693,12 @@ Item {
 
     }
 
-    NotificationPopUp {
-        id: notifpopup
-        notiftext: "Please scan just the products you have removed from the cart !"
-    }
+
 
     Component{
         id: plulist
         PLUListItems {
+            obj_LogicContainerPLUListItems: obj_LogicContainerShop
             onBack: {
                 stackviewContainer.pop()
             }
@@ -701,6 +709,7 @@ Item {
     Component{
         id: specialdealslist
         LstSpecialDeals {
+            obj_LogicContainerLstSpecialDeals: obj_LogicContainerShop
             onBack: {
                 if(stackviewContainer.depth == 1)
                 {
@@ -715,11 +724,18 @@ Item {
     }
 
     Connections{
-            target: cameraProvider
-            function onNewFrameReadSignal() {
-                //img_UserCapturedadsPanel1.reloadImage()
+        target: cameraProvider
+        function onNewFrameReadSignal() {
+            if(checkoutPanel.visible === true){
+                img_UserCapturedadsPanel1.reloadImage()
+            }
+            if(adsPanel.visible === true){
                 img_UserCapturedadsPanel.reloadImage()
-                //img_UserCaptured.reloadImage()
+            }
+
+            if(addPlupanel.visible === true){
+                img_UserCaptured.reloadImage()
             }
         }
+    }
 }
