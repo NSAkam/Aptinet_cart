@@ -15,6 +15,7 @@ class User(QObject):
     
     def __init__(self):
         super().__init__()
+        self._loggedInUser = ServerUser()
         self._loggedInUser.set_name("Guest")
         
     @Signal
