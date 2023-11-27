@@ -63,7 +63,7 @@ Item {
                 radius: width /2
             }
             Text {
-                text: qsTr(obj_LogicContainerShop.shopPage.user.loggedInUser.email)
+                text: qsTr(obj_LogicContainerShop.shopPage.user.loggedInUser.name)
                 color: "#6D6D6D"
                 width: 148
                 height: 15
