@@ -249,6 +249,10 @@ Item {
             height: 184
             x:32
             y:105
+            function reloadImage() {
+                                counter = !counter
+                                source = "image://KCameraProvider/?id=" + counter
+                            }
         }
         Text {
             text: qsTr("ENTER PLU CODE")
@@ -334,6 +338,10 @@ Item {
             height: 184
             x:32
             y:105
+            function reloadImage() {
+                                counter = !counter
+                                source = "image://KCameraProvider/?id=" + counter
+                            }
         }
         Image {
             id: ads_Image
@@ -464,6 +472,10 @@ Item {
             height: 184
             x:32
             y:105
+            function reloadImage() {
+                                counter = !counter
+                                source = "image://KCameraProvider/?id=" + counter
+                            }
         }
 
         Text {
@@ -691,4 +703,13 @@ Item {
             }
         }
     }
+    
+    Connections{
+            target: cameraProvider
+            function onNewFrameReadSignal() {
+                img_UserCapturedadsPanel1.reloadImage()
+                img_UserCapturedadsPanel.reloadImage()
+                img_UserCaptured.reloadImage()
+            }
+        }
 }

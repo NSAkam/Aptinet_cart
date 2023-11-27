@@ -17,6 +17,8 @@ class CameraWorker(QThread):
     _lastSwitchTime: datetime
     _readFromCamera1: bool = True
 
+    
+
     def __init__(self):
         super().__init__()
         # self.find_cameraID()
