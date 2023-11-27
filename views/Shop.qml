@@ -343,9 +343,8 @@ Item {
             x:32
             y:105
             property bool counter: false
-            cache: false
-            asynchronous: true
-
+            cache: true
+            
             function reloadImage() {
                                 counter = !counter
                                 source = "image://KCameraProvider/?id=" + counter
