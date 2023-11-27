@@ -202,6 +202,8 @@ class ShopPage(QObject):
     def enter_phoneNumberClicked(self, phoneNumber: str):
         print(phoneNumber)
         serverUser = self._userServerRepository.loginByPhone(phoneNumber)
+        print(serverUser)
+        print(type(serverUser))
         if not serverUser.get_id() == "":
             print("login suc")
             self._user.set_loggedInUser(serverUser)
