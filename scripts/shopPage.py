@@ -7,31 +7,31 @@ from Models.product import Product
 from Models.Helpers.productBypassModel import ProductBypassModel
 from Models.Helpers.productModel import ProductModel
 from Services.dateTime import DateTime
-from Services.weightsensor import WeightSensorWorker
+# from Services.weightsensor import WeightSensorWorker
 from Services.dal import DAL
 from Helpers.scannerHelper import ScannerHelper
+from Helpers.weightSensorHelper import WeightSensorHelper
 from Services.sound import *
-from Services.gpio import *
+from Services.gpio import GreenLight
 
 
 class ShopPage(QObject):
-    ### Settings #####################
+    ### Settings #######################################################################################################
     _insertProductTime: int = 8  # actual time = n -1
     _validInsertedWeightForCalTol: int = 3  # Accept inserted product without checking weight under this limit
     _basketWeightLimit: int = 20000  # grams
     _lightestProductWeight: int = 11  # grams
 
-    ### Models #######################
+    ### Models #########################################################################################################
     _factorList: ProductModel
     _suggestedProducts: ProductModel
     _offersProducts: ProductModel
     _bypassList: ProductBypassModel
     _newProduct: Product
 
-    _dateTime: DateTime
-    _scanner: ScannerHelper
-    _weightSensor: WeightSensorWorker
-    ### Private ######################
+    ### Repositories ###################################################################################################
+
+    ### Private ########################################################################################################
     _state: int = 0
     _inBypass: bool = False
     _countDownTimer: int = -60
@@ -39,22 +39,24 @@ class ShopPage(QObject):
     _basketWeightShouldBe: int = 0
     _basketIsFull: bool = False
     _basketLoad: int = 0
+    #####################################################
+    _scanner: ScannerHelper
+    _weightSensor: WeightSensorHelper
 
     def __init__(self):
         super().__init__()
         self._startProcess = None
         dal = DAL()
-        self._dateTime = datetime
+        # self._dateTime = datetime
 
-        #### Barcode Scanner Sensor ###############################
-        self._scanner = scanner
+        #### Barcode Scanner ######################################
+        self._scanner = ScannerHelper()
         self._scanner.EAN13ReadSignal.connect(self.barcodeRead)
         self._scanner.start()
 
-        ### WeightSensor ##########################################
-        self._weightSensor = WeightSensorWorker()
-        self._weightSensor.basketweight_changed.connect(self.basketWeightChanged)
-        self._weightSensor.startWeightchanged.connect(self.startShoppingProcess)
+        #### WeightSensor #########################################
+        self._weightSensor = WeightSensorHelper()
+        self._weightSensor.stepBasketWeightChangedSignal.connect(self.basketWeightChanged)
         self._weightSensor.start()
 
         #### Models ###############################################
@@ -68,13 +70,13 @@ class ShopPage(QObject):
         self._timerThread = Thread(target=self.timerSlot)
         self._timerThread.start()
 
-    ### Signals ######################
+    ### Signals ########################################################################################################
     changedSignal = Signal()
     loyaltyCartLoginScannedSignal = Signal()
     goToSoppingPageSignal = Signal()
     showNewProductScannedSignal = Signal()
 
-    ### Properties ###################
+    ### Properties #####################################################################################################
     def get_countDownTimer(self):
         return self._countDownTimer
 
@@ -111,8 +113,7 @@ class ShopPage(QObject):
 
     basketLoad = Property(int, get_basketLoad, set_basketLoad, notify=changedSignal)
 
-    ### Sluts ########################
-    @Slot()
+    ### Sluts ##########################################################################################################    @Slot()
     def barcodeRead(self):
         product = self._factorList.get_productByBarcode(self._scanner.get_barcode())
         self._bypassList.insertProduct(product.copy_product(), 0)
@@ -130,10 +131,15 @@ class ShopPage(QObject):
             ###############################################
 
             if val2 > val1:
+                if not self._startProcess:
+                    self._startProcess = True
+                    self._startWeight = val1
+
                 value = val2 - val1
 
                 if self._state == 1:
                     pass
+
                 elif self._state == 2:
                     if self._newProduct.getInsertedweight() < self._validInsertedWeightForCalTol:
                         self.add_productToFactor(self._newProduct, 1, True, val2, val1)
@@ -156,10 +162,9 @@ class ShopPage(QObject):
             ###############################################
             #### REMOVE WEIGHT ############################
             ###############################################
-
-    @Slot()
-    def startShoppingProcess(self, val):
-        self._startProcess = True
+            else:   # val2 < val1
+                if self._startProcess:
+                    pass
 
     @Slot()
     def timerSlot(self):
@@ -175,7 +180,8 @@ class ShopPage(QObject):
     def login_userName(self, userName: str):
         pass
 
-    ### Functions ####################
+    ### Functions ######################################################################################################
+
     def get_state(self):
         return self._state
 
@@ -190,7 +196,6 @@ class ShopPage(QObject):
 
     def add_productToFactor(self, p: Product, c: int, u: bool, w2: int, w1: int):
         insertSound()
-        L_Wire(1)
         self._factorList.insertProduct(p, c)
         self._bypassList.insertProduct(p.copy_product(), c)
         if u:
@@ -199,8 +204,9 @@ class ShopPage(QObject):
         self.cal_basketLoad(w2)
 
     def cal_basketLoad(self, weight: int):
-        if not self._basketWeightLimit:
-            load = int((weight - self._startWeight) / self._basketWeightLimit * 100)
-            load = min(max(load, 0), 100)
-            self.set_basketLoad(load)
-            self.set_basketIsFull(True) if load == 100 else self.set_basketIsFull(False)
+        load = int((weight - self._startWeight) / self._basketWeightLimit * 100)
+        load = min(max(load, 0), 100)
+        self.set_basketLoad(load)
+        self.set_basketIsFull(True) if load == 100 else self.set_basketIsFull(False)
+
+

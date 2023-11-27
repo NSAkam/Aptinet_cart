@@ -125,12 +125,12 @@ class WeightSensorHelper(QObject):
 
         if self._canRead:
             if self._atStartUp:
-                self.set_startWeight(int(mean(self._mecNoiseReducBuffer)))
+                self.set_startWeight(self._weighSensorWorker.outlier_remover(self._mecNoiseReducBuffer))
                 self._basketWeight1 = self._startWeight
                 self._basketWeight2 = self._startWeight
                 self._atStartUp = False
             else:
-                if mean(self._mecNoiseReducBuffer) > self._basketWeight1:
+                if self._weighSensorWorker.outlier_remover(self._mecNoiseReducBuffer) > self._basketWeight1:
                     a = np.array(self._mecNoiseReducBuffer)
                     half_quartile = np.percentile(a, 50)
                     c = 0
@@ -141,7 +141,7 @@ class WeightSensorHelper(QObject):
                             s += w
                     self._basketWeight2 = int(s / c)
                 else:
-                    self._basketWeight2 = int(mean(self._mecNoiseReducBuffer))
+                    self._basketWeight2 = self._weighSensorWorker.outlier_remover(self._mecNoiseReducBuffer)
 
                 if (self._basketWeight2 - self._basketWeight1) >= self.lightest_weight or (
                         self._basketWeight2 - self._basketWeight1) <= (

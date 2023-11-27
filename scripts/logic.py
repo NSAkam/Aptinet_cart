@@ -1,5 +1,5 @@
 from PySide2.QtCore import QObject, Signal, Property, Slot, QUrl
-# from shopPage import ShopPage
+from shopPage import ShopPage
 from settingPage import SettingPage
 from Helpers.scannerHelper import ScannerHelper
 from Services.gpio import GreenLight
@@ -15,7 +15,7 @@ class Logic(QObject):
     ### Repositories ###################################################################################################
 
     ### Private ########################################################################################################
-    # _shopPage: ShopPage
+    _shopPage: ShopPage
     _settingPage: SettingPage
     _greenLightWorkerThread: GreenLight
 
@@ -29,14 +29,14 @@ class Logic(QObject):
     goToSettingPageSignal = Signal()
 
     ### Properties #####################################################################################################
-    # def get_shopPage(self):
-    #     return self._shopPage
+    def get_shopPage(self):
+        return self._shopPage
 
-    # def set_shopPage(self, val: ShopPage):
-    #     self.changedSignal.emit()
-    #     self._shopPage = val
-    #
-    # shopPage = Property(ShopPage, get_shopPage, set_shopPage, notify=changedSignal)
+    def set_shopPage(self, val: ShopPage):
+        self.changedSignal.emit()
+        self._shopPage = val
+
+    shopPage = Property(ShopPage, get_shopPage, set_shopPage, notify=changedSignal)
 
     def get_settingPage(self):
         return self._settingPage
@@ -48,16 +48,15 @@ class Logic(QObject):
     settingPage = Property(SettingPage, get_settingPage, set_settingPage, notify=changedSignal)
 
     ### Sluts ##########################################################################################################
-    # @Slot()
-    # def go_toShoppingClicked(self):
-    #     self.goToShopPageSignal.emit()
-    #     self.set_shopPage(ShopPage())
+    @Slot()
+    def go_toShoppingClicked(self):
+        self.set_shopPage(ShopPage())
+        self.goToShopPageSignal.emit()
 
     @Slot()
     def go_toSettingClicked(self):
         self.set_settingPage(SettingPage())
         self.goToSettingPageSignal.emit()
-
 
     @Slot()
     def reset_app(self):
@@ -66,7 +65,6 @@ class Logic(QObject):
     @Slot()
     def turnoff(self):
         os.system("sudo shutdown now")
-
 
     ### Functions ######################################################################################################
     def turnoff_greenLight(self):
