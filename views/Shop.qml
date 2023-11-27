@@ -334,33 +334,22 @@ Item {
             x:32
             y:32
         }
-        Item{
-        id: cameraLeft
- width: 326
+        
+        Image {
+            id: img_UserCapturedadsPanel
+            source: "image://KCameraProvider/1"
+            width: 326
             height: 184
             x:32
             y:105
-        
-        CamCam{
-            theID: QtMultimedia.availableCameras[0].deviceId
-            backgroundColor: "red"
-        }
-    }
-        // Image {
-        //     id: img_UserCapturedadsPanel
-        //     source: "image://KCameraProvider/1"
-        //     width: 326
-        //     height: 184
-        //     x:32
-        //     y:105
-        //     property bool counter: false
-        //     cache: false
+            property bool counter: false
+            cache: false
 
-        //     function reloadImage() {
-        //                         counter = !counter
-        //                         source = "image://KCameraProvider/?id=" + counter
-        //                     }
-        // }
+            function reloadImage() {
+                                counter = !counter
+                                source = "image://KCameraProvider/?id=" + counter
+                            }
+        }
         Image {
             id: ads_Image
             source: "../Assets/Ads.png"
@@ -729,7 +718,7 @@ Item {
             target: cameraProvider
             function onNewFrameReadSignal() {
                 //img_UserCapturedadsPanel1.reloadImage()
-                //img_UserCapturedadsPanel.reloadImage()
+                img_UserCapturedadsPanel.reloadImage()
                 //img_UserCaptured.reloadImage()
             }
         }
