@@ -57,9 +57,9 @@ class CameraWorker(QThread):
             if self._readFromCamera1:
                 ret, frame1 = self._camera1.read()
                 if self._camera1.isOpened():
-                    frame1 = cv2.cvtColor(frame1, cv2.COLOR_RGB2BGR)
+                    # frame1 = cv2.cvtColor(frame1, cv2.COLOR_RGB2BGR)
                     image = QImage(frame1, frame1.shape[1], frame1.shape[0],
-                                   frame1.strides[0], QImage.Format_RGB888)
+                                   frame1.strides[0], QImage.Format_BGR888)
                     self.newFrameReadSignal.emit()
                     self.capturedImage = image
                 else:
@@ -67,9 +67,9 @@ class CameraWorker(QThread):
             else:
                 ret2, frame2 = self._camera2.read()
                 if self._camera2.isOpened():
-                    frame2 = cv2.cvtColor(frame2, cv2.COLOR_RGB2BGR)
+                    #frame2 = cv2.cvtColor(frame2, cv2.COLOR_RGB2BGR)
                     image = QImage(frame2, frame2.shape[1], frame2.shape[0],
-                                   frame2.strides[0], QImage.Format_RGB888)
+                                   frame2.strides[0], QImage.Format_BGR888)
                     self.newFrameReadSignal.emit()
                     self.capturedImage = image
                 else:
