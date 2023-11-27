@@ -53,6 +53,7 @@ class CameraWorker(QThread):
                 if (now - self._lastSwitchTime).seconds >= self._switchTime:
                     self._lastSwitchTime = now
                     self._readFromCamera1 = True
+            self._canReadFrame = False
 
     def stop(self):
         self._canReadFrame = False

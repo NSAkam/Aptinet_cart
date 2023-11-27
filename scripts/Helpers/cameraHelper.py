@@ -13,12 +13,12 @@ class CameraHelper(QQuickImageProvider):
     _image: QImage
 
     def __init__(self):
-        super().__init__(QQuickImageProvider.Image)
         self._camera = CameraWorker()
         self._camera.newFrameReadSignal.connect(self.read_frame)
         self._image = QImage(self.frameHeight, self.FrameWidth, QImage.Format_RGBA8888)
         self._image.fill(Qt.black)
         self.start()
+        super().__init__(QQuickImageProvider.Image)
 
     newImageReadSignal = Signal()
 
