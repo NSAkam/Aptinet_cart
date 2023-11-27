@@ -131,10 +131,10 @@ Item {
         radius: 4
         Image {
             source: "../Assets/arrow_calibrate.png"
-//            font.pixelSize: 24
-//            color: "white"
-//            text:"  >"
-//            font.bold: true
+            //            font.pixelSize: 24
+            //            color: "white"
+            //            text:"  >"
+            //            font.bold: true
             rotation: 180
             x:35
             anchors.verticalCenter: parent.verticalCenter
@@ -142,7 +142,8 @@ Item {
         MouseArea{
             anchors.fill: parent
             onClicked: {
-                stackview.push(tostepAuthPage)
+                obj_LogicContainer.shopPage.enter_phoneNumberClicked(txt_phone.text)
+
             }
         }
     }
@@ -168,7 +169,7 @@ Item {
             property string placeholderText: "Email / Phone Number"
 
             onFocusChanged: {
-                //numpad.inputtext = txt_phone
+                numpad.inputtext = txt_phone
                 topnavbar.backvisible = true
 
                 imgUser.width = 106
@@ -280,19 +281,25 @@ Item {
     Component{
         id:tostepAuthPage
         TowStepAuthentication{
-
+            onObj_LogicContainerTowStepAuthenticationChanged: obj_LogicContainer
         }
     }
     Component{
         id:loyalityAuth
         LoyalityAuth{
-
+            obj_LogicContainerLoyalityAuth: obj_LogicContainer
         }
     }
     Component{
         id:shoppage
         Shop{
-
+            obj_LogicContainerShop: obj_LogicContainer
+        }
+    }
+    Connections{
+        target:obj_LogicContainer.shopPage
+        function onSuccessfulLoginSignal(){
+            stackview.push(tostepAuthPage)
         }
     }
 }

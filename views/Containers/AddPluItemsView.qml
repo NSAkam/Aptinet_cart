@@ -2,12 +2,16 @@ import QtQuick 2.15
 import QtGraphicalEffects 1.15
 import "../Utiles" as Util
 import "../Components"
+import KAST.Logic 1.0
 
 
 Item {
     id: root
     width: 572
     height: 450
+    
+    property Logic obj_LogicContainerAddPluItemsView
+    
 
     signal cancel()
     signal confirm()

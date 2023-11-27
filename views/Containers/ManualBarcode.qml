@@ -3,14 +3,16 @@ import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
 import "../Utiles"
 import "../Components"
-//import KAST.Logic 1.0
+import KAST.Logic 1.0
 
 Item {
     id:manualBarcode_Panel
     ViewSettings{
         id:viewset
     }
-
+    
+    property Logic obj_LogicContainerManualBarcode
+    
     signal cancle();
     signal ok();
     property bool showlastproduct: false

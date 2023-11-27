@@ -3,12 +3,14 @@ import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
 import "../Utiles"
 import "../Components"
-//import KAST.Logic 1.0
+import KAST.Logic 1.0
 
 
 
 Item {
     id:barcode_scanned
+    
+    property Logic obj_LogicContainerBarcodeScanned  
 
     signal cancel()
     signal pass()

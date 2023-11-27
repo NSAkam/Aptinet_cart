@@ -1,9 +1,14 @@
 import QtQuick 2.15
+import KAST.Logic 1.0
+
 
 Item {
     id:root
     width: 890
     height: 708
+    property Logic obj_LogicContainerAddPluItems
+    
+
 
     signal back()
     signal seeAll()
