@@ -7,18 +7,15 @@ from Models.user import User
 import datetime
 
 
-
 class UserRepository:
-    
+
     dal: DAL
-    
+
     def __init__(self, dataAccessLayer: DAL) -> None:
         self.dal = dataAccessLayer
         self.dal.Connect()
 
-
     def create_user(self):
-        now = datetime.datetime.now()
         TotalSeconds = datetime.datetime.now().timestamp()
         query = QSqlQuery()
         if query.exec_("insert into User (regtime) values ('"+TotalSeconds+"')"):
@@ -29,35 +26,9 @@ class UserRepository:
         else:
             return -1
 
-
-    def get_userByEmail(self, email):
+    def updateUserServerID(self, userid: int, usid: str):
         query = QSqlQuery()
-        query.exec_(
-            "SELECT name, email, phone, offer, code FROM ServerUser WHERE email = '"+email+"'"
-        )
-        user = ServerUser()
-        while query.next():
-            user.set_name(query.value(0))
-            user.set_email(query.value(1))
-            user.set_phone(query.value(2))
-            user.set_offer(query.value(3))
-            user.set_code(query.value(4))
-        return user
-            
-        
-    def get_userByPhone(self, phone):
-        query = QSqlQuery()
-        query.exec_(
-            "SELECT name, email, offer, code FROM ServerUser WHERE phone = '"+phone+"'"
-        )
-        user = ServerUser()
-        while query.next():
-            user.set_name(query.value(0))
-            user.set_email(query.value(1))
-            user.set_offer(query.value(2))
-            user.set_code(query.value((3)))
-        return user
-    
-    
-                
-                    
+        if (query.exec_("update User set USID = '"+usid+"' where id = '"+str(userid)+"'")):
+            return True
+        else:
+            return False

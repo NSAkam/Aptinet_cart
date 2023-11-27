@@ -22,5 +22,39 @@ class UserServerRepository():
         else:
             return False
         
+    def loginByPhone(self,phone:str):
+        query = QSqlQuery()
+        query.exec_(
+            "select id,loyalityBarcode,name,email,phone,offerPercentage,offerLimitedPercentage,offerMount from ServerUser where phone = '"+phone+"'"
+            )
+        us = ServerUser()
+        while query.next():
+            us.id =query.value(0)
+            us.loyalityBarcode =query.value(1)
+            us.name =query.value(2)
+            us.email =query.value(3)
+            us.phone =query.value(4)
+            us.offerPercentage =query.value(5)
+            us.offerLimitedPercentage =query.value(6)
+            us.offerMount =query.value(7)
+        return us
+    
+    def loginByloyalityBarcode(self,loginByloyalityBarcode:str):
+        query = QSqlQuery()
+        query.exec_(
+            "select id,loyalityBarcode,name,email,phone,offerPercentage,offerLimitedPercentage,offerMount from ServerUser where loginByloyalityBarcode = '"+loginByloyalityBarcode+"'"
+            )
+        us = ServerUser()
+        while query.next():
+            us.id =query.value(0)
+            us.loyalityBarcode =query.value(1)
+            us.name =query.value(2)
+            us.email =query.value(3)
+            us.phone =query.value(4)
+            us.offerPercentage =query.value(5)
+            us.offerLimitedPercentage =query.value(6)
+            us.offerMount =query.value(7)
+        return us
+        
 
 
