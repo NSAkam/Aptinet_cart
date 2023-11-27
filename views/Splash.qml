@@ -159,7 +159,7 @@ Item {
             NumberAnimation{duration: 1000}
         }
         onClicked: {
-            obj_logic.gotoShoppingCliked();
+            obj_logic.go_toShoppingClicked();
         }
     }
     KBorderButton{
@@ -368,7 +368,7 @@ Item {
     Component{
         id:authenticationPage
         Authentication{
-
+            obj_LogicContainer: obj_logic
         }
     }
 
@@ -387,7 +387,7 @@ Item {
     }
     Connections{
         target:obj_logic
-        function onGoToShoppageSignal(){
+        function onGoToShopPageSignal(){
             stackview.push(authenticationPage)
         }
 

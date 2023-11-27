@@ -3,6 +3,7 @@ import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
 import "Components"
 import "Utiles" as Util
+import KAST.Logic 1.0
 
 
 
@@ -12,6 +13,7 @@ Item {
     width: 1280
     height: 800
 
+    property Logic obj_LogicContainer
 
     Util.ViewSettings{
         id:viewset
