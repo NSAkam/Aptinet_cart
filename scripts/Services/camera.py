@@ -34,8 +34,8 @@ class CameraWorker(QThread):
 
     def find_cameraID(self):
         for i in range(10):
-            camera = cv2.VideoCapture(i)
             try:
+                camera = cv2.VideoCapture(i)
                 ret, frame = camera.read()
                 if frame is not None:
                     self._cameraID.append(int(i))
