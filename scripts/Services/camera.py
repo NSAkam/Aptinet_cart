@@ -27,13 +27,11 @@ class CameraWorker(QThread):
         self._canReadFrame = False
 
         self._canTimerTick = True
-        self._timerThread = Thread(target=self.timerSlot)
+        # self._timerThread = Thread(target=self.timerSlot)
         # self._timerThread.start()
 
     newFrameReadSignal = Signal()
 
-    def get_frame(self):
-        return self._frame
 
     # def find_cameraID(self):
     #     for i in range(10):
