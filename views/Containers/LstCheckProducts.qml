@@ -2,7 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
 import "../Components"
-//import KAST.Logic 1.0
+import KAST.Logic 1.0
 
 
 
@@ -10,6 +10,9 @@ Item {
     id:lstFactor
     property QtObject tanzimat
     signal gocheckout()
+    
+    property Logic obj_LogicContainerLstCheckProducts
+    
 
     anchors.fill: parent
     Rectangle{

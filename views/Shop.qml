@@ -16,10 +16,10 @@ Item {
     id: root
     width: 1280
     height: 800
-    
+
     property Logic obj_LogicContainerShop
-    
-    
+
+
     signal addpluitemsClicked()
 
     Util.ViewSettings{
@@ -63,7 +63,7 @@ Item {
                 radius: width /2
             }
             Text {
-                text: qsTr("user Email")
+                text: qsTr(obj_LogicContainerShop.shopPage.user.loggedInUser.email)
                 color: "#6D6D6D"
                 width: 148
                 height: 15

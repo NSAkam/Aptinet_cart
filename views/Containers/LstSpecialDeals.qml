@@ -2,10 +2,14 @@ import QtQuick 2.15
 import QtGraphicalEffects 1.15
 import "../Utiles" as Util
 import "../Components"
+import KAST.Logic 1.0
+
 
 Item {
     id: root
     signal back()
+    
+    property Logic obj_LogicContainerLstSpecialDeals 
 
     GridView {
         id: productsgridview
