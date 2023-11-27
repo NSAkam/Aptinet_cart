@@ -249,6 +249,9 @@ Item {
             height: 184
             x:32
             y:105
+            property bool counter: false
+            cache: false
+
             function reloadImage() {
                                 counter = !counter
                                 source = "image://KCameraProvider/?id=" + counter
@@ -338,6 +341,9 @@ Item {
             height: 184
             x:32
             y:105
+            property bool counter: false
+            cache: false
+
             function reloadImage() {
                                 counter = !counter
                                 source = "image://KCameraProvider/?id=" + counter
@@ -472,6 +478,9 @@ Item {
             height: 184
             x:32
             y:105
+            property bool counter: false
+            cache: false
+
             function reloadImage() {
                                 counter = !counter
                                 source = "image://KCameraProvider/?id=" + counter
