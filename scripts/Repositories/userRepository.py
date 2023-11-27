@@ -19,7 +19,7 @@ class UserRepository:
 
     def create_user(self):
         now = datetime.datetime.now()
-        TotalSeconds = (now - datetime.datetime(1970,1,1)).timestamp()
+        TotalSeconds = datetime.datetime.now().timestamp()
         query = QSqlQuery()
         if query.exec_("insert into User (regtime) values ('"+TotalSeconds+"')"):
             query.exec_("SELECT MAX(id) FROM User")
