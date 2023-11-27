@@ -36,6 +36,8 @@ class CameraWorker(QThread):
         for i in range(10):
             try:
                 camera = cv2.VideoCapture(i)
+                if not camera.isOpened():
+                    print("cannot open camera ")
                 ret, frame = camera.read()
                 if frame is not None:
                     self._cameraID.append(int(i))
