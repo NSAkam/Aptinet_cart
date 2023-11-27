@@ -20,12 +20,8 @@ class CameraWorker(QThread):
         self.find_cameraID()
         self._camera1 = cv2.VideoCapture(self._cameraID[0])
         self._camera2 = cv2.VideoCapture(self._cameraID[1])
-        self._camera1.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-        self._camera1.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-        self._camera2.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-        self._camera2.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
         self._canReadFrame = False
-        # self._frame = np.ndarray((480, 640, 3))
+        self._frame = np.ndarray((480, 640, 3))
 
     newFrameReadSignal = Signal()
 
@@ -57,7 +53,6 @@ class CameraWorker(QThread):
                 if (now - self._lastSwitchTime).seconds >= self._switchTime:
                     self._lastSwitchTime = now
                     self._readFromCamera1 = True
-            # self._canReadFrame = False
 
     def stop(self):
         self._canReadFrame = False
