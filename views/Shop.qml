@@ -342,7 +342,7 @@ Item {
             y:105
         
         CamCam{
-            theID: QtMultimedia.availableCameras[0].deviceId
+            theID: QtMultimedia.availableCameras[1].deviceId
             backgroundColor: "red"
         }
     }
