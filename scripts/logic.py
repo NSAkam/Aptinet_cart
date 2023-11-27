@@ -33,8 +33,8 @@ class Logic(QObject):
         return self._shopPage
 
     def set_shopPage(self, val: ShopPage):
-        self.changedSignal.emit()
         self._shopPage = val
+        self.changedSignal.emit()
 
     shopPage = Property(ShopPage, get_shopPage, set_shopPage, notify=changedSignal)
 
