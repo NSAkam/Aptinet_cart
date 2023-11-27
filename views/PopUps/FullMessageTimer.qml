@@ -7,7 +7,7 @@ import "../Containers"
 import "../Utiles"
 
 Popup {
-    property alias notiftext: notiftext.text
+    property alias messageText: notiftext.text
     property bool showManualBarcode: false
 
     id: root
@@ -22,6 +22,13 @@ Popup {
         anchors.fill: parent
         color: "#191641"
         opacity: 0.5
+    }
+    Timer {
+        id: closetimer
+        interval: 5000
+        onTriggered:root.close()
+        repeat: false
+        running: true
     }
 
     Rectangle {

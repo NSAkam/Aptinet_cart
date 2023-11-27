@@ -28,7 +28,7 @@ class CameraWorker(QThread):
 
         self._canTimerTick = True
         self._timerThread = Thread(target=self.timerSlot)
-        self._timerThread.start()
+        # self._timerThread.start()
 
     newFrameReadSignal = Signal()
 
