@@ -4,7 +4,6 @@ import time
 from threading import Thread
 from PySide2.QtCore import QObject, Signal, Property, Slot
 from Models.product import Product
-from Models.Helpers.productBypassModel import ProductBypassModel
 from Models.Helpers.productModel import ProductModel
 from Models.user import User
 from Models.serverUser import ServerUser
