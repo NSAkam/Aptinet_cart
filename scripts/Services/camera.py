@@ -56,7 +56,7 @@ class CameraWorker(QThread):
                     #     self._readFromCamera1 = False
                 else:
                     print("cam1 no frame")
-            time.sleep(1)
+            # time.sleep(1)
             # else:
             #     _, self._frame = self._camera2.read()
             #     self.newFrameReadSignal.emit()
