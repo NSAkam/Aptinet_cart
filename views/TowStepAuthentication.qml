@@ -10,23 +10,23 @@ import KAST.Logic 1.0
 
 
 Item {
-    
+
     width: 1280
     height: 800
     property Logic obj_LogicContainerTowStepAuthentication
-    
-    
+
+
     Util.ViewSettings{
         id:viewset
     }
-    
-    
-    
+
+
+
     Image {
         source: "../Assets/AuthenticationBackground.png"
         anchors.fill: parent
     }
-    
+
     Image {
         anchors.top: parent.top
         anchors.left: parent.left
@@ -62,11 +62,11 @@ Item {
             NumberAnimation{duration: 500}
         }
     }
-    
-    
+
+
     Text {
         id:txt_enterPhone
-        text: qsTr(obj_LogicContainerTowStepAuthentication.shopPage.user.loggedInUser.phone)
+        text: obj_LogicContainerTowStepAuthentication.shopPage.user.loggedInUser.phone
         anchors.horizontalCenter: parent.horizontalCenter
         y:508
         font.pixelSize: 24
@@ -84,7 +84,7 @@ Item {
             NumberAnimation{duration: 500}
         }
     }
-    
+
     KButton{
         id:btn_Continue
         text: "START SHOPPING"
@@ -98,7 +98,7 @@ Item {
             stackview.push(shoppage)
         }
     }
-    
+
     TopNav{
         id:topnavbar
         backvisible: true
@@ -106,11 +106,11 @@ Item {
             stackview.pop()
         }
     }
-    
+
     Component{
         id:shoppage
         Shop{
-            
+            obj_LogicContainerShop: obj_LogicContainerTowStepAuthentication
         }
     }
 }
