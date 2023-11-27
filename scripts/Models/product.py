@@ -91,6 +91,14 @@ class Product(QObject):
 
     commentCount = Property(int, get_commentCount,
                             set_commentCount, notify=changedSignal)
+    
+    def getpic(self):
+        if (os.path.isfile("/home/aptinet/pics/" + self.barcode + ".png") == False):
+            return "file:///home/aptinet/pics/DefaultProduct.png"
+        else:
+            return "file:///home/aptinet/pics/" + self.barcode + ".png"
+
+    pic = Property(str, getpic, notify=changedSignal)
 
     def get_w1(self):
         return self._w1

@@ -200,7 +200,7 @@ Item {
             y:92
             //initialItem: lstProductHandler
             //initialItem:addPluItemview
-            initialItem: newProductHandler
+            //initialItem: newProductHandler
             //initialItem: addPluItem
             //initialItem: manualBarcodeHandler
             //initialItem: plulist
@@ -334,7 +334,7 @@ Item {
             x:32
             y:32
         }
-        
+
         Image {
             id: img_UserCapturedadsPanel
             source: "image://KCameraProvider/1"
@@ -344,7 +344,7 @@ Item {
             y:105
             property bool counter: false
             cache: true
-            
+
             function reloadImage() {
                                 counter = !counter
                                 source = "image://KCameraProvider/?id=" + counter
@@ -713,7 +713,7 @@ Item {
             }
         }
     }
-    
+
     Connections{
             target: cameraProvider
             function onNewFrameReadSignal() {
