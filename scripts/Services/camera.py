@@ -65,6 +65,7 @@ class CameraWorker(QThread):
                 else:
                     print("cam1 no frame")
             else:
+
                 ret2, frame2 = self._camera2.read()
                 if self._camera2.isOpened():
                     #frame2 = cv2.cvtColor(frame2, cv2.COLOR_RGB2BGR)
