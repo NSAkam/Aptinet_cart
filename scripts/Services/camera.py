@@ -54,6 +54,7 @@ class CameraWorker(QThread):
                 # if self._frame is not None:
                 #     print(np.shape(self._frame))
                 #     time.sleep(0.5)
+                    frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
                     image = QImage(frame, frame.shape[1], frame.shape[0], 
                        frame.strides[0], QImage.Format_RGB888)
                     self.newFrameReadSignal.emit()
