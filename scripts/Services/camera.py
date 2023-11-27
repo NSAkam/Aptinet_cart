@@ -14,7 +14,7 @@ class CameraWorker(QThread):
     _frame: np.ndarray
 
     _canReadFrame: bool
-    _switchTime: int = 5
+    _switchTime: int = 15
     _lastSwitchTime: datetime
     _readFromCamera1: bool = True
 
