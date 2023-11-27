@@ -4,6 +4,8 @@ import cv2
 from PySide2.QtCore import QObject, Signal, Property, Slot, QThread
 import numpy as np
 from datetime import datetime
+from PySide2.QtGui import QImage
+
 
 
 class CameraWorker(QThread):
@@ -17,7 +19,8 @@ class CameraWorker(QThread):
     _lastSwitchTime: datetime
     _readFromCamera1: bool = True
 
-    
+    capturedImage : QImage
+
 
     def __init__(self):
         super().__init__()
@@ -46,12 +49,15 @@ class CameraWorker(QThread):
         self._lastSwitchTime = datetime.now()
         while self._canReadFrame:
             if self._readFromCamera1:
-                _, self._frame = self._camera1.read()
+                _, frame = self._camera1.read()
                 if self._camera1.isOpened():
                 # if self._frame is not None:
                 #     print(np.shape(self._frame))
                 #     time.sleep(0.5)
+                    image = QImage(frame, frame.shape[1], frame.shape[0], 
+                       frame.strides[0], QImage.Format_RGB888)
                     self.newFrameReadSignal.emit()
+                    self.capturedImage = image
                     # now = datetime.now()
                     # if (now - self._lastSwitchTime).seconds >= self._switchTime:
                     #     self._lastSwitchTime = now

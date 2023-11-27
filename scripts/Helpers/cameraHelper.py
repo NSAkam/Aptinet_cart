@@ -28,23 +28,25 @@ class CameraHelper(QQuickImageProvider):
 
     @Slot()
     def read_frame(self):
-        frame = self._camera.get_frame()
-        # print("helper. befor resize:")
-        # print(np.shape(frame))
-        try:
-            frame = cv2.resize(frame, (self.frameHeight, self.FrameWidth))
+        self._image = self._camera.capturedImage
 
-        except:
-            frame = np.ndarray((236, 184))
+        # frame = self._camera.get_frame()
+        # # print("helper. befor resize:")
+        # # print(np.shape(frame))
+        # try:
+        #     frame = cv2.resize(frame, (self.frameHeight, self.FrameWidth))
 
-        # print("helper. after resize:")
-        # print(np.shape(frame))
-        frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
-        # print("coler convert")
-        self._image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
-        # print("Q imqge")
-        # self.newImageReadSignal.emit()
-        # print("image signal")
+        # except:
+        #     frame = np.ndarray((236, 184))
+
+        # # print("helper. after resize:")
+        # # print(np.shape(frame))
+        # frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+        # # print("coler convert")
+        # self._image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
+        # # print("Q imqge")
+        # # self.newImageReadSignal.emit()
+        # # print("image signal")
 
     def requestImage(self, id, p_str, size):
        
