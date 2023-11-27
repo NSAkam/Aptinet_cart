@@ -21,7 +21,7 @@ if __name__ == "__main__":
 
     cworker = CameraWorker()
     engine.rootContext().setContextProperty("cameraProvider",cworker)
-    camera = CameraHelper()
+    camera = CameraHelper(cworker)
     engine.addImageProvider("KCameraProvider", camera)
     cworker.start()
 
