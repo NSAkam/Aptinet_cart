@@ -27,11 +27,11 @@ class Product(QObject):
     _isPlu: bool = False
     _tax: float = 0.0
     _QR: str = ""
-    _productType: float = 0.0
+    _productType: str = ""
     
     
     _dataModelShow:int = 0 # 1 is normal 2 is PLU
-    productWeightInBasket:int = 0
+    _productWeightInBasket:int = 0
     _countInBasket:int = 0
     
     def __init__(self):
@@ -292,14 +292,14 @@ class Product(QObject):
         self._productType = value
         self.changedSignal.emit()
         
-    productType = Property(int, get_productType, set_productType, notify=changedSignal)           
+    productType = Property(str, get_productType, set_productType, notify=changedSignal)           
     
 
     def get_productWeightInBasket(self):
-        return self.productWeightInBasket
+        return self._productWeightInBasket
     
     def set_productWeightInBasket(self, value):
-        self.productWeightInBasket = value
+        self._productWeightInBasket = value
         self.changedSignal.emit()
         
     productWeightInBasket = Property(int, get_productWeightInBasket, set_productWeightInBasket, notify=changedSignal)           
