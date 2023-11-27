@@ -200,8 +200,10 @@ class ShopPage(QObject):
 
     @Slot(str)
     def enter_phoneNumberClicked(self, phoneNumber: str):
+        print(phoneNumber)
         serverUser = self._userServerRepository.loginByPhone(phoneNumber)
         if not serverUser.get_id() == "":
+            print("login suc")
             self._user.set_loggedInUser(serverUser)
             self.successfulLoginSignal.emit()
         else:
