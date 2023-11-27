@@ -1,17 +1,16 @@
 import time
-
 import cv2
 from PySide2.QtCore import QObject, Signal, Property, Slot, QThread
 import numpy as np
 from datetime import datetime
 from PySide2.QtGui import QImage
-
+from threading import Thread
 
 
 class CameraWorker(QThread):
     _cameraID = []
     _camera1: cv2.VideoCapture
-    # _camera2: cv2.VideoCapture
+    _camera2: cv2.VideoCapture
     _frame: np.ndarray
 
     _canReadFrame: bool
@@ -19,62 +18,65 @@ class CameraWorker(QThread):
     _lastSwitchTime: datetime
     _readFromCamera1: bool = True
 
-    capturedImage : QImage
-
+    capturedImage: QImage
 
     def __init__(self):
         super().__init__()
-        # self.find_cameraID()
-        # self._camera1 = cv2.VideoCapture(self._cameraID[0])
-        # self._camera2 = cv2.VideoCapture(self._cameraID[1])
-        self._camera1 = cv2.VideoCapture(1)
-        # self._camera2 = cv2.VideoCapture(1)
+        self._camera1 = cv2.VideoCapture(0)
+        self._camera2 = cv2.VideoCapture(1)
         self._canReadFrame = False
-        # self._frame = np.ndarray((480, 640, 3))
+
+        self._canTimerTick = True
+        self._timerThread = Thread(target=self.timerSlot)
+        self._timerThread.start()
 
     newFrameReadSignal = Signal()
 
     def get_frame(self):
         return self._frame
 
-    def find_cameraID(self):
-        for i in range(10):
-            camera = cv2.VideoCapture(i)
-            ret, frame = camera.read()
-            if frame is not None:
-                self._cameraID.append(int(i))
+    # def find_cameraID(self):
+    #     for i in range(10):
+    #         camera = cv2.VideoCapture(i)
+    #         ret, frame = camera.read()
+    #         if frame is not None:
+    #             self._cameraID.append(int(i))
 
     def run(self):
         self._canReadFrame = True
-        self._lastSwitchTime = datetime.now()
+        _, frame1 = self._camera1.read()
+        _, frame2 = self._camera2.read()
+
         while self._canReadFrame:
             if self._readFromCamera1:
-                _, frame = self._camera1.read()
+                frame = frame1
                 if self._camera1.isOpened():
-                # if self._frame is not None:
-                #     print(np.shape(self._frame))
-                #     time.sleep(0.5)
                     frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
-                    image = QImage(frame, frame.shape[1], frame.shape[0], 
-                       frame.strides[0], QImage.Format_RGB888)
+                    image = QImage(frame, frame.shape[1], frame.shape[0],
+                                   frame.strides[0], QImage.Format_RGB888)
                     self.newFrameReadSignal.emit()
                     self.capturedImage = image
-                    # now = datetime.now()
-                    # if (now - self._lastSwitchTime).seconds >= self._switchTime:
-                    #     self._lastSwitchTime = now
-                    #     self._readFromCamera1 = False
                 else:
                     print("cam1 no frame")
-            # time.sleep(1)
-            # else:
-            #     _, self._frame = self._camera2.read()
-            #     self.newFrameReadSignal.emit()
-            #     now = datetime.now()
-            #     if (now - self._lastSwitchTime).seconds >= self._switchTime:
-            #         self._lastSwitchTime = now
-            #         self._readFromCamera1 = True
-            # # self._canReadFrame = False
-
+            else:
+                frame = frame2
+                if self._camera2.isOpened():
+                    frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+                    image = QImage(frame, frame.shape[1], frame.shape[0],
+                                   frame.strides[0], QImage.Format_RGB888)
+                    self.newFrameReadSignal.emit()
+                    self.capturedImage = image
+                else:
+                    print("cam2 no frame")
 
     def stop(self):
         self._canReadFrame = False
+        self._canTimerTick = False
+
+    def timerSlot(self):
+        while self._canTimerTick:
+            time.sleep(self._switchTime)
+            if self._readFromCamera1:
+                self._readFromCamera1 = False
+            else:
+                self._readFromCamera1 = True
