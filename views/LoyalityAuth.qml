@@ -176,6 +176,9 @@ Item {
         }
     }
 
+
+
+
     KKeyboard{
         id:keyboard
         inputtext : txt_Email
@@ -207,6 +210,13 @@ Item {
         id:shoppage
         Shop{
             obj_LogicContainerShop: obj_LogicContainerLoyalityAuth
+        }
+    }
+
+    Connections{
+        target:obj_LogicContainerLoyalityAuth.shopPage
+        function onSuccessfulLoginSignal(){
+            stackview.push(tostepAuthPage)
         }
     }
 }
