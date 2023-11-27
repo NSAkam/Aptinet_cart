@@ -242,21 +242,21 @@ Item {
             x:32
             y:32
         }
-        Image {
-            id: img_UserCaptured
-            source: "image://KCameraProvider/1"
-            width: 326
-            height: 184
-            x:32
-            y:105
-            property bool counter: false
-            cache: false
+        // Image {
+        //     id: img_UserCaptured
+        //     source: "image://KCameraProvider/1"
+        //     width: 326
+        //     height: 184
+        //     x:32
+        //     y:105
+        //     property bool counter: false
+        //     cache: false
 
-            function reloadImage() {
-                                counter = !counter
-                                source = "image://KCameraProvider/?id=" + counter
-                            }
-        }
+        //     function reloadImage() {
+        //                         counter = !counter
+        //                         source = "image://KCameraProvider/?id=" + counter
+        //                     }
+        // }
         Text {
             text: qsTr("ENTER PLU CODE")
             font.pixelSize: 24
@@ -471,21 +471,21 @@ Item {
             x:32
             y:32
         }
-        Image {
-            id: img_UserCapturedadsPanel1
-            source: "image://KCameraProvider/1"
-            width: 326
-            height: 184
-            x:32
-            y:105
-            property bool counter: false
-            cache: false
+        // Image {
+        //     id: img_UserCapturedadsPanel1
+        //     source: "image://KCameraProvider/1"
+        //     width: 326
+        //     height: 184
+        //     x:32
+        //     y:105
+        //     property bool counter: false
+        //     cache: false
 
-            function reloadImage() {
-                                counter = !counter
-                                source = "image://KCameraProvider/?id=" + counter
-                            }
-        }
+        //     function reloadImage() {
+        //                         counter = !counter
+        //                         source = "image://KCameraProvider/?id=" + counter
+        //                     }
+        // }
 
         Text {
             text: qsTr("My Cart")
@@ -716,9 +716,9 @@ Item {
     Connections{
             target: cameraProvider
             function onNewFrameReadSignal() {
-                img_UserCapturedadsPanel1.reloadImage()
+                //img_UserCapturedadsPanel1.reloadImage()
                 img_UserCapturedadsPanel.reloadImage()
-                img_UserCaptured.reloadImage()
+                //img_UserCaptured.reloadImage()
             }
         }
 }
