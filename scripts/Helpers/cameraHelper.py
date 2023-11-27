@@ -10,6 +10,7 @@ class CameraHelper(QQuickImageProvider):
     frameHeight = 184
     frameWidth = 236
 
+
     _camera: CameraWorker
     _image: QImage
 
