@@ -39,8 +39,6 @@ class ScannerHelper(QObject):
 
     @Slot()
     def barcode_read(self):
-        print(self._scannerWorker.get_readBytes()[1:-1].decode('latin1'))
-        print(len(self._scannerWorker.get_readBytes()))
         productBarcodeLength = self._productBarcodeLength + self._scannerWorker.get_extraCharacter()
         IDBarcodeLength = self._IDBarcodeLength + self._scannerWorker.get_extraCharacter()
         LoyaltyCardBarcodeLength = self._LoyaltyCardBarcodeLength + self._scannerWorker.get_extraCharacter()
