@@ -6,10 +6,12 @@ class ScannerHelper(QObject):
     _scannerWorker: ScannerWorker
     _barcode: str
     _IDBarcode: str
+    _loyaltyCardBarcode: str
 
     ### Setting ###################
     _productBarcodeLength: int = 13
     _IDBarcodeLength: int = 20
+    _LoyaltyCardBarcodeLength: int = 16
 
     def __init__(self):
         super().__init__()
@@ -21,6 +23,7 @@ class ScannerHelper(QObject):
     EAN13ReadSignal = Signal()
     QRReadSignal = Signal()
     IDBarcodeReadSignal = Signal()
+    loyaltyCardBarcodeReadSignal = Signal()
 
     def get_barcode(self):
         return self._barcode
@@ -28,16 +31,30 @@ class ScannerHelper(QObject):
     def set_barcode(self, v: str):
         self._barcode = v
 
+    def get_loyaltyCardBarcode(self):
+        return self._loyaltyCardBarcode
+
+    def set_loyaltyCardBarcode(self, v: str):
+        self._loyaltyCardBarcode = v
+
     @Slot()
     def barcode_read(self):
         productBarcodeLength = self._productBarcodeLength + self._scannerWorker.get_extraCharacter()
         IDBarcodeLength = self._IDBarcodeLength + self._scannerWorker.get_extraCharacter()
+        LoyaltyCardBarcodeLength = self._LoyaltyCardBarcodeLength + self._scannerWorker.get_extraCharacter()
+
         if len(self._scannerWorker.get_readBytes()) == productBarcodeLength:
             self._barcode = self._scannerWorker.get_readBytes()[1:-1].decode('latin1')
             self.EAN13ReadSignal.emit()
-        elif len(self._scannerWorker.get_readBytes()) == IDBarcodeLength or len(self._scannerWorker.get_readBytes()) == 12:
+        elif len(self._scannerWorker.get_readBytes()) == IDBarcodeLength:
             self._IDBarcode = self._scannerWorker.get_readBytes()[1:-1].decode('latin1')
             self.IDBarcodeReadSignal.emit()
+        elif len(self._scannerWorker.get_readBytes()) == LoyaltyCardBarcodeLength:
+            self._loyaltyCardBarcode = self._scannerWorker.get_readBytes()[1:-1].decode('latin1')
+            self.loyaltyCardBarcodeReadSignal.emit()
+
+
+
         # elif len(self._scannerWorker.readed_bytes) > 3:
         #     self.iranbarcode = self._scannerWorker.readed_bytes[1:-1].decode('latin1')
         #     self.Qr_Readed.emit()

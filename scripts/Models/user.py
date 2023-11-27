@@ -1,4 +1,5 @@
 from PySide2.QtCore import QObject, Signal, Property
+from Models.serverUser import ServerUser
 
 
 class User(QObject):
@@ -10,9 +11,11 @@ class User(QObject):
     _factorPrice:float=0.0
     _finalFactorPrice:float =0.0
     _offerCode: str = ""
+    _loggedInUser: ServerUser
     
     def __init__(self):
         super().__init__()
+        self._loggedInUser.set_name("Guest")
         
     @Signal
     def changedSignal(self):
@@ -93,3 +96,12 @@ class User(QObject):
         self.changedSignal.emit()
             
     offerCode = Property(str, get_offerCode, set_offerCode, notify=changedSignal)
+
+    def get_loggedInUser(self):
+        return self._loggedInUser
+
+    def set_loggedInUser(self, user: ServerUser):
+        self._loggedInUser = user
+        self.changedSignal.emit()
+
+    loggedInUser = Property(ServerUser, get_loggedInUser, set_loggedInUser, notify=changedSignal)

@@ -6,13 +6,17 @@ from PySide2.QtCore import QObject, Signal, Property, Slot
 from Models.product import Product
 from Models.Helpers.productBypassModel import ProductBypassModel
 from Models.Helpers.productModel import ProductModel
-from Services.dateTime import DateTime
+from Models.user import User
+from Models.serverUser import ServerUser
 # from Services.weightsensor import WeightSensorWorker
 from Services.dal import DAL
 from Helpers.scannerHelper import ScannerHelper
 from Helpers.weightSensorHelper import WeightSensorHelper
 from Services.sound import *
 from Services.gpio import GreenLight
+
+from Repositories.userRepository import UserRepository
+from Repositories.userServerRepository import UserServerRepository
 
 
 class ShopPage(QObject):
@@ -30,6 +34,8 @@ class ShopPage(QObject):
     _newProduct: Product
 
     ### Repositories ###################################################################################################
+    _userRepository: UserRepository
+    _userServerRepository: UserServerRepository
 
     ### Private ########################################################################################################
     _state: int = 0
@@ -39,19 +45,23 @@ class ShopPage(QObject):
     _basketWeightShouldBe: int = 0
     _basketIsFull: bool = False
     _basketLoad: int = 0
+    _user: User
+    _loggedInUser: ServerUser
     #####################################################
     _scanner: ScannerHelper
     _weightSensor: WeightSensorHelper
 
     def __init__(self):
         super().__init__()
-        self._startProcess = None
         dal = DAL()
-        # self._dateTime = datetime
+
+        self._startProcess = None
+
 
         #### Barcode Scanner ######################################
         self._scanner = ScannerHelper()
         self._scanner.EAN13ReadSignal.connect(self.barcodeRead)
+        self._scanner.loyaltyCardBarcodeReadSignal.connect(self.read_loyaltyCardBarcode)
         self._scanner.start()
 
         #### WeightSensor #########################################
@@ -65,16 +75,26 @@ class ShopPage(QObject):
         self._offersProducts = ProductModel(dal)
         self._bypassList = ProductBypassModel(dal)
 
+        #### User #################################################
+        self._userRepository = UserRepository(dal)
+        self._userServerRepository = UserServerRepository(dal)
+        self._user = self._userRepository.create_user()
+        if self._user.get_id() == -1:
+            os.execl(sys.executable, sys.executable, *sys.argv)   # restart app
+
         #### Insert Timer Thread ##################################
         self._canTimerTick = True
         self._timerThread = Thread(target=self.timerSlot)
         self._timerThread.start()
 
+        ###########################################################
+
+
     ### Signals ########################################################################################################
     changedSignal = Signal()
-    loyaltyCartLoginScannedSignal = Signal()
     goToSoppingPageSignal = Signal()
     showNewProductScannedSignal = Signal()
+    successfulLoginSignal = Signal()
 
     ### Properties #####################################################################################################
     def get_countDownTimer(self):
@@ -112,6 +132,15 @@ class ShopPage(QObject):
         self.changedSignal.emit()
 
     basketLoad = Property(int, get_basketLoad, set_basketLoad, notify=changedSignal)
+
+    def get_user(self):
+        return self._user
+
+    def set_user(self, user: User):
+        self._user = user
+        self.changedSignal.emit()
+
+    user = Property(User, get_user, set_user, notify=changedSignal)
 
     ### Sluts ##########################################################################################################    @Slot()
     def barcodeRead(self):
@@ -172,13 +201,21 @@ class ShopPage(QObject):
             self.set_countDownTimer(self.get_countDownTimer() - 1)
             time.sleep(1)
 
-    @Slot()
-    def skip_login(self):
-        pass
-
     @Slot(str)
-    def login_userName(self, userName: str):
-        pass
+    def enter_phoneNumberClicked(self, phoneNumber: str):
+        serverUser = self._userServerRepository.loginByPhone(phoneNumber)
+        if not serverUser.get_id() == "":
+            self._user.set_loggedInUser(serverUser)
+            self.successfulLoginSignal.emit()
+        else:
+            pass   # pop up nat valid phone number
+
+    @Slot()
+    def read_loyaltyCardBarcode(self):
+        serverUser = self._userServerRepository.loginByloyalityBarcode(self._scanner.get_loyaltyCardBarcode())
+        if not serverUser.get_id() == "":
+            self._user.set_loggedInUser(serverUser)
+            self.successfulLoginSignal.emit()
 
     ### Functions ######################################################################################################
 
