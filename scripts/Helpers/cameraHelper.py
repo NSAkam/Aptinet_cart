@@ -7,8 +7,7 @@ import numpy as np
 
 
 class CameraHelper(QQuickImageProvider):
-    frameHeight = 184
-    FrameWidth = 236
+
     _camera: CameraWorker
     _image: QImage
 
