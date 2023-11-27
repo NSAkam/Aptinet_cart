@@ -4,7 +4,6 @@ import time
 from threading import Thread
 from PySide2.QtCore import QObject, Signal, Property, Slot
 from Models.product import Product
-from Models.Helpers.productBypassModel import ProductBypassModel
 from Models.Helpers.productModel import ProductModel
 from Models.user import User
 from Models.serverUser import ServerUser
@@ -30,7 +29,6 @@ class ShopPage(QObject):
     _factorList: ProductModel
     _suggestedProducts: ProductModel
     _offersProducts: ProductModel
-    _bypassList: ProductBypassModel
     _newProduct: Product
 
     ### Repositories ###################################################################################################
@@ -73,7 +71,6 @@ class ShopPage(QObject):
         self._factorList = ProductModel(dal)
         self._suggestedProducts = ProductModel(dal)
         self._offersProducts = ProductModel(dal)
-        self._bypassList = ProductBypassModel(dal)
 
         #### User #################################################
         self._userRepository = UserRepository(dal)
