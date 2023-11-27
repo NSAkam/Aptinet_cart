@@ -344,6 +344,7 @@ Item {
             y:105
             property bool counter: false
             cache: false
+            asynchronous: true
 
             function reloadImage() {
                                 counter = !counter
