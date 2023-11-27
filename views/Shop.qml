@@ -329,7 +329,7 @@ Item {
         }
         Image {
             id: img_UserCapturedadsPanel
-            source: "../Assets/UserImage.png"
+            source: "image://KCameraProvider/1"
             width: 326
             height: 184
             x:32
@@ -459,7 +459,7 @@ Item {
         }
         Image {
             id: img_UserCapturedadsPanel1
-            source: "../Assets/UserImage.png"
+            source: "image://KCameraProvider/1"
             width: 326
             height: 184
             x:32
