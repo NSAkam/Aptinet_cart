@@ -32,16 +32,16 @@ class UpdateSoftware(QObject):
         self._downloader.start()
 
     def downloadSucceeded(self):
-        self.succeeded.emit()
+        self.succeededSignal.emit()
         print("successFull Download")
     def downloadFinished(self):
         print("download Compeleted")
         try:
             print("unzipping")
-            os.system("unzip -o /home/Aptinet/Aptinet.zip -d /home/Aptinet/FinalFASKET")
+            os.system("unzip -o /home/aptinet/Aptinet.zip -d /home/aptinet/test")
             # zipfile.ZipFile.extractall("/home/kast/FinalFASKET/FASKET.zip")
-            os.remove("/home/Aptinet/Aptinet.zip")
-            os.system("sudo reboot")
+            # os.remove("/home/Aptinet/Aptinet.zip")
+            # os.system("sudo reboot")
         except:
             try:
                 os.remove("/home/Aptinet/Aptinet.zip")

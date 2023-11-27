@@ -35,127 +35,139 @@ class ProductRepository:
     
     def get_product(self, barcode):
         query = QSqlQuery()
-        
         query.exec_(
-            "SELECT name, price, finalPrice, description, rate, tax, commentCount, meanWeight"
+            "SELECT name,description,rate,commentCount,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,price,finalprice,meanWeight,tolerance,insertedWeight,barcode,isOffer,isPlu,tax,qrCode,productType"
             "FROM product"
             "WHERE barcode = '"+barcode+"'"
             )
         p = Product()
         while query.next():
-            p.set_name(query.value(0))
-            p.set_price(query.value(1))
-            p.set_finalPrice(query.value(2))
-            p.set_description(query.value(3))
-            p.set_rate(query.value(4))
-            p.set_tax(query.value(5))
-            p.set_commentCount(query.value(6))
-            p.set_meanWeight(query.value(7))
+            p.name = query.value(0)
+            p.description = query.value(1)
+            p.rate = query.value(2)
+            p.commentCount = query.value(3)
+            p.w1 = query.value(4)
+            p.w2 = query.value(5)
+            p.w3 = query.value(6)
+            p.w4 = query.value(7)
+            p.w5 = query.value(8)
+            p.w6 = query.value(9)
+            p.w7 = query.value(10)
+            p.w8 = query.value(11)
+            p.w9 = query.value(12)
+            p.w10 = query.value(13)
+            p.price = query.value(14)
+            p.finalPrice = query.value(15)
+            p.meanWeight = query.value(16)
+            p.tolerance = query.value(17)
+            p.insertedWeight = query.value(18)
+            p.barcode = query.value(19)
+            p.isOffer = query.value(20)
+            p.isPlu = query.value(21)
+            p.tax = query.value(22)
+            p.QR = query.value(23)
+            p.productType = query.value(24)
         return p
             
-            
-        
-    def get_isPluProducts(self):
-        query = QSqlQuery()
-        query.exec_(
-            "SELECT barcode, qr, name, price, finalPrice, description, rate, tax, commentCount, meanWeight, tolerance, insertedWeight, isOffer, taxPrice"
-            "FROM product"
-            "WHERE isPlu = 'true'"
-            )
-        p = Product()
-        while query.next():
-            p.set_barcode(query.value(0))
-            p.set_QR(query.value(1))
-            p.set_name(query.value(2))
-            p.set_price(query.value(3))
-            p.set_finalPrice(query.value(4))
-            p.set_description(query.value(5))
-            p.set_rate(query.value(6))
-            p.set_tax(query.value(7))
-            p.set_commentCount(query.value(8))
-            p.set_tolerance(query.value(9))
-            p.set_isOffer(query.value(10))
-            p.set_isPlu(query.value(11))
-        return p
-    
-        
-    def get_offerList(self):
-        query = QSqlQuery()
-        query.exec_(
-            "SELECT barcode, qr, name, price, finalPrice, description, rate, tax, commentCount, meanWeight, tolerance, insertedWeight, isPlu, taxPrice"
-            "FROM product"
-            "WHERE isOffer = 'true'"
-            )
-        p = Product()
-        while query.next():
-            p.set_barcode(query.value(0))
-            p.set_QR(query.value(1))
-            p.set_name(query.value(2))
-            p.set_price(query.value(3))
-            p.set_finalPrice(query.value(4))
-            p.set_description(query.value(5))
-            p.set_rate(query.value(6))
-            p.set_tax(query.value(7))
-            p.set_commentCount(query.value(8))
-            p.set_tolerance(query.value(9))
-            p.set_isPlu(query.value(11))
-        return p
-        
-        
-    def get_suggestionProduct(self):
-        query = QSqlQuery()
-        query.exec_(
-            "SELECT finalPrice, name"
-            "FROM product"
-            "JOIN suggestion ON ps_barcode"
-            "WHERE suggestion.ps_barcode = product.barcde"
-        )
-        p = Product()
-        while query.next():
-            p.set_finalPrice(query.value(0))
-            p.set_name(query.value(1))
-        return p
-               
-    
-    def get_productList(self, barcode, qr):
-        query = QSqlQuery()
-        query.exec_(
-            "SELECT name, price, finalPrice, description, rate, commentCount, w1, w2, w3, w4 ,w5, w6, w7, w8, w9, w10, meanWeight, tolerance, insertedWeight, isOffer, isPlu, tax, taxPrice"
-            "FROM product"
-            "WHERE barcode = '"+barcode+"' OR qr = '"+qr+"'"
-            )
-        p = Product()
-        while query.next():
-            p.set_name(query.value(2))
-            p.set_price(query.value(3))
-            p.set_finalPrice(query.value(4))
-            p.set_description(query.value(5))
-            p.set_rate(query.value(6))
-            p.set_commentCount(query.value(7))
-            p.set_w1(query.value(8))
-            p.set_w2(query.value(9))
-            p.set_w3(query.value(10))
-            p.set_w4(query.value(11))
-            p.set_w5(query.value(12))
-            p.set_w6(query.value(13))
-            p.set_w7(query.value(14))
-            p.set_w8(query.value(15))
-            p.set_w9(query.value(16))
-            p.set_w10(query.value(17))
-            p.set_meanWeight(query.value(18))
-            p.set_tolerance(query.value(19))
-            p.set_insertedWeight(query.value(20))
-            p.setIsoffer(query.value(21))
-            p.set_isPlu(query.value(22))
-            p.set_tax(query.value(23))
-            p.set_taxPrice(query.value(24))
-        return p
-            
-            
-            
-        
-        
-    
-        
-    
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+# def updateWeight(self, prod: Product, weight: int):
+#         if prod.getInsertedWeight() == 0:
+#             prod.setW1(weight)
+#             prod.setAvgWeight(weight)
+#             prod.setTolerance(int(max(8, int(weight * 0.1))))
+#             prod.setInsertedWeight(1)
+#             self.repository.updateProduductW1(prod.getBarcode(), weight, prod.getAvgWeight(), prod.getTolerance(),
+#                                               prod.getInsertedWeight())
+#         else:
+#             if prod.getW1() == 0:
+#                 new_avg_weight, new_tolerance, new_inserted_weight = prod.calNewWeightParameter(weight)
+#                 prod.setW1(weight)
+#                 prod.setAvgWeight(new_avg_weight)
+#                 prod.setTolerance(new_tolerance)
+#                 prod.setInsertedWeight(new_inserted_weight)
+#                 self.repository.updateProduductW1(prod.getBarcode(), weight, new_avg_weight, new_tolerance,
+#                                                   new_inserted_weight)
+#             elif prod.getW2() == 0:
+#                 new_avg_weight, new_tolerance, new_inserted_weight = prod.calNewWeightParameter(weight)
+#                 prod.setW2(weight)
+#                 prod.setAvgWeight(new_avg_weight)
+#                 prod.setTolerance(new_tolerance)
+#                 prod.setInsertedWeight(new_inserted_weight)
+#                 self.repository.updateProduductW2(prod.getBarcode(), weight, new_avg_weight, new_tolerance,
+#                                                   new_inserted_weight)
+#             elif prod.getW3() == 0:
+#                 new_avg_weight, new_tolerance, new_inserted_weight = prod.calNewWeightParameter(weight)
+#                 prod.setW3(weight)
+#                 prod.setAvgWeight(new_avg_weight)
+#                 prod.setTolerance(new_tolerance)
+#                 prod.setInsertedWeight(new_inserted_weight)
+#                 self.repository.updateProduductW3(prod.getBarcode(), weight, new_avg_weight, new_tolerance,
+#                                                   new_inserted_weight)
+#             elif prod.getW4() == 0:
+#                 new_avg_weight, new_tolerance, new_inserted_weight = prod.calNewWeightParameter(weight)
+#                 prod.setW4(weight)
+#                 prod.setAvgWeight(new_avg_weight)
+#                 prod.setTolerance(new_tolerance)
+#                 prod.setInsertedWeight(new_inserted_weight)
+#                 self.repository.updateProduductW4(prod.getBarcode(), weight, new_avg_weight, new_tolerance,
+#                                                   new_inserted_weight)
+#             elif prod.getW5() == 0:
+#                 new_avg_weight, new_tolerance, new_inserted_weight = prod.calNewWeightParameter(weight)
+#                 prod.setW5(weight)
+#                 prod.setAvgWeight(new_avg_weight)
+#                 prod.setTolerance(new_tolerance)
+#                 prod.setInsertedWeight(new_inserted_weight)
+#                 self.repository.updateProduductW5(prod.getBarcode(), weight, new_avg_weight, new_tolerance,
+#                                                   new_inserted_weight)
+#             elif prod.getW6() == 0:
+#                 new_avg_weight, new_tolerance, new_inserted_weight = prod.calNewWeightParameter(weight)
+#                 prod.setW6(weight)
+#                 prod.setAvgWeight(new_avg_weight)
+#                 prod.setTolerance(new_tolerance)
+#                 prod.setInsertedWeight(new_inserted_weight)
+#                 self.repository.updateProduductW6(prod.getBarcode(), weight, new_avg_weight, new_tolerance,
+#                                                   new_inserted_weight)
+#             elif prod.getW7() == 0:
+#                 new_avg_weight, new_tolerance, new_inserted_weight = prod.calNewWeightParameter(weight)
+#                 prod.setW7(weight)
+#                 prod.setAvgWeight(new_avg_weight)
+#                 prod.setTolerance(new_tolerance)
+#                 prod.setInsertedWeight(new_inserted_weight)
+#                 self.repository.updateProduductW7(prod.getBarcode(), weight, new_avg_weight, new_tolerance,
+#                                                   new_inserted_weight)
+#             elif prod.getW8() == 0:
+#                 new_avg_weight, new_tolerance, new_inserted_weight = prod.calNewWeightParameter(weight)
+#                 prod.setW8(weight)
+#                 prod.setAvgWeight(new_avg_weight)
+#                 prod.setTolerance(new_tolerance)
+#                 prod.setInsertedWeight(new_inserted_weight)
+#                 self.repository.updateProduductW8(prod.getBarcode(), weight, new_avg_weight, new_tolerance,
+#                                                   new_inserted_weight)
+#             elif prod.getW9() == 0:
+#                 new_avg_weight, new_tolerance, new_inserted_weight = prod.calNewWeightParameter(weight)
+#                 prod.setW9(weight)
+#                 prod.setAvgWeight(new_avg_weight)
+#                 prod.setTolerance(new_tolerance)
+#                 prod.setInsertedWeight(new_inserted_weight)
+#                 self.repository.updateProduductW9(prod.getBarcode(), weight, new_avg_weight, new_tolerance,
+#                                                   new_inserted_weight)
+#             elif prod.getW10() == 0:
+#                 new_avg_weight, new_tolerance, new_inserted_weight = prod.calNewWeightParameter(weight)
+#                 prod.setW10(weight)
+#                 prod.setAvgWeight(new_avg_weight)
+#                 prod.setTolerance(new_tolerance)
+#                 prod.setInsertedWeight(new_inserted_weight)
+#                 self.repository.updateProduductW10(prod.getBarcode(), weight, new_avg_weight, new_tolerance,
+#                                                    new_inserted_weight)

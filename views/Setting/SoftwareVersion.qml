@@ -107,7 +107,7 @@ Item{
                     anchors.left: progressBar.left
                     anchors.bottom: progressBar.bottom
                     height: progressBar.height
-                    width: progressBar.width * (progressBar.value /10)
+                    width: progressBar.width * (progressBar.value /100)
                     color: "#4696FA"
                     radius: 4
                 }
@@ -119,7 +119,7 @@ Item{
             visible: false
             x:605
             y:78
-            text: qsTr(progressBar.value *100 + "%")
+            text: qsTr(progressBar.value + "%")
 
             font.pixelSize: 20
             color:  "#4696FA"

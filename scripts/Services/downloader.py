@@ -22,7 +22,7 @@ class Downloader(QThread):
     @Slot(QNetworkReply)
     def downloadFinished(self,reply: QNetworkReply):
         print("start save file")
-        dfile = QFile("/home/Aptinet/Aptinet.zip")
+        dfile = QFile("/home/aptinet/Aptinet.zip")
         if dfile.open(QIODevice.WriteOnly):
             dfile.write(reply.readAll())
 
