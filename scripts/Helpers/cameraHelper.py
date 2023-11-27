@@ -28,6 +28,7 @@ class CameraHelper(QQuickImageProvider):
         self._image = self._camera.capturedImage
 
     def requestImage(self, id, p_str, size):
+        print("sal;khnfgas")
         return self._image
 
     def start(self):
