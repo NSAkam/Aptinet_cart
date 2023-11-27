@@ -45,9 +45,8 @@ class CameraWorker(QThread):
        
 
         while self._canReadFrame:
-            _, frame1 = self._camera1.read()
-            _, frame2 = self._camera2.read()
             if self._readFromCamera1:
+                ret, frame1 = self._camera1.read()
                 if self._camera1.isOpened():
                     frame1 = cv2.cvtColor(frame1, cv2.COLOR_RGB2BGR)
                     image = QImage(frame1, frame1.shape[1], frame1.shape[0],
@@ -57,6 +56,7 @@ class CameraWorker(QThread):
                 else:
                     print("cam1 no frame")
             else:
+                ret2, frame2 = self._camera2.read()
                 if self._camera2.isOpened():
                     frame2 = cv2.cvtColor(frame2, cv2.COLOR_RGB2BGR)
                     image = QImage(frame2, frame2.shape[1], frame2.shape[0],
