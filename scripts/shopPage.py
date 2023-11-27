@@ -29,7 +29,6 @@ class ShopPage(QObject):
     _factorList: ProductModel
     _suggestedProducts: ProductModel
     _offersProducts: ProductModel
-    _bypassList: ProductBypassModel
     _newProduct: Product
 
     ### Repositories ###################################################################################################
@@ -72,7 +71,6 @@ class ShopPage(QObject):
         self._factorList = ProductModel(dal)
         self._suggestedProducts = ProductModel(dal)
         self._offersProducts = ProductModel(dal)
-        self._bypassList = ProductBypassModel(dal)
 
         #### User #################################################
         self._userRepository = UserRepository(dal)
