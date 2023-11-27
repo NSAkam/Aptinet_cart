@@ -42,7 +42,7 @@ class UserServerRepository():
     def loginByloyalityBarcode(self,loginByloyalityBarcode:str):
         query = QSqlQuery()
         query.exec_(
-            "select id,loyalityBarcode,name,email,phone,offerPercentage,offerLimitedPercentage,offerMount from ServerUser where loginByloyalityBarcode = '"+loginByloyalityBarcode+"'"
+            "select id,loyalityBarcode,name,email,phone,offerPercentage,offerLimitedPercentage,offerMount from ServerUser where loyalityBarcode = '"+loginByloyalityBarcode+"'"
             )
         us = ServerUser()
         while query.next():
