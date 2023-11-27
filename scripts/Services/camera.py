@@ -21,7 +21,7 @@ class CameraWorker(QThread):
         self._camera1 = cv2.VideoCapture(self._cameraID[0])
         self._camera2 = cv2.VideoCapture(self._cameraID[1])
         self._canReadFrame = False
-        self._frame = np.ndarray((480, 640, 3))
+        # self._frame = np.ndarray((480, 640, 3))
 
     newFrameReadSignal = Signal()
 
@@ -31,6 +31,8 @@ class CameraWorker(QThread):
     def find_cameraID(self):
         for i in range(10):
             camera = cv2.VideoCapture(i)
+            camera.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+            camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
             ret, frame = camera.read()
             if frame is not None:
                 self._cameraID.append(int(i))
