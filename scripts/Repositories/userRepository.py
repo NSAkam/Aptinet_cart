@@ -20,7 +20,7 @@ class UserRepository:
         u = User()
         u.id = -1
         query = QSqlQuery()
-        if query.exec_("insert into User (regtime) values ('"+TotalSeconds+"')"):
+        if query.exec_("insert into User (regtime) values ('"+str(TotalSeconds)+"')"):
             query.exec_("SELECT MAX(id) FROM User")
             while query.next():
                 u.id = query.value(0)
