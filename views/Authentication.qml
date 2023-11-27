@@ -166,7 +166,7 @@ Item {
             horizontalAlignment: TextInput.AlignLeft
             verticalAlignment:  TextInput.AlignVCenter
             font.family: viewset.danaFuNumFont
-            property string placeholderText: "Email / Phone Number"
+            property string placeholderText: "Phone Number"
 
             onFocusChanged: {
                 numpad.inputtext = txt_phone
@@ -281,7 +281,7 @@ Item {
     Component{
         id:tostepAuthPage
         TowStepAuthentication{
-            onObj_LogicContainerTowStepAuthenticationChanged: obj_LogicContainer
+            obj_LogicContainerTowStepAuthentication: obj_LogicContainer
         }
     }
     Component{
