@@ -12,9 +12,9 @@ Item {
 
     width: 1280
     height: 800
-    
+
     property Logic obj_LogicContainerLoyalityAuth
-    
+
     Component.onCompleted: {
         txt_Enterloyality.visible = false
         input_enterEmail.visible = false
@@ -176,9 +176,6 @@ Item {
         }
     }
 
-
-
-
     KKeyboard{
         id:keyboard
         inputtext : txt_Email
@@ -203,13 +200,13 @@ Item {
     Component{
         id:tostepAuthPage
         TowStepAuthentication{
-
+            obj_LogicContainerTowStepAuthentication: obj_LogicContainerLoyalityAuth
         }
     }
     Component{
         id:shoppage
         Shop{
-
+            obj_LogicContainerShop: obj_LogicContainerLoyalityAuth
         }
     }
 }
