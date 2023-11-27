@@ -27,8 +27,8 @@ class CameraWorker(QThread):
         self._canReadFrame = False
 
         self._canTimerTick = True
-        # self._timerThread = Thread(target=self.timerSlot)
-        # self._timerThread.start()
+        self._timerThread = Thread(target=self.timerSlot)
+        self._timerThread.start()
 
     newFrameReadSignal = Signal()
 
@@ -42,10 +42,11 @@ class CameraWorker(QThread):
 
     def run(self):
         self._canReadFrame = True
-        _, frame1 = self._camera1.read()
-        # _, frame2 = self._camera2.read()
+       
 
         while self._canReadFrame:
+            _, frame1 = self._camera1.read()
+            _, frame2 = self._camera2.read()
             if self._readFromCamera1:
                 frame = frame1
                 if self._camera1.isOpened():
@@ -57,7 +58,7 @@ class CameraWorker(QThread):
                 else:
                     print("cam1 no frame")
             else:
-                # frame = frame2
+                frame = frame2
                 if self._camera2.isOpened():
                     frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
                     image = QImage(frame, frame.shape[1], frame.shape[0],
