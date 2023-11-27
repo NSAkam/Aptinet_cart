@@ -21,10 +21,10 @@ class WeightSensorWorker(QThread):
 
         self.hx = HX711(23, 24)
         self._canReadWeight = True
-        with open("/home/kast/offset.txt", 'r') as f:
+        with open("/home/aptinet/offset.txt", 'r') as f:
             self.set_offset(float(f.readline()))
         self.hx.set_offset(self._offset)
-        with open("/home/kast/scale.txt", 'r') as f:
+        with open("/home/aptinet/scale.txt", 'r') as f:
             self.set_scale(float(f.readline()))
         self.hx.set_scale(self.scale)
 
