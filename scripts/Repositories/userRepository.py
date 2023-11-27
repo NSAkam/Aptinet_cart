@@ -17,12 +17,14 @@ class UserRepository:
 
     def create_user(self):
         TotalSeconds = datetime.datetime.now().timestamp()
+        u = User()
+        u.id = -1
         query = QSqlQuery()
         if query.exec_("insert into User (regtime) values ('"+TotalSeconds+"')"):
             query.exec_("SELECT MAX(id) FROM User")
             while query.next():
-                userid = query.value(0)
-            return userid
+                u.id = query.value(0)
+            return u
         else:
             return -1
 

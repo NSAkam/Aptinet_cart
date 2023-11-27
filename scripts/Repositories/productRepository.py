@@ -70,15 +70,15 @@ class ProductRepository:
         return p
     
     def get_offerProducts(self):
-        producs = [Product]
+        res:[Product] = [] 
         query = QSqlQuery()
         query.exec_(
             "SELECT name,description,rate,commentCount,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,price,finalprice,meanWeight,tolerance,insertedWeight,barcode,isOffer,isPlu,tax,qrCode,productType"
             "FROM product"
-            "WHERE barcode = '"+barcode+"'"
+            "WHERE isOffer = '1'"
             )
-        p = Product()
         while query.next():
+            p = Product()
             p.name = query.value(0)
             p.description = query.value(1)
             p.rate = query.value(2)
@@ -104,10 +104,47 @@ class ProductRepository:
             p.tax = query.value(22)
             p.QR = query.value(23)
             p.productType = query.value(24)
-        return p
+            res.append(p)
+        return res
     
             
-
+    def get_suggesstionProducts(self,productBarcode:str):
+        res:[Product] = [] 
+        query = QSqlQuery()
+        query.exec_(
+                "select "
+                "name,description,rate,commentCount,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,price,finalprice,meanWeight,tolerance,insertedWeight,barcode,isOffer,isPlu,tax,qrCode,productType "
+                "from suggestion inner join product on suggestion.Productidsuggested = product.barcode where suggestion.Productid = '"+productBarcode+"'"
+            )
+        while query.next():
+            p = Product()
+            p.name = query.value(0)
+            p.description = query.value(1)
+            p.rate = query.value(2)
+            p.commentCount = query.value(3)
+            p.w1 = query.value(4)
+            p.w2 = query.value(5)
+            p.w3 = query.value(6)
+            p.w4 = query.value(7)
+            p.w5 = query.value(8)
+            p.w6 = query.value(9)
+            p.w7 = query.value(10)
+            p.w8 = query.value(11)
+            p.w9 = query.value(12)
+            p.w10 = query.value(13)
+            p.price = query.value(14)
+            p.finalPrice = query.value(15)
+            p.meanWeight = query.value(16)
+            p.tolerance = query.value(17)
+            p.insertedWeight = query.value(18)
+            p.barcode = query.value(19)
+            p.isOffer = query.value(20)
+            p.isPlu = query.value(21)
+            p.tax = query.value(22)
+            p.QR = query.value(23)
+            p.productType = query.value(24)
+            res.append(p)
+        return res
 
 
 
