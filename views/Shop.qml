@@ -346,21 +346,21 @@ Item {
             backgroundColor: "red"
         }
     }
-        Image {
-            id: img_UserCapturedadsPanel
-            source: "image://KCameraProvider/1"
-            width: 326
-            height: 184
-            x:32
-            y:105
-            property bool counter: false
-            cache: false
+        // Image {
+        //     id: img_UserCapturedadsPanel
+        //     source: "image://KCameraProvider/1"
+        //     width: 326
+        //     height: 184
+        //     x:32
+        //     y:105
+        //     property bool counter: false
+        //     cache: false
 
-            function reloadImage() {
-                                counter = !counter
-                                source = "image://KCameraProvider/?id=" + counter
-                            }
-        }
+        //     function reloadImage() {
+        //                         counter = !counter
+        //                         source = "image://KCameraProvider/?id=" + counter
+        //                     }
+        // }
         Image {
             id: ads_Image
             source: "../Assets/Ads.png"
