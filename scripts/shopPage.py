@@ -174,7 +174,7 @@ class ShopPage(QObject):
     def get_removeList(self):
         return self._removeList
 
-    removeList = Property(QObject, _removeList, constant=True)
+    removeList = Property(QObject, get_removeList, constant=True)
 
     def get_countDownTimer(self):
         return self._countDownTimer

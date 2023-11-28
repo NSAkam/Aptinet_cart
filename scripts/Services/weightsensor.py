@@ -19,7 +19,7 @@ class WeightSensorWorker(QThread):
     def __init__(self):
         super().__init__()
 
-        self.hx = HX711(23, 24)
+        self.hx = HX711(24, 23)
         self._canReadWeight = True
         with open("/home/aptinet/offset.txt", 'r') as f:
             self.set_offset(float(f.readline()))
