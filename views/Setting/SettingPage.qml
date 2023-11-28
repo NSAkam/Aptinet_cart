@@ -291,7 +291,9 @@ Item {
 
     Component {
         id:calibrate
-        Calibrate{}
+        Calibrate{
+        obj_LogicCalibrate: obj_Logic
+        }
     }
 
     Component {

@@ -3,9 +3,10 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtGraphicalEffects 1.12
 import QtQuick.Window 2.14
+import "../Utiles"
 import "../Components"
 import "../Setting"
-
+import KAST.Logic 1.0
 
 
 
@@ -15,128 +16,212 @@ Item {
     visible: true
     width: 1280
     height: 800
-
-
-
+    
+    property int weightedCount: 0
+    
+    property Logic obj_LogicCalibrate
+    
+    ViewSettings{
+        id:viewset
+    }
+    
     Image {
         id: q
         source: "../../Assets/AuthenticationBackground.png"
         anchors.fill: parent
     }
-
-    Rectangle {
-        width: 128
-        height: 70
-        radius: 4
-        color: "#F08C5A"
-        x: 195.98
-        y: 226
-
-        Text {
-            text: "gr"
-            font.family: "Archivo"
-            color: "white"
-            font.pixelSize: 24
-            x: 52
-            y: 21
-        }
+    
+    Text {
+        text: qsTr("Poor")
+        x:270
+        y:132
+        font.pixelSize: 16
+        color: "gray"
     }
-
-    Button {
-        width: 256
-        height: 70
-
+    Text {
+        text: qsTr("Infficient")
+        x:352
+        y:132
+        font.pixelSize: 16
+        color: "gray"
+    }
+    Text {
+        text: qsTr("Adequate")
+        x:454
+        y:132
+        font.pixelSize: 16
+        color: "gray"
+    }
+    Text {
+        text: qsTr("Good")
+        x:597
+        y:132
+        font.pixelSize: 16
+        color: "gray"
+    }
+    Text {
+        text: qsTr("Great")
+        x:707
+        y:132
+        font.pixelSize: 16
+        color: "gray"
+    }
+    Text {
+        text: qsTr("Excellent")
+        x:791
+        y:132
+        font.pixelSize: 16
+        color: "gray"
+    }
+    Text {
+        text: qsTr("Perfect")
+        x:917
+        y:132
+        font.pixelSize: 16
+        color: "gray"
+    }
+    Text {
+        text: qsTr("Fantastic !")
+        x:1005
+        y:132
+        font.pixelSize: 16
+        color: "gray"
+    }
+    ProgressBar {
+        id:progressBar
+        value: 0.125 * 1
+        width: 880
+        height: 16
+        x:196
+        y:162
+        
         background: Rectangle {
-            width: 256
-            height: 70
+            anchors.fill: progressBar
             color: "white"
-            x: 323.98
-            y: 226
-            layer.enabled: true
-            layer.effect: DropShadow {
-                horizontalOffset: 1
-                verticalOffset: 1
+            radius: 10
+            border.width: 0
+            border.color: "white"
+        }
+        contentItem:
+            Item {
+            implicitWidth: 200
+            implicitHeight: 4
+            Rectangle {
+                anchors.left: progressBar.left
+                anchors.bottom: progressBar.bottom
+                height: progressBar.height
+                width: progressBar.width * (progressBar.value)
+                color: "#4696FA"
                 radius: 10
-                samples: 16
-                color: "#d3d3d3"
+                
             }
-
-            Text {
-                text: "Change Unit"
-                font.family: "Archivo"
-                color: "black"
-                font.pixelSize: 20
-                width: 122
-                height: 22
-                x: 32
-                y: 24
-            }
-
+            
         }
     }
-
-    Rectangle {
+    
+    Rectangle{
+        x:196
+        y:226
         width: 384
         height: 70
-        x: 195.98
-        y: 336
-
-        Button {
-            width: 384
-            height: 70
-            onClicked: {
-                toggleButtons();
-            }
-            background: Rectangle {
+        Rectangle{
+            anchors.left: parent.left
+            width: 128
+            height: parent.height
+            color: "#F08C5A"
+            
+            Text {
+                text: qsTr("gr")
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.pixelSize: 24
                 color: "white"
+            }
+        }
+        Text {
+            text: qsTr("Change Unit")
+            x:160
+            anchors.verticalCenter: parent.verticalCenter
+            font.pixelSize: 20
+        }
+        Image {
+            source: "../../Assets/menu.png"
+            anchors.verticalCenter: parent.verticalCenter
+            x:344
+        }
+        radius: 5
+    }
+    
+    Rectangle{
+        id:rect_insertWeight
+        x:196
+        y:336
+        width: 384
+        height: 70
+        Rectangle{
+            id:input_enterEmail
+            //anchors.horizontalCenter: parent.horizontalCenter
+            x:2
+            y: 5
+            width: 124
+            height: 62
+            color: "white"
+            radius: 5
+            border.color: "#C6C5CE"
+            TextInput{
+                id:txt_weight
+                anchors.fill: parent
+                font.pixelSize: 20
                 layer.enabled: true
-                layer.effect: DropShadow {
-                    horizontalOffset: 1
-                    verticalOffset: 1
-                    radius: 10
-                    samples: 16
-                    color: "#d3d3d3"
-                }
-
+                x:50
+                verticalAlignment:  TextInput.AlignVCenter
+                font.family: viewset.danaFuNumFont
+                property string placeholderText: "weight"
+                
                 Text {
-                    text: "Enter Weight"
-                    width: 127
-                    height: 22
-                    x: 160
-                    y: 24
-                    color: "black"
-                    font.family: "Archivo"
-                    font.pixelSize: 20
-                }
-
-                Rectangle {
-                    width: 124
-                    height: 62
-                    color: "#F7F7F7"
-                    x: 4
-                    y: 4
-                    layer.enabled: true
-                    layer.effect: DropShadow {
-                        horizontalOffset: 1
-                        verticalOffset: 1
-                        radius: 10
-                        samples: 16
-                        color: "#d3d3d3"
-                    }
-
+                    text: txt_weight.placeholderText
+                    color: "#C6C5CE"
+                    visible: !txt_weight.text
+                    font.pixelSize: 18
+                    anchors.verticalCenter: parent.verticalCenter
+                    x:50
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.family: viewset.danaFuNumFont
                 }
             }
-
         }
+        Text {
+            text: qsTr("Enter Weight")
+            x:160
+            anchors.verticalCenter: parent.verticalCenter
+            font.pixelSize: 20
+        }
+        Image {
+            source: "../../Assets/menu.png"
+            anchors.verticalCenter: parent.verticalCenter
+            x:344
+        }
+        radius: 5
     }
-
+    
+    Numpad{
+        anchors.right: rect_insertWeight.right
+        anchors.top: rect_insertWeight.bottom
+        anchors.topMargin: 10
+        inputtext: txt_weight
+    }
+    
+    
+    
+    
+    
     Rectangle {
         width: 471
         height: 180
         color: "#F7F7F7"
         x: 612
         y: 226
-
+        
         layer.enabled: true
         layer.effect: DropShadow {
             horizontalOffset: 1
@@ -145,31 +230,31 @@ Item {
             samples: 16
             color: "#d3d3d3"
         }
-
+        
         Text {
             text: "How to Calibrating"
             width: 226
             height: 26
-            x: 122.5
+            anchors.horizontalCenter: parent.horizontalCenter
             y: 26
             color: "#6D6D6D"
             font.family: "Archivo"
             font.pixelSize: 24
             // font.bold: true
         }
-
+        
         Image {
-            source: "/home/mahnaz/akam/ui_aptinet/assets/1.png"
+            source: "../../Assets/1.png"
             width: 30
             height: 30
             x: 51
             y: 76
         }
-
+        
         Column {
             spacing: -20
             y: 116
-
+            
             Text {
                 text: "Select"
                 width: 50
@@ -179,7 +264,7 @@ Item {
                 color: "#6D6D6D"
                 font.pixelSize: 16
             }
-
+            
             Text {
                 text: "unit"
                 width: 50
@@ -190,19 +275,19 @@ Item {
                 font.pixelSize: 16
             }
         }
-
+        
         Image {
-            source: "/home/mahnaz/akam/ui_aptinet/assets/2.png"
+            source: "../../Assets/2.png"
             width: 30
             height: 30
             x: 151.5
             y: 76
         }
-
+        
         Column {
             spacing: -20
             y: 116
-
+            
             Text {
                 text: "Select"
                 width: 50
@@ -212,7 +297,7 @@ Item {
                 color: "#6D6D6D"
                 font.pixelSize: 16
             }
-
+            
             Text {
                 text: "weight"
                 width: 50
@@ -223,19 +308,19 @@ Item {
                 font.pixelSize: 16
             }
         }
-
+        
         Image {
-            source: "/home/mahnaz/akam/ui_aptinet/assets/3.png"
+            source: "../../Assets/3.png"
             width: 30
             height: 30
             x: 268.5
             y: 76
         }
-
+        
         Column {
             spacing: -20
             y: 116
-
+            
             Text {
                 text: "put weight"
                 width: 50
@@ -245,7 +330,7 @@ Item {
                 color: "#6D6D6D"
                 font.pixelSize: 16
             }
-
+            
             Text {
                 text: "in the cart"
                 width: 50
@@ -256,19 +341,19 @@ Item {
                 font.pixelSize: 16
             }
         }
-
+        
         Image {
-            source: "/home/mahnaz/akam/ui_aptinet/assets/4.png"
+            source: "../../Assets/4.png"
             width: 30
             height: 30
             x: 387.5
             y: 76
         }
-
+        
         Column {
             spacing: -20
             y: 116
-
+            
             Text {
                 text: "Hold to"
                 width: 50
@@ -278,7 +363,7 @@ Item {
                 color: "#6D6D6D"
                 font.pixelSize: 16
             }
-
+            
             Text {
                 text: "realize"
                 width: 50
@@ -290,336 +375,101 @@ Item {
             }
         }
     }
-
-    Rectangle {
+    
+    Button {
+        id: btn_release
+        x:612
+        y:430
         width: 471
         height: 112
-        color: "#4696FA"
-        x: 612
-        y: 430
-        radius: 3
-
+        Rectangle{
+            id:hold_progress
+            width: 0
+            height: parent.height
+            color: "#4696FA"
+            opacity: 1
+        }
         Text {
             text: "Hold to Realize"
-            width: 184
-            height: 26
-            color: "white"
-            x: 143.5
-            y: 43
             font.pixelSize: 24
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: "white"
+        }
+        background: Rectangle{
+            anchors.fill: parent
+            color: "#4696FA"
+            opacity: 0.7
+        }
+        
+        
+        
+        Timer {
+            id: longPressTimer
+            property real w: 0
+            interval: 200 //your press-and-hold interval here
+            repeat: true
+            running: false
+            
+            onTriggered: {
+                if(hold_progress.width > 471){    
+                    hold_progress.width = 0
+                    w = 0
+                    if(root.weightedCount ===0)
+                    {
+                        obj_LogicCalibrate.settingPage.weightsensor.setWeightZero();
+                    }
+                    else{
+                        obj_LogicCalibrate.settingPage.weightsensor.setWeightW1(txt_weight.text);
+                    }
+                }
+                else
+                {
+                    hold_progress.width = w
+                    
+                }
+                w=w+(471 /10)
+                console.log(hold_progress.width)
+            }
+        }
+        
+        
+        onPressedChanged: {
+            if ( pressed ) {
+                longPressTimer.running = true;
+            } else {
+                longPressTimer.running = false;
+                hold_progress.width = 0
+                longPressTimer.w = 0
+            }
         }
     }
-
-    Rectangle {
+    
+    
+    KButton{
         width: 471
         height: 80
-        color: "#F5AF8C"
-        x: 612
-        y: 566
-        radius: 3
-
-        Text {
-            text: "Save"
-            color: "white"
-            width: 61
-            height: 26
-            x: 205
-            y: 27
-            font.pixelSize: 24
+        x:612
+        y:566
+        borderRadius: 6
+        text: "Save" 
+        onClicked: {
+            obj_LogicCalibrate.settingPage.weightsensor.saveCalibration();
         }
     }
-
-    Rectangle {
-        id: rectangle1
-        visible: false
-        width: 252
-        height: 306
-        color: "white"
-        x: 328
-        y: 430
-
-        layer.enabled: true
-        layer.effect: DropShadow {
-            horizontalOffset: 1
-            verticalOffset: 1
-            radius: 10
-            samples: 16
-            color: "#d3d3d3"
-        }
-
-        Button {
-            background: Item {}
-            Text {
-                text: "1"
-                color: "#9D9D9D"
-                width: 12
-                height: 44
-                font.pixelSize: 40
-                x: 48
-                y: 23
-            }
-        }
-
-        Button {
-            background: Item {}
-            Text {
-                text: "4"
-                color: "#9D9D9D"
-                width: 12
-                height: 44
-                font.pixelSize: 40
-                x: 48
-                y: 95
-            }
-        }
-
-        Button {
-            background: Item {}
-            Text {
-                text: "7"
-                color: "#9D9D9D"
-                width: 12
-                height: 44
-                font.pixelSize: 40
-                x: 48
-                y: 167
-            }
-        }
-
-        Button {
-            background: Item {}
-            Text {
-                text: "2"
-                color: "#9D9D9D"
-                width: 12
-                height: 44
-                font.pixelSize: 40
-                x: 120
-                y: 20
-            }
-        }
-
-        Button {
-            background: Item {}
-            Text {
-                text: "5"
-                color: "#9D9D9D"
-                width: 12
-                height: 44
-                font.pixelSize: 40
-                x: 120
-                y: 95
-            }
-        }
-
-        Button {
-            background: Item {}
-            Text {
-                text: "0"
-                color: "#9D9D9D"
-                width: 12
-                height: 44
-                font.pixelSize: 40
-                x: 120
-                y: 239
-            }
-        }
-
-        Button {
-            background: Item {}
-            Text {
-                text: "8"
-                color: "#9D9D9D"
-                width: 12
-                height: 44
-                font.pixelSize: 40
-                x: 120
-                y: 167
-            }
-        }
-
-        Button {
-            background: Item {}
-            Text {
-                text: "3"
-                color: "#9D9D9D"
-                width: 12
-                height: 44
-                font.pixelSize: 40
-                x: 192
-                y: 20
-            }
-        }
-
-        Button {
-            background: Item {}
-            Text {
-                text: "6"
-                color: "#9D9D9D"
-                width: 12
-                height: 44
-                font.pixelSize: 40
-                x: 192
-                y: 90
-            }
-        }
-
-        Button {
-            background: Item {}
-            Text {
-                text: "9"
-                color: "#9D9D9D"
-                width: 12
-                height: 44
-                font.pixelSize: 40
-                x: 192
-                y: 167
-            }
-        }
-
-        Button {
-            background: Item {}
-
-            Image {
-                source: "/home/mahnaz/akam/ui_aptinet/assets/calcback.png"
-                width: 35
-                height: 26
-                x: 34
-                y: 248
-            }
-        }
-
-        Button {
-            background: Item {}
-
-            Rectangle {
-                width: 60
-                height: 42
-                color: "#4696FA"
-                x: 168
-                y: 240
-                radius: 3
-
-                Image {
-                    source: "/home/mahnaz/akam/ui_aptinet/assets/calcflash.png"
-                    width: 17
-                    height: 20
-                    x: 21
-                    y: 11
-                }
-            }
-        }
-
+    Label{
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        text: ""+obj_LogicCalibrate.settingPage.weightsensor.currentweight+" گرم"
+        
     }
-
-    function toggleButtons() {
-        rectangle1.visible = !rectangle1.visible;
-    }
-
-
-
-
-    Rectangle {
-        id: b
-        color: "white"
-        width: 1280
-        height: 708
-        visible: true
-        opacity: 0
-        x: 0
-        y: 92
-
-        FastBlur {
-
-            anchors.fill: b
-            source: q
-            radius: 70
-        }
-    }
-
-
-    Component {
-        id: calibrate
-        Calibrate1{}
-    }
-
-
+    
     TopNav{
         backvisible: true
         onBackClicked: {
             stackview.pop()
         }
-
-    }
-
-
-    Rectangle {
-        id:focusrect
-        width: root.width
-        height: root.height
-        color: "black"
-        opacity: 0.5
-        visible: true
-    }
-
-    Rectangle {
-        id:focusrectItems
-        width: 471
-        height: 112
-        color: "#4696FA"
-        x: 612
-        y: 430
-        radius: 3
-
-        Button {
-            width: 471
-            height: 112
-            x: 0
-            y: 0
-            onClicked: {
-                focusrect.visible=false
-                focusrectItems.visible=false
-            }
-            background: Rectangle {
-                color: "#4696FA"
-            }
-        }
-
-        Text {
-            text: "Hold to Realize"
-            width: 184
-            height: 26
-            color: "white"
-            x: 143.5
-            y: 43
-            font.pixelSize: 24
-        }
-    }
-
-    Rectangle {
-        width: 384
-        height: 112
-        x: 194
-        y: 430
-        color: "white"
-
-        Column {
-
-            anchors.centerIn: parent
-            Text {
-                text: "Make sure the cart is empty"
-                font.pixelSize: 24
-                color: "#6D6D6D"
-            }
-
-            Text {
-                text: "and then hold the button"
-                font.pixelSize: 24
-                color: "#6D6D6D"
-            }
-
-        }
-
+        
     }
 }
 

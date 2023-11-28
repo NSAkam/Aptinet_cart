@@ -45,10 +45,10 @@ class WeighSensorCalibration(QObject):
             self.noise_reduction_buffer.append(0)
         thread = Thread(target=self.threaded_function)
         thread.start()
-        with open("/home/kast/offset.txt", 'r') as f:
+        with open("/home/aptinet/offset.txt", 'r') as f:
             self.setOffset(float(f.readline()))
         self.hx.set_offset(self._offset)
-        with open("/home/kast/scale.txt", 'r') as f:
+        with open("/home/aptinet/scale.txt", 'r') as f:
             self.setScale(float(f.readline()))
         self.hx.set_scale(self.scale)
 
@@ -243,8 +243,8 @@ class WeighSensorCalibration(QObject):
     @Slot()
     def saveCalibration(self):
         # print("fucked")
-        with open("/home/kast/offset.txt", 'w') as f:
+        with open("/home/aptinet/offset.txt", 'w') as f:
             f.write(str(self.hx.get_offset()))
-        with open("/home/kast/scale.txt", 'w') as f:
+        with open("/home/aptinet/scale.txt", 'w') as f:
             f.write(str(self.hx.get_scale()))
 

@@ -7,6 +7,8 @@ from API.apiHandler import Apihandler
 from updateSoftware import UpdateSoftware
 from Services.wifi import WirelessModel
 import time
+from Services.weighsensorCalibration import WeighSensorCalibration
+
 
 
 
@@ -26,6 +28,7 @@ class SettingPage(QObject):
     _apiHandler: Apihandler
     _lastSoftwareVersion: str
     _wifimodel : WirelessModel
+    _weightsensorval : WeighSensorCalibration
 
     def __init__(self):
         super().__init__()
@@ -35,6 +38,8 @@ class SettingPage(QObject):
         self._apiHandler = Apihandler(self._dal)
         self._apiHandler.appVersionRecievedSignal.connect(self.set_lastSoftwareVersion)
         self._updateSoftware = None
+        self._weightsensorval = WeighSensorCalibration()
+
 
     ### Signals ########################################################################################################
     changedSignal = Signal()
@@ -84,6 +89,16 @@ class SettingPage(QObject):
         return self._wifimodel
 
     wifimodel = Property(QObject, getwifiModel, constant=True)
+
+    def get_weightSensor(self):
+        return self.weightsensorval
+
+    def set_weightSensor(self,val):
+        self.weightsensorval = val
+        self.changedSignal.emit()
+    
+    weightsensor = Property(WeighSensorCalibration, get_weightSensor, set_weightSensor,notify=changedSignal)
+
 
     ### Sluts ##########################################################################################################
     @Slot(str, str)
