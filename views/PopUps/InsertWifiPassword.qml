@@ -73,8 +73,8 @@ Popup {
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
-                        onClicked: setting_obj.settingPage.wifimodel.wifiConfig(txt_inpupassword.text)
-                        
+                        onClicked: setting_obj.settingPage.wifimodel.wifiConfig(txt_password.text)
+                        popup_SetPasssword.close()
                     }
                 }
             }
@@ -123,12 +123,12 @@ Popup {
         }
     }
     KKeyboard{
-        inputtext:txt_password 
+        inputtext:txt_password
         leftpad:-50
         toppad:-500
         x:-12
         y:input_enterPassword.y + 140 + 58
-        anchors.top: input_enterPassword.bottom        
+        anchors.top: input_enterPassword.bottom
     }
 }
 
