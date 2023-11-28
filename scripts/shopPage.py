@@ -2,23 +2,28 @@ import os
 import sys
 import time
 from threading import Thread
+
 from PySide2.QtCore import QObject, Signal, Property, Slot
+
 from Models.product import Product
 from Models.Helpers.productModel import ProductModel
 from Models.user import User
 from Models.serverUser import ServerUser
-# from Services.weightsensor import WeightSensorWorker
+
 from Services.dal import DAL
-from Helpers.scannerHelper import ScannerHelper
-from Helpers.weightSensorHelper import WeightSensorHelper
 from Services.sound import *
 from Services.gpio import GreenLight
 
+from Helpers.scannerHelper import ScannerHelper
+from Helpers.weightSensorHelper import WeightSensorHelper
+
 from Repositories.userRepository import UserRepository
 from Repositories.userServerRepository import UserServerRepository
+from Repositories.productRepository import ProductRepository
 
 
 class ShopPage(QObject):
+
     ### Settings #######################################################################################################
     _insertProductTime: int = 8  # actual time = n -1
     _validInsertedWeightForCalTol: int = 3  # Accept inserted product without checking weight under this limit
@@ -27,34 +32,49 @@ class ShopPage(QObject):
 
     ### Models #########################################################################################################
     _factorList: ProductModel
-    _suggestedProducts: ProductModel
-    _offersProducts: ProductModel
-    _newProduct: Product
+    _offersList: ProductModel
+    _offerTopTen: ProductModel
+    _suggestedList: ProductModel
+    _pluList: ProductModel
+    _pluTopFour: ProductModel
+    _bypassList: ProductModel
+    _removeList: ProductModel
 
     ### Repositories ###################################################################################################
     _userRepository: UserRepository
     _userServerRepository: UserServerRepository
+    _productRepository: ProductRepository
 
-    ### Private ########################################################################################################
+    ### Objects ########################################################################################################
+    _user: User
+    _loggedInUser: ServerUser
+    _newProduct: Product
+
+    ### Private #######################################################################################################
     _state: int = 0
-    _inBypass: bool = False
     _countDownTimer: int = -60
     _startWeight: int = 0
     _basketWeightShouldBe: int = 0
-    _basketIsFull: bool = False
     _basketLoad: int = 0
-    _user: User
-    _loggedInUser: ServerUser
-    #####################################################
+    _basketIsFull: bool = False
+    _inBypass: bool = False
+    _loginFinished: bool = False
+    _startProcess: bool = False
+
+    ### Modules ########################################################################################################
     _scanner: ScannerHelper
     _weightSensor: WeightSensorHelper
 
     def __init__(self):
         super().__init__()
+
+        #### Private ##############################################
         dal = DAL()
 
-        self._startProcess = None
-
+        #### Repositories #########################################
+        self._userRepository = UserRepository(dal)
+        self._userServerRepository = UserServerRepository(dal)
+        self._productRepository = ProductRepository(dal)
 
         #### Barcode Scanner ######################################
         self._scanner = ScannerHelper()
@@ -68,13 +88,26 @@ class ShopPage(QObject):
         self._weightSensor.start()
 
         #### Models ###############################################
-        self._factorList = ProductModel(dal)
-        self._suggestedProducts = ProductModel(dal)
-        self._offersProducts = ProductModel(dal)
+        self._newProduct = Product()
+        self._factorList = ProductModel()
+        self._offersList = ProductModel()
+        self._offersList.insert_productList(self._productRepository.get_offerProducts())
+        self._offerTopTen = ProductModel()
+        self._offerTopTen.insert_productList(self._productRepository.get_topOfferProducts())
+        self._suggestedList = ProductModel()
+        self._pluList = ProductModel()
+        self._pluTopFour = ProductModel()
+        plus = self._productRepository.get_pluProducts()
+        self._pluList.insert_productList(plus)
+        if len(plus) > 4:
+            self._pluTopFour.insert_productList(plus[:4])
+        else:
+            self._pluTopFour.insert_productList(plus)
+
+        self._bypassList = ProductModel()
+        self._removeList = ProductModel()
 
         #### User #################################################
-        self._userRepository = UserRepository(dal)
-        self._userServerRepository = UserServerRepository(dal)
         self._user = self._userRepository.create_user()
         if self._user.get_id() == -1:
             os.execl(sys.executable, sys.executable, *sys.argv)   # restart app
@@ -94,6 +127,55 @@ class ShopPage(QObject):
     successfulLoginSignal = Signal()
 
     ### Properties #####################################################################################################
+    def get_newProduct(self):
+        return self._newProduct
+
+    def set_newProduct(self, val: Product):
+        self._newProduct = val
+        self.changedSignal.emit()
+
+    newProduct = Property(Product, get_newProduct, set_newProduct, notify=changedSignal)
+
+    def get_factorList(self):
+        return self._factorList
+
+    factorList = Property(QObject, get_factorList, constant=True)
+
+    def get_offersList(self):
+        return self._offersList
+
+    offersList = Property(QObject, get_offersList, constant=True)
+
+    def get_offerTopTen(self):
+        return self._offerTopTen
+
+    offerTopTen = Property(QObject, get_offerTopTen, constant=True)
+
+    def get_suggestedList(self):
+        return self._suggestedList
+
+    suggestedList = Property(QObject, get_suggestedList, constant=True)
+
+    def get_pluList(self):
+        return self._pluList
+
+    pluList = Property(QObject, get_pluList, constant=True)
+
+    def get_pluTopFour(self):
+        return self._pluTopFour
+
+    pluTopFour = Property(QObject, get_pluTopFour, constant=True)
+
+    def get_bypassList(self):
+        return self._bypassList
+
+    bypassList = Property(QObject, get_bypassList, constant=True)
+
+    def get_removeList(self):
+        return self._removeList
+
+    removeList = Property(QObject, _removeList, constant=True)
+
     def get_countDownTimer(self):
         return self._countDownTimer
 
@@ -225,6 +307,9 @@ class ShopPage(QObject):
         else:
             pass   # pop up timer
 
+    @Slot()
+    def login_finished(self):
+        self._loginFinished = True
 
     ### Functions ######################################################################################################
 

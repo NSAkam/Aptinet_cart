@@ -9,7 +9,6 @@ from Services.Utiles import SpecialOfferWorker
 
 
 class ProductModel(QAbstractListModel):
-
     NameRole = Qt.UserRole
     DescriptionRole = Qt.UserRole + 2
     RateRole = Qt.UserRole + 3
@@ -32,7 +31,7 @@ class ProductModel(QAbstractListModel):
 
     _priceToPay: float = 0
 
-    def __init__(self, dataAccessLayer: DAL):
+    def __init__(self):
         super().__init__()
         self.m_data = []
         self.m_validBarcodeSetForDelete = []
@@ -179,14 +178,14 @@ class ProductModel(QAbstractListModel):
                     self.m_data[index].countInBasket + count)
                 self.dataChanged.emit(ix, ix, self.roleNames())
                 temp = True
-        if (temp == False):
+        if temp == False:
             prod.set_countInBasket(count)
             self.beginInsertRows(QModelIndex(), 0, 0)
             self.m_data.insert(0, prod)
             self.endInsertRows()
         self.changed.emit()
 
-    def insert_productList(self,prods:[Product]):
+    def insert_productList(self, prods: [Product]):
         self.m_data = prods
         self.reset()
 
@@ -241,7 +240,7 @@ class ProductModel(QAbstractListModel):
         self.m_removedWeightMax = RemovedWight
         self.m_removedWeightMin = RemovedWight
 
-    def updateValidBarcodeSetForRemove(self, product: Product,):
+    def updateValidBarcodeSetForRemove(self, product: Product, ):
         removeAllProduct = False
         acceptableBarcode = False
         removeSuccessfullyBefor = False
@@ -256,9 +255,9 @@ class ProductModel(QAbstractListModel):
                 self.endResetModel()
                 self.changed.emit()
                 self.m_removedWeightMin = self.m_removedWeightMin - \
-                    avgWeight - (tolerance + 8)
+                                          avgWeight - (tolerance + 8)
                 self.m_removedWeightMax = self.m_removedWeightMax - \
-                    avgWeight + (tolerance + 8)
+                                          avgWeight + (tolerance + 8)
         if not acceptableBarcode:
             for prod in self.m_data:
                 if product.barcode == prod.barcode:

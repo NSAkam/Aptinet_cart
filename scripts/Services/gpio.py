@@ -19,3 +19,18 @@ class GreenLight(QThread):
         else:
             GPIO.output(self._gpioNumber, GPIO.LOW)
 
+
+class Fan:
+    _gpioNumber: int = 17
+
+    def __init__(self):
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setwarnings(False)
+        GPIO.setup(self._gpioNumber, GPIO.OUT)
+
+    def turn_onFan(self):
+        GPIO.output(self._gpioNumber, GPIO.HIGH)
+
+    def turn_offFan(self):
+        GPIO.output(self._gpioNumber, GPIO.LOW)
+

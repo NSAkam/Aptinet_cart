@@ -2,7 +2,7 @@ from PySide2.QtCore import QObject, Signal, Property, Slot, QUrl
 from shopPage import ShopPage
 from settingPage import SettingPage
 from Helpers.scannerHelper import ScannerHelper
-from Services.gpio import GreenLight
+from Services.gpio import GreenLight, Fan
 import os
 import sys
 
@@ -18,10 +18,13 @@ class Logic(QObject):
     _shopPage: ShopPage
     _settingPage: SettingPage
     _greenLightWorkerThread: GreenLight
+    _fan: Fan
 
     def __init__(self) -> None:
         super().__init__()
         self.turnoff_greenLight()
+        self._fan = Fan()
+        self._fan.turn_onFan()
 
     ### Signals ########################################################################################################
     changedSignal = Signal()
