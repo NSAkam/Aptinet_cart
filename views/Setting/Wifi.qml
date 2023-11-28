@@ -4,6 +4,8 @@ import QtQuick.Layouts 1.15
 import QtGraphicalEffects 1.12
 import QtQuick.Window 2.14
 import "../Components"
+import "../PopUps"
+import KAST.Logic 1.0
 
 
 
@@ -15,241 +17,126 @@ Item {
     width: 1280
     height: 800
 
+    property Logic setting_objWifi
+
 
     Image {
-        id: q
         source: "../../Assets/AuthenticationBackground.png"
         anchors.fill: parent
     }
 
-
-
-
-        Rectangle {
-            width: 725
-            height: 74
-            x: 278
-            y: 200
-            color: "white"
-            radius: 12
-
-            layer.enabled: true
-            layer.effect: DropShadow {
-            horizontalOffset: 3
-            verticalOffset: 3
-            radius: 10
-            samples: 16
-            color: "gray"
-        }
-
-
-            Text {
-                text: "WifiName-1"
-                font.pixelSize: 24
-                color: "#6D6D6D"
-                x: 71.11
-                y: 26
-                font.family: "Archivo"
-            }
-
-            Image {
-                source: "../../Assets/tick.png"
-                width: 27.11
-                height: 20
-                x: 24
-                y: 27
-
-            }
-
-            Text {
-                text: "IP: 19.58.12.3"
-                font.pixelSize: 20
-                color: "#9D9D9D"
-                x: 227.11
-                y: 28
-                font.family: "Archivo"
-
-            }
-
-            Text {
-                text: "Signal Level: 24"
-                font.pixelSize: 20
-                color: "#9D9D9D"
-                x: 503
-                y: 27
-                font.family: "Archivo"
-
-            }
-
-            Image {
-                source: "../../Assets/wifi1.png"
-                width: 31
-                height: 22
-                x: 670
-                y: 26
-            }
-        }
-
-        Rectangle {
-            width: 725
-            height: 74
-            x: 278
-            y: 330
-            color: "white"
-
-            layer.enabled: true
-            layer.effect: DropShadow {
-            horizontalOffset: 3
-            verticalOffset: 3
-            radius: 10
-            samples: 16
-            color: "gray"
-        }
-
-
-            Text {
-               text: "WifiName-2"
-                font.pixelSize: 24
-                color: "#6D6D6D"
-                x: 36
-                y: 24
-                font.family: "Archivo"
-            }
-        }
-
-        Rectangle {
-            width: 725
-            height: 1
-            x: 278
-            y: 404
-            color: "#9D9D9D"
-        }
-
-
-        Rectangle {
-            width: 725
-            height: 74
-            x: 278
-            y: 406
-            color: "white"
-
-            layer.enabled: true
-            layer.effect: DropShadow {
-            horizontalOffset: 3
-            verticalOffset: 3
-            radius: 10
-            samples: 16
-            color: "gray"
-        }
-
-
-            Text {
-               text: "WifiName-3"
-                font.pixelSize: 24
-                color: "#6D6D6D"
-                x: 36
-                y: 24
-                font.family: "Archivo"
-            }
-        }
-
-        Rectangle {
-            width: 725
-            height: 1
-            x: 278
-            y: 480
-            color: "#9D9D9D"
-        }
-
-        Rectangle {
-            width: 725
-            height: 74
-            x: 278
-            y: 482
-            color: "white"
-
-            layer.enabled: true
-            layer.effect: DropShadow {
-            horizontalOffset: 3
-            verticalOffset: 3
-            radius: 10
-            samples: 16
-            color: "gray"
-        }
-
-
-            Text {
-               text: "WifiName-4"
-                font.pixelSize: 24
-                color: "#6D6D6D"
-                x: 36
-                y: 24
-                font.family: "Archivo"
-            }
-        }
-
-        Rectangle {
-            width: 725
-            height: 1
-            x: 278
-            y: 557
-            color: "#9D9D9D"
-        }
-
-        Rectangle {
-            width: 725
-            height: 74
-            x: 278
-            y: 559
-            color: "white"
-
-            layer.enabled: true
-            layer.effect: DropShadow {
-            horizontalOffset: 3
-            verticalOffset: 3
-            radius: 10
-            samples: 16
-            color: "gray"
-        }
-
-
-            Text {
-               text: "WifiName-5"
-                font.pixelSize: 24
-                color: "#6D6D6D"
-                x: 36
-                y: 24
-                font.family: "Archivo"
-            }
-        }
-
-        Text {
-            text: "Refresh"
-            font.pixelSize: 24
-            color: "#4696FA"
-            x: 900
-            y: 650
-            font.family: "Archivo"
-
-        }
-
+    Rectangle{
+        width: 725
+        height: 74
+        color: "white"
+        y:182
+        anchors.horizontalCenter: parent.horizontalCenter
+        radius: 12
         Image {
-            source: "../../Assets/loading.png"
-            width: 20
-            height: 20
-            x: 870
-            y: 654
+            source: "../../Assets/tik.png"
+            x:24
+            anchors.verticalCenter: parent.verticalCenter
         }
+        Text {
+            text: qsTr(setting_objWifi.settingPage.wifimodel.SSID)
+            x:71
+            anchors.verticalCenter: parent.verticalCenter
+            font.pixelSize: 24
+        }
+        Text {
+            id: name
+            text: qsTr("IP: " + setting_objWifi.settingPage.wifimodel.IP)
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.pixelSize: 18
+            color: "gray"
+        }
+//        Text {
+//            text: qsTr("Signal Level: " + "24")
+//            x:503
+//            anchors.verticalCenter: parent.verticalCenter
+//            font.pixelSize: 20
+//            color: "gray"
+//        }
+        Image {
+            source: "../../Assets/wifi1.png"
+            x:662
+            anchors.verticalCenter: parent.verticalCenter
+        }
+    }
+
+    Rectangle{
+        width: 725
+        height: 296
+        y:304
+        radius: 4
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        Component {
+            id: appDelegate
+            Item {
+                height:74
+                width:725
+                Rectangle{
+                    anchors.fill: parent
+                    color: "transparent"
+                    MouseArea{
+                        anchors.fill: parent
+                        onClicked: {
+                            setting_objWifi.settingPage.wifimodel.selectedWifi(index);
+                            popup_SetPasssword.open();
+                        }
+                    }
+
+                    Label{
+                        id:txt_data
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: model.ESSID
+                        font.pixelSize: 24
+                        x:36
+                    }
+
+                    Rectangle{
+                        width: parent.width
+                        height: 1
+                        color: "gray"
+                        anchors.bottom: parent.bottom
+                    }
+                    Image {
+                        source: "../../Assets/wifi1.png"
+                        x:662
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                }
+            }
+        }
+
+        ListView{
+            id:lst_wifis
+            anchors.fill: parent
+            focus: true
+            model: setting_objWifi.settingPage.wifimodel
+            delegate: appDelegate
+            clip: true
+            currentIndex: -1
+            //onCurrentIndexChanged: console.log( "Current Index: "+currentIndex )
+        }
+    }
+
 
     TopNav{
         backvisible: true
         onBackClicked: {
+            setting_objWifi.settingPage.backFromWifiSettigs()
             stackview.pop();
         }
 
     }
-
+    InsertWifiPassword{
+        id:popup_SetPasssword
+        setting_obj:setting_objWifi
     }
+}
 
 
 

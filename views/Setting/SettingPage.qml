@@ -78,6 +78,7 @@ Item {
         }
 
         onClicked: {
+            obj_Logic.settingPage.gotoWifiSettings()
             stackview.push(wifi)
         }
 
@@ -283,7 +284,9 @@ Item {
 
     Component {
         id: wifi
-        Wifi{}
+        Wifi{
+            setting_objWifi: obj_Logic
+        }
     }
 
     Component {

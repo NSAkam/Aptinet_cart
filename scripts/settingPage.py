@@ -5,6 +5,10 @@ from Repositories.configRepository import ConfigRepositories
 from Models.config import Config
 from API.apiHandler import Apihandler
 from updateSoftware import UpdateSoftware
+from Services.wifi import WirelessModel
+import time
+
+
 
 
 class SettingPage(QObject):
@@ -21,6 +25,7 @@ class SettingPage(QObject):
     _configsRepository: ConfigRepositories
     _apiHandler: Apihandler
     _lastSoftwareVersion: str
+    _wifimodel : WirelessModel
 
     def __init__(self):
         super().__init__()
@@ -75,6 +80,11 @@ class SettingPage(QObject):
 
     updateSoftware = Property(UpdateSoftware, get_updateSoftware, set_updateSoftware, notify=changedSignal)
 
+    def getwifiModel(self):
+        return self._wifimodel
+
+    wifimodel = Property(QObject, getwifiModel, constant=True)
+
     ### Sluts ##########################################################################################################
     @Slot(str, str)
     def confirm_clicked(self, username: str, password: str):
@@ -91,5 +101,16 @@ class SettingPage(QObject):
         if self._configs.get_appVersion() != self._lastSoftwareVersion:
             self.updateAvailableSignal.emit()
             self.set_updateSoftware(UpdateSoftware())
+
+    @Slot()
+    def gotoWifiSettings(self):
+        self._wifimodel = WirelessModel()
+        # self._wifimodel.threadscanerFinished.connect(self.finishwifiscannerThread)
+    @Slot()
+    def backFromWifiSettigs(self):
+        time.sleep(1)
+        self._wifimodel.destroy()
+        # del self._wifimodel
+        # print("backed")
 
     ### Functions ######################################################################################################
