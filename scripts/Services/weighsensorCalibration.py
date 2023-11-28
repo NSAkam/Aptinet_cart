@@ -38,7 +38,7 @@ class WeighSensorCalibration(QObject):
 
     def __init__(self):
         super().__init__()
-        self.hx = HX711(23,24)
+        self.hx = HX711(24,23)
         for i in range(self.read_weight_buffer_size):
             self.read_weight_buffer.append(0)
         for i in range(self.noise_reduction_buffer_size):
