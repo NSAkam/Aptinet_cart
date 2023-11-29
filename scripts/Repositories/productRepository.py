@@ -36,8 +36,8 @@ class ProductRepository:
     def get_product(self, barcode):
         query = QSqlQuery()
         query.exec_(
-            "SELECT name,description,rate,commentCount,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,price,finalprice,meanWeight,tolerance,insertedWeight,barcode,isOffer,isPlu,tax,qrCode,productType"
-            "FROM product"
+            "SELECT name,description,rate,commentCount,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,price,finalprice,meanWeight,tolerance,insertedWeight,barcode,isOffer,isPlu,tax,qrCode,productType "
+            "FROM product "
             "WHERE barcode = '"+barcode+"'"
             )
         p = Product()
@@ -73,8 +73,8 @@ class ProductRepository:
         res:[Product] = [] 
         query = QSqlQuery()
         query.exec_(
-            "SELECT name,description,rate,commentCount,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,price,finalprice,meanWeight,tolerance,insertedWeight,barcode,isOffer,isPlu,tax,qrCode,productType"
-            "FROM product"
+            "SELECT name,description,rate,commentCount,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,price,finalprice,meanWeight,tolerance,insertedWeight,barcode,isOffer,isPlu,tax,qrCode,productType "
+            "FROM product "
             "WHERE isOffer = '1' limit 10"
             )
         while query.next():
@@ -111,8 +111,8 @@ class ProductRepository:
         res:[Product] = [] 
         query = QSqlQuery()
         query.exec_(
-            "SELECT name,description,rate,commentCount,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,price,finalprice,meanWeight,tolerance,insertedWeight,barcode,isOffer,isPlu,tax,qrCode,productType"
-            "FROM product"
+            "SELECT name,description,rate,commentCount,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,price,finalprice,meanWeight,tolerance,insertedWeight,barcode,isOffer,isPlu,tax,qrCode,productType "
+            "FROM product "
             "WHERE isOffer = '1'"
             )
         while query.next():
@@ -189,8 +189,8 @@ class ProductRepository:
         res:[Product] = [] 
         query = QSqlQuery()
         query.exec_(
-            "SELECT name,description,rate,commentCount,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,price,finalprice,meanWeight,tolerance,insertedWeight,barcode,isOffer,isPlu,tax,qrCode,productType"
-            "FROM product"
+            "SELECT name,description,rate,commentCount,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,price,finalprice,meanWeight,tolerance,insertedWeight,barcode,isOffer,isPlu,tax,qrCode,productType "
+            "FROM product "
             "WHERE productType='weighted' or productType = 'counted' "
             )
         while query.next():
