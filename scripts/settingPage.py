@@ -91,10 +91,10 @@ class SettingPage(QObject):
     wifimodel = Property(QObject, getwifiModel, constant=True)
 
     def get_weightSensor(self):
-        return self.weightsensorval
+        return self._weightsensorval
 
     def set_weightSensor(self,val):
-        self.weightsensorval = val
+        self._weightsensorval = val
         self.changedSignal.emit()
     
     weightsensor = Property(WeighSensorCalibration, get_weightSensor, set_weightSensor,notify=changedSignal)

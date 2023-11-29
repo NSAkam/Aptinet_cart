@@ -16,21 +16,22 @@ Item {
     visible: true
     width: 1280
     height: 800
-    
+
     property int weightedCount: 0
-    
+
+
     property Logic obj_LogicCalibrate
-    
+
     ViewSettings{
         id:viewset
     }
-    
+
     Image {
         id: q
         source: "../../Assets/AuthenticationBackground.png"
         anchors.fill: parent
     }
-    
+
     Text {
         text: qsTr("Poor")
         x:270
@@ -89,12 +90,12 @@ Item {
     }
     ProgressBar {
         id:progressBar
-        value: 0.125 * 1
+        value: 0.125 * weightedCount
         width: 880
         height: 16
         x:196
         y:162
-        
+
         background: Rectangle {
             anchors.fill: progressBar
             color: "white"
@@ -113,12 +114,12 @@ Item {
                 width: progressBar.width * (progressBar.value)
                 color: "#4696FA"
                 radius: 10
-                
+
             }
-            
+
         }
     }
-    
+
     Rectangle{
         x:196
         y:226
@@ -129,7 +130,7 @@ Item {
             width: 128
             height: parent.height
             color: "#F08C5A"
-            
+
             Text {
                 text: qsTr("gr")
                 anchors.verticalCenter: parent.verticalCenter
@@ -151,7 +152,7 @@ Item {
         }
         radius: 5
     }
-    
+
     Rectangle{
         id:rect_insertWeight
         x:196
@@ -177,7 +178,7 @@ Item {
                 verticalAlignment:  TextInput.AlignVCenter
                 font.family: viewset.danaFuNumFont
                 property string placeholderText: "weight"
-                
+
                 Text {
                     text: txt_weight.placeholderText
                     color: "#C6C5CE"
@@ -203,25 +204,25 @@ Item {
         }
         radius: 5
     }
-    
+
     Numpad{
         anchors.right: rect_insertWeight.right
         anchors.top: rect_insertWeight.bottom
         anchors.topMargin: 10
         inputtext: txt_weight
     }
-    
-    
-    
-    
-    
+
+
+
+
+
     Rectangle {
         width: 471
         height: 180
         color: "#F7F7F7"
         x: 612
         y: 226
-        
+
         layer.enabled: true
         layer.effect: DropShadow {
             horizontalOffset: 1
@@ -230,7 +231,7 @@ Item {
             samples: 16
             color: "#d3d3d3"
         }
-        
+
         Text {
             text: "How to Calibrating"
             width: 226
@@ -242,7 +243,7 @@ Item {
             font.pixelSize: 24
             // font.bold: true
         }
-        
+
         Image {
             source: "../../Assets/1.png"
             width: 30
@@ -250,11 +251,11 @@ Item {
             x: 51
             y: 76
         }
-        
+
         Column {
             spacing: -20
             y: 116
-            
+
             Text {
                 text: "Select"
                 width: 50
@@ -264,7 +265,7 @@ Item {
                 color: "#6D6D6D"
                 font.pixelSize: 16
             }
-            
+
             Text {
                 text: "unit"
                 width: 50
@@ -275,7 +276,7 @@ Item {
                 font.pixelSize: 16
             }
         }
-        
+
         Image {
             source: "../../Assets/2.png"
             width: 30
@@ -283,11 +284,11 @@ Item {
             x: 151.5
             y: 76
         }
-        
+
         Column {
             spacing: -20
             y: 116
-            
+
             Text {
                 text: "Select"
                 width: 50
@@ -297,7 +298,7 @@ Item {
                 color: "#6D6D6D"
                 font.pixelSize: 16
             }
-            
+
             Text {
                 text: "weight"
                 width: 50
@@ -308,7 +309,7 @@ Item {
                 font.pixelSize: 16
             }
         }
-        
+
         Image {
             source: "../../Assets/3.png"
             width: 30
@@ -316,11 +317,11 @@ Item {
             x: 268.5
             y: 76
         }
-        
+
         Column {
             spacing: -20
             y: 116
-            
+
             Text {
                 text: "put weight"
                 width: 50
@@ -330,7 +331,7 @@ Item {
                 color: "#6D6D6D"
                 font.pixelSize: 16
             }
-            
+
             Text {
                 text: "in the cart"
                 width: 50
@@ -341,7 +342,7 @@ Item {
                 font.pixelSize: 16
             }
         }
-        
+
         Image {
             source: "../../Assets/4.png"
             width: 30
@@ -349,11 +350,11 @@ Item {
             x: 387.5
             y: 76
         }
-        
+
         Column {
             spacing: -20
             y: 116
-            
+
             Text {
                 text: "Hold to"
                 width: 50
@@ -363,7 +364,7 @@ Item {
                 color: "#6D6D6D"
                 font.pixelSize: 16
             }
-            
+
             Text {
                 text: "realize"
                 width: 50
@@ -375,7 +376,7 @@ Item {
             }
         }
     }
-    
+
     Button {
         id: btn_release
         x:612
@@ -401,39 +402,43 @@ Item {
             color: "#4696FA"
             opacity: 0.7
         }
-        
-        
-        
+
+
+
         Timer {
             id: longPressTimer
             property real w: 0
             interval: 200 //your press-and-hold interval here
             repeat: true
             running: false
-            
+
             onTriggered: {
-                if(hold_progress.width > 471){    
+                if(hold_progress.width > 471){
                     hold_progress.width = 0
                     w = 0
-                    if(root.weightedCount ===0)
+                    if(root.weightedCount === 0)
                     {
+                        console.log("1")
                         obj_LogicCalibrate.settingPage.weightsensor.setWeightZero();
+                        root.weightedCount = root.weightedCount + 1
                     }
                     else{
+                        console.log("2")
                         obj_LogicCalibrate.settingPage.weightsensor.setWeightW1(txt_weight.text);
+                        root.weightedCount = root.weightedCount +1
+                        
                     }
                 }
                 else
                 {
                     hold_progress.width = w
-                    
+
                 }
                 w=w+(471 /10)
-                console.log(hold_progress.width)
             }
         }
-        
-        
+
+
         onPressedChanged: {
             if ( pressed ) {
                 longPressTimer.running = true;
@@ -444,15 +449,15 @@ Item {
             }
         }
     }
-    
-    
+
+
     KButton{
         width: 471
         height: 80
         x:612
         y:566
         borderRadius: 6
-        text: "Save" 
+        text: "Save"
         onClicked: {
             obj_LogicCalibrate.settingPage.weightsensor.saveCalibration();
         }
@@ -461,15 +466,15 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
         text: ""+obj_LogicCalibrate.settingPage.weightsensor.currentweight+" گرم"
-        
+
     }
-    
+
     TopNav{
         backvisible: true
         onBackClicked: {
             stackview.pop()
         }
-        
+
     }
 }
 
