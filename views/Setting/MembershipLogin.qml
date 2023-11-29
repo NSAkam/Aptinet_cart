@@ -198,7 +198,7 @@ Item {
             isBold: false
             onClicked: {
                 cameraProvider.stop()
-                obj_LogicContainer.reset_app()
+                //obj_LogicContainer.reset_app()
             }
         }
 

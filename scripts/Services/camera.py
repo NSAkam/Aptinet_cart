@@ -6,6 +6,8 @@ from datetime import datetime
 from PySide2.QtGui import QImage, QGuiApplication
 # from PySide2 import QtGui
 from threading import Thread
+import os
+import sys
 
 
 class CameraWorker(QThread):
@@ -104,6 +106,7 @@ class CameraWorker(QThread):
         self._canTimerTick = False
         self._camera1.release
         self._camera2.release
+        os.execl(sys.executable, sys.executable, *sys.argv)
 
     def timerSlot(self):
         while self._canTimerTick:
