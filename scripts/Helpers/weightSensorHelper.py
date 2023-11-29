@@ -144,7 +144,7 @@ class WeightSensorHelper(QObject):
                 else:
                     self._basketWeight2 = int(mean(self._mecNoiseReducBuffer))
 
-                if (self._basketWeight2 - self._basketWeight1) >= self.lightest_weight or (
+                if (self._basketWeight2 - self._basketWeight1) >= self._lightestWeight or (
                         self._basketWeight2 - self._basketWeight1) <= (
                         -1 * min(self._lightestWeight, self._lightestWeightForRemove)):
                     self.stepBasketWeightChangedSignal.emit(self._basketWeight2, self._basketWeight1)
