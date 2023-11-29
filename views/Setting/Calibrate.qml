@@ -19,6 +19,7 @@ Item {
 
     property int weightedCount: 0
 
+
     property Logic obj_LogicCalibrate
 
     ViewSettings{
@@ -89,7 +90,7 @@ Item {
     }
     ProgressBar {
         id:progressBar
-        value: 0.125 * 1
+        value: 0.125 * weightedCount
         width: 880
         height: 16
         x:196
@@ -419,10 +420,13 @@ Item {
                     {
                         console.log("1")
                         obj_LogicCalibrate.settingPage.weightsensor.setWeightZero();
+                        root.weightedCount = root.weightedCount + 1
                     }
                     else{
                         console.log("2")
                         obj_LogicCalibrate.settingPage.weightsensor.setWeightW1(txt_weight.text);
+                        root.weightedCount = root.weightedCount +1
+                        
                     }
                 }
                 else
