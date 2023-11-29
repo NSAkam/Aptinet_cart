@@ -126,7 +126,7 @@ Item {
             y:146
         }
         Text {
-            text: obj_LogicContainerBarcodeScanned.shopPage.newProduct.finalPrice - obj_LogicContainerBarcodeScanned.shopPage.newProduct.price
+            text: (obj_LogicContainerBarcodeScanned.shopPage.newProduct.finalPrice - obj_LogicContainerBarcodeScanned.shopPage.newProduct.price).toFixed(1)
             x:639
             y:146
             font.pixelSize: 24
@@ -210,6 +210,7 @@ Item {
             onTextChanged: {
                 if(text == "8"){
                     barcode_scanned.pass()
+                    timer1.running = false
                 }
                 if(text =="5")
                 {
@@ -220,6 +221,7 @@ Item {
         }
     }
     Timer{
+        id:timer1
         interval: 1000
         onTriggered: {
             progress1.value += 0.14285

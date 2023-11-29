@@ -565,18 +565,18 @@ Item {
             obj_LogicContainerBarcodeScanned: obj_LogicContainerShop
             
             onPass: {
-                stackviewContainer.push(lstProductHandler)
+                //stackviewContainer.push(lstProductHandler)
             }
             
             onCancel: {
-                if(stackviewContainer.depth == 1)
-                {
-                    stackviewContainer.clear()
-                }
-                else
-                {
-                    stackviewContainer.pop()
-                }
+//                if(stackviewContainer.depth == 1)
+//                {
+//                    stackviewContainer.clear()
+//                }
+//                else
+//                {
+//                    stackviewContainer.pop()
+//                }
             }
         }
     }
@@ -742,6 +742,10 @@ Item {
         function onShowNewProductScannedSignal(){
             stackviewContainer.push(newProductHandler)
             slideshow.model = obj_LogicContainerShop.shopPage.suggestedList
+        }
+        function onCloseTopStackViewSignal(){
+            slideshow.model = obj_LogicContainerShop.shopPage.offersList
+            stackviewContainer.pop()
         }
     }
 }
