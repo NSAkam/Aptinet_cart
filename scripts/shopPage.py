@@ -144,9 +144,10 @@ class ShopPage(QObject):
     showStartUpShoppingLabelSignal = Signal(bool)
 
     showNewProductScannedSignal = Signal()   # pop up new product scanned
-    closeNewProductScannedSignal = Signal()
+    # closeNewProductScannedSignal = Signal()
 
     # closeNewStackViewHandlerSignal = Signal()
+    closeTopStackViewSignal = Signal()   # close top stack view. maybe used for several purpose like close new product scanned stack view
 
     openPopupWeightNotMatchWithBarcodeSignal = Signal()   # pop up weight not match with scanned barcode
     closePopupWeightNotMatchWithBarcodeSignal = Signal()
@@ -358,7 +359,7 @@ class ShopPage(QObject):
                         self.adjust_wightSensorSensitivity(val2 - val1)
                         self.setState(1)
                         self._basketWeightShouldBe = val2
-                        self.closeNewProductScannedSignal.emit()
+                        self.closeTopStackViewSignal.emit()
                         self._countdownTimer = -11
                         self._shouldBarcodeToBeScannToAddProduct = True
 
@@ -377,7 +378,7 @@ class ShopPage(QObject):
                             #     self._weighsensor.lightest_weight = self._lightest_weight_for_heavy_weight_product
                             self.setState(1)
                             self._basketWeightShouldBe = val2
-                            self.closeNewProductScannedSignal.emit()
+                            self.closeTopStackViewSignal.emit()
                             self._countdownTimer = -1
                             self._shouldBarcodeToBeScannToAddProduct = False
 
