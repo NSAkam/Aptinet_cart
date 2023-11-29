@@ -348,15 +348,18 @@ Item {
             cache: true
             asynchronous: true
 
-            property int asds:0
-            function reloadImage() {
-                if(asds === 10000){
-                    counter = !counter
-                    source = "image://KCameraProvider/?id=" + counter
-                    asds= 0
+            Timer{
+                running:true
+                interval : 1000
+                onTriggered{
+                    parent.counter = !parent.counter
+                    parent.source = "image://KCameraProvider/?id=" + counter
                 }
-                asds = asds+1
-                
+            }
+            function reloadImage() {
+                    // counter = !counter
+                    // source = "image://KCameraProvider/?id=" + counter
+                    // asds= 0
             }
         }
         Image {
