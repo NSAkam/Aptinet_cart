@@ -34,15 +34,15 @@ class WeightSensorWorker(QThread):
     def __init__(self):
         super().__init__()
         self._startUpHandler = self.noise_reduction_buffer_size
-        self.hx = HX711(23, 24)
+        self.hx = HX711(24, 23)
         for i in range(self.read_weight_buffer_size):
             self.read_weight_buffer.append(0)
         for i in range(self.noise_reduction_buffer_size):
             self.noise_reduction_buffer.append(0)
-        with open("/home/kast/offset.txt", 'r') as f:
+        with open("/home/aptinet/offset.txt", 'r') as f:
             self.setOffset(float(f.readline()))
         self.hx.set_offset(self._offset)
-        with open("/home/kast/scale.txt", 'r') as f:
+        with open("/home/aptinet/scale.txt", 'r') as f:
             self.setScale(float(f.readline()))
         self.hx.set_scale(self.scale)
         self.lightest_weight_register = self.lightest_weight
