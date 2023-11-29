@@ -325,7 +325,7 @@ class ShopPage(QObject):
                             self._bypassList.insertProduct(self.newProduct.copy_product(), 1)
                             self.cal_basketLoad(val2)
                             self._basketWeightShouldBe = val2
-                            self._countdownTimer = -1
+                            self.countDownTimer = -1
 
                             # self._productsmodel.updateWeight(self.getNewProduct(), val2 - val1)
 
@@ -361,7 +361,7 @@ class ShopPage(QObject):
                         self.setState(1)
                         self._basketWeightShouldBe = val2
                         self.closeTopStackViewSignal.emit()
-                        self._countdownTimer = -11
+                        self.countDownTimer = -11
                         self._shouldBarcodeToBeScannToAddProduct = True
 
                     else:
@@ -380,7 +380,7 @@ class ShopPage(QObject):
                             self.setState(1)
                             self._basketWeightShouldBe = val2
                             self.closeTopStackViewSignal.emit()
-                            self._countdownTimer = -1
+                            self.countDownTimer = -1
                             self._shouldBarcodeToBeScannToAddProduct = False
 
                         else:
@@ -521,7 +521,7 @@ class ShopPage(QObject):
                     self.openPopupDeleteProduct.emit()
                     notifSound2()
                     self._basketWeightShouldBe = val1
-                    self._countdownTimer = -20
+                    self.countDownTimer = -20
                     # self.setNewProductsVisibleHandler(False)
                     self.closeNewStackViewtHandler.emit()
                     self.setState(5)
@@ -619,7 +619,7 @@ class ShopPage(QObject):
                     # self.turn_offGreenlight()
                     self._shouldBarcodeToBeScannToAddProduct = True
                     # self._weighsensor.lightest_weight = self._lightest_weight_for_heavy_weight_product
-            if self.countdownTimer == -10:
+            if self.countDownTimer == -10:
                 if self.state == 1:
                     self._shouldBarcodeToBeScannToAddProduct = True
                     # self._weighsensor.lightest_weight = self._lightest_weight_for_heavy_weight_product
