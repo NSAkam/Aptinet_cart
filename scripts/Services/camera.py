@@ -60,7 +60,7 @@ class CameraWorker(QThread):
                     # frame1 = cv2.cvtColor(frame1, cv2.COLOR_RGB2BGR)
                     image = QImage(frame1, frame1.shape[1], frame1.shape[0],
                                    frame1.strides[0], QImage.Format_BGR888)
-                    self.newFrameReadSignal.emit()
+                    self.newFrameReadSignal.emit(image)
                     self.capturedImage = image
                 else:
                     print("cam1 no frame")
