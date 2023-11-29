@@ -265,13 +265,17 @@ class ShopPage(QObject):
             self._bypassList.insertProduct(product.copy_product(), 0)
 
             if self.state == 1:
+                print("state 1")
                 if not self.basketIsFull:
-                    self.adjust_wightSensorSensitivity(product.meanWeight)
+                    # self.adjust_wightSensorSensitivity(product.meanWeight)
                     self.state = 2
                     self.newProduct = product
+                    print("product to new product")
                     self.countDownTimer = self._insertProductTime
-                    self._suggestedList = self._productRepository.get_suggesstionProducts(product.barcode)
+                    self.suggestedList = self._productRepository.get_suggesstionProducts(product.barcode)
+                    print("sugestion list")
                     self.showNewProductScannedSignal.emit()
+                    print("signal emit")
 
                     if self._manualBarcodeEntered:
                         self._manualBarcodeEntered = False
@@ -288,7 +292,6 @@ class ShopPage(QObject):
                     self.countDownTimer = self._insertProductTime
                     self._suggestedList = self._productRepository.get_suggesstionProducts(product.barcode)
                     self.showNewProductScannedSignal.emit()
-
 
             elif self.state == 5:
                 isAcceptablebarcodeForRemove, self._canRemoveProductClick, removeSuccessfullyBefore = self._removeList.updateValidBarcodeSetForRemove(
