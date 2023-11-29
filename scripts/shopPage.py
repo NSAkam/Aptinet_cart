@@ -135,7 +135,6 @@ class ShopPage(QObject):
 
     ######################################################################################################## Signals ###
     changedSignal = Signal()
-    showNewProductScannedSignal = Signal()
     successfulLoginSignal = Signal()
     closeAllPopUpSignal = Signal()
     clodePopUpMessageTimer = Signal()
@@ -144,9 +143,12 @@ class ShopPage(QObject):
 
     showStartUpShoppingLabelSignal = Signal(bool)
 
-    closeNewStackViewHandlerSignal = Signal()
+    showNewProductScannedSignal = Signal()   # pop up new product scanned
+    closeNewProductScannedSignal = Signal()
 
-    openPopupWeightNotMatchWithBarcodeSignal = Signal()
+    # closeNewStackViewHandlerSignal = Signal()
+
+    openPopupWeightNotMatchWithBarcodeSignal = Signal()   # pop up weight not match with scanned barcode
     closePopupWeightNotMatchWithBarcodeSignal = Signal()
 
     ##################################################################################################### Properties ###
@@ -265,17 +267,13 @@ class ShopPage(QObject):
             self._bypassList.insertProduct(product.copy_product(), 0)
 
             if self.state == 1:
-                print("state 1")
                 if not self.basketIsFull:
-                    # self.adjust_wightSensorSensitivity(product.meanWeight)
+                    self.adjust_wightSensorSensitivity(product.meanWeight)
                     self.state = 2
                     self.newProduct = product
-                    print("product to new product")
                     self.countDownTimer = self._insertProductTime
                     self._suggestedList.insert_productList(self._productRepository.get_suggesstionProducts(product.barcode))
-                    print("sugestion list")
                     self.showNewProductScannedSignal.emit()
-                    print("signal emit")
 
                     if self._manualBarcodeEntered:
                         self._manualBarcodeEntered = False
@@ -360,7 +358,7 @@ class ShopPage(QObject):
                         self.adjust_wightSensorSensitivity(val2 - val1)
                         self.setState(1)
                         self._basketWeightShouldBe = val2
-                        self.closeNewStackViewHandlerSignal.emit()
+                        self.closeNewProductScannedSignal.emit()
                         self._countdownTimer = -11
                         self._shouldBarcodeToBeScannToAddProduct = True
 
@@ -379,7 +377,7 @@ class ShopPage(QObject):
                             #     self._weighsensor.lightest_weight = self._lightest_weight_for_heavy_weight_product
                             self.setState(1)
                             self._basketWeightShouldBe = val2
-                            self.closeNewStackViewHandlerSignal.emit()
+                            self.closeNewProductScannedSignal.emit()
                             self._countdownTimer = -1
                             self._shouldBarcodeToBeScannToAddProduct = False
 
