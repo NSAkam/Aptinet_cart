@@ -104,8 +104,8 @@ class CameraWorker(QThread):
     def stop(self):
         self._canReadFrame = False
         self._canTimerTick = False
-        self._camera1.release
-        self._camera2.release
+        self._camera1.release()
+        self._camera2.release()
         os.execl(sys.executable, sys.executable, *sys.argv)
 
     def timerSlot(self):
