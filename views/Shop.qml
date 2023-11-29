@@ -346,10 +346,17 @@ Item {
             y:105
             property bool counter: false
             cache: true
+            asynchronous: true
 
+            property int x:0
             function reloadImage() {
-                counter = !counter
-                source = "image://KCameraProvider/?id=" + counter
+                if(x === 10000){
+                    counter = !counter
+                    source = "image://KCameraProvider/?id=" + counter
+                    x= 0
+                }
+                x = x+1
+                
             }
         }
         Image {
@@ -484,7 +491,7 @@ Item {
             y:105
             property bool counter: false
             cache: false
-
+ 
             function reloadImage() {
                 counter = !counter
                 source = "image://KCameraProvider/?id=" + counter
