@@ -66,7 +66,7 @@ class WeightSensorHelper(QObject):
 
     def set_momentoBasketWeight(self, v: int):
         self._momentoBasketWeight = v
-        self.momentoBasketWeightChangedSignal.emit(v)
+        self.momentoBasketWeightChangedSignal(v)
 
     momentoBasketWeight = Property(int, get_momentoBasketWeight, set_momentoBasketWeight, notify=momentoBasketWeightChangedSignal)
 
@@ -125,12 +125,12 @@ class WeightSensorHelper(QObject):
 
         if self._canRead:
             if self._atStartUp:
-                self.set_startWeight(self._weighSensorWorker.outlier_remover(self._mecNoiseReducBuffer))
+                self.set_startWeight(int(mean(self._mecNoiseReducBuffer)))
                 self._basketWeight1 = self._startWeight
                 self._basketWeight2 = self._startWeight
                 self._atStartUp = False
             else:
-                if self._weighSensorWorker.outlier_remover(self._mecNoiseReducBuffer) > self._basketWeight1:
+                if mean(self._mecNoiseReducBuffer) > self._basketWeight1:
                     a = np.array(self._mecNoiseReducBuffer)
                     half_quartile = np.percentile(a, 50)
                     c = 0
@@ -141,11 +141,11 @@ class WeightSensorHelper(QObject):
                             s += w
                     self._basketWeight2 = int(s / c)
                 else:
-                    self._basketWeight2 = self._weighSensorWorker.outlier_remover(self._mecNoiseReducBuffer)
+                    self._basketWeight2 = int(mean(self._mecNoiseReducBuffer))
 
-                if (self._basketWeight2 - self._basketWeight1) >= self._lightestWeight or (
+                if (self._basketWeight2 - self._basketWeight1) >= self.lightest_weight or (
                         self._basketWeight2 - self._basketWeight1) <= (
-                        -1 * min(self._lightestWeight, self._lightestWeightForRemove)):
+                        -1 * min(self.lightest_weight, self.lightest_weight_for_remove)):
                     self.stepBasketWeightChangedSignal.emit(self._basketWeight2, self._basketWeight1)
                     self.set_basketWeight(self._basketWeight2)
                 self._basketWeight1 = self._basketWeight2

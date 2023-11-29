@@ -85,7 +85,7 @@ class ShopPage(QObject):
         #### WeightSensor #########################################
         self._weightSensor = WeightSensorHelper()
         self._weightSensor.stepBasketWeightChangedSignal.connect(self.basketWeightChanged)
-        self._weightSensor.start()
+        # self._weightSensor.start()
 
         # #### Models ###############################################
         # self._newProduct = Product()
