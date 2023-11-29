@@ -1,6 +1,6 @@
 import os
 import sys
-import time
+from time import sleep
 from threading import Thread
 
 from PySide2.QtCore import QObject, Signal, Property, Slot
@@ -599,18 +599,28 @@ class ShopPage(QObject):
                     #         self.closePopUpMessageNotAllowedToAddProduct.emit()
                     pass
 
-
-
-
-
-
-
-
     @Slot()
     def timerSlot(self):
         while self._canTimerTick:
-            self.set_countDownTimer(self.get_countDownTimer() - 1)
-            time.sleep(1)
+            if self.state == 2 or self.state == 1:
+                self.countDownTimer = self.countDownTimer - 1
+                sleep(1)
+            if self.countDownTimer == 3:
+                if self.state == 2:
+                    self.closeTopStackViewSignal.emit()
+                    sleep(1)
+            if self.countDownTimer == 0:
+                if self.state == 2:
+                    self.state = 1
+                    # self.clearStackView()
+                    # self.closeAllPopUps.emit()
+                    self.turn_offGreenlight()
+                    self._shouldBarcodeToBeScannToAddProduct = True
+                    # self._weighsensor.lightest_weight = self._lightest_weight_for_heavy_weight_product
+            if self.countdownTimer == -10:
+                if self.state == 1:
+                    self._shouldBarcodeToBeScannToAddProduct = True
+                    # self._weighsensor.lightest_weight = self._lightest_weight_for_heavy_weight_product
 
     @Slot(str)
     def enter_phoneNumberClicked(self, phoneNumber: str):
