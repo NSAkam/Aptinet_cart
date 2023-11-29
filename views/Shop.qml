@@ -743,5 +743,9 @@ Item {
             stackviewContainer.push(newProductHandler)
             slideshow.model = obj_LogicContainerShop.shopPage.suggestedList
         }
+        function onCloseTopStackViewSignal(){
+            slideshow.model = obj_LogicContainerShop.shopPage.offersList
+            stackviewContainer.pop()
+        }
     }
 }
