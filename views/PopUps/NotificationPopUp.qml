@@ -7,9 +7,8 @@ import "../Containers"
 import "../Utiles"
 
 Popup {
-    property alias notiftext: notiftext.text
-    property bool showManualBarcode: false
-
+    property string message: "message"
+    property bool showEnterBarcode: false
     id: root
     width: 1280
     height: 800
@@ -42,7 +41,7 @@ Popup {
 
 
     KButton {
-        visible:showManualBarcode
+        visible:showEnterBarcode
         x: 630 + 390
         y: 32
         borderRadius: 4
@@ -61,8 +60,8 @@ Popup {
 
     Rectangle {
         id: notifrect
-        width: 678 + notiftext.width/6
-        height: 252
+        width: 700
+        height: 300
         radius: 4
         y: 274
         //        x: 106 + 390/2
@@ -78,13 +77,15 @@ Popup {
 
         Text {
             id: notiftext
-            text: qsTr("Please put the product you scanned into the cart!")
+            text: qsTr(root.message)
             anchors.horizontalCenter: parent.horizontalCenter
             horizontalAlignment: Text.AlignHCenter
             y: 168
             color: "black"
             font.pixelSize: 24
-            font.weight: Font.DemiBold
+            wrapMode: Text.WordWrap
+            width: 300
+            height: 500
             //            font.letterSpacing: 0.8
         }
     }
