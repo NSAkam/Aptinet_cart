@@ -42,16 +42,16 @@ Button {
         border.width: btn_borderWidth
         radius: borderRadius
     }
-    onPressed:{
-        if(ishover === true){
-            clickanimation.start()
-        }
-    }
-    onReleased:{
-        if(ishover === true){
-            releaseanimation.start()
-        }
-    }
+    // onPressed:{
+    //     if(ishover === true){
+    //         clickanimation.start()
+    //     }
+    // }
+    // onReleased:{
+    //     if(ishover === true){
+    //         releaseanimation.start()
+    //     }
+    // }
     DropShadow {
         id: rectShadow
         anchors.fill: source
