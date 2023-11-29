@@ -197,6 +197,7 @@ Item {
             fontsize: 25
             isBold: false
             onClicked: {
+                cameraProvider.stop()
                 obj_LogicContainer.reset_app()
             }
         }
