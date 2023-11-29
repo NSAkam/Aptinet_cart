@@ -68,13 +68,13 @@ class ShopPage(QObject):
     def __init__(self):
         super().__init__()
 
-        # #### Private ##############################################
-        # dal = DAL()
-        #
-        # #### Repositories #########################################
-        # self._userRepository = UserRepository(dal)
-        # self._userServerRepository = UserServerRepository(dal)
-        # self._productRepository = ProductRepository(dal)
+        #### Private ##############################################
+        dal = DAL()
+
+        #### Repositories #########################################
+        self._userRepository = UserRepository(dal)
+        self._userServerRepository = UserServerRepository(dal)
+        self._productRepository = ProductRepository(dal)
         #
         # #### Barcode Scanner ######################################
         # self._scanner = ScannerHelper()
