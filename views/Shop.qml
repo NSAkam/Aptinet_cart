@@ -346,7 +346,6 @@ Item {
             y:105
             property bool counter: false
             cache: true
-            asynchronous: true
 
             //            Timer{
             //                running:true
