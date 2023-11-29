@@ -93,6 +93,7 @@ class Product(QObject):
                             set_commentCount, notify=changedSignal)
     
     def getpic(self):
+        print("12312")
         if (os.path.isfile("/home/aptinet/pics/" + self.barcode + ".png") == False):
             return "file:///home/aptinet/pics/DefaultProduct.png"
         else:
