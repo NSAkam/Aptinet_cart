@@ -2,11 +2,11 @@ import cv2
 from PySide2.QtCore import QObject, Signal, Property, Slot, Qt
 from Services.camera import CameraWorker
 from PySide2.QtGui import QImage
-from PySide2.QtQuick import QQuickImageProvider
+from PySide2.QtQuick import QQuickImageProvider,QQuickAsyncImageProvider
 import numpy as np
 
 
-class CameraHelper(QQuickImageProvider):
+class CameraHelper(QQuickAsyncImageProvider):
     frameHeight = 184
     frameWidth = 236
 
@@ -30,6 +30,9 @@ class CameraHelper(QQuickImageProvider):
         self._image = self._camera.capturedImage
 
     def requestImage(self, id, p_str, size):
+        return self._image
+    
+    def requestImageResponse(self,id,_):
         return self._image
 
     def start(self):
