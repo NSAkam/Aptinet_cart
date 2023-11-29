@@ -284,7 +284,7 @@ class ShopPage(QObject):
                     self.countDownTimer = self._insertProductTime
                 else:
                     self.newProduct = product
-                    self.adjust_wightSensorSensitivity(product)
+                    self.adjust_wightSensorSensitivity(product.meanWeight)
                     self.countDownTimer = self._insertProductTime
                     self._suggestedList = self._productRepository.get_suggesstionProducts(product.barcode)
                     self.showNewProductScannedSignal.emit()
