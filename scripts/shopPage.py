@@ -71,6 +71,7 @@ class ShopPage(QObject):
     _trustUser: bool = False
     _shouldBarcodeToBeScannToAddProduct: bool = True
     _lightWeightProductExistInBasket: bool = False
+    _initFactorListFlag: bool = False
 
 
     ######################################################################################################## Modules ###
@@ -142,7 +143,9 @@ class ShopPage(QObject):
     hideOfferListSignal = Signal()
     visibleProductListDeleteSignal = Signal()
 
-    showStartUpShoppingLabelSignal = Signal(bool)
+    # showStartUpShoppingLabelSignal = Signal(bool)
+    initFactorListSignal = Signal()
+
 
     showNewProductScannedSignal = Signal()   # pop up new product scanned
     # closeNewProductScannedSignal = Signal()
@@ -310,8 +313,6 @@ class ShopPage(QObject):
 
     @Slot()
     def basketWeightChanged(self, val2: int, val1: int):
-        print("new weight")
-        print(val2 - val1)
         if not self._inByPass:
             self.hideOfferListSignal.emit()
             value: int = val2 - val1
@@ -335,21 +336,26 @@ class ShopPage(QObject):
                             self._shouldBarcodeToBeScannToAddProduct = True
                             self.openPopupNoBarcodeScanned.emit()
                             if abs(value) > 20:
-                                notifSound()
+                                # notifSound()
+                                pass
                             self._basketWeightShouldBe = val1
                             self.setState(4)
 
                     else:
                         self.openPopupNoBarcodeScanned.emit()
                         if (abs(value) > 20):
-                            notifSound()
+                            # notifSound()
+                            pass
                         self._basketWeightShouldBe = val1
                         self.setState(4)
 
                 elif self.state == 2:
                     if self.newProduct.insertedWeight < self._validInsertedWeightForCalTol:
                         # insertSound()
-                        self.showStartUpShoppingLabelSignal.emit(False)
+                        if not self._initFactorListFlag:
+                            self.initFactorListSignal.emit()
+                            self._initFactorListFlag = True
+                        # self.showStartUpShoppingLabelSignal.emit(False)
                         self._factorList.insertProduct(self.newProduct, 1)
                         self._bypassList.insertProduct(self.newProduct.copy_product(), 1)
 
@@ -368,8 +374,11 @@ class ShopPage(QObject):
 
                     else:
                         if (value < self.newProduct.meanWeight + self.newProduct.tolerance) and (value >= (value < self.newProduct.meanWeight - self.newProduct.tolerance)):
-                            insertSound()
-                            self.showStartUpShoppingLabelSignal.emit(False)
+                            # insertSound()
+                            if not self._initFactorListFlag:
+                                self.initFactorListSignal.emit()
+                                self._initFactorListFlag = True
+                            # self.showStartUpShoppingLabelSignal.emit(False)
                             self._factorList.insertProduct(self._newProduct, 1)
                             self._bypassList.insertProduct(self._newProduct, 1)
 
@@ -676,7 +685,7 @@ class ShopPage(QObject):
             print("\nState " + str(self._state) + " : A barcode is read and waiting to add the item.\n")
 
     def add_productToFactor(self, p: Product, c: int, u: bool, w2: int, w1: int):
-        insertSound()
+        # insertSound()
         self._factorList.insertProduct(p, c)
         self._bypassList.insertProduct(p.copy_product(), c)
         if u:
