@@ -348,15 +348,15 @@ Item {
             cache: true
             asynchronous: true
 
-            Timer{
-                running:true
-                interval : 1000
-                repeat: true
-                onTriggered:{
-                    parent.counter = !parent.counter
-                    parent.source = "image://KCameraProvider/?id=" + parent.counter
-                }
-            }
+//            Timer{
+//                running:true
+//                interval : 1000
+//                repeat: true
+//                onTriggered:{
+//                    parent.counter = !parent.counter
+//                    parent.source = "image://KCameraProvider/?id=" + parent.counter
+//                }
+//            }
             function reloadImage() {
                     // counter = !counter
                     // source = "image://KCameraProvider/?id=" + counter
