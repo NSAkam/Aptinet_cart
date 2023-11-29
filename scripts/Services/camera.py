@@ -97,7 +97,8 @@ class CameraWorker(QThread):
             # time.sleep(1)
             # cv2.waitKey(1000)
             time.sleep(0.03)
-
+    
+    @Slot()
     def stop(self):
         self._canReadFrame = False
         self._canTimerTick = False
