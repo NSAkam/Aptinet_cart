@@ -6,7 +6,7 @@ from PySide2.QtQuick import QQuickImageProvider,QQuickAsyncImageProvider
 import numpy as np
 
 
-class CameraHelper(QQuickAsyncImageProvider):
+class CameraHelper(QQuickImageProvider):
     frameHeight = 184
     frameWidth = 236
 
