@@ -126,7 +126,7 @@ Item {
             y:146
         }
         Text {
-            text: qsTr("%L1").arg(obj_LogicContainerBarcodeScanned.shopPage.newProduct.finalPrice - obj_LogicContainerBarcodeScanned.shopPage.newProduct.price)
+            text: (obj_LogicContainerBarcodeScanned.shopPage.newProduct.finalPrice - obj_LogicContainerBarcodeScanned.shopPage.newProduct.price).toFixed(1)
             x:639
             y:146
             font.pixelSize: 24
