@@ -740,4 +740,10 @@ Item {
             }
         }
     }
+    Connections{
+        target: obj_LogicContainerShop.shopPage
+        function onShowNewProductScannedSignal(){
+             stackviewContainer.push(newProductHandler)
+        }
+    }
 }

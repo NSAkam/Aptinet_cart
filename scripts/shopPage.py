@@ -230,6 +230,8 @@ class ShopPage(QObject):
         product = self._productRepository.get_product(self._scanner.get_barcode())
         self._bypassList.insertProduct(product.copy_product(), 0)
 
+        self.showNewProductScannedSignal.emit()
+        
         if self._state == 1:
             self.set_countDownTimer(self._insertProductTime)
             self.set_newProduct(product)
