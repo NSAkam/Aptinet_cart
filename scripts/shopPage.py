@@ -75,13 +75,13 @@ class ShopPage(QObject):
         self._userRepository = UserRepository(dal)
         self._userServerRepository = UserServerRepository(dal)
         self._productRepository = ProductRepository(dal)
-        #
-        # #### Barcode Scanner ######################################
-        # self._scanner = ScannerHelper()
-        # self._scanner.EAN13ReadSignal.connect(self.barcodeRead)
-        # self._scanner.loyaltyCardBarcodeReadSignal.connect(self.read_loyaltyCardBarcode)
-        # self._scanner.start()
-        #
+
+        #### Barcode Scanner ######################################
+        self._scanner = ScannerHelper()
+        self._scanner.EAN13ReadSignal.connect(self.barcodeRead)
+        self._scanner.loyaltyCardBarcodeReadSignal.connect(self.read_loyaltyCardBarcode)
+        self._scanner.start()
+
         # #### WeightSensor #########################################
         # self._weightSensor = WeightSensorHelper()
         # self._weightSensor.stepBasketWeightChangedSignal.connect(self.basketWeightChanged)
