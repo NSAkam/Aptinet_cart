@@ -3,7 +3,8 @@ import cv2
 from PySide2.QtCore import QObject, Signal, Property, Slot, QThread
 import numpy as np
 from datetime import datetime
-from PySide2.QtGui import QImage
+from PySide2.QtGui import QImage, QGuiApplication
+# from PySide2 import QtGui
 from threading import Thread
 
 
@@ -40,7 +41,7 @@ class CameraWorker(QThread):
         self._timerThread = Thread(target=self.timerSlot)
         self._timerThread.start()
 
-    newFrameReadSignal = Signal(QImage)
+    newFrameReadSignal = Signal()
 
 
     # def find_cameraID(self):
@@ -60,8 +61,9 @@ class CameraWorker(QThread):
                     # frame1 = cv2.cvtColor(frame1, cv2.COLOR_RGB2BGR)
                     image = QImage(frame1, frame1.shape[1], frame1.shape[0],
                                    frame1.strides[0], QImage.Format_BGR888)
-                    self.newFrameReadSignal.emit(image)
                     self.capturedImage = image
+                    self.newFrameReadSignal.emit()
+                    QGuiApplication.processEvents()
                 else:
                     print("cam1 no frame")
             else:
@@ -71,8 +73,9 @@ class CameraWorker(QThread):
                     #frame2 = cv2.cvtColor(frame2, cv2.COLOR_RGB2BGR)
                     image = QImage(frame2, frame2.shape[1], frame2.shape[0],
                                    frame2.strides[0], QImage.Format_BGR888)
-                    self.newFrameReadSignal.emit(image)
                     self.capturedImage = image
+                    self.newFrameReadSignal.emit()
+                    QGuiApplication.processEvents()
                 else:
                     print("cam2 no frame")
             # time.sleep(1)
