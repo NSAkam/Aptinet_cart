@@ -244,21 +244,21 @@ Item {
             x:32
             y:32
         }
-         Image {
-             id: img_UserCaptured
-             //source: "image://KCameraProvider/1"
-             width: 326
-             height: 184
-             x:32
-             y:105
-             property bool counter: false
-             cache: false
+        Image {
+            id: img_UserCaptured
+            source: "image://KCameraProvider/1"
+            width: 326
+            height: 184
+            x:32
+            y:105
+            property bool counter: false
+            cache: false
 
-             function reloadImage() {
-                                 counter = !counter
-                                 source = "image://KCameraProvider/?id=" + counter
-                             }
-         }
+            function reloadImage() {
+                counter = !counter
+                source = "image://KCameraProvider/?id=" + counter
+            }
+        }
         Text {
             text: qsTr("ENTER PLU CODE")
             font.pixelSize: 24
@@ -339,7 +339,7 @@ Item {
 
         Image {
             id: img_UserCapturedadsPanel
-            //source: "image://KCameraProvider/1"
+            source: "image://KCameraProvider/1"
             width: 326
             height: 184
             x:32
@@ -348,19 +348,19 @@ Item {
             cache: true
             asynchronous: true
 
-//            Timer{
-//                running:true
-//                interval : 1000
-//                repeat: true
-//                onTriggered:{
-//                    parent.counter = !parent.counter
-//                    parent.source = "image://KCameraProvider/?id=" + parent.counter
-//                }
-//            }
+            //            Timer{
+            //                running:true
+            //                interval : 1000
+            //                repeat: true
+            //                onTriggered:{
+            //                    parent.counter = !parent.counter
+            //                    parent.source = "image://KCameraProvider/?id=" + parent.counter
+            //                }
+            //            }
             function reloadImage() {
-                    // counter = !counter
-                    // source = "image://KCameraProvider/?id=" + counter
-                    // asds= 0
+                counter = !counter
+                source = "image://KCameraProvider/?id=" + counter
+
             }
         }
         Image {
@@ -488,14 +488,14 @@ Item {
         }
         Image {
             id: img_UserCapturedadsPanel1
-            //source: "image://KCameraProvider/1"
+            source: "image://KCameraProvider/1"
             width: 326
             height: 184
             x:32
             y:105
             property bool counter: false
             cache: false
- 
+
             function reloadImage() {
                 counter = !counter
                 source = "image://KCameraProvider/?id=" + counter
@@ -734,19 +734,19 @@ Item {
         }
     }
 
-//    Connections{
-//        target: cameraProvider
-//        function onNewFrameReadSignal() {
-//            // if(checkoutPanel.visible === true){
-//            //     img_UserCapturedadsPanel1.reloadImage()
-//            // }
-//            // if(adsPanel.visible === true){
-//            //     img_UserCapturedadsPanel.reloadImage()
-//            // }
+    Connections{
+        target: cameraProvider
+        function onNewFrameReadSignal() {
+            if(checkoutPanel.visible === true){
+                img_UserCapturedadsPanel1.reloadImage()
+            }
+            if(adsPanel.visible === true){
+                img_UserCapturedadsPanel.reloadImage()
+            }
 
-//            // if(addPlupanel.visible === true){
-//            //     img_UserCaptured.reloadImage()
-//            // }
-//        }
-//    }
+            if(addPlupanel.visible === true){
+                img_UserCaptured.reloadImage()
+            }
+        }
+    }
 }
