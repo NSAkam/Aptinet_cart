@@ -32,8 +32,8 @@ class CameraHelper(QQuickImageProvider):
     def requestImage(self, id, p_str, size):
         return self._image
     
-    def requestImageResponse(self,id,_):
-        return self._image
+    # def requestImageResponse(self,id,_):
+    #     return self._image
 
     def start(self):
         self._camera.start()
