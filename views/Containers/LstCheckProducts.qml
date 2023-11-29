@@ -97,7 +97,7 @@ Item {
                 }
                 Text {
                     id: factorItemTotalPrice
-                    text: "$ " + modelData.countInBasket * finalPrice
+                    text: "$ " + modelData.countInBasket * modelData.finalPrice
                     x:679
                     y:86
                     color: viewset.primaryColor
