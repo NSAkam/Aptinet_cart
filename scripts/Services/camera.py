@@ -27,14 +27,14 @@ class CameraWorker(QThread):
 
     def __init__(self):
         super().__init__()
-        self._camera1 = cv2.VideoCapture(0)
-        self._camera1.set(cv2.CAP_PROP_FRAME_WIDTH, self.frameWidth)
-        self._camera1.set(cv2.CAP_PROP_GIGA_FRAME_SENS_HEIGH, self.frameHeight)
-        self._camera1.set(cv2.CAP_PROP_FPS, self.fps)
-        self._camera2 = cv2.VideoCapture(1)
-        self._camera2.set(cv2.CAP_PROP_FRAME_WIDTH, self.frameWidth)
-        self._camera2.set(cv2.CAP_PROP_GIGA_FRAME_SENS_HEIGH, self.frameHeight)
-        self._camera2.set(cv2.CAP_PROP_FPS, self.fps)
+        # self._camera1 = cv2.VideoCapture(0)
+        # self._camera1.set(cv2.CAP_PROP_FRAME_WIDTH, self.frameWidth)
+        # self._camera1.set(cv2.CAP_PROP_GIGA_FRAME_SENS_HEIGH, self.frameHeight)
+        # self._camera1.set(cv2.CAP_PROP_FPS, self.fps)
+        # self._camera2 = cv2.VideoCapture(1)
+        # self._camera2.set(cv2.CAP_PROP_FRAME_WIDTH, self.frameWidth)
+        # self._camera2.set(cv2.CAP_PROP_GIGA_FRAME_SENS_HEIGH, self.frameHeight)
+        # self._camera2.set(cv2.CAP_PROP_FPS, self.fps)
         self._canReadFrame = False
 
         self._canTimerTick = True
@@ -53,33 +53,50 @@ class CameraWorker(QThread):
 
     def run(self):
         self._canReadFrame = True
+        self._camera1 = cv2.VideoCapture(0)
+        self._camera1.set(cv2.CAP_PROP_FRAME_WIDTH, self.frameWidth)
+        self._camera1.set(cv2.CAP_PROP_FRAME_HEIGHT, self.frameHeight)
+        self._camera1.set(cv2.CAP_PROP_FPS, self.fps)
+        self._camera2 = cv2.VideoCapture(1)
+        self._camera2.set(cv2.CAP_PROP_FRAME_WIDTH, self.frameWidth)
+        self._camera2.set(cv2.CAP_PROP_FRAME_HEIGHT, self.frameHeight)
+        self._camera2.set(cv2.CAP_PROP_FPS, self.fps)
 
         while self._canReadFrame:
             if self._readFromCamera1:
                 ret, frame1 = self._camera1.read()
                 if self._camera1.isOpened():
-                    # frame1 = cv2.cvtColor(frame1, cv2.COLOR_RGB2BGR)
+                    # # frame1 = cv2.cvtColor(frame1, cv2.COLOR_RGB2BGR)
+                    # image = QImage(frame1, frame1.shape[1], frame1.shape[0],
+                    #                frame1.strides[0], QImage.Format_BGR888)
+
+                    frame1 = cv2.cvtColor(frame1, cv2.COLOR_RGB2BGR)
                     image = QImage(frame1, frame1.shape[1], frame1.shape[0],
-                                   frame1.strides[0], QImage.Format_BGR888)
+                                   frame1.strides[0], QImage.Format_RGB888)
                     self.capturedImage = image
                     self.newFrameReadSignal.emit()
-                    QGuiApplication.processEvents()
+                    # QGuiApplication.processEvents()
                 else:
                     print("cam1 no frame")
             else:
 
                 ret2, frame2 = self._camera2.read()
                 if self._camera2.isOpened():
-                    #frame2 = cv2.cvtColor(frame2, cv2.COLOR_RGB2BGR)
+                    # #frame2 = cv2.cvtColor(frame2, cv2.COLOR_RGB2BGR)
+                    # image = QImage(frame2, frame2.shape[1], frame2.shape[0],
+                    #                frame2.strides[0], QImage.Format_BGR888)
+
+                    frame2 = cv2.cvtColor(frame2, cv2.COLOR_RGB2BGR)
                     image = QImage(frame2, frame2.shape[1], frame2.shape[0],
-                                   frame2.strides[0], QImage.Format_BGR888)
+                                   frame2.strides[0], QImage.Format_RGB888)
                     self.capturedImage = image
                     self.newFrameReadSignal.emit()
-                    QGuiApplication.processEvents()
+                    # QGuiApplication.processEvents()
                 else:
                     print("cam2 no frame")
             # time.sleep(1)
             # cv2.waitKey(1000)
+            time.sleep(0.03)
 
     def stop(self):
         self._canReadFrame = False
