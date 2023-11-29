@@ -227,7 +227,7 @@ class ShopPage(QObject):
 
     ### Sluts ##########################################################################################################    @Slot()
     def barcodeRead(self):
-        product = self._factorList.get_productByBarcode(self._scanner.get_barcode())
+        product = self._productRepository.get_product(self._scanner.get_barcode())
         self._bypassList.insertProduct(product.copy_product(), 0)
 
         if self._state == 1:
