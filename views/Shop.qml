@@ -344,18 +344,8 @@ Item {
             height: 184
             x:32
             y:105
-            property bool counter: false
-            cache: true
+            cache: false
 
-            //            Timer{
-            //                running:true
-            //                interval : 1000
-            //                repeat: true
-            //                onTriggered:{
-            //                    parent.counter = !parent.counter
-            //                    parent.source = "image://KCameraProvider/?id=" + parent.counter
-            //                }
-            //            }
             function reloadImage() {
                 counter = !counter
                 source = "image://KCameraProvider/?id=" + counter
