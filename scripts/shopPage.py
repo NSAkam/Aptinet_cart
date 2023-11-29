@@ -156,7 +156,7 @@ class ShopPage(QObject):
     def set_state(self, state: int):
         self._state = state
         if state == 1 or state == 8:
-            self.clearStackView()
+            # self.clearStackView()
             self.closeAllPopUps.emit()
             self.turn_offGreenlight()
         elif state == 10:
