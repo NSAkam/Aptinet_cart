@@ -348,14 +348,14 @@ Item {
             cache: true
             asynchronous: true
 
-            property int x:0
+            property int asds:0
             function reloadImage() {
-                if(x === 10000){
+                if(asds === 10000){
                     counter = !counter
                     source = "image://KCameraProvider/?id=" + counter
-                    x= 0
+                    asds= 0
                 }
-                x = x+1
+                asds = asds+1
                 
             }
         }
