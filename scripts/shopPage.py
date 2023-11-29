@@ -13,9 +13,10 @@ from Models.serverUser import ServerUser
 from Services.dal import DAL
 from Services.sound import *
 from Services.gpio import GreenLight
+from Services.weightsensor import WeightSensorWorker
 
 from Helpers.scannerHelper import ScannerHelper
-from Helpers.weightSensorHelper import WeightSensorHelper
+# from Helpers.weightSensorHelper import WeightSensorHelper
 
 from Repositories.userRepository import UserRepository
 from Repositories.userServerRepository import UserServerRepository
@@ -63,7 +64,7 @@ class ShopPage(QObject):
 
     ### Modules ########################################################################################################
     _scanner: ScannerHelper
-    _weightSensor: WeightSensorHelper
+    _weightSensor: WeightSensorWorker
 
     def __init__(self):
         super().__init__()
@@ -83,6 +84,10 @@ class ShopPage(QObject):
         self._scanner.start()
 
         #### WeightSensor #########################################
+        self._weightSensor = WeightSensorWorker()
+        self._weightSensor.basketweight_changed.connect(self.basketWeightChanged)
+        self._weightSensor.start()
+
         # self._weightSensor = WeightSensorHelper()
         # self._weightSensor.stepBasketWeightChangedSignal.connect(self.basketWeightChanged)
 
