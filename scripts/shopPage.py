@@ -317,7 +317,7 @@ class ShopPage(QObject):
 
             # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ADD WEIGHT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
             if val2 >= val1:
-                if self._states == 1:
+                if self.state == 1:
                     if not self._shouldBarcodeToBeScannToAddProduct:
                         if ((value < self.newProduct.meanWeight + self.newProduct.tolerance) and (value >= self.newProduct.meanWeight - self.newProduct.tolerance)):
                             # insertSound()
@@ -344,7 +344,7 @@ class ShopPage(QObject):
                         self._basketWeightShouldBe = val1
                         self.setState(4)
 
-                elif self._states == 2:
+                elif self.state == 2:
                     if self.newProduct.insertedWeight < self._validInsertedWeightForCalTol:
                         # insertSound()
                         self.showStartUpShoppingLabelSignal.emit(False)
@@ -389,7 +389,7 @@ class ShopPage(QObject):
                             self._basketWeightShouldBe = val1
                             self.setState(3)
 
-                elif self._states == 3:
+                elif self.state == 3:
                     if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
                         self._basketWeightShouldBe = val2
                         self.setState(2)
@@ -398,7 +398,7 @@ class ShopPage(QObject):
                         pass   # "لطفا کالایی که بدون اسکن کردن در سبد قرار داده اید را از آن خارج کنید."
                         # notifSound()
 
-                elif self._states == 4:
+                elif self.state == 4:
                     if self._basketWeightShouldBe - self._basketweightTolerance <= val2 <= self._basketWeightShouldBe + self._basketweightTolerance:
                         self._basketWeightShouldBe = val2
                         self.closePopupNoBarcodeScanned.emit()
@@ -412,7 +412,7 @@ class ShopPage(QObject):
                         #     self.lwire.start()
                         self.l_wire(3)
 
-                elif self._states == 5:
+                elif self.state == 5:
                     if self._basketWeightShouldBe - self._basketweightTolerance <= val2 <= self._basketWeightShouldBe + self._basketweightTolerance:
                         self._basketWeightShouldBe = val2
                         self.closePopupDeleteProduct.emit()
@@ -430,7 +430,7 @@ class ShopPage(QObject):
                         self.l_wire(3)
                         self._basketweightRemoveProcces = val1
 
-                elif self._states == 6:
+                elif self.state == 6:
                     if self._basketWeightShouldBe - self._basketweightTolerance <= val2 <= self._basketWeightShouldBe + self._basketweightTolerance:
                         self._basketWeightShouldBe = val2
                         self.setState(1)
@@ -441,7 +441,7 @@ class ShopPage(QObject):
                         self.setState(5)
                         self.closePopupMessage.emit()
 
-                elif self._states == 7:
+                elif self.state == 7:
                     if self._basketweightRemoveProcces - self._basketweightTolerance <= val2 <= self._basketweightRemoveProcces + self._basketweightTolerance:
                         self._basketweightRemoveProcces = val2
                         self.setState(5)
@@ -454,7 +454,7 @@ class ShopPage(QObject):
                         self._maybeDeletedProducts.clearData()
                         self._trustUser = False
 
-                elif self._states == 8:
+                elif self.state == 8:
                     if not self._paymentCartScanned:
                         if abs(val2 - self._basketWeightShouldBe) >= 100:
                             self.setState(9)
@@ -462,7 +462,7 @@ class ShopPage(QObject):
                             notifSound()
                             self._basketWeightShouldBe = val1
 
-                elif self._states == 9:
+                elif self.state == 9:
                     # if abs(value) >= 30:
                     # if not self._paymentCartScanned:
 
@@ -475,7 +475,7 @@ class ShopPage(QObject):
                         else:
                             self.setState(8)
 
-                elif self._states == 10:
+                elif self.state == 10:
                     # if abs(value) >= 150:
                     #     self.setState(11)
                     #     self._basketweightShouldBe = val1
@@ -483,7 +483,7 @@ class ShopPage(QObject):
                     #     # notifSound()
                     pass
 
-                elif self._states == 11:
+                elif self.state == 11:
                     # if abs(value) >= 30:
                     #     if self._basketweightShouldBe - self._basketweightTolerance <= val2 <= self._basketweightShouldBe + self._basketweightTolerance:
                     #         self.setState(10)
@@ -505,7 +505,7 @@ class ShopPage(QObject):
                 else:
                     self._historyList = []
 
-                if self._states == 1:
+                if self.state == 1:
                     self._maybeDeletedProducts.validBarcodeSetForRemove(
                         self.getProductModel().m_data, abs(value))
                     if not len(self._maybeDeletedProducts.m_validBarcodeSetForDelete) == 0:
@@ -514,7 +514,7 @@ class ShopPage(QObject):
                         self._basketWeightShouldBe = val1
                         self.setState(5)
 
-                elif self._states == 2:
+                elif self.state == 2:
                     # waiting time = # * 0.010(s)
                     self._maybeDeletedProducts.validBarcodeSetForRemove(
                         self.getProductModel().m_data, abs(value))
@@ -526,7 +526,7 @@ class ShopPage(QObject):
                     self.closeNewStackViewtHandler.emit()
                     self.setState(5)
 
-                elif self._states == 3:
+                elif self.state == 3:
                     if self._basketWeightShouldBe - self._basketweightTolerance <= val2 < self._basketWeightShouldBe + self._basketweightTolerance:
                         self._basketWeightShouldBe = val2
                         self.closePopupNotbarcodedProduct.emit()
@@ -535,13 +535,13 @@ class ShopPage(QObject):
                         else:
                             self.setState(2)
 
-                elif self._states == 4:
+                elif self.state == 4:
                     if self._basketWeightShouldBe - self._basketweightTolerance <= val2 <= self._basketWeightShouldBe + self._basketweightTolerance:
                         self._basketWeightShouldBe = val2
                         self.closePopupNoBarcodeScanned.emit()
                         self.setState(1)
 
-                elif self._states == 5:
+                elif self.state == 5:
                     self.openPopupMessage.emit(
                         "لطفا کالایی که از سبد برداشته اید در سبد قرار دهید و پس از اتمام فرآید حذف کالای قبلی مجددا اقدام به حذف آن کالا کنید")
                     notifSound()
@@ -552,18 +552,18 @@ class ShopPage(QObject):
                     self.l_wire(3)
                     self._basketweightRemoveProcces = val1
 
-                elif self._states == 6:
+                elif self.state == 6:
                     if self._basketweightRemoveProcces - self._basketweightTolerance <= val2 <= self._basketweightRemoveProcces + self._basketweightTolerance:
                         self._basketweightRemoveProcces = val2
                         self.setState(5)
                         self.closePopupMessage.emit()
 
-                elif self._states == 7:
+                elif self.state == 7:
                     if self._basketWeightShouldBe - self._basketweightTolerance <= val2 <= self._basketWeightShouldBe + self._basketweightTolerance:
                         self._basketWeightShouldBe = val2
                         self.setState(1)
 
-                elif self._states == 8:
+                elif self.state == 8:
                     # if not self._paymentCartScanned:
                     #     if abs(value) >= 100:
                     #         self.setState(9)
@@ -572,7 +572,7 @@ class ShopPage(QObject):
                     #         self._basketweightShouldBe = val1
                     pass
 
-                elif self._states == 9:
+                elif self.state == 9:
                     # if abs(value) >= 30:
                     if self._basketWeightShouldBe - self._basketweightTolerance <= val2 <= self._basketWeightShouldBe + self._basketweightTolerance:
                         self._basketWeightShouldBe = val2
@@ -583,7 +583,7 @@ class ShopPage(QObject):
                         else:
                             self.setState(8)
 
-                elif self._states == 10:
+                elif self.state == 10:
                     # if abs(val2 - val1) >= 50:
                     #     self.setState(11)
                     #     self._basketweightShouldBe = val1
@@ -592,7 +592,7 @@ class ShopPage(QObject):
                     #     # notifSound()
                     pass
 
-                elif self._states == 11:
+                elif self.state == 11:
                     # if abs(val2 - val1) >= 30:
                     #     if self._basketweightShouldBe - self._basketweightTolerance <= val2 <= self._basketweightShouldBe + self._basketweightTolerance:
                     #         self.setState(10)
