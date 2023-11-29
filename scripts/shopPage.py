@@ -379,7 +379,7 @@ class ShopPage(QObject):
 
                             # if self.getNewProduct().getAvgWeight() > self._lightest_weight_for_heavy_weight_product + self._weighsensor.acceptable_tolerance:
                             #     self._weighsensor.lightest_weight = self._lightest_weight_for_heavy_weight_product
-                            self.setState(1)
+                            self.state = 1
                             self._basketWeightShouldBe = val2
                             self.closeTopStackViewSignal.emit()
                             self.countDownTimer = -1
