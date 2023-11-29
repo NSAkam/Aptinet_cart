@@ -94,10 +94,10 @@ class Product(QObject):
     
     def getpic(self):
         print("12312")
-        if (os.path.isfile("/home/aptinet/pics/" + self.barcode + ".png") == False):
+        if (os.path.isfile("/home/aptinet/pics/" + self.get_barcode() + ".png") == False):
             return "file:///home/aptinet/pics/DefaultProduct.png"
         else:
-            return "file:///home/aptinet/pics/" + self.barcode + ".png"
+            return "file:///home/aptinet/pics/" + self.get_barcode() + ".png"
 
     pic = Property(str, getpic, notify=changedSignal)
 
