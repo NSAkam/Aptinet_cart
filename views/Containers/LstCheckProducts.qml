@@ -11,8 +11,6 @@ Item {
     property Logic obj_LogicContainerLstCheckProducts
     signal gocheckout()
 
-    property Logic obj_LogicContainerLstCheckProducts
-
 
     anchors.fill: parent
     Rectangle{
