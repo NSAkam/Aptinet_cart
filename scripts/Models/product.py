@@ -251,13 +251,6 @@ class Product(QObject):
 
     barcode = Property(str, get_barcode, set_barcode, notify=changedSignal)
 
-    def get_pic(self):
-        if (os.path.isfile("/home/kast/pics/" + self.get_barcode() + ".png") == False):
-            return "file:///home/kast/pics/DefaultProduct.png"
-        else:
-            return "file:///home/kast/pics/" + self.get_barcode + ".png"
-
-    pic = Property(str, get_pic, notify=changedSignal)
 
     def get_isOffer(self):
         return self._isOffer
