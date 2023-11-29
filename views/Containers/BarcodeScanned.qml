@@ -210,6 +210,7 @@ Item {
             onTextChanged: {
                 if(text == "8"){
                     barcode_scanned.pass()
+                    timer1.running = false
                 }
                 if(text =="5")
                 {
@@ -220,6 +221,7 @@ Item {
         }
     }
     Timer{
+        id:timer1
         interval: 1000
         onTriggered: {
             progress1.value += 0.14285
