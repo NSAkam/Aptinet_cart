@@ -246,7 +246,7 @@ Item {
         }
          Image {
              id: img_UserCaptured
-             source: "image://KCameraProvider/1"
+             //source: "image://KCameraProvider/1"
              width: 326
              height: 184
              x:32
@@ -339,7 +339,7 @@ Item {
 
         Image {
             id: img_UserCapturedadsPanel
-            source: "image://KCameraProvider/1"
+            //source: "image://KCameraProvider/1"
             width: 326
             height: 184
             x:32
@@ -488,7 +488,7 @@ Item {
         }
         Image {
             id: img_UserCapturedadsPanel1
-            source: "image://KCameraProvider/1"
+            //source: "image://KCameraProvider/1"
             width: 326
             height: 184
             x:32
@@ -734,19 +734,19 @@ Item {
         }
     }
 
-    Connections{
-        target: cameraProvider
-        function onNewFrameReadSignal() {
-            // if(checkoutPanel.visible === true){
-            //     img_UserCapturedadsPanel1.reloadImage()
-            // }
-            // if(adsPanel.visible === true){
-            //     img_UserCapturedadsPanel.reloadImage()
-            // }
+//    Connections{
+//        target: cameraProvider
+//        function onNewFrameReadSignal() {
+//            // if(checkoutPanel.visible === true){
+//            //     img_UserCapturedadsPanel1.reloadImage()
+//            // }
+//            // if(adsPanel.visible === true){
+//            //     img_UserCapturedadsPanel.reloadImage()
+//            // }
 
-            // if(addPlupanel.visible === true){
-            //     img_UserCaptured.reloadImage()
-            // }
-        }
-    }
+//            // if(addPlupanel.visible === true){
+//            //     img_UserCaptured.reloadImage()
+//            // }
+//        }
+//    }
 }
