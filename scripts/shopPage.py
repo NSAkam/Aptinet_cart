@@ -289,6 +289,7 @@ class ShopPage(QObject):
                     self._suggestedList = self._productRepository.get_suggesstionProducts(product.barcode)
                     self.showNewProductScannedSignal.emit()
 
+
             elif self.state == 5:
                 isAcceptablebarcodeForRemove, self._canRemoveProductClick, removeSuccessfullyBefore = self._removeList.updateValidBarcodeSetForRemove(
                     self._scanner.barcode)
