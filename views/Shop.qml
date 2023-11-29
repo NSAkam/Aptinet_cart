@@ -351,6 +351,7 @@ Item {
             Timer{
                 running:true
                 interval : 1000
+                repeat: true
                 onTriggered:{
                     parent.counter = !parent.counter
                     parent.source = "image://KCameraProvider/?id=" + parent.counter
