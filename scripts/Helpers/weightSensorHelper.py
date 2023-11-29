@@ -66,7 +66,7 @@ class WeightSensorHelper(QObject):
 
     def set_momentoBasketWeight(self, v: int):
         self._momentoBasketWeight = v
-        self.momentoBasketWeightChangedSignal(v)
+        self.momentoBasketWeightChangedSignal.emit(v)
 
     momentoBasketWeight = Property(int, get_momentoBasketWeight, set_momentoBasketWeight, notify=momentoBasketWeightChangedSignal)
 
