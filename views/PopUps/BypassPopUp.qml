@@ -174,7 +174,6 @@ Popup {
                 id:lst_prd
                 y:10
                 spacing: 5
-                anchors.top: lblCustomerList.bottom
                 width: parent.width
                 height:parent.height - 80
                 focus: true
