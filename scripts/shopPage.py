@@ -609,7 +609,7 @@ class ShopPage(QObject):
             if self.countDownTimer == self._timerOffset:
                 if self.state == 2:
                     self.closeTopStackViewSignal.emit()
-                    print("close stack view emit")
+                    # print("close stack view emit")
                     # sleep(1)
             if self.countDownTimer == 0:
                 if self.state == 2:
