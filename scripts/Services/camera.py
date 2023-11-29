@@ -75,6 +75,7 @@ class CameraWorker(QThread):
                     self.capturedImage = image
                 else:
                     print("cam2 no frame")
+            time.sleep(1)
 
     def stop(self):
         self._canReadFrame = False
