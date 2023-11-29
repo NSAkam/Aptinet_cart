@@ -249,7 +249,7 @@ class Product(QObject):
         self._barcode = value
         self.changedSignal.emit()
 
-    barcode = Property(int, get_barcode, set_barcode, notify=changedSignal)
+    barcode = Property(str, get_barcode, set_barcode, notify=changedSignal)
 
     def get_pic(self):
         if (os.path.isfile("/home/kast/pics/" + self.get_barcode() + ".png") == False):
