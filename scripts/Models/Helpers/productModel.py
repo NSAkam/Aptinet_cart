@@ -186,8 +186,10 @@ class ProductModel(QAbstractListModel):
         self.changed.emit()
 
     def insert_productList(self, prods: [Product]):
+        self.beginResetModel()
         self.m_data = prods
-        self.reset()
+        self.endResetModel()
+
 
     def removeProducts(self, prods: [Product]):
         for prod in prods:
