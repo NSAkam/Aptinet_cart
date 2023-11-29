@@ -32,7 +32,6 @@ class CameraHelper(QQuickImageProvider):
         # self._image = image
 
     def requestImage(self, id, p_str, size):
-        print("1")
         return self._image
     
     # def requestImageResponse(self,id,_):
