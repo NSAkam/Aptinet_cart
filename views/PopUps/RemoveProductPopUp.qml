@@ -5,6 +5,8 @@ import QtQuick.Window 2.0
 import "../Components"
 import "../Containers"
 import "../Utiles"
+import KAST.Logic 1.0
+
 
 Popup {
     id: root
@@ -13,6 +15,9 @@ Popup {
     modal: true
     focus: true
     
+    property Logic obj_logicRemoveProductList
+    
+
     background:
         Rectangle {
         color: "black"
@@ -22,7 +27,7 @@ Popup {
         width: parent.width
         height: parent.height
     }
-    
+
     Rectangle {
         x: 818 + 390
         y: 32
@@ -30,7 +35,7 @@ Popup {
         color: "white"
         width: 40
         height: 40
-        
+
         Image {
             source: "../../Assets/alarm.png"
             width: 18
@@ -38,8 +43,8 @@ Popup {
             anchors.centerIn: parent
         }
     }
-    
-    
+
+
     Column {
         spacing: 16
         anchors.verticalCenter: parent.verticalCenter
@@ -49,7 +54,7 @@ Popup {
             width: 758
             height: 72
             radius: 4
-            
+
             LinearGradient {
                 anchors.fill: parent
                 start: Qt.point(0, 10)
@@ -59,7 +64,7 @@ Popup {
                     GradientStop { position: 1.0; color: "#F05A28" }
                 }
             }
-            
+
             Text {
                 anchors.fill: notifrect
                 text: qsTr("Are you sure to remove the products?")
@@ -70,20 +75,20 @@ Popup {
                 color: "white"
             }
         }
-        
+
         Rectangle{
             width: 758
             height: 300
-            
-            
-            
+
+
+
             ListView {
                 id:slideshow
                 width: 758
                 height: 210
                 clip: true
                 spacing: 10
-                model: 10
+                model: obj_logicRemoveProductList.shoppage.removeList
                 orientation: ListView.vertical
                 delegate:Item{
                     width: 758
@@ -92,14 +97,14 @@ Popup {
                         anchors.fill: parent
                         color: "white"
                         Image {
-                            source: "../../Assets/product.png"
+                            source: model.pic
                             x: 41
                             y: 41
                             width: 90
                             height: 90
                         }
                         Text {
-                            text: qsTr("Doritos Tortilla Chips,\nTapatio, 9.75 oz")
+                            text: model.name
                             x: 180
                             y: 40
                             font.pixelSize: 24
@@ -108,27 +113,27 @@ Popup {
                             font.letterSpacing: 0.04 * 24
                             lineHeight: 1.5
                         }
-                        
+
                         Text {
-                            text: qsTr("Qty:")
+                            text: "Qty:"
                             x: 647
                             y: 48
                             font.pixelSize: 20
                             //              font.weight: Font.DemiBold
                             color: "#6D6D6D"
                         }
-                        
+
                         Text {
-                            text: qsTr("4")
+                            text: model.countInBasket
                             x: 695
                             y: 45
                             font.pixelSize: 24
                             font.weight: Font.Bold
                             color: "#F08C5A"
                         }
-                        
+
                         Text {
-                            text: qsTr("$ 8.00")
+                            text: model.finalPrice
                             x: 615
                             y: 102
                             font.pixelSize: 24
