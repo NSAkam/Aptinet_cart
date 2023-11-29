@@ -85,39 +85,38 @@ class ShopPage(QObject):
         #### WeightSensor #########################################
         self._weightSensor = WeightSensorHelper()
         self._weightSensor.stepBasketWeightChangedSignal.connect(self.basketWeightChanged)
-        # self._weightSensor.start()
 
-        # #### Models ###############################################
-        # self._newProduct = Product()
-        # self._factorList = ProductModel()
-        # self._offersList = ProductModel()
-        # self._offersList.insert_productList(self._productRepository.get_offerProducts())
-        # self._offerTopTen = ProductModel()
-        # self._offerTopTen.insert_productList(self._productRepository.get_topOfferProducts())
-        # self._suggestedList = ProductModel()
-        # self._pluList = ProductModel()
-        # self._pluTopFour = ProductModel()
-        # plus = self._productRepository.get_pluProducts()
-        # self._pluList.insert_productList(plus)
-        # if len(plus) > 4:
-        #     self._pluTopFour.insert_productList(plus[:4])
-        # else:
-        #     self._pluTopFour.insert_productList(plus)
-        #
-        # self._bypassList = ProductModel()
-        # self._removeList = ProductModel()
-        #
-        # #### User #################################################
-        # self._user = self._userRepository.create_user()
-        # if self._user.get_id() == -1:
-        #     os.execl(sys.executable, sys.executable, *sys.argv)   # restart app
-        #
-        # #### Insert Timer Thread ##################################
-        # self._canTimerTick = True
-        # self._timerThread = Thread(target=self.timerSlot)
-        # self._timerThread.start()
-        #
-        # ###########################################################
+        #### Models ###############################################
+        self._newProduct = Product()
+        self._factorList = ProductModel()
+        self._offersList = ProductModel()
+        self._offersList.insert_productList(self._productRepository.get_offerProducts())
+        self._offerTopTen = ProductModel()
+        self._offerTopTen.insert_productList(self._productRepository.get_topOfferProducts())
+        self._suggestedList = ProductModel()
+        self._pluList = ProductModel()
+        self._pluTopFour = ProductModel()
+        plus = self._productRepository.get_pluProducts()
+        self._pluList.insert_productList(plus)
+        if len(plus) > 4:
+            self._pluTopFour.insert_productList(plus[:4])
+        else:
+            self._pluTopFour.insert_productList(plus)
+
+        self._bypassList = ProductModel()
+        self._removeList = ProductModel()
+
+        #### User #################################################
+        self._user = self._userRepository.create_user()
+        if self._user.get_id() == -1:
+            os.execl(sys.executable, sys.executable, *sys.argv)   # restart app
+
+        #### Insert Timer Thread ##################################
+        self._canTimerTick = True
+        self._timerThread = Thread(target=self.timerSlot)
+        self._timerThread.start()
+
+        ###########################################################
 
 
     ### Signals ########################################################################################################
