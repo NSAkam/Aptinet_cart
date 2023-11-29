@@ -27,6 +27,7 @@ class ShopPage(QObject):
 
     ####################################################################################################### Settings ###
     _insertProductTime: int = 8  # actual time = n -1
+    _timerOffset: int = 3
     _validInsertedWeightForCalTol: int = 3  # Accept inserted product without checking weight under this limit
     _basketWeightLimit: int = 20000  # grams
     _lightestProductWeight: int = 11  # grams
@@ -62,7 +63,7 @@ class ShopPage(QObject):
     _basketLoad: int = 0
     _stackViewDepth: int
     _basketIsFull: bool = False
-    _inBypass: bool = False
+    _inByPass: bool = False
     _loginFinished: bool = False
     _startProcess: bool = False
     _manualBarcodeEntered: bool = False
@@ -261,7 +262,7 @@ class ShopPage(QObject):
     @Slot()
     def barcodeRead(self):
         self._shouldBarcodeToBeScannToAddProduct = True
-        if not self._inBypass:
+        if not self._inByPass:
             # self.hideOfferListSignal.emit()
             product = self._productRepository.get_product(self._scanner.get_barcode())
 
@@ -272,7 +273,7 @@ class ShopPage(QObject):
                     self.adjust_wightSensorSensitivity(product.meanWeight)
                     self.state = 2
                     self.newProduct = product
-                    self.countDownTimer = self._insertProductTime
+                    self.countDownTimer = self._insertProductTime + self._timerOffset
                     self._suggestedList.insert_productList(self._productRepository.get_suggesstionProducts(product.barcode))
                     self.showNewProductScannedSignal.emit()
 
@@ -605,16 +606,17 @@ class ShopPage(QObject):
             if self.state == 2 or self.state == 1:
                 self.countDownTimer = self.countDownTimer - 1
                 sleep(1)
-            if self.countDownTimer == 3:
+            if self.countDownTimer == self._timerOffset:
                 if self.state == 2:
                     self.closeTopStackViewSignal.emit()
-                    sleep(1)
+                    print("close stack view emit")
+                    # sleep(1)
             if self.countDownTimer == 0:
                 if self.state == 2:
                     self.state = 1
                     # self.clearStackView()
                     # self.closeAllPopUps.emit()
-                    self.turn_offGreenlight()
+                    # self.turn_offGreenlight()
                     self._shouldBarcodeToBeScannToAddProduct = True
                     # self._weighsensor.lightest_weight = self._lightest_weight_for_heavy_weight_product
             if self.countdownTimer == -10:
