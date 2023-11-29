@@ -272,7 +272,7 @@ class ShopPage(QObject):
                     self.newProduct = product
                     print("product to new product")
                     self.countDownTimer = self._insertProductTime
-                    self.suggestedList = self._productRepository.get_suggesstionProducts(product.barcode)
+                    self._suggestedList.insert_productList(self._productRepository.get_suggesstionProducts(product.barcode))
                     print("sugestion list")
                     self.showNewProductScannedSignal.emit()
                     print("signal emit")
