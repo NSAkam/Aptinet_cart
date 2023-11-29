@@ -266,7 +266,7 @@ class ShopPage(QObject):
 
             if self.state == 1:
                 if not self.basketIsFull:
-                    self.adjust_wightSensorSensitivity(product)
+                    self.adjust_wightSensorSensitivity(product.meanWeight)
                     self.state = 2
                     self.newProduct = product
                     self.countDownTimer = self._insertProductTime
