@@ -259,7 +259,7 @@ class ShopPage(QObject):
     def barcodeRead(self):
         self._shouldBarcodeToBeScannToAddProduct = True
         if not self._inBypass:
-            self.hideOfferListSignal.emit()
+            # self.hideOfferListSignal.emit()
             product = self._productRepository.get_product(self._scanner.get_barcode())
 
             self._bypassList.insertProduct(product.copy_product(), 0)
