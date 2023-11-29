@@ -744,9 +744,8 @@ Item {
             slideshow.model = obj_LogicContainerShop.shopPage.suggestedList
         }
         function onCloseTopStackViewSignal(){
-            console.log("testasdasdsds")
-            slideshow.model = obj_LogicContainerShop.shopPage.offersList
             stackviewContainer.pop()
+            slideshow.model = obj_LogicContainerShop.shopPage.offersList
         }
     }
 }
