@@ -679,14 +679,14 @@ class ShopPage(QObject):
             self.closeNewStackViewtHandler.emit()
 
     def turn_onGreenLight(self):
-        greenLight = GreenLight(True)
-        greenLight.finished.connect(greenLight.deleteLater)
-        greenLight.start()
+        self.greenLight = GreenLight(True)
+        self.greenLight.finished.connect(self.greenLight.deleteLater)
+        self.greenLight.start()
 
     def turn_offGreenlight(self):
-        greenLight = GreenLight(False)
-        greenLight.finished.connect(greenLight.deleteLater)
-        greenLight.start()
+        self.greenLight = GreenLight(False)
+        self.greenLight.finished.connect(self.greenLight.deleteLater)
+        self.greenLight.start()
 
     def check_productWeight(self, product: Product):
         if product.meanWeight <= self._lightestWeightForHeavyProduct + self._weightSensor.acceptable_tolerance:
