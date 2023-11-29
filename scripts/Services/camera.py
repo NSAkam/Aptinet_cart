@@ -54,8 +54,8 @@ class CameraWorker(QThread):
     def run(self):
         self._canReadFrame = True
         self._camera1 = cv2.VideoCapture(0)
-        self._camera1.set(cv2.CAP_PROP_FRAME_WIDTH, self.frameWidth)
-        self._camera1.set(cv2.CAP_PROP_FRAME_HEIGHT, self.frameHeight)
+        # self._camera1.set(cv2.CAP_PROP_FRAME_WIDTH, self.frameWidth)
+        # self._camera1.set(cv2.CAP_PROP_FRAME_HEIGHT, self.frameHeight)
         self._camera1.set(cv2.CAP_PROP_FPS, self.fps)
         self._camera2 = cv2.VideoCapture(1)
         self._camera2.set(cv2.CAP_PROP_FRAME_WIDTH, self.frameWidth)
