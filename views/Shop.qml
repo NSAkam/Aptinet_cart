@@ -353,7 +353,7 @@ Item {
                 interval : 1000
                 onTriggered:{
                     parent.counter = !parent.counter
-                    parent.source = "image://KCameraProvider/?id=" + counter
+                    parent.source = "image://KCameraProvider/?id=" + parent.counter
                 }
             }
             function reloadImage() {
