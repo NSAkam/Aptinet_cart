@@ -151,6 +151,7 @@ class ProductModel(QAbstractListModel):
         default[self.TaxRole] = QByteArray(b"tax")
         default[self.DataModelShowRole] = QByteArray(b"dataModelShow")
         default[self.ProductTypeRole] = QByteArray(b"productType")
+        default[self.PicRole] = QByteArray(b"pic")
         return default
 
     # def data(self):
