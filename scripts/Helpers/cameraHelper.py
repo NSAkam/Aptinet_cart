@@ -26,8 +26,9 @@ class CameraHelper(QQuickImageProvider):
         pass
 
     @Slot()
-    def read_frame(self):
-        self._image = self._camera.capturedImage
+    def read_frame(self, image: QImage):
+        # self._image = self._camera.capturedImage
+        self._image = image
 
     def requestImage(self, id, p_str, size):
         return self._image
