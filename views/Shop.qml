@@ -736,16 +736,16 @@ Item {
     Connections{
         target: cameraProvider
         function onNewFrameReadSignal() {
-            if(checkoutPanel.visible === true){
-                img_UserCapturedadsPanel1.reloadImage()
-            }
-            if(adsPanel.visible === true){
-                img_UserCapturedadsPanel.reloadImage()
-            }
+            // if(checkoutPanel.visible === true){
+            //     img_UserCapturedadsPanel1.reloadImage()
+            // }
+            // if(adsPanel.visible === true){
+            //     img_UserCapturedadsPanel.reloadImage()
+            // }
 
-            if(addPlupanel.visible === true){
-                img_UserCaptured.reloadImage()
-            }
+            // if(addPlupanel.visible === true){
+            //     img_UserCaptured.reloadImage()
+            // }
         }
     }
 }
