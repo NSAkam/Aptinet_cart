@@ -1,4 +1,4 @@
-from PySide2.QtCore import QObject, Signal, Property, Slot,QThread
+from PySide2.QtCore import QObject, Signal, Property, Slot
 from Module.hx711 import HX711
 import numpy as np
 from threading import Thread
@@ -7,7 +7,7 @@ from statistics import mean
 
 
 
-class WeighSensorCalibration(QThread):
+class WeighSensorCalibration(QObject):
     _raw_digit = []
     _raw_wight = []
     _offset : float
@@ -43,8 +43,8 @@ class WeighSensorCalibration(QThread):
             self.read_weight_buffer.append(0)
         for i in range(self.noise_reduction_buffer_size):
             self.noise_reduction_buffer.append(0)
-        # thread = Thread(target=self.threaded_function)
-        # thread.start()
+        thread = Thread(target=self.threaded_function)
+        thread.start()
         with open("/home/aptinet/offset.txt", 'r') as f:
             self.setOffset(float(f.readline()))
         self.hx.set_offset(self._offset)
@@ -154,11 +154,11 @@ class WeighSensorCalibration(QThread):
 
     basketAVGweight = Property(int, readAvgweight, setAvgweight, notify=changed)
 
-    def run(self):
+    def threaded_function(self):
         while True:
             self.ReadWeight()
 
-            # sleep(0.01)
+            sleep(0.01)
 
     lastcurrentweightLint =0
     def ReadWeight(self):

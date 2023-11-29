@@ -39,7 +39,6 @@ class SettingPage(QObject):
         self._apiHandler.appVersionRecievedSignal.connect(self.set_lastSoftwareVersion)
         self._updateSoftware = None
         self._weightsensorval = WeighSensorCalibration()
-        self._weightsensorval.start()
 
 
     ### Signals ########################################################################################################

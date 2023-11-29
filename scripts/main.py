@@ -19,11 +19,11 @@ if __name__ == "__main__":
 
 
 
-    # cworker = CameraWorker()
-    # engine.rootContext().setContextProperty("cameraProvider",cworker)
-    # camera = CameraHelper(cworker)
-    # engine.addImageProvider("KCameraProvider", camera)
-    # cworker.start()
+    cworker = CameraWorker()
+    engine.rootContext().setContextProperty("cameraProvider",cworker)
+    camera = CameraHelper(cworker)
+    engine.addImageProvider("KCameraProvider", camera)
+    cworker.start()
 
 
     ctx = engine.rootContext()
