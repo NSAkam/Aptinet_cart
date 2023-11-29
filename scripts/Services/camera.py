@@ -10,7 +10,7 @@ from threading import Thread
 class CameraWorker(QThread):
     frameHeight = 184
     frameWidth = 236
-    fps = 1
+    # fps = 1
 
     _cameraID = []
     _camera1: cv2.VideoCapture
@@ -29,11 +29,11 @@ class CameraWorker(QThread):
         self._camera1 = cv2.VideoCapture(0)
         self._camera1.set(cv2.CAP_PROP_FRAME_WIDTH, self.frameWidth)
         self._camera1.set(cv2.CAP_PROP_GIGA_FRAME_SENS_HEIGH, self.frameHeight)
-        self._camera1.set(cv2.CAP_PROP_FPS, self.fps)
+        # self._camera1.set(cv2.CAP_PROP_FPS, self.fps)
         self._camera2 = cv2.VideoCapture(1)
         self._camera2.set(cv2.CAP_PROP_FRAME_WIDTH, self.frameWidth)
         self._camera2.set(cv2.CAP_PROP_GIGA_FRAME_SENS_HEIGH, self.frameHeight)
-        self._camera2.set(cv2.CAP_PROP_FPS, self.fps)
+        # self._camera2.set(cv2.CAP_PROP_FPS, self.fps)
         self._canReadFrame = False
 
         self._canTimerTick = True
