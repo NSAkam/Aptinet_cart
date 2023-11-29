@@ -158,7 +158,7 @@ class WeighSensorCalibration(QObject):
         while True:
             self.ReadWeight()
 
-            sleep(0.01)
+            # sleep(0.01)
 
     lastcurrentweightLint =0
     def ReadWeight(self):
