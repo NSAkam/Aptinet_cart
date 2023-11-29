@@ -376,9 +376,7 @@ class ShopPage(QObject):
                     else:
                         if (value < self.newProduct.meanWeight + self.newProduct.tolerance) and (value >= (value < self.newProduct.meanWeight - self.newProduct.tolerance)):
                             # insertSound()
-                            if not self._initFactorListFlag:
-                                self.initFactorListSignal.emit()
-                                self._initFactorListFlag = True
+
                             # self.showStartUpShoppingLabelSignal.emit(False)
                             self._factorList.insertProduct(self._newProduct, 1)
                             self._bypassList.insertProduct(self._newProduct, 1)
@@ -394,6 +392,9 @@ class ShopPage(QObject):
                             self.closeTopStackViewSignal.emit()
                             self.countDownTimer = -1
                             self._shouldBarcodeToBeScannToAddProduct = False
+                            if not self._initFactorListFlag:
+                                self.initFactorListSignal.emit()
+                                self._initFactorListFlag = True
 
                         else:
                             self.openPopupWeightNotMatchWithBarcodeSignal.emit()
