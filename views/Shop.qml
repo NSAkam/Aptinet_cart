@@ -16,15 +16,15 @@ Item {
     id: root
     width: 1280
     height: 800
-    
+
     property Logic obj_LogicContainerShop
-    
+
     Component.onCompleted: {
         obj_LogicContainerShop.shopPage.login_finished()
     }
-    
+
     signal addpluitemsClicked()
-    
+
     Util.ViewSettings{
         id:viewset
     }
@@ -36,12 +36,12 @@ Item {
             loader.opacity = 0
         }
     }
-    
+
     Image {
         source: "../Assets/AuthenticationBackground.png"
         anchors.fill: parent
     }
-    
+
     Rectangle{
         width: parent.width
         height: 92
@@ -66,7 +66,7 @@ Item {
                 radius: width /2
             }
             Text {
-                text: qsTr(obj_LogicContainerShop.shopPage.user.loggedInUser.name)
+                text: obj_LogicContainerShop.shopPage.user.loggedInUser.name
                 color: "#6D6D6D"
                 width: 148
                 height: 15
@@ -89,7 +89,7 @@ Item {
                     stackviewContainer.push(addPluItem)
                     adsPanel.visible = false
                     addPlupanel.visible = true
-                    
+
                 }
             }
             KButton{
@@ -105,7 +105,7 @@ Item {
                 ishover: false
                 onClicked: {
                     stackviewContainer.push(manualBarcodeHandler)
-                    
+
                 }
             }
             Image {
@@ -122,15 +122,15 @@ Item {
                 x:1208
                 y:25
             }
-            
+
         }
     }
-    
+
     Item {
         id:main_Panel
         Text {
             id:toaddItem
-            text: qsTr("To add an item,\n scan its barcode or\n tap the button below.")
+            text: "To add an item,\n scan its barcode or\n tap the button below."
             width: 369
             height: 144
             x:261+ 390
@@ -156,7 +156,7 @@ Item {
                 height: 220
             }
             Text {
-                text: qsTr("Loading")
+                text: "Loading"
                 color: "white"
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
@@ -176,9 +176,9 @@ Item {
                 NumberAnimation{duration: 1000}
             }
         }
-        
-        
-        
+
+
+
         KButton{
             id:btn_entermanualBarcode
             text: "+ Enter barcode manually"
@@ -188,12 +188,12 @@ Item {
             height: 62
             borderRadius: 4
             onClicked: {
-                
+
                 stackviewContainer.push(manualBarcodeHandler)
-                
+
             }
         }
-        
+
         StackView
         {
             id:stackviewContainer
@@ -226,14 +226,14 @@ Item {
             }
         }
     }
-    
-    
+
+
     Item{
         id:addPlupanel
         visible: false
         width: 390
         height: parent.height
-        
+
         Rectangle {
             id:rect_Suggestion
             anchors.fill: parent
@@ -253,14 +253,14 @@ Item {
             y:105
             property bool counter: false
             cache: false
-            
+
             function reloadImage() {
                 counter = !counter
                 source = "image://KCameraProvider/?id=" + counter
             }
         }
         Text {
-            text: qsTr("ENTER PLU CODE")
+            text: "ENTER PLU CODE"
             font.pixelSize: 24
             font.bold: true
             x:32
@@ -289,7 +289,7 @@ Item {
                 verticalAlignment:  TextInput.AlignVCenter
                 font.family: viewset.danaFuNumFont
                 property string placeholderText: " "
-                
+
                 onFocusChanged: {
                     numpad.inputtext = txt_PLUBarcodeInput
                 }
@@ -309,7 +309,7 @@ Item {
                     }
                 }
             }
-            
+
         }
         Numpad{
             id:numpad
@@ -318,25 +318,25 @@ Item {
             x:32
         }
     }
-    
+
     Item {
         id: adsPanel
         visible: true
         width: 390
         height: parent.height
-        
+
         Image {
             id:rect_SuggestionadsPanel
             source: "../Assets/leftSideBar.png"
             anchors.fill: parent
-            
+
         }
         Image {
             source: "../Assets/AptinetText1.png"
             x:32
             y:32
         }
-        
+
         Image {
             id: img_UserCapturedadsPanel
             source: "image://KCameraProvider/1"
@@ -346,12 +346,12 @@ Item {
             y:105
             cache: false
             property bool counter: false
-            
-            
+
+
             function reloadImage() {
                 counter = !counter
                 source = "image://KCameraProvider/?id=" + counter
-                
+
             }
         }
         Image {
@@ -363,7 +363,7 @@ Item {
             y:309
         }
         Text {
-            text: qsTr("Special Deals")
+            text: "Special Deals"
             font.pixelSize: 24
             color: "white"
             x:32
@@ -371,7 +371,7 @@ Item {
             font.bold: true
         }
         Text {
-            text: qsTr("more >")
+            text: "more >"
             color: viewset.primaryColor
             x:290
             y:525
@@ -385,8 +385,8 @@ Item {
                         console.log(stackviewContainer.currentItem)
                         stackviewContainer.push(specialdealslist)
                     }
-                    
-                    
+
+
                 }
             }
         }
@@ -396,7 +396,7 @@ Item {
             height: 800 - y
             x:32
             y:571
-            
+
             clip: true
             spacing: 10
             model: obj_LogicContainerShop.shopPage.offersList
@@ -411,17 +411,17 @@ Item {
                     color: "white"
                     opacity: 0.3
                 }
-                
+
                 Rectangle{
                     width: 326
                     height: 144
                     color: "transparent"
-                    
+
                     Rectangle{
                         width: 144
                         height: 144
                         color: "white"
-                        
+
                         Image {
                             source: model.pic
                             width: 106
@@ -430,9 +430,9 @@ Item {
                             anchors.horizontalCenter: parent.horizontalCenter
                         }
                     }
-                    
+
                     Text {
-                        text: qsTr(model.name)
+                        text: model.name
                         width: 134
                         height: 66
                         x:164
@@ -443,7 +443,7 @@ Item {
                     Text {
                         x:164
                         y:98
-                        text: qsTr("$ "+model.price)
+                        text: "$ "+model.price
                         font.pixelSize: 24
                         color:viewset.primaryColor
                         font.bold: true
@@ -451,7 +451,7 @@ Item {
                     Text {
                         x:248
                         y:98
-                        text: qsTr("-9 %")
+                        text: "-9 %"
                         font.pixelSize: 24
                         color: viewset.primaryColor
                         visible: false
@@ -459,14 +459,14 @@ Item {
                 }
             }
         }
-        
+
     }
     Item {
         id: checkoutPanel
         visible: false
         width: 390
         height: parent.height
-        
+
         Rectangle {
             color: "white"
             id:rect_SuggestionadsPanel1
@@ -486,15 +486,15 @@ Item {
             y:105
             property bool counter: false
             cache: false
-            
+
             function reloadImage() {
                 counter = !counter
                 source = "image://KCameraProvider/?id=" + counter
             }
         }
-        
+
         Text {
-            text: qsTr("My Cart")
+            text: "My Cart"
             font.pixelSize: 24
             color: "gray"
             x:32
@@ -509,7 +509,7 @@ Item {
             y:321
             color: viewset.secondaryColor
             Text {
-                text: qsTr("2")
+                text: "2"
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
                 color: "white"
@@ -517,15 +517,15 @@ Item {
                 font.bold: true
             }
         }
-        
-        
+
+
         ListView {
             id:slideshow1
             width: 326
             height: 800 - y
             x:32
             y:360
-            
+
             clip: true
             spacing: 10
             model: obj_LogicContainerShop.shopPage.factorList
@@ -535,7 +535,7 @@ Item {
                 width: 326
                 height: 78
                 Text {
-                    text: qsTr(model.name)
+                    text: model.name
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: 16
                 }
@@ -547,7 +547,7 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: parent.right
                     Text {
-                        text: qsTr(model.countInBasket)
+                        text: model.countInBasket
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
                         color: "white"
@@ -555,19 +555,19 @@ Item {
                 }
             }
         }
-        
+
     }
-    
-    
+
+
     Component{
         id:newProductHandler
         BarcodeScanned{
             obj_LogicContainerBarcodeScanned: obj_LogicContainerShop
-            
+
             onPass: {
                 //stackviewContainer.push(lstProductHandler)
             }
-            
+
             onCancel: {
                 //                if(stackviewContainer.depth == 1)
                 //                {
@@ -580,19 +580,19 @@ Item {
             }
         }
     }
-    
+
     Component{
         id:lstProductHandler
         LstCheckProducts{
             obj_LogicContainerLstCheckProducts: obj_LogicContainerShop
             onGocheckout: {
-                adsPanel.visible = false
-                checkoutPanel.visible = true
-                stackviewContainer.push(checkout)
+//                adsPanel.visible = false
+//                checkoutPanel.visible = true
+//                stackviewContainer.push(checkout)
             }
         }
     }
-    
+
     Component{
         id:manualBarcodeHandler
         ManualBarcode{
@@ -600,7 +600,7 @@ Item {
             onOk: {
                 stackviewContainer.replace(newProductHandler)
             }
-            
+
             onCancle: {
                 if(stackviewContainer.depth == 1)
                 {
@@ -610,7 +610,7 @@ Item {
                 {
                     stackviewContainer.pop()
                 }
-                
+
             }
         }
     }
@@ -621,7 +621,7 @@ Item {
             onSeeAll: {
                 stackviewContainer.push(plulist)
             }
-            
+
             onBack: {
                 adsPanel.visible = true
                 addPlupanel.visible = false
@@ -633,39 +633,39 @@ Item {
                 {
                     stackviewContainer.pop()
                 }
-                
+
             }
         }
     }
-    
+
     Component{
         id:addPluItemview
         AddPluItemsView{
             obj_LogicContainerAddPluItemsView: obj_LogicContainerShop
             onConfirm:
             {
-                adsPanel.visible = true
-                addPlupanel.visible = false
-                stackviewContainer.replace(lstProductHandler)
+//                adsPanel.visible = true
+//                addPlupanel.visible = false
+//                stackviewContainer.replace(lstProductHandler)
             }
-            
+
             onCancel:
             {
-                adsPanel.visible = true
-                addPlupanel.visible = false
-                if(stackviewContainer.depth == 1)
-                {
-                    stackviewContainer.clear()
-                }
-                else
-                {
-                    stackviewContainer.pop()
-                }
+//                adsPanel.visible = true
+//                addPlupanel.visible = false
+//                if(stackviewContainer.depth == 1)
+//                {
+//                    stackviewContainer.clear()
+//                }
+//                else
+//                {
+//                    stackviewContainer.pop()
+//                }
             }
-            
+
         }
     }
-    
+
     Component {
         id: checkout
         Checkoutpage {
@@ -673,7 +673,7 @@ Item {
             onNfcPaymentClicked: {
                 stackview.push(nfcpayment)
             }
-            
+
             onBack: {
                 adsPanel.visible = true
                 checkoutPanel.visible = false
@@ -681,16 +681,16 @@ Item {
             }
         }
     }
-    
+
     Component {
         id: nfcpayment
         PaymentviaNFC {
             obj_LogicContainerPaymentNFC: obj_LogicContainerShop
-            
+
         }
     }
-    
-    
+
+
     Component{
         id: plulist
         PLUListItems {
@@ -700,11 +700,19 @@ Item {
             }
         }
     }
-    
+
     RemoveProductPopUp{
         id:popUp_RemoveProducts
+        obj_logicRemoveProductList: obj_LogicContainerShop
     }
-    
+
+    BypassPopUp{
+        id:bypassPopUp
+        obj_logicByPassPopup: obj_LogicContainerShop
+    }
+
+
+
     Component{
         id: specialdealslist
         LstSpecialDeals {
@@ -721,7 +729,7 @@ Item {
             }
         }
     }
-    
+
     Connections{
         target: cameraProvider
         function onNewFrameReadSignal() {
@@ -731,7 +739,7 @@ Item {
             if(adsPanel.visible === true){
                 img_UserCapturedadsPanel.reloadImage()
             }
-            
+
             if(addPlupanel.visible === true){
                 img_UserCaptured.reloadImage()
             }

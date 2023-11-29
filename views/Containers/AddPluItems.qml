@@ -14,7 +14,7 @@ Item {
     signal seeAll()
 
     Text {
-        text: qsTr("Search Results")
+        text: "Search Results"
         x:32
         y:40
         font.pixelSize: 24
@@ -38,7 +38,7 @@ Item {
             font.pixelSize: 24
             font.bold: true
             color: "#D9D9D9"
-            text: qsTr("#0000")
+            text: "#0000"
         }
         Text {
             x:204
@@ -46,7 +46,7 @@ Item {
             font.pixelSize: 24
             font.bold: true
             color: "#D9D9D9"
-            text: qsTr("Name")
+            text: "Name"
         }
         Text {
             x:204
@@ -54,7 +54,7 @@ Item {
             font.pixelSize: 24
             font.bold: true
             color: "#D9D9D9"
-            text: qsTr("$ 0.0 /kg")
+            text: "$ 0.0 /kg"
         }
     }
     Rectangle{
@@ -64,7 +64,7 @@ Item {
         y:359
         radius: 4
         Text {
-            text: qsTr("How to add PLU items")
+            text: "How to add PLU items"
             anchors.horizontalCenter:  parent.horizontalCenter
             y:35
             font.pixelSize: 24
@@ -78,7 +78,7 @@ Item {
     }
 
     Text {
-        text: qsTr("Recomended")
+        text: "Recomended"
         x:462
         y:40
         font.pixelSize: 24
@@ -119,7 +119,7 @@ Item {
                 }
 
                 Text {
-                    text: qsTr("# "+model.barcode)
+                    text: "# "+model.barcode
                     x: 16
                     y: 144
                     font.pixelSize: 16
@@ -127,7 +127,7 @@ Item {
                     lineHeight: Font.Normal
                 }
                 Text {
-                    text: qsTr(model.name)
+                    text: model.name
                     x: 16
                     y: 173
                     font.pixelSize: 24
@@ -136,7 +136,7 @@ Item {
                 }
 
                 Text {
-                    text: qsTr("$ "+model.finalPrice+"/kg")
+                    text: "$ "+model.finalPrice+"/kg"
                     x: 16
                     y: 211
                     font.pixelSize: 20
@@ -154,7 +154,7 @@ Item {
         x:741
         y:640
         Text {
-            text: qsTr("See All >")
+            text: "See All >"
             font.pixelSize: 24
             MouseArea{
                 anchors.fill: parent
@@ -169,7 +169,7 @@ Item {
         x:32
         y:640
         Text {
-            text: qsTr("< Back")
+            text: "< Back"
             font.pixelSize: 24
 
             MouseArea{

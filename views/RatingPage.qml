@@ -14,7 +14,7 @@ Item {
 
 
     Text {
-        text: qsTr("How would you rate your shopping experience?")
+        text: "How would you rate your shopping experience?"
         font.pixelSize: 24
         horizontalAlignment: Text.AlignHCenter
         x: -55

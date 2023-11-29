@@ -10,10 +10,10 @@ Item {
     signal continueClicked()
 
     property Logic obj_LogicContainerEnterEmail
-    
+
 
     Text {
-        text: qsTr("Please enter your Email or\n Phone Number to get a receipt")
+        text: "Please enter your Email or\n Phone Number to get a receipt"
         font.pixelSize: 24
         font.bold: true
         horizontalAlignment: Text.AlignHCenter
@@ -30,7 +30,7 @@ Item {
         color: "white"
 
         Text {
-            text: qsTr("Email / Phone Number")
+            text: "Email / Phone Number"
             color: "#BDBDBD"
             font.pixelSize: 20
             x: 24

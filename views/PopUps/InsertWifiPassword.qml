@@ -37,13 +37,13 @@ Popup {
             color: "white"
 
             Text {
-                text: qsTr("Enter the Password for “ WifiName-2 ”")
+                text: "Enter the Password for “ WifiName ”"
                 anchors.horizontalCenter: parent.horizontalCenter
                 y:24
                 font.pixelSize: 16
             }
             Text {
-                text: qsTr("enter Password")
+                text: "enter Password"
                 font.pixelSize: 24
                 font.bold: true
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -51,7 +51,7 @@ Popup {
             }
 
             Text {
-                text: qsTr("Cancel")
+                text: "Cancel"
                 y:64
                 x:32
                 font.pixelSize: 24
@@ -64,7 +64,7 @@ Popup {
                 }
             }
             Text {
-                text: qsTr("Join")
+                text: "Join"
                 color: viewset.secondaryColor
                 font.pixelSize: 24
                 x:641

@@ -57,7 +57,7 @@ Popup {
         height: 40
 
         Text {
-            text: qsTr("+  Enter Barcode")
+            text: "+  Enter Barcode"
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
             font.pixelSize: 16
@@ -85,7 +85,7 @@ Popup {
 
         Text {
             id: notiftext
-            text: qsTr("Please put the product you scanned into the cart!")
+            text: "Please put the product you scanned into the cart!"
             anchors.horizontalCenter: parent.horizontalCenter
             horizontalAlignment: Text.AlignHCenter
             y: 168

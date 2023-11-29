@@ -104,7 +104,7 @@ Item {
         }
         Text {
             id: txt_1
-            text: qsTr("Make sure the cart is empty.")
+            text: "Make sure the cart is empty."
             anchors.verticalCenter: rect1.verticalCenter
             anchors.horizontalCenter: rect1.horizontalCenter
             font.pixelSize: 32
@@ -145,7 +145,7 @@ Item {
         }
         Text {
             id: txt_2
-            text: qsTr("Don’t move the cart when add or remove products.")
+            text: "Don’t move the cart when add or remove products."
             anchors.verticalCenter: rect2.verticalCenter
             anchors.horizontalCenter: rect2.horizontalCenter
             font.pixelSize: 32
@@ -184,7 +184,7 @@ Item {
         }
         Text {
             id: txt_3
-            text: qsTr("Add or remove products one by one.")
+            text: "Add or remove products one by one."
             anchors.verticalCenter: rect3.verticalCenter
             anchors.horizontalCenter: rect3.horizontalCenter
             font.pixelSize: 32
@@ -197,7 +197,7 @@ Item {
 
     Text {
         id: nextbutton
-        text: qsTr("I got it >")
+        text: "I got it >"
         color: viewset.secondaryColor
         font.pixelSize: 24
         opacity: 0

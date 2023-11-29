@@ -23,7 +23,7 @@ Item {
         y: 94
         flow: GridView.FlowTopToBottom
         Text {
-            text: qsTr("PLU Items")
+            text: "PLU Items"
             color: "#6D6D6D"
             font.pixelSize: 24
             lineHeight: Font.Normal
@@ -52,7 +52,7 @@ Item {
                 }
 
                 Text {
-                    text: qsTr("# "+model.barcode)
+                    text: "# "+model.barcode
                     x: 16
                     y: 144
                     font.pixelSize: 16
@@ -60,7 +60,7 @@ Item {
                     lineHeight: Font.Normal
                 }
                 Text {
-                    text: qsTr(model.name)
+                    text: model.name
                     x: 16
                     y: 173
                     font.pixelSize: 24
@@ -69,7 +69,7 @@ Item {
                 }
 
                 Text {
-                    text: qsTr("$ "+model.finalPrice+"/kg")
+                    text: "$ "+model.finalPrice+"/kg"
                     x: 16
                     y: 211
                     font.pixelSize: 20
@@ -89,7 +89,7 @@ Item {
         x:32
         y:640
         Text {
-            text: qsTr("< Back")
+            text: "< Back"
             font.pixelSize: 24
 
             MouseArea{

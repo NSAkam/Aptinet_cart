@@ -10,9 +10,9 @@ Item {
     ViewSettings{
         id:viewset
     }
-    
+
     property Logic obj_LogicContainerManualBarcode
-    
+
     signal cancle();
     signal ok();
     property bool showlastproduct: false

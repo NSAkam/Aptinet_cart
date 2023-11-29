@@ -49,7 +49,7 @@ Popup {
         height: 40
 
         Text {
-            text: qsTr("+  Enter Barcode")
+            text: "+  Enter Barcode"
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
             font.pixelSize: 16
@@ -77,7 +77,7 @@ Popup {
 
         Text {
             id: notiftext
-            text: qsTr(root.message)
+            text: root.message
             anchors.horizontalCenter: parent.horizontalCenter
             horizontalAlignment: Text.AlignHCenter
             y: 168

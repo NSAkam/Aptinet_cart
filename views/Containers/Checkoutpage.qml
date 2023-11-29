@@ -24,7 +24,7 @@ Item {
 
         Text {
             id: cart_subtotal_text
-            text: qsTr("Cart Subtotal")
+            text: "Cart Subtotal"
             font.pixelSize: 20
             color: "#6D6D6D"
             x: 48
@@ -44,7 +44,7 @@ Item {
 
         Text {
             id: taxtext
-            text: qsTr("Tax")
+            text: "Tax"
             font.pixelSize: 20
             color: "#6D6D6D"
             x: 48
@@ -64,7 +64,7 @@ Item {
 
         Text {
             id: savingstext
-            text: qsTr("Savings")
+            text: "Savings"
             font.pixelSize: 20
             color: "#6D6D6D"
             x: 48
@@ -84,7 +84,7 @@ Item {
 
         Text {
             id: cartsubtotalvalue
-            text: qsTr("$ 90.72")
+            text: "$ 90.72"
             font.pixelSize: 24
             color: viewset.primaryColor
             x: 495
@@ -94,7 +94,7 @@ Item {
 
         Text {
             id: taxvalue
-            text: qsTr("$ 0.00")
+            text: "$ 0.00"
             font.pixelSize: 24
             color: viewset.primaryColor
             x: 510
@@ -104,7 +104,7 @@ Item {
 
         Text {
             id: savingsvalue
-            text: qsTr("$ 22.00")
+            text: "$ 22.00"
             font.pixelSize: 24
             color: viewset.primaryColor
             x: 495
@@ -172,7 +172,7 @@ Item {
 
         Text {
             id: totaltext
-            text: qsTr("Total")
+            text: "Total"
             font.pixelSize: 20
             color: "#6D6D6D"
             x: 48
@@ -192,7 +192,7 @@ Item {
 
         Text {
             id: totalvalue
-            text: qsTr("$ 68.72")
+            text: "$ 68.72"
             font.pixelSize: 32
             color: viewset.secondaryColor
             x: 466
