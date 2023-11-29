@@ -680,12 +680,12 @@ class ShopPage(QObject):
 
     def turn_onGreenLight(self):
         greenLight = GreenLight(True)
-        greenLight.finished.connect(self._greenLightWorkerThread.deleteLater)
+        greenLight.finished.connect(greenLight.deleteLater)
         greenLight.start()
 
     def turn_offGreenlight(self):
         greenLight = GreenLight(False)
-        greenLight.finished.connect(self._greenLightWorkerThread.deleteLater)
+        greenLight.finished.connect(greenLight.deleteLater)
         greenLight.start()
 
     def check_productWeight(self, product: Product):
