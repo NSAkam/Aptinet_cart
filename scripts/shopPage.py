@@ -82,11 +82,11 @@ class ShopPage(QObject):
         self._scanner.loyaltyCardBarcodeReadSignal.connect(self.read_loyaltyCardBarcode)
         self._scanner.start()
 
-        # #### WeightSensor #########################################
-        # self._weightSensor = WeightSensorHelper()
-        # self._weightSensor.stepBasketWeightChangedSignal.connect(self.basketWeightChanged)
-        # self._weightSensor.start()
-        #
+        #### WeightSensor #########################################
+        self._weightSensor = WeightSensorHelper()
+        self._weightSensor.stepBasketWeightChangedSignal.connect(self.basketWeightChanged)
+        self._weightSensor.start()
+
         # #### Models ###############################################
         # self._newProduct = Product()
         # self._factorList = ProductModel()
