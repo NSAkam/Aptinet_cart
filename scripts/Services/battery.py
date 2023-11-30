@@ -49,7 +49,7 @@ class BatteryWorker(QThread):
             self._level = 100
         else:
             self._level = v
-        self.newLevelSignal.emit(self._level)
+        self.newLevelSignal.emit(int(self._level))
 
     def run(self):
         try:
