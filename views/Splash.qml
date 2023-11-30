@@ -1,13 +1,15 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
+import QtQuick.Window 2.0
 import "Components"
 import "Utiles" as Util
 import "Setting"
+import "PopUps"
 import KAST.Logic 1.0
 
 
-Item {
+Window {
 
     width: 1280
     height: 800
@@ -249,8 +251,18 @@ Item {
         radius: 50
         x:1148
         y:32
+        Timer{
+            running: true
+            repeat: true
+            interval: 1000
+            onTriggered: {
+               txt_time.text =  new Date().getHours() + ":" + new Date().getMinutes()
+            }
+        }
         Text {
-            text: qsTr("12:36")
+            id:txt_time
+            text: new Date().getHours() + ":" + new Date().getMinutes()
+
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
             font.pixelSize: 24
