@@ -517,6 +517,7 @@ class ShopPage(QObject):
                     if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 < self._basketWeightShouldBe + self._basketWeightTolerance:
                         self._basketWeightShouldBe = val2
                         self.closePopupWeightNotMatchWithBarcodeSignal.emit()
+                        self.closeTopStackViewSignal.emit()
                         self.state = 1
 
                 elif self.state == 4:
