@@ -140,7 +140,6 @@ class ShopPage(QObject):
     changedSignal = Signal()
     successfulLoginSignal = Signal()
     closeAllPopUpSignal = Signal()
-    clodePopUpMessageTimer = Signal()
     hideOfferListSignal = Signal()
     visibleProductListDeleteSignal = Signal()
 
@@ -148,6 +147,8 @@ class ShopPage(QObject):
     initFactorListSignal = Signal()
 
     openPopupMessageTimerSignal = Signal(str)
+    clodePopUpMessageTimer = Signal()
+
 
     openPopupMessageSignal = Signal(str)
     closePopupMessageSignal = Signal()
@@ -322,7 +323,7 @@ class ShopPage(QObject):
                     pass
                 self._trustUser = False
                 if len(self._removeList.m_data) == 1:
-                    self.visibleProductListDeleteSignal.emit()
+                    self.openPopupDeleteProductSignal.emit()
 
     @Slot()
     def basketWeightChanged(self, val2: int, val1: int):
