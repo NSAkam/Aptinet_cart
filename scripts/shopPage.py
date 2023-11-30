@@ -60,6 +60,7 @@ class ShopPage(QObject):
     _countDownTimer: int = -60
     _startWeight: int = 0
     _basketWeightShouldBe: int = 0
+    _basketWeightRemoveProcces: int = 0
     _basketLoad: int = 0
     _stackViewDepth: int
     _basketIsFull: bool = False
@@ -146,6 +147,10 @@ class ShopPage(QObject):
     # showStartUpShoppingLabelSignal = Signal(bool)
     initFactorListSignal = Signal()
 
+    openPopupMessageTimerSignal = Signal(str)
+
+    openPopupMessageSignal = Signal(str)
+    closePopupMessageSignal = Signal()
 
     showNewProductScannedSignal = Signal()   # pop up new product scanned
     # closeNewProductScannedSignal = Signal()
@@ -156,6 +161,14 @@ class ShopPage(QObject):
     openPopupWeightNotMatchWithBarcodeSignal = Signal()   # pop up weight not match with scanned barcode
     closePopupWeightNotMatchWithBarcodeSignal = Signal()
 
+    openPopupNoBarcodeScannedSignal = Signal()
+    closePopupNoBarcodeScannedSignal = Signal()    # add product to basket with out scanning barcode
+
+    openPopupDeleteProductSignal = Signal()   # remove product from basket
+    closePopupDeleteProductSignal = Signal()
+
+    openPopUpMessageNotAllowedChangeWeightSignal = Signal()   # change weifgt at the end of shopping
+    closePopUpMessageNotAllowedChangeWeightSignal = Signal()
     ##################################################################################################### Properties ###
     def get_state(self):
         return self._state
@@ -334,7 +347,7 @@ class ShopPage(QObject):
 
                         else:
                             self._shouldBarcodeToBeScannToAddProduct = True
-                            self.openPopupNoBarcodeScanned.emit()
+                            self.openPopupNoBarcodeScannedSignal.emit()
                             if abs(value) > 20:
                                 # notifSound()
                                 pass
@@ -342,8 +355,8 @@ class ShopPage(QObject):
                             self.setState(4)
 
                     else:
-                        self.openPopupNoBarcodeScanned.emit()
-                        if (abs(value) > 20):
+                        self.openPopupNoBarcodeScannedSignal.emit()
+                        if abs(value) > 20:
                             # notifSound()
                             pass
                         self._basketWeightShouldBe = val1
@@ -352,8 +365,6 @@ class ShopPage(QObject):
                 elif self.state == 2:
                     if self.newProduct.insertedWeight < self._validInsertedWeightForCalTol:
                         # insertSound()
-
-                        # self.showStartUpShoppingLabelSignal.emit(False)
                         self._factorList.insertProduct(self.newProduct, 1)
                         self._bypassList.insertProduct(self.newProduct.copy_product(), 1)
 
@@ -411,75 +422,75 @@ class ShopPage(QObject):
                         pass   # "لطفا کالایی که بدون اسکن کردن در سبد قرار داده اید را از آن خارج کنید."
                         # notifSound()
 
-            #     elif self.state == 4:
-            #         if self._basketWeightShouldBe - self._basketweightTolerance <= val2 <= self._basketWeightShouldBe + self._basketweightTolerance:
-            #             self._basketWeightShouldBe = val2
-            #             self.closePopupNoBarcodeScanned.emit()
-            #             self.setState(1)
-            #         elif self._basketWeightShouldBe + self._basketweightTolerance <= val2:
-            #             self.openPopupMessageTimer.emit(
-            #                 "لطفا کالایی که بدون اسکن کردن در سبد قرار داده اید را از سبد خارج کرده و مجددا اقدام به اضافه کردن یک به یک آن ها کنید.")
-            #             notifSound()
-            #             # if not self.lwire.isRunning():
-            #             #     self.lwire = L_Wire("error")
-            #             #     self.lwire.start()
-            #             self.l_wire(3)
-            #
-            #     elif self.state == 5:
-            #         if self._basketWeightShouldBe - self._basketweightTolerance <= val2 <= self._basketWeightShouldBe + self._basketweightTolerance:
-            #             self._basketWeightShouldBe = val2
-            #             self.closePopupDeleteProduct.emit()
-            #             self.setState(1)
-            #             self._maybeDeletedProducts.clearData()
-            #             self._trustUser = False
-            #         else:
-            #             self.openPopupMessage.emit(
-            #                 "لطفا کالایی که در سبد قرار داده اید را برداشته و فرآیند حذف را کامل کنید. سپس اقدام به اضافه کردن کالای مورد نظر کنید")
-            #             notifSound()
-            #             self.setState(6)
-            #             # if not self.lwire.isRunning():
-            #             #     self.lwire = L_Wire("error")
-            #             #     self.lwire.start()
-            #             self.l_wire(3)
-            #             self._basketweightRemoveProcces = val1
-            #
-            #     elif self.state == 6:
-            #         if self._basketWeightShouldBe - self._basketweightTolerance <= val2 <= self._basketWeightShouldBe + self._basketweightTolerance:
-            #             self._basketWeightShouldBe = val2
-            #             self.setState(1)
-            #             self.closePopupMessage.emit()
-            #             self.closePopupDeleteProduct.emit()
-            #         elif self._basketweightRemoveProcces - self._basketweightTolerance <= val2 <= self._basketweightRemoveProcces + self._basketweightTolerance:
-            #             self._basketweightRemoveProcces = val2
-            #             self.setState(5)
-            #             self.closePopupMessage.emit()
-            #
-            #     elif self.state == 7:
-            #         if self._basketweightRemoveProcces - self._basketweightTolerance <= val2 <= self._basketweightRemoveProcces + self._basketweightTolerance:
-            #             self._basketweightRemoveProcces = val2
-            #             self.setState(5)
-            #             self.closePopupMessage.emit()
-            #         elif self._basketWeightShouldBe - self._basketweightTolerance <= val2 <= self._basketWeightShouldBe + self._basketweightTolerance:
-            #             self._basketWeightShouldBe = val2
-            #             self.setState(1)
-            #             self.closePopupMessage.emit()
-            #             self.closePopupDeleteProduct.emit()
-            #             self._maybeDeletedProducts.clearData()
-            #             self._trustUser = False
-            #
-            #     elif self.state == 8:
+                elif self.state == 4:
+                    if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
+                        self._basketWeightShouldBe = val2
+                        self.closePopupNoBarcodeScannedSignal.emit()
+                        self.setState(1)
+                    elif self._basketWeightShouldBe + self._basketWeightTolerance <= val2:
+                        self.openPopupMessageTimerSignal.emit("لطفا کالایی که بدون اسکن کردن در سبد قرار داده اید را از سبد خارج کرده و مجددا اقدام به اضافه کردن یک به یک آن ها کنید.")
+                        # notifSound()
+
+                elif self.state == 5:
+                    if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
+                        self._basketWeightShouldBe = val2
+                        self.closePopupDeleteProductSignal.emit()
+                        self.setState(1)
+                        self._removeList.clearData()
+                        self._trustUser = False
+                    else:
+                        self.openPopupMessageSignal.emit("لطفا کالایی که در سبد قرار داده اید را برداشته و فرآیند حذف را کامل کنید. سپس اقدام به اضافه کردن کالای مورد نظر کنید")
+                        # notifSound()
+                        self.state = 6
+                        self._basketWeightRemoveProcces = val1
+
+                elif self.state == 6:
+                    if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
+                        self._basketWeightShouldBe = val2
+                        self.state = 1
+                        self.closePopupMessageSignal.emit()
+                        self.closePopupDeleteProductSignal.emit()
+                    elif self._basketWeightRemoveProcces - self._basketWeightTolerance <= val2 <= self._basketWeightRemoveProcces + self._basketWeightTolerance:
+                        self._basketWeightRemoveProcces = val2
+                        self.state = 5
+                        self.closePopupMessageSignal.emit()
+
+                elif self.state == 7:
+                    if self._basketWeightRemoveProcces - self._basketWeightTolerance <= val2 <= self._basketWeightRemoveProcces + self._basketWeightTolerance:
+                        self._basketWeightRemoveProcces = val2
+                        self.state = 5
+                        self.closePopupMessageSignal.emit()
+                    elif self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
+                        self._basketWeightShouldBe = val2
+                        self.setState(1)
+                        self.closePopupMessageSignal.emit()
+                        self.closePopupDeleteProductSignal.emit()
+                        self._removeList.clearData()
+                        self._trustUser = False
+
+                elif self.state == 8:
+                    if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
+                        self._basketWeightShouldBe = val2
+                        self.setState(1)
+                    else:
+                        self.state = 9
+                        self._basketWeightShouldBe = val1
+                        self.openPopUpMessageNotAllowedChangeWeightSignal.emit()
+
             #         if not self._paymentCartScanned:
             #             if abs(val2 - self._basketWeightShouldBe) >= 100:
             #                 self.setState(9)
             #                 self.openPopUpMessageNotAllowedChangeWeight.emit()
             #                 notifSound()
             #                 self._basketWeightShouldBe = val1
+
+                elif self.state == 9:
+                    if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
+                        self._basketWeightShouldBe = val2
+                        self.setState(1)
+                        self.closePopupWeightNotMatchWithBarcodeSignal.emit()
             #
-            #     elif self.state == 9:
-            #         # if abs(value) >= 30:
-            #         # if not self._paymentCartScanned:
-            #
-            #         if self._basketWeightShouldBe - self._basketweightTolerance <= val2 <= self._basketWeightShouldBe + self._basketweightTolerance:
+            #         if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
             #             self._basketWeightShouldBe = val2
             #             self.closePopUpMessageNotAllowedChangeWeight.emit()
             #             if self._successfulPayment:
@@ -498,7 +509,7 @@ class ShopPage(QObject):
             #
             #     elif self.state == 11:
             #         # if abs(value) >= 30:
-            #         #     if self._basketweightShouldBe - self._basketweightTolerance <= val2 <= self._basketweightShouldBe + self._basketweightTolerance:
+            #         #     if self._basketweightShouldBe - self._basketWeightTolerance <= val2 <= self._basketweightShouldBe + self._basketWeightTolerance:
             #         #         self.setState(10)
             #         #         self._basketweightShouldBe = val2
             #         #         self.closePopUpMessageNotAllowedToAddProduct.emit()
@@ -508,94 +519,79 @@ class ShopPage(QObject):
             # # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> REMOVE WEIGHT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
             # # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
             #
-            # if val2 < val1:
-            #     if len(self._historyList) == 2:
-            #         if self._historyList[1] - self._basketweightTolerance <= abs(value) <= self._historyList[
-            #                 1] + self._basketweightTolerance:
-            #             self._historyList.append(val2 - val1)
-            #         else:
-            #             self._historyList = []
-            #     else:
-            #         self._historyList = []
-            #
-            #     if self.state == 1:
-            #         self._maybeDeletedProducts.validBarcodeSetForRemove(
-            #             self.getProductModel().m_data, abs(value))
-            #         if not len(self._maybeDeletedProducts.m_validBarcodeSetForDelete) == 0:
-            #             self.openPopupDeleteProduct.emit()
-            #             notifSound2()
-            #             self._basketWeightShouldBe = val1
-            #             self.setState(5)
-            #
-            #     elif self.state == 2:
-            #         # waiting time = # * 0.010(s)
-            #         self._maybeDeletedProducts.validBarcodeSetForRemove(
-            #             self.getProductModel().m_data, abs(value))
-            #         self.openPopupDeleteProduct.emit()
-            #         notifSound2()
-            #         self._basketWeightShouldBe = val1
-            #         self.countDownTimer = -20
-            #         # self.setNewProductsVisibleHandler(False)
-            #         self.closeNewStackViewtHandler.emit()
-            #         self.setState(5)
-            #
-            #     elif self.state == 3:
-            #         if self._basketWeightShouldBe - self._basketweightTolerance <= val2 < self._basketWeightShouldBe + self._basketweightTolerance:
-            #             self._basketWeightShouldBe = val2
-            #             self.closePopupNotbarcodedProduct.emit()
-            #             if len(self._historyList) == 3:
-            #                 self.setState(1)
-            #             else:
-            #                 self.setState(2)
-            #
-            #     elif self.state == 4:
-            #         if self._basketWeightShouldBe - self._basketweightTolerance <= val2 <= self._basketWeightShouldBe + self._basketweightTolerance:
-            #             self._basketWeightShouldBe = val2
-            #             self.closePopupNoBarcodeScanned.emit()
-            #             self.setState(1)
-            #
-            #     elif self.state == 5:
-            #         self.openPopupMessage.emit(
-            #             "لطفا کالایی که از سبد برداشته اید در سبد قرار دهید و پس از اتمام فرآید حذف کالای قبلی مجددا اقدام به حذف آن کالا کنید")
-            #         notifSound()
-            #         self.setState(7)
-            #         # if not self.lwire.isRunning():
-            #         #     self.lwire = L_Wire("error")
-            #         #     self.lwire.start()
-            #         self.l_wire(3)
-            #         self._basketweightRemoveProcces = val1
-            #
-            #     elif self.state == 6:
-            #         if self._basketweightRemoveProcces - self._basketweightTolerance <= val2 <= self._basketweightRemoveProcces + self._basketweightTolerance:
-            #             self._basketweightRemoveProcces = val2
-            #             self.setState(5)
-            #             self.closePopupMessage.emit()
-            #
-            #     elif self.state == 7:
-            #         if self._basketWeightShouldBe - self._basketweightTolerance <= val2 <= self._basketWeightShouldBe + self._basketweightTolerance:
-            #             self._basketWeightShouldBe = val2
-            #             self.setState(1)
-            #
-            #     elif self.state == 8:
-            #         # if not self._paymentCartScanned:
-            #         #     if abs(value) >= 100:
-            #         #         self.setState(9)
-            #         #         self.openPopUpMessageNotAllowedChangeWeight.emit()
-            #         #         notifSound()
-            #         #         self._basketweightShouldBe = val1
-            #         pass
-            #
-            #     elif self.state == 9:
-            #         # if abs(value) >= 30:
-            #         if self._basketWeightShouldBe - self._basketweightTolerance <= val2 <= self._basketWeightShouldBe + self._basketweightTolerance:
-            #             self._basketWeightShouldBe = val2
-            #             self.closePopUpMessageNotAllowedChangeWeight.emit()
-            #             if self._successfulPayment:
-            #                 self.setState(10)
-            #                 self.showAfterPayment.emit()
-            #             else:
-            #                 self.setState(8)
-            #
+            if val2 < val1:
+                if self.state == 1:
+                    self._removeList.validBarcodeSetForRemove(self._factorList.m_data, abs(value))
+                    if not len(self._maybeDeletedProducts.m_validBarcodeSetForDelete) == 0:
+                        self.openPopupDeleteProductSignal.emit()
+                        # notifSound2()
+                        self._basketWeightShouldBe = val1
+                        self.state = 5
+
+                elif self.state == 2:
+                    self._removeList.validBarcodeSetForRemove(self._factorList.m_data, abs(value))
+                    self.openPopupDeleteProductSignal.emit()
+                    # notifSound2()
+                    self._basketWeightShouldBe = val1
+                    self.countDownTimer = -20
+                    self.closeTopStackViewSignal.emit()
+                    self.state = 5
+
+                elif self.state == 3:
+                    if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 < self._basketWeightShouldBe + self._basketWeightTolerance:
+                        self._basketWeightShouldBe = val2
+                        self.openPopupNoBarcodeScannedSignal.emit()
+                        self.state = 1
+
+                elif self.state == 4:
+                    if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
+                        self._basketWeightShouldBe = val2
+                        self.closePopupNoBarcodeScannedSignal.emit()
+                        self.state = 1
+
+                elif self.state == 5:
+                    self.openPopupMessageSignal.emit("لطفا کالایی که از سبد برداشته اید در سبد قرار دهید و پس از اتمام فرآید حذف کالای قبلی مجددا اقدام به حذف آن کالا کنید")
+                    # notifSound()
+                    self.state = 7
+                    self._basketWeightRemoveProcces = val1
+
+                elif self.state == 6:
+                    if self._basketWeightRemoveProcces - self._basketWeightTolerance <= val2 <= self._basketWeightRemoveProcces + self._basketWeightTolerance:
+                        self._basketWeightRemoveProcces = val2
+                        self.state = 5
+                        self.closePopupMessageSignal.emit()
+
+                elif self.state == 7:
+                    if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
+                        self._basketWeightShouldBe = val2
+                        self.state = 1
+
+                elif self.state == 8:
+                    self.state = 9
+                    self.openPopUpMessageNotAllowedChangeWeightSignal.emit()
+                    # notifSound()
+                    self._basketWeightShouldBe = val1
+
+                    # if not self._paymentCartScanned:
+                    #     if abs(value) >= 100:
+                    #         self.setState(9)
+                    #         self.openPopUpMessageNotAllowedChangeWeight.emit()
+                    #         notifSound()
+                    #         self._basketweightShouldBe = val1
+
+
+                elif self.state == 9:
+                    # if abs(value) >= 30:
+                    if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
+                        self._basketWeightShouldBe = val2
+                        self.closePopUpMessageNotAllowedChangeWeightSignal.emit()
+                        self.state = 8
+                        # if self._successfulPayment:
+                        #     self.setState(10)
+                        #     self.showAfterPayment.emit()
+                        # else:
+                        #     self.setState(8)
+
             #     elif self.state == 10:
             #         # if abs(val2 - val1) >= 50:
             #         #     self.setState(11)
@@ -607,7 +603,7 @@ class ShopPage(QObject):
             #
             #     elif self.state == 11:
             #         # if abs(val2 - val1) >= 30:
-            #         #     if self._basketweightShouldBe - self._basketweightTolerance <= val2 <= self._basketweightShouldBe + self._basketweightTolerance:
+            #         #     if self._basketweightShouldBe - self._basketWeightTolerance <= val2 <= self._basketweightShouldBe + self._basketWeightTolerance:
             #         #         self.setState(10)
             #         #         self._basketweightShouldBe = val2
             #         #         self.closePopUpMessageNotAllowedToAddProduct.emit()
