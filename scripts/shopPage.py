@@ -175,8 +175,9 @@ class ShopPage(QObject):
 
     def set_state(self, state: int):
         self._state = state
+
         if state == 1 or state == 8:
-            # self.clearStackView()
+            self.clearStackView()
             self.closeAllPopUpSignal.emit()
             self.turn_offGreenlight()
         elif state == 10:
@@ -589,6 +590,7 @@ class ShopPage(QObject):
             if self.state == 2 or self.state == 1:
                 self.countDownTimer = self.countDownTimer - 1
                 sleep(1)
+                print(self.countDownTimer)
             if self.countDownTimer == self._timerOffset:
                 if self.state == 2:
                     self.closeTopStackViewSignal.emit()
@@ -726,3 +728,11 @@ class ShopPage(QObject):
             self._weightSensor.lightest_weight = self._lightestWeightForLightWeightProduct
         else:
             self._weightSensor.lightest_weight = self._lightestWeightForHeavyProduct
+
+    def clearStackView(self):
+        if self._initFactorListFlag:
+            while self._stackViewDepth > 1:
+                self.closeNewStackViewtHandler.emit()
+        else:
+            while self._stackViewDepth > 0:
+                self.closeNewStackViewtHandler.emit()
