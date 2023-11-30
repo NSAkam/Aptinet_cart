@@ -7,8 +7,14 @@ Item {
 
     width: 1280
     height: 462
-
-
+    
+    MouseArea{
+        anchors.fill: parent
+        onClicked: {
+           
+        }
+    }
+    
     id:obj
     property int leftpad:0
     property int toppad: 0
@@ -19,7 +25,7 @@ Item {
         id:obj_keyboard
         color: "red"
         Loader{
-            asynchronous: true
+            //asynchronous: true
             id:loader
             sourceComponent: lowerkeyboard
         }

@@ -13,9 +13,9 @@ Item {
 
     width: 1280
     height: 800
-    
+
     property Logic obj_LogicContainerPaymentNFC
-    
+
 
     Util.ViewSettings{
         id:viewset
@@ -51,7 +51,7 @@ Item {
         radius: width /2
     }
     Text {
-        text: qsTr("user Email")
+        text: "user Email"
         color: "#6D6D6D"
         width: 148
         height: 15
@@ -91,7 +91,7 @@ Item {
                 radius: width /2
             }
             Text {
-                text: qsTr("user Email")
+                text: "user Email"
                 color: "#6D6D6D"
                 width: 148
                 height: 15
@@ -153,7 +153,7 @@ Item {
     }
 
     Text {
-        text: qsTr("What are NFC payments? NFC technology powers contactless payments via mobile wallets\n\n like Apple Pay and Google Pay, as well as contactless cards.")
+        text: "What are NFC payments? NFC technology powers contactless payments via mobile wallets\n\n like Apple Pay and Google Pay, as well as contactless cards."
         x: 292
         y: 612 + topPanel.height
         font.pixelSize: 16

@@ -103,6 +103,7 @@ class SettingPage(QObject):
     ### Sluts ##########################################################################################################
     @Slot(str, str)
     def confirm_clicked(self, username: str, password: str):
+        print(username + "       " + password)
         if self._adminRepository.Login(username) and (password == "123456"):
             self.loginConfirmedSignal.emit()
 

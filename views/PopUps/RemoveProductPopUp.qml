@@ -14,9 +14,9 @@ Popup {
     height: 800
     modal: true
     focus: true
-    
+
     property Logic obj_logicRemoveProductList
-    
+
 
     background:
         Rectangle {
@@ -67,7 +67,7 @@ Popup {
 
             Text {
                 anchors.fill: notifrect
-                text: qsTr("Are you sure to remove the products?")
+                text: "Are you sure to remove the products?"
                 font.bold: true
                 font.pixelSize: 24
                 horizontalAlignment: Text.AlignHCenter
@@ -88,7 +88,7 @@ Popup {
                 height: 210
                 clip: true
                 spacing: 10
-                model: obj_logicRemoveProductList.shoppage.removeList
+                model: obj_logicRemoveProductList.shopPage.removeList
                 orientation: ListView.vertical
                 delegate:Item{
                     width: 758
@@ -140,6 +140,8 @@ Popup {
                             font.weight: Font.Bold
                             color: viewset.primaryColor
                         }
+
+
                     }
                 }
             }

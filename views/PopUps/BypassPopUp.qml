@@ -111,7 +111,7 @@ Popup {
                             MouseArea{
                                 anchors.fill: parent
                                 onClicked: {
-                                    obj_logicByPassPopup.shoppage.increaseClicked(index)
+                                    obj_logicByPassPopup.shopPage.increaseClicked(index)
                                 }
                             }
                         }
@@ -149,7 +149,7 @@ Popup {
                             MouseArea{
                                 anchors.fill: parent
                                 onClicked: {
-                                    obj_logicByPassPopup.shoppage.decreaseClicked(index)
+                                    obj_logicByPassPopup.shopPage.decreaseClicked(index)
                                 }
                             }
                         }
@@ -174,11 +174,10 @@ Popup {
                 id:lst_prd
                 y:10
                 spacing: 5
-                anchors.top: lblCustomerList.bottom
                 width: parent.width
                 height:parent.height - 80
                 focus: true
-                model: obj_logicByPassPopup.shoppage.bypassList
+                model: obj_logicByPassPopup.shopPage.bypassList
                 delegate: factorDelegate
                 clip: true
                 currentIndex: -1

@@ -311,7 +311,7 @@ class Product(QObject):
         if (self.productType == "weighted"):
             return 1
         else:
-            return 2
+            return 0
 
     dataModelShow = Property(int, get_dataModelShow, notify=changedSignal)
 

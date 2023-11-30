@@ -32,7 +32,7 @@ Item {
         radius: 4
         visible: true
         Text {
-            text: qsTr("Place selected item in cart")
+            text: "Place selected item in cart"
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
             color: "white"
@@ -51,7 +51,7 @@ Item {
         radius: 4
         visible: false
         Text {
-            text: qsTr("Please don’t move !")
+            text: "Please don’t move !"
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
             color: "white"
@@ -133,14 +133,14 @@ Item {
             color: "#F08C5A"
         }
         Text {
-            text: qsTr("$ " + obj_LogicContainerBarcodeScanned.shopPage.newProduct.finalPrice)
+            text: "$ " + obj_LogicContainerBarcodeScanned.shopPage.newProduct.finalPrice
             x:699
             y:146
             font.pixelSize: 32
             color: "#F05A28"
         }
         Text {
-            text: qsTr(obj_LogicContainerBarcodeScanned.shopPage.newProduct.description)
+            text: obj_LogicContainerBarcodeScanned.shopPage.newProduct.description
             color: "#1D1D1D"
             font.pixelSize: 16
             x: 232
@@ -152,7 +152,7 @@ Item {
         }
     }
     Text {
-        text: qsTr("You have 7 seconds to put the item in the cart..")
+        text: "You have 7 seconds to put the item in the cart.."
         x:216
         y:481
         font.pixelSize: 20
@@ -174,7 +174,7 @@ Item {
         }
 
         Text {
-            text: qsTr("Cancel")
+            text: "Cancel"
             font.pixelSize: 20
             lineHeight: Font.Normal
             font.letterSpacing: 1.28

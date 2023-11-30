@@ -8,10 +8,8 @@ import KAST.Logic 1.0
 
 Item {
     id:lstFactor
-    property QtObject tanzimat
-    signal gocheckout()
-
     property Logic obj_LogicContainerLstCheckProducts
+    signal gocheckout()
 
 
     anchors.fill: parent
@@ -26,7 +24,7 @@ Item {
         width: 890
         height: 103
         Text {
-            text: qsTr("My Cart")
+            text: "My Cart"
             font.pixelSize: 36
             anchors.verticalCenter: parent.verticalCenter
             color: "#6D6D6D"
@@ -74,7 +72,7 @@ Item {
                 }
                 Text {
                     id: factorItemprice
-                    text: qsTr("$ " + modelData.finalPrice + " each")
+                    text: "$ " + modelData.finalPrice + " each"
                     font.pixelSize: 18
                     anchors.left: factorItemPic.right
                     anchors.leftMargin: 57
@@ -99,7 +97,7 @@ Item {
                 }
                 Text {
                     id: factorItemTotalPrice
-                    text: "$ " + qsTr(modelData.countInBasket * finalPrice)
+                    text: "$ " + modelData.countInBasket * modelData.finalPrice
                     x:679
                     y:86
                     color: viewset.primaryColor
@@ -154,7 +152,7 @@ Item {
                 }
                 Text {
                     id: factorItemprice
-                    text: qsTr("$ "+modelData.finalPrice + " /kg")
+                    text: "$ "+modelData.finalPrice + " /kg"
                     font.pixelSize: 18
                     anchors.left: factorItemPic.right
                     anchors.leftMargin: 57
@@ -162,7 +160,7 @@ Item {
                 }
                 Text {
                     id: factorItemQty
-                    text: "Wt:" +qsTr(modelData.productWeightInBasket)  + " kg"
+                    text: "Wt:" +modelData.productWeightInBasket  + " kg"
                     font.pixelSize: 18
                     anchors.left: factorItemPic.right
                     anchors.leftMargin: 193
@@ -179,7 +177,7 @@ Item {
                 }
                 Text {
                     id: factorItemTotalPrice
-                    text: "$ " + qsTr(modelData.finalPrice)
+                    text: "$ " + modelData.finalPrice
                     x:679
                     y:86
                     color: viewset.primaryColor
@@ -232,7 +230,7 @@ Item {
 
         Text {
             id:check_TotalItems
-            text: qsTr(obj_LogicContainerLstCheckProducts.shopPage.factorList.totalcount)
+            text: obj_LogicContainerLstCheckProducts.shopPage.factorList.totalcount
             font.pixelSize: 24
             x:259
             y:39
@@ -241,7 +239,7 @@ Item {
 
         }
         Text {
-            text: qsTr("Items")
+            text: "Items"
             color: "#6D6D6D"
             font.pixelSize: 16
             x:253
@@ -249,7 +247,7 @@ Item {
         }
         Text {
             id:check_TotalSaved
-            text: qsTr("$  " + obj_LogicContainerLstCheckProducts.shopPage.factorList.profit)
+            text: "$  " + obj_LogicContainerLstCheckProducts.shopPage.factorList.profit
             font.pixelSize: 20
             x:344
             y:42
@@ -257,7 +255,7 @@ Item {
             font.bold: false
         }
         Text {
-            text: qsTr("Saving")
+            text: "Saving"
             color: "#6D6D6D"
             font.pixelSize: 16
             x:353
@@ -265,7 +263,7 @@ Item {
         }
         Text {
             id:check_TotalPrice
-            text: qsTr("$  " + obj_LogicContainerLstCheckProducts.shopPage.factorList.priceToPay)
+            text: "$  " + obj_LogicContainerLstCheckProducts.shopPage.factorList.priceToPay
             font.pixelSize: 32
             x:463
             y:32
@@ -273,7 +271,7 @@ Item {
             font.bold: true
         }
         Text {
-            text: qsTr("Subtotal")
+            text: "Subtotal"
             color: "#6D6D6D"
             font.pixelSize: 16
             x:489
@@ -304,3 +302,5 @@ Item {
     }
 
 }
+
+

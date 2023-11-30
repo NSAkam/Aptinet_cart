@@ -9,12 +9,12 @@ import KAST.Logic 1.0
 
 
 Item {
-    
+
     width: 1280
     height: 800
-    
+
     property Logic obj_LogicContainerLoyalityAuth
-    
+
     Component.onCompleted: {
         txt_Enterloyality.visible = false
         input_enterEmail.visible = false
@@ -24,21 +24,21 @@ Item {
         icon_loyality.visible = true
         message.visible = true
     }
-    
-    
-    
+
+
+
     Util.ViewSettings{
         id:viewset
     }
-    
+
     Image {
         source: "../Assets/AuthenticationBackground.png"
         anchors.fill: parent
     }
-    
+
     Text {
         id:message
-        text: qsTr("Please scan the Loyalty card or Enter Loyalty Code")
+        text: "Please scan the Loyalty card or Enter Loyalty Code"
         anchors.horizontalCenter: parent.horizontalCenter
         y:156
         font.pixelSize: 24
@@ -51,10 +51,10 @@ Item {
         y:228
         visible: true
     }
-    
+
     Text {
         id:btn_skip
-        text: qsTr("Skip >")
+        text: "Skip >"
         color: "#4696FA"
         font.pixelSize: 24
         x:1080
@@ -66,8 +66,8 @@ Item {
             }
         }
     }
-    
-    
+
+
     KButton{
         id:btn_Enter
         text: "Enter Loyalty Card  >"
@@ -89,9 +89,9 @@ Item {
             message.visible = false
         }
     }
-    
-    
-    
+
+
+
     Text{
         id:txt_Enterloyality
         text: "Please enter your loyalty code"
@@ -100,7 +100,7 @@ Item {
         y:172
         visible: false
     }
-    
+
     Rectangle{
         id:btn_Action
         width: 70
@@ -144,9 +144,9 @@ Item {
             verticalAlignment:  TextInput.AlignVCenter
             font.family: viewset.danaFuNumFont
             property string placeholderText: "Loyalty Code"
-            
+
             onFocusChanged: {
-                
+
             }
             Text {
                 text: txt_loyal.placeholderText
@@ -175,10 +175,10 @@ Item {
             NumberAnimation{duration: 500}
         }
     }
-    
-    
-    
-    
+
+
+
+
     KKeyboard{
         id:keyboard
         inputtext : txt_loyal
@@ -187,12 +187,12 @@ Item {
         y:parent.height - 0
         x:0
         visible: true
-        
+
         Behavior on y{
             NumberAnimation{duration: 500}
         }
     }
-    
+
     TopNav{
         id:topnavbar
         backvisible: true
@@ -212,7 +212,7 @@ Item {
             obj_LogicContainerShop: obj_LogicContainerLoyalityAuth
         }
     }
-    
+
     Connections{
         target:obj_LogicContainerLoyalityAuth.shopPage
         function onSuccessfulLoginSignal(){

@@ -12,8 +12,8 @@ Item {
 
     width: 1280
     height: 800
-    
-    property Logic obj_LogicContainerAfterPayment    
+
+    property Logic obj_LogicContainerAfterPayment
 
     Util.ViewSettings{
         id:viewset
@@ -142,7 +142,7 @@ Item {
             }
 
             Text {
-                text: qsTr("You’re good to go!")
+                text: "You’re good to go!"
                 font.pixelSize: 40
                 color: "#36EB00"
                 x: 32
@@ -151,7 +151,7 @@ Item {
             }
 
             Text {
-                text: qsTr("Thanks for shopping with us")
+                text: "Thanks for shopping with us"
                 font.pixelSize: 30
                 color: "white"
                 x: 51

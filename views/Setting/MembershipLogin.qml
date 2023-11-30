@@ -112,8 +112,6 @@ Item {
                 property string placeholderText: "Username"
 
                 onFocusChanged: {
-                    console.log("1")
-
                     keyboard.visible = true
                     keyboard.inputtext = txt_username
 
@@ -183,8 +181,7 @@ Item {
             btn_color: "#4696FA"
             btn_borderWidth: 0
             onClicked: {
-                //obj_LogicContainer.settingPage.confirm_clicked(txt_username.text,txt_password.text)
-                obj_LogicContainer.settingPage.confirm_clicked("amir","123456")
+                obj_LogicContainer.settingPage.confirm_clicked(txt_username.text,txt_password.text)
             }
         }
 
@@ -198,14 +195,14 @@ Item {
             fontsize: 25
             isBold: false
             onClicked: {
-                obj_LogicContainer.reset_app()
+                cameraProvider.stop()
             }
         }
 
     }
     TopNav{
         onBackClicked: {
-            obj_LogicContainer.reset_app()
+            cameraProvider.stop()
         }
     }
     KKeyboard{

@@ -9,9 +9,9 @@ Item {
     id: root
     width: 572
     height: 450
-    
+
     property Logic obj_LogicContainerAddPluItemsView
-    
+
 
     signal cancel()
     signal confirm()
@@ -36,7 +36,7 @@ Item {
 
         Text {
             id: productidtext
-            text: qsTr("#8560")
+            text: "#8560"
             x: 248
             y: 58
             font.pixelSize: 24
@@ -46,7 +46,7 @@ Item {
 
         Text {
             id: productnametext
-            text: qsTr("Pineapple")
+            text: "Pineapple"
             x: 248
             y: 100
             font.pixelSize: 36
@@ -57,7 +57,7 @@ Item {
 
         Text {
             id: unitpricetext
-            text: qsTr("$ 6.99/kg")
+            text: "$ 6.99/kg"
             x: 248
             y: 149
             font.pixelSize: 24
@@ -77,7 +77,7 @@ Item {
 
         Text {
             id: addtocarttext
-            text: qsTr("Add to cart\nto be calculated")
+            text: "Add to cart\nto be calculated"
             font.pixelSize: 20
             x: 108
             y: 262
@@ -86,7 +86,7 @@ Item {
 
         Text {
             id: totalpricevalue
-            text: qsTr("$ 0.0")
+            text: "$ 0.0"
             x: 428
             y: 241
             font.pixelSize: 32
@@ -96,7 +96,7 @@ Item {
 
         Text {
             id: totalpricetext
-            text: qsTr("Total Price")
+            text: "Total Price"
             x: 406
             y: 288
             font.pixelSize: 24

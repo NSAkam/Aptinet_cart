@@ -65,7 +65,7 @@ Item {
 
     Text {
         id:btn_skip
-        text: qsTr("Skip >")
+        text: "Skip >"
         color: "#4696FA"
         font.pixelSize: 24
         x:1080
@@ -90,7 +90,7 @@ Item {
     //    }
     Text {
         id:txt_start
-        text: qsTr("Get Started ")
+        text: "Get Started "
         x:523
         y:459
         font.pixelSize: 40
@@ -99,7 +99,7 @@ Item {
     }
     Text {
         id:txt_enterPhone
-        text: qsTr("Please enter your Phone Number")
+        text: "Please enter your Phone Number"
         x : 480
         y:519
         font.pixelSize: 20

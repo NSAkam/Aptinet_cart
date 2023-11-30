@@ -12,16 +12,16 @@ Item {
     visible: true
     width: 1280
     height: 800
-
+    
     property Logic obj_Logic
-
-
+    
+    
     Image {
         id: q
         source: "../../Assets/AuthenticationBackground.png"
         anchors.fill: parent
     }
-
+    
     Row {
         spacing: 30
         x: 166
@@ -32,29 +32,29 @@ Item {
             topMargin:300
         }
     }
-
+    
     Button {
         width: 128
         height: 160
         x: 166
         y: 312
-
+        
         background: Rectangle {
-
+            
             color: "white"
-
+            
         }
-
-
+        
+        
         Image {
             source: "../../Assets/server.png"
             width: 64
             height: 64
             y: 30
             anchors.horizontalCenter: parent.horizontalCenter
-
+            
         }
-
+        
         Text {
             text: "Server"
             anchors.horizontalCenter: parent.horizontalCenter
@@ -64,33 +64,33 @@ Item {
             font.pixelSize: 18
         }
     }
-
+    
     Button {
         width: 128
         height: 160
         x: 330
         y: 312
-
+        
         background: Rectangle {
-
+            
             color: "white"
-
+            
         }
-
+        
         onClicked: {
             obj_Logic.settingPage.gotoWifiSettings()
             stackview.push(wifi)
         }
-
+        
         Image {
             source: "../../Assets/wifi.png"
             height: 64
             x: 25
             y: 30
             anchors.horizontalCenter: parent.horizontalCenter
-
+            
         }
-
+        
         Text {
             text: "Wi-Fi"
             anchors.horizontalCenter: parent.horizontalCenter
@@ -99,7 +99,7 @@ Item {
             font.pixelSize: 18
         }
     }
-
+    
     Button {
         width: 128
         height: 160
@@ -108,22 +108,22 @@ Item {
         onClicked: {
             stackview.push(calibrate)
         }
-
+        
         background: Rectangle {
-
+            
             color: "white"
-
+            
         }
-
+        
         Image {
             source: "../../Assets/calibrate.png"
             width: 64
             height: 64
             y: 30
             anchors.horizontalCenter: parent.horizontalCenter
-
+            
         }
-
+        
         Text {
             text: "Calibrate"
             anchors.horizontalCenter: parent.horizontalCenter
@@ -132,7 +132,7 @@ Item {
             font.pixelSize: 18
         }
     }
-
+    
     Button {
         width: 128
         height: 160
@@ -141,13 +141,13 @@ Item {
         onClicked: {
             stackview.push(dataEntry)
         }
-
+        
         background: Rectangle {
-
+            
             color: "white"
-
+            
         }
-
+        
         Image {
             source: "../../Assets/data.png"
             width: 64
@@ -155,7 +155,7 @@ Item {
             y: 30
             anchors.horizontalCenter: parent.horizontalCenter
         }
-
+        
         Text {
             text: "Data Entry"
             y: 124
@@ -164,7 +164,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
         }
     }
-
+    
     Button {
         width: 128
         height: 160
@@ -173,13 +173,13 @@ Item {
         onClicked: {
             stackview.push(deviceTest)
         }
-
+        
         background: Rectangle {
-
+            
             color: "white"
-
+            
         }
-
+        
         Image {
             source: "../../Assets/device.png"
             width: 64
@@ -187,7 +187,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             y: 30
         }
-
+        
         Text {
             text: "Device Test"
             anchors.horizontalCenter: parent.horizontalCenter
@@ -197,28 +197,28 @@ Item {
             font.pixelSize: 18
         }
     }
-
+    
     Button {
         width: 128
         height: 160
         x: 986
         y: 312
         background: Rectangle {
-
+            
             color: "white"
-
+            
         }
         onClicked: {
             obj_Logic.settingPage.cart_infoClicked()
         }
-
+        
         Image {
             source: "../../Assets/cartinfo.png"
             height: 64
             anchors.horizontalCenter: parent.horizontalCenter
             y: 30
         }
-
+        
         Text {
             text: "Cart Info"
             anchors.horizontalCenter: parent.horizontalCenter
@@ -228,7 +228,7 @@ Item {
         }
     }
     // }
-
+    
     Button {
         width: 76
         height: 76
@@ -242,7 +242,7 @@ Item {
             x: 684
             y: 607
         }
-
+        
         Text {
             text: "Turn Off"
             width: 59
@@ -252,8 +252,11 @@ Item {
             y: 703
             font.pixelSize: 16
         }
+        onClicked: {
+            obj_Logic.turnoff()
+        }
     }
-
+    
     Button {
         width: 76
         height: 76
@@ -267,7 +270,7 @@ Item {
             x: 520.5
             y: 607
         }
-
+        
         Text {
             text: "Restart Device"
             width: 109
@@ -279,46 +282,47 @@ Item {
         }
         onClicked: {
             obj_Logic.turnoff()
+            cameraProvider.stop()
         }
     }
-
+    
     Component {
         id: wifi
         Wifi{
             setting_objWifi: obj_Logic
         }
     }
-
+    
     Component {
         id:calibrate
         Calibrate{
-        obj_LogicCalibrate: obj_Logic
+            obj_LogicCalibrate: obj_Logic
         }
     }
-
+    
     Component {
         id: dataEntry
         DataEntry1{}
     }
-
+    
     Component {
         id: cartinfo
         CartInfo{
             obj_LogicContainer: obj_Logic
         }
     }
-
+    
     Component {
         id: deviceTest
         MenuTest{}
     }
-
+    
     TopNav{
         backvisible: true
         onBackClicked: {
-            obj_Logic.reset_app()
+            cameraProvider.stop()
         }
-
+        
     }
     Connections{
         target:obj_Logic.settingPage
