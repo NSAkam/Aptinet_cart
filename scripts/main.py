@@ -2,7 +2,7 @@ import sys
 from PySide2.QtCore import Qt 
 from PySide2.QtGui import QGuiApplication
 from PySide2.QtQml import QQmlApplicationEngine,qmlRegisterType,QQmlDebuggingEnabler
-# from Services.battery import BatteryWorker
+from Services.battery import Battery
 from logic import Logic
 from Services.camera import CameraWorker
 from Helpers.cameraHelper import CameraHelper
@@ -13,6 +13,9 @@ if __name__ == "__main__":
     # debug = QQmlDebuggingEnabler()
     app = QGuiApplication(sys.argv)
     app.setOverrideCursor(Qt.BlankCursor)
+    
+    qmlRegisterType(Battery, "KAST.Battery", 1, 0, "Battery")
+
     qmlRegisterType(Logic, "KAST.Logic" , 1, 0 ,"Logic")
     
     engine = QQmlApplicationEngine()
