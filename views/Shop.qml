@@ -711,6 +711,9 @@ Item {
         obj_logicByPassPopup: obj_LogicContainerShop
     }
 
+    FullMessageTimer{
+        id:popUpMessageTimer
+    }
 
 
     Component{
@@ -764,6 +767,10 @@ Item {
         }
         function onInitFactorListSignal(){
             stackviewContainer.push(lstProductHandler)
+        }
+        function onOpenPopupMessageTimerSignal(text){
+            popUpMessageTimer.messageText = text
+            popUpMessageTimer.open()
         }
     }
 }

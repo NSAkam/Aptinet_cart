@@ -112,8 +112,6 @@ Item {
                 property string placeholderText: "Username"
 
                 onFocusChanged: {
-                    console.log("1")
-
                     keyboard.visible = true
                     keyboard.inputtext = txt_username
 
@@ -198,14 +196,13 @@ Item {
             isBold: false
             onClicked: {
                 cameraProvider.stop()
-                //obj_LogicContainer.reset_app()
             }
         }
 
     }
     TopNav{
         onBackClicked: {
-            obj_LogicContainer.reset_app()
+            cameraProvider.stop()
         }
     }
     KKeyboard{
