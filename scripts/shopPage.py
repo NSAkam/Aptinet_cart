@@ -384,7 +384,7 @@ class ShopPage(QObject):
                             self._initFactorListFlag = True
 
                     else:
-                        if (value < self.newProduct.meanWeight + self.newProduct.tolerance) and (value >= (value < self.newProduct.meanWeight - self.newProduct.tolerance)):
+                        if (value < self.newProduct.meanWeight + self.newProduct.tolerance) and (value >= self.newProduct.meanWeight - self.newProduct.tolerance):
                             # insertSound()
 
                             # self.showStartUpShoppingLabelSignal.emit(False)
