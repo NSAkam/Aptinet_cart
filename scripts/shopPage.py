@@ -522,7 +522,7 @@ class ShopPage(QObject):
             if val2 < val1:
                 if self.state == 1:
                     self._removeList.validBarcodeSetForRemove(self._factorList.m_data, abs(value))
-                    if not len(self._maybeDeletedProducts.m_validBarcodeSetForDelete) == 0:
+                    if not len(self._removeList.m_validBarcodeSetForDelete) == 0:
                         self.openPopupDeleteProductSignal.emit()
                         # notifSound2()
                         self._basketWeightShouldBe = val1

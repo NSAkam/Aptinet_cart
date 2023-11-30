@@ -700,6 +700,7 @@ Item {
             }
         }
     }
+    ///////////////////////////////////////////POPUPS
 
     RemoveProductPopUp{
         id:popUp_RemoveProducts
@@ -707,13 +708,32 @@ Item {
     }
 
     BypassPopUp{
-        id:bypassPopUp
+        id:popUp_bypass
         obj_logicByPassPopup: obj_LogicContainerShop
     }
 
     FullMessageTimer{
-        id:popUpMessageTimer
+        id:popUp_MessageTimer
     }
+    
+    NotificationPopUp{
+        id:popUp_message
+    }
+    
+    NotificationPopUp{
+        id:popUp_MessageNotBarcodedProduct
+        message: "Please put the product you scanned into the cart!"
+      
+    }
+    NotificationPopUp{
+        id:popUp_MessageNoBarcodeScanned
+        message: "First, take the barcode of the product in front of the barcode scanner, then put it in the cart!"
+    }
+    NotificationPopUp{
+        id:popUpMessageNotAllowedChangeWeight
+        message: "You cannot add or subtract products to the cart during checkout!"
+    }
+    ////////////////////////////////////////////////////
 
 
     Component{
@@ -772,5 +792,54 @@ Item {
             popUpMessageTimer.messageText = text
             popUpMessageTimer.open()
         }
+        function onCloseAllPopUpSignal(){
+            
+        }
+        
+        function onVisibleProductListDeleteSignal(){
+            
+        }
+        
+        function onOpenPopupMessageSignal(text){
+            popUp_message.message = text
+            popUp_message.open()
+        }
+        
+        function onClosePopupMessageSignal(){
+             popUp_message.close()
+        }
+        
+        function onOpenPopupWeightNotMatchWithBarcodeSignal(){
+            popUp_MessageNotBarcodedProduct.open()
+        }
+        
+        function onClosePopupWeightNotMatchWithBarcodeSignal(){
+            popUp_MessageNotBarcodedProduct.close()
+        }
+        
+        function onOpenPopupNoBarcodeScannedSignal(){
+            popUp_MessageNoBarcodeScanned.open()
+        }
+        
+        function onClosePopupNoBarcodeScannedSignal(){
+            popUp_MessageNoBarcodeScanned.close()
+        }
+        
+        function onOpenPopupDeleteProductSignal(){
+            popUp_RemoveProducts.open()
+        }
+        
+        function onClosePopupDeleteProductSignal(){
+            popUp_RemoveProducts.close()
+        }
+        
+        function onOpenPopUpMessageNotAllowedChangeWeightSignal(){
+            popUpMessageNotAllowedChangeWeight.open()
+        }
+        
+        function onClosePopUpMessageNotAllowedChangeWeightSignal(){
+            popUpMessageNotAllowedChangeWeight.close()
+        }
+        
     }
 }
