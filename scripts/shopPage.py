@@ -310,8 +310,7 @@ class ShopPage(QObject):
                     self.showNewProductScannedSignal.emit()
 
             elif self.state == 5:
-                isAcceptablebarcodeForRemove, self._canRemoveProductClick, removeSuccessfullyBefore = self._removeList.updateValidBarcodeSetForRemove(
-                    product)
+                isAcceptablebarcodeForRemove, self._canRemoveProductClick, removeSuccessfullyBefore = self._removeList.updateValidBarcodeSetForRemove(product)
 
                 if not isAcceptablebarcodeForRemove:
                     if removeSuccessfullyBefore:
@@ -654,6 +653,7 @@ class ShopPage(QObject):
             # deleteSound()
             self._canRemoveProductClick = False
             self._factorList.removeProducts(self._removeList.m_data)
+            print(len(self._removeList.m_data))
             self._bypassList.removeProductsUpdateBypass(self._removeList.m_data)
             self._removeList.clearData()
             self.state = 1
