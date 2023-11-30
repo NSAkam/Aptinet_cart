@@ -11,7 +11,7 @@ import KAST.Battery 1.0
 
 
 
-Window {
+Item {
     
     width: 1280
     height: 800
