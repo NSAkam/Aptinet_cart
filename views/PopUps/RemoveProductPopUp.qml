@@ -154,6 +154,9 @@ Popup {
                 y:230
                 btn_color: viewset.secondaryColor
                 btn_borderWidth: 0
+                onClicked: {
+                    obj_logicRemoveProductList.shopPage.productRemoveClicked()
+                }
             }
         }
     }

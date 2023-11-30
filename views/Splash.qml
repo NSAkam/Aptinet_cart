@@ -2,28 +2,32 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
 import QtQuick.Window 2.0
-import QtQuick.Controls.Styles 1.4
-import QtGraphicalEffects 1.0
 import "Components"
 import "Utiles" as Util
 import "Setting"
 import "PopUps"
 import KAST.Logic 1.0
+import KAST.Battery 1.0
 
 
-Item {
 
+Window {
+    
     width: 1280
     height: 800
-
+    
     Util.ViewSettings{
         id:viewset
     }
-
+    
     Logic{
         id:obj_logic
     }
-
+    
+    Battery{
+        id:cls_battery
+    }
+    
     Image {
         id: background
         source: "../Assets/SplashBackground.png"
@@ -38,15 +42,15 @@ Item {
             }
         }
     }
-
+    
     FastBlur {
-
+        
         anchors.fill: background
         source: background
         radius: 32
     }
-
-
+    
+    
     Image {
         id: aptinetIcon
         source: "../Assets/AptinetIcon1.png"
@@ -73,7 +77,7 @@ Item {
             }
         }
     }
-
+    
     Rectangle{
         id:statrtButton
         width: 374
@@ -91,7 +95,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
         }
-
+        
         NumberAnimation {
             target: txtStartButton
             property: "opacity"
@@ -119,10 +123,10 @@ Item {
                 settingButton.opacity = 1;
                 languageButton.enabled = true
                 languageButton.opacity = 1
-
+                
             }
         }
-
+        
     }
     Text {
         id:txt_welcome
@@ -204,7 +208,7 @@ Item {
         Behavior on opacity{
             NumberAnimation{duration: 1000}
         }
-
+        
         MouseArea {
             anchors.fill: parent
             onClicked: {
@@ -212,7 +216,7 @@ Item {
             }
         }
     }
-
+    
     Rectangle{
         id:languageButton
         x:0
@@ -240,10 +244,10 @@ Item {
         }
     }
     KBattery{
-        battery_level: 40
+        battery_level: cls_battery.batterylevel
         x:32
         y:32
-
+        
     }
     Rectangle{
         id:rect_Clock
@@ -258,13 +262,13 @@ Item {
             repeat: true
             interval: 1000
             onTriggered: {
-               txt_time.text =  new Date().getHours() + ":" + new Date().getMinutes()
+                txt_time.text =  new Date().getHours() + ":" + new Date().getMinutes()
             }
         }
         Text {
             id:txt_time
             text: new Date().getHours() + ":" + new Date().getMinutes()
-
+            
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
             font.pixelSize: 24
@@ -289,7 +293,7 @@ Item {
                 }
             }
         }
-
+        
         Rectangle{
             id:backgroundselectLangOpacity
             anchors.fill: parent
@@ -297,12 +301,12 @@ Item {
             opacity: 0.75
         }
         FastBlur {
-
+            
             anchors.fill: parent
             source: parent
             radius: 32
         }
-
+        
         KBorderButton{
             borderwidth:0
             text: "English"
@@ -327,7 +331,7 @@ Item {
             y:315
             width: 185
             height: 66
-
+            
             textColor: "black"
         }
         KBorderButton{
@@ -347,7 +351,7 @@ Item {
             width: 185
             height: 66
             textColor: "black"
-
+            
         }
         KBorderButton{
             borderwidth:0
@@ -377,22 +381,22 @@ Item {
             textColor: "black"
         }
     }
-
-
+    
+    
     Component{
         id:authenticationPage
         Authentication{
             obj_LogicContainer: obj_logic
         }
     }
-
+    
     Component{
         id:guidpage
         GuideTips{
-
+            
         }
     }
-
+    
     Component{
         id:membershipLogin
         MembershipLogin{
@@ -404,7 +408,7 @@ Item {
         function onGoToShopPageSignal(){
             stackview.push(authenticationPage)
         }
-
+        
         function onGoToSettingPageSignal(){
             stackview.push(membershipLogin)
         }
