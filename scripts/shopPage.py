@@ -311,7 +311,7 @@ class ShopPage(QObject):
 
             elif self.state == 5:
                 isAcceptablebarcodeForRemove, self._canRemoveProductClick, removeSuccessfullyBefore = self._removeList.updateValidBarcodeSetForRemove(
-                    product.barcode)
+                    product)
 
                 if not isAcceptablebarcodeForRemove:
                     if removeSuccessfullyBefore:
