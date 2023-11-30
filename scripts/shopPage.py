@@ -303,9 +303,12 @@ class ShopPage(QObject):
 
             elif self.state == 2:
                 if self.newProduct.barcode == self._scanner.get_barcode():
-                    if self.countDownTimer <= self._timerOffset:
+                    if 0 <= self.countDownTimer < self._timerOffset:
                         self.showNewProductScannedSignal.emit()
                         self.countDownTimer = self._insertProductTime
+                    else:
+                        self.countDownTimer = self._insertProductTime
+
 
 
                 else:
@@ -600,6 +603,7 @@ class ShopPage(QObject):
             if self.countDownTimer == self._timerOffset:
                 if self.state == 2:
                     self.closeTopStackViewSignal.emit()
+                    print("close")
                     # print("close stack view emit")
                     # sleep(1)
             if self.countDownTimer == 0:
