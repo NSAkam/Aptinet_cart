@@ -19,8 +19,8 @@ class WeightSensorHelper(QObject):
     _lightestWeighRegister: int
 
     ### Setting ###################
-    _elecNoiseReducBufferSize: int = 20
-    _mecNoiseReducBufferSize: int = 20
+    _elecNoiseReducBufferSize: int = 50
+    _mecNoiseReducBufferSize: int = 50
     _loadCellTolerance: int = 8
     _lightestWeight: int = 25
 

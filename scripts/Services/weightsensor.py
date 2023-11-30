@@ -23,7 +23,7 @@ class WeightSensorWorker(QThread):
     noise_reduction_buffer_size = 20
     noise_reduction_buffer = []
     last_weight = 0
-    read_weight_buffer_size = 20  # buffer size for shifting weights to it
+    read_weight_buffer_size = 50  # buffer size for shifting weights to it
     read_weight_buffer = []  # buffer for shifting weights to it
     lightest_weight = 25  # 8
     lightest_weight_for_remove = 17  # 25 - 8
