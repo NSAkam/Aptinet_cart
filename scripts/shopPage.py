@@ -668,6 +668,7 @@ class ShopPage(QObject):
                 # deleteSound()
                 self._canRemoveProductClick = False
                 self._removeList.removeProducts(self._removeList.m_data)
+                print(len(self._removeList.m_data))
                 self._bypassList.removeProductsUpdateBypass(self._removeList.m_data)
                 self._removeList.clearData()
                 self._trustUser = False
