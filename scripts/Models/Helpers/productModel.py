@@ -243,7 +243,7 @@ class ProductModel(QAbstractListModel):
         self.m_removedWeightMax = RemovedWight
         self.m_removedWeightMin = RemovedWight
 
-    def updateValidBarcodeSetForRemove(self, product: Product, ):
+    def updateValidBarcodeSetForRemove(self, product: Product):
         removeAllProduct = False
         acceptableBarcode = False
         removeSuccessfullyBefor = False
