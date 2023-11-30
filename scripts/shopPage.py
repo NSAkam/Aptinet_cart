@@ -286,7 +286,7 @@ class ShopPage(QObject):
 
             if self.state == 1:
                 if not self.basketIsFull:
-                    self.adjust_wightSensorSensitivity(product.meanWeight)
+                    # self.adjust_wightSensorSensitivity(product.meanWeight)
                     self.state = 2
                     self.newProduct = product
                     self.countDownTimer = self._insertProductTime + self._timerOffset
@@ -325,6 +325,7 @@ class ShopPage(QObject):
 
     @Slot()
     def basketWeightChanged(self, val2: int, val1: int):
+        print(val1, val2)
         if not self._inByPass:
             self.hideOfferListSignal.emit()
             value: int = val2 - val1
