@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 from time import sleep
 from threading import Thread
 
@@ -303,6 +304,10 @@ class ShopPage(QObject):
             elif self.state == 2:
                 if self.newProduct.barcode == self._scanner.get_barcode():
                     self.countDownTimer = self._insertProductTime
+                    if self.countDownTimer <= self._timerOffset:
+                        self.showNewProductScannedSignal.emit()
+
+
                 else:
                     self.newProduct = product
                     self.adjust_wightSensorSensitivity(product.meanWeight)
@@ -589,8 +594,8 @@ class ShopPage(QObject):
     def timerSlot(self):
         while self._canTimerTick:
             if self.state == 2 or self.state == 1:
-                self.countDownTimer = self.countDownTimer - 1
                 sleep(1)
+                self.countDownTimer = self.countDownTimer - 1
                 print("timer"+ str(self.countDownTimer))
             if self.countDownTimer == self._timerOffset:
                 if self.state == 2:
