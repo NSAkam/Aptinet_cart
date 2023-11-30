@@ -177,7 +177,7 @@ class ShopPage(QObject):
         self._state = state
         print("state: "+ str(state))
         if state == 1 or state == 8:
-            self.clearStackView()
+            # self.clearStackView()
             self.closeAllPopUpSignal.emit()
             self.turn_offGreenlight()
         elif state == 10:
@@ -395,7 +395,7 @@ class ShopPage(QObject):
 
                             # self._productsmodel.updateWeight(self.getNewProduct(), val2 - val1)
 
-                            self.check_productWeight(self._newProduct)
+                            # self.check_productWeight(self._newProduct)
 
                             # if self.getNewProduct().getAvgWeight() > self._lightest_weight_for_heavy_weight_product + self._weighsensor.acceptable_tolerance:
                             #     self._weighsensor.lightest_weight = self._lightest_weight_for_heavy_weight_product
