@@ -16,10 +16,6 @@ Item {
 
     property Logic obj_LogicContainer
 
-    function closePopups(){
-        popupInsertSMS.close()
-    }
-
     Util.ViewSettings{
         id:viewset
     }
@@ -281,17 +277,6 @@ Item {
             //            btn_Continue.visible=true
             //txt_start.visible = true
             topnavbar.backvisible = false
-        }
-    }
-    InsertSMS{
-        id:popupInsertSMS
-        setting_obj: obj_LogicContainer
-    }
-
-    Connections{
-        target:obj_LogicContainer
-        function onValidPhoneNumberSignal(){
-            popupInsertSMS.open()
         }
     }
 }

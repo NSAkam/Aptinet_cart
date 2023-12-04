@@ -329,12 +329,9 @@ Item {
     Component{
         id:authenticationPage
         Authentication{
-            id:l
             obj_LogicContainer: obj_logic
         }
-        function a(){
-            l.closePopups()
-        }
+        
     }
 
     Component{
@@ -367,11 +364,16 @@ Item {
     FullMessageTimer{
         id:messageTimer
     }
+    InsertSMS{
+        id:popupInsertSMS
+        setting_obj: obj_LogicContainer
+    }
 
     Connections{
         target:obj_logic
         function onGoToShopPageSignal(){
-            authenticationPage.a()
+            popupInsertSMS.close()
+            authenticationPage()
             stackview.push(shoppage)
         }
 
@@ -382,6 +384,9 @@ Item {
         function onShowPopupMessageTimerSignal(v){
             messageTimer.messageText = v
             messageTimer.open()
+        }
+        function onValidPhoneNumberSignal(){
+            popupInsertSMS.open()
         }
     }
 }
