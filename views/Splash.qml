@@ -331,7 +331,7 @@ Item {
         Authentication{
             obj_LogicContainer: obj_logic
         }
-        
+
     }
 
     Component{
@@ -373,7 +373,6 @@ Item {
         target:obj_logic
         function onGoToShopPageSignal(){
             popupInsertSMS.close()
-            authenticationPage()
             stackview.push(shoppage)
         }
 
