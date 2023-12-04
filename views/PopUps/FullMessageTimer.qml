@@ -9,13 +9,13 @@ import "../Utiles"
 Popup {
     property alias messageText: notiftext.text
     property bool showManualBarcode: false
-    
+
     id: root
     width: 1280
     height: 800
     modal: true
     focus: true
-    
+
     background:
         Rectangle {
         id:rectContainer
@@ -27,13 +27,13 @@ Popup {
         id: closetimer
         interval: 5000
         onTriggered:{
-            
             root.close()
+            console.log("asdasd")
         }
         repeat: false
         running: true
     }
-    
+
     Rectangle {
         x: 818 + 390
         y: 32
@@ -41,7 +41,7 @@ Popup {
         color: "white"
         width: 40
         height: 40
-        
+
         Image {
             source: "../../Assets/Bell.png"
             width: 18
@@ -49,8 +49,8 @@ Popup {
             anchors.centerIn: parent
         }
     }
-    
-    
+
+
     KButton {
         visible:showManualBarcode
         x: 630 + 390
@@ -58,7 +58,7 @@ Popup {
         borderRadius: 4
         width: 164
         height: 40
-        
+
         Text {
             text: "+  Enter Barcode"
             anchors.horizontalCenter: parent.horizontalCenter
@@ -68,7 +68,7 @@ Popup {
             color: "white"
         }
     }
-    
+
     Rectangle {
         id: notifrect
         width: 678 + notiftext.width/6
@@ -77,7 +77,7 @@ Popup {
         y: 274
         //        x: 106 + 390/2
         anchors.horizontalCenter: parent.horizontalCenter
-        
+
         Image {
             source: "../../Assets/popupwarning.png"
             width: 99
@@ -85,7 +85,7 @@ Popup {
             y: 48
             anchors.horizontalCenter: parent.horizontalCenter
         }
-        
+
         Text {
             id: notiftext
             text: "Please put the product you scanned into the cart!"
@@ -98,5 +98,5 @@ Popup {
             //            font.letterSpacing: 0.8
         }
     }
-    
+
 }
