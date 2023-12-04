@@ -125,7 +125,7 @@ class Logic(QObject):
     def login_loyaltyCartBackClicked(self):
         self._scanner.loyaltyCardBarcodeReadSignal.disconnect()
 
-    @Slot
+    @Slot()
     def continue_clicked(self):
         self._scanner.IDBarcodeReadSignal.disconnect()
         self.set_shopPage(ShopPage(self._dal, self._user, self._scanner))
