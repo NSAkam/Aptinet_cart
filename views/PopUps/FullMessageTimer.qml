@@ -30,7 +30,7 @@ Popup {
             root.close()
             console.log("asdasd")
         }
-        repeat: false
+        repeat: true
         running: true
     }
 
