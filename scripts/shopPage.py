@@ -78,7 +78,7 @@ class ShopPage(QObject):
     # _scanner: ScannerHelper
     _weightSensor: WeightSensorWorker
 
-    def __init__(self, dal: DAL, scanner: ScannerHelper):
+    def __init__(self, dal: DAL, user: User, scanner: ScannerHelper):
         super().__init__()
 
         #### Private ##############################################
@@ -125,9 +125,7 @@ class ShopPage(QObject):
         self._removeList = ProductModel()
 
         #### User #################################################
-        self._user = self._userRepository.create_user()
-        if self._user.get_id() == -1:
-            os.execl(sys.executable, sys.executable, *sys.argv)  # restart app
+        self._user = user
 
         #### Insert Timer Thread ##################################
         self._canTimerTick = True
@@ -334,7 +332,7 @@ class ShopPage(QObject):
                 # if len(self._removeList.m_data) == 1:
                 #     self.openPopupDeleteProductSignal.emit()
 
-    @Slot()
+    @Slot(int, int)
     def basketWeightChanged(self, val2: int, val1: int):
         print(val1, val2)
         if not self._inByPass:

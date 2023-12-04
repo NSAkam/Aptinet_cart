@@ -5,6 +5,9 @@ from Helpers.scannerHelper import ScannerHelper
 from Services.gpio import GreenLight, Fan
 from Services.dal import DAL
 from Repositories.adminRepository import AdminRepository
+from Repositories.userRepository import UserRepository
+from Repositories.userServerRepository import UserServerRepository
+from Models.user import User
 import os
 import sys
 
@@ -16,6 +19,8 @@ class Logic(QObject):
 
     ### Repositories ###################################################################################################
     _adminRepository: AdminRepository
+    _userRepository = UserRepository
+    _userServerRepository = UserServerRepository
 
     ### Private ########################################################################################################
     _shopPage: ShopPage
@@ -23,6 +28,8 @@ class Logic(QObject):
     _greenLightWorkerThread: GreenLight
     _fan: Fan
     _dal: DAL
+    _user: User
+    _phoneNumber: str =""
 
     ### Modules ########################################################################################################
     _scanner: ScannerHelper
@@ -40,11 +47,19 @@ class Logic(QObject):
         self._scanner.start()
 
         self._adminRepository = AdminRepository(self._dal)
+        self._userRepository = UserRepository(self._dal)
+        self._userServerRepository = UserServerRepository(self._dal)
+        self._user = self._userRepository.create_user()
+        if self._user.get_id() == -1:
+            print("User not Created")
+            # os.execl(sys.executable, sys.executable, *sys.argv)
 
     ### Signals ########################################################################################################
     changedSignal = Signal()
     goToShopPageSignal = Signal()
     goToSettingPageSignal = Signal()
+    validPhoneNumberSignal = Signal()
+    showPopupMessageTimerSignal = Signal(str)
 
     ### Properties #####################################################################################################
     def get_shopPage(self):
@@ -66,12 +81,61 @@ class Logic(QObject):
     settingPage = Property(SettingPage, get_settingPage, set_settingPage, notify=changedSignal)
 
     ### Sluts ##########################################################################################################
+    @Slot(str)
+    def login_phoneNumber(self, phoneNumber: str):
+        serverUser = self._userServerRepository.loginByPhone(phoneNumber)
+        if not serverUser.get_id() == "":
+            self._user.set_loggedInUser(serverUser)
+            # self._phoneNumber = phoneNumber
+            self.validPhoneNumberSignal.emit()
+        else:
+            self.showPopupMessageTimerSignal.emit("not valid phone number")
+
+    @Slot(str)
+    def enter_sentCode(self, sentCode: str):
+        if sentCode == "2212":
+            self.continue_clicked()
+        else:
+            self.showPopupMessageTimerSignal.emit("not valid code")
+
     @Slot()
-    def go_toShoppingClicked(self):
+    def login_loyaltyCartClicked(self):
+        self._scanner.loyaltyCardBarcodeReadSignal.connect(self.login_loyaltyCart)
+
+    @Slot()
+    def login_loyaltyCart(self):
+        serverUser = self._userServerRepository.loginByloyalityBarcode(self._scanner.get_loyaltyCardBarcode())
+        if not serverUser.get_id() == "":
+            self._scanner.loyaltyCardBarcodeReadSignal.disconnect()
+            self._user.set_loggedInUser(serverUser)
+            self.continue_clicked()
+        else:
+            self.showPopupMessageTimerSignal.emit("not valid loyalty card")
+
+    @Slot(str)
+    def login_loyaltyCode(self, loyaltyCode: str):
+        serverUser = self._userServerRepository.loginByloyalityBarcode(loyaltyCode)
+        if not serverUser.get_id() == "":
+            self._user.set_loggedInUser(serverUser)
+            self.continue_clicked()
+        else:
+            self.showPopupMessageTimerSignal.emit("not valid loyalty code")
+
+    @Slot()
+    def login_loyaltyCartBackClicked(self):
+        self._scanner.loyaltyCardBarcodeReadSignal.disconnect()
+
+    @Slot
+    def continue_clicked(self):
         self._scanner.IDBarcodeReadSignal.disconnect()
-        self.set_shopPage(ShopPage(self._dal, self._scanner))
-        self._scanner.go_outOfLogic()
+        self.set_shopPage(ShopPage(self._dal, self._user, self._scanner))
         self.goToShopPageSignal.emit()
+
+    # @Slot()
+    # def go_toShoppingClicked(self):
+    #     self._scanner.IDBarcodeReadSignal.disconnect()
+    #     self.set_shopPage(ShopPage(self._dal, self._user, self._scanner))
+    #     self.goToShopPageSignal.emit()
 
     @Slot()
     def go_toSettingClicked(self):
