@@ -15,7 +15,7 @@ Item {
     height: 800
 
     property Logic obj_LogicContainer
-    
+
     function closePopups(){
         popupInsertSMS.close()
     }
@@ -285,6 +285,7 @@ Item {
     }
     InsertSMS{
         id:popupInsertSMS
+        setting_obj: obj_LogicContainer
     }
 
     Connections{

@@ -12,22 +12,22 @@ import KAST.Battery 1.0
 
 
 Item {
-    
+
     width: 1280
     height: 800
-    
+
     Util.ViewSettings{
         id:viewset
     }
-    
+
     Logic{
         id:obj_logic
     }
-    
+
     Battery{
         id:cls_battery
     }
-    
+
     Image {
         id: background
         source: "../Assets/SplashBackground.png"
@@ -42,15 +42,15 @@ Item {
             }
         }
     }
-    
+
     FastBlur {
-        
+
         anchors.fill: background
         source: background
         radius: 32
     }
-    
-    
+
+
     Image {
         id: aptinetIcon
         source: "../Assets/AptinetIcon1.png"
@@ -58,10 +58,10 @@ Item {
         width: 208
         height: 154
         anchors.horizontalCenter: parent.horizontalCenter
-        
+
     }
-    
-    
+
+
     Text {
         id:txt_welcome
         text: qsTr("welcome!")
@@ -81,12 +81,12 @@ Item {
     Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         width: 650
-        
+
         KButton{
             id:btn_enterPhone
             width: 318
             height: 66
-            
+
             y:522
             fontsize: 22
             text:  qsTr("Enter Phone Number")
@@ -94,9 +94,8 @@ Item {
             ishover: false
             shadow: false
             opacity: 1
-            
+
             onClicked: {
-                //obj_logic.go_toShoppingClicked();
                 stackview.push(authenticationPage)
             }
         }
@@ -107,8 +106,8 @@ Item {
             anchors.leftMargin: 20
             width: 318
             height: 66
-            
-            
+
+
             y:522
             fontsize: 22
             text:  qsTr("Scan MemberShop Cart")
@@ -116,10 +115,9 @@ Item {
             ishover: false
             shadow: false
             opacity: 1
-            
+
             onClicked: {
-                stackview.push(loyalityAuth)
-                //                obj_logic.go_toShoppingClicked();
+                obj_logic.login_loyaltyCartClicked()
             }
         }
         KButton{
@@ -129,7 +127,7 @@ Item {
             anchors.topMargin: 20
             width: 318
             height: 66
-            
+
             y:522
             fontsize: 22
             text:  qsTr("Help")
@@ -137,9 +135,8 @@ Item {
             ishover: false
             shadow: false
             opacity: 1
-            
+
             onClicked: {
-                //                obj_logic.go_toShoppingClicked();
                 stackview.push(guidpage)
             }
         }
@@ -150,7 +147,7 @@ Item {
             anchors.topMargin: 20
             width: 318
             height: 66
-            
+
             y:522
             fontsize: 22
             text:  qsTr("Continue")
@@ -158,15 +155,14 @@ Item {
             ishover: false
             shadow: false
             opacity: 1
-            
+
             onClicked: {
-                stackview.push(shoppage)
-                //                obj_logic.go_toShoppingClicked();
+                obj_logic.continue_clicked();
             }
         }
     }
-    
-    
+
+
     Rectangle{
         id:languageButton
         x:0
@@ -195,7 +191,7 @@ Item {
         battery_level: cls_battery.batterylevel
         x:32
         y:32
-        
+
     }
     Rectangle{
         id:rect_Clock
@@ -216,7 +212,7 @@ Item {
         Text {
             id:txt_time
             text: new Date().getHours() + ":" + new Date().getMinutes()
-            
+
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
             font.pixelSize: 24
@@ -241,7 +237,7 @@ Item {
                 }
             }
         }
-        
+
         Rectangle{
             id:backgroundselectLangOpacity
             anchors.fill: parent
@@ -253,7 +249,7 @@ Item {
             source: parent
             radius: 32
         }
-        
+
         KBorderButton{
             borderwidth:0
             text: "English"
@@ -278,7 +274,7 @@ Item {
             y:315
             width: 185
             height: 66
-            
+
             textColor: "black"
         }
         KBorderButton{
@@ -298,7 +294,7 @@ Item {
             width: 185
             height: 66
             textColor: "black"
-            
+
         }
         KBorderButton{
             borderwidth:0
@@ -328,19 +324,23 @@ Item {
             textColor: "black"
         }
     }
-    
-    
+
+
     Component{
         id:authenticationPage
         Authentication{
+            id:l
             obj_LogicContainer: obj_logic
         }
+        function a(){
+            l.closePopups()
+        }
     }
-    
+
     Component{
         id:guidpage
         GuideTips{
-            
+
         }
     }
     Component{
@@ -349,29 +349,39 @@ Item {
             obj_LogicContainerLoyalityAuth: obj_LogicContainer
         }
     }
-    
+
     Component{
         id:settingPage
         SettingPage{
             obj_LogicSetting: obj_logic;
         }
     }
-    
+
     Component{
         id:shoppage
         Shop{
             obj_LogicContainerShop: obj_logic;
         }
     }
-    
+
+    FullMessageTimer{
+        id:messageTimer
+    }
+
     Connections{
         target:obj_logic
         function onGoToShopPageSignal(){
-            stackview.push(authenticationPage)
+            authenticationPage.a()
+            stackview.push(shoppage)
         }
-        
+
         function onGoToSettingPageSignal(){
             stackview.push(settingPage)
+        }
+
+        function onShowPopupMessageTimerSignal(v){
+            messageTimer.messageText = v
+            messageTimer.open()
         }
     }
 }

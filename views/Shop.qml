@@ -2,388 +2,850 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
 import QtQuick.Window 2.0
+import QtQuick.Controls.Styles 1.4
+import QtGraphicalEffects 1.0
 import "Components"
+import "Containers"
 import "Utiles" as Util
-import "Setting"
 import "PopUps"
 import KAST.Logic 1.0
-import KAST.Battery 1.0
 
 
 
 Item {
-    
+    id: root
     width: 1280
     height: 800
-    
+
+    property Logic obj_LogicContainerShop
+
+    property bool isfactorlistview: false
+
+    Component.onCompleted: {
+        obj_LogicContainerShop.shopPage.login_finished()
+    }
+
+    signal addpluitemsClicked()
+
     Util.ViewSettings{
         id:viewset
     }
-    
-    Logic{
-        id:obj_logic
+    Timer{
+        id:t1
+        interval: 3000
+        running: true
+        onTriggered: {
+            loader.opacity = 0
+        }
     }
-    
-    Battery{
-        id:cls_battery
-    }
-    
+
     Image {
-        id: background
-        source: "../Assets/SplashBackground.png"
+        source: "../Assets/AuthenticationBackground.png"
         anchors.fill: parent
-        Rectangle{
-            id:backgroundOpacity
-            color: "#1D1D1D"
-            anchors.fill:parent
-            opacity: 0
-            Behavior on opacity {
-                NumberAnimation { duration: 1000 }
-            }
-        }
     }
-    
-    FastBlur {
-        
-        anchors.fill: background
-        source: background
-        radius: 32
-    }
-    
-    
-    Image {
-        id: aptinetIcon
-        source: "../Assets/AptinetIcon1.png"
-        y:124
-        width: 208
-        height: 154
-        anchors.horizontalCenter: parent.horizontalCenter
-        
-    }
-    
-    
-    Text {
-        id:txt_welcome
-        text: qsTr("welcome!")
-        font.pixelSize: 64
-        anchors.horizontalCenter: parent.horizontalCenter
-        y:342
-        opacity: 1
-    }
-    Text {
-        id:txt_welcomebot
-        text: qsTr("To a quick shopping experience")
-        font.pixelSize: 20
-        y:428
-        opacity: 1
-        anchors.horizontalCenter: parent.horizontalCenter
-    }
-    Rectangle {
-        anchors.horizontalCenter: parent.horizontalCenter
-        width: 650
-        
-        KButton{
-            id:btn_enterPhone
-            width: 318
-            height: 66
-            
-            y:522
-            fontsize: 22
-            text:  qsTr("Enter Phone Number")
-            borderRadius: 5
-            ishover: false
-            shadow: false
-            opacity: 1
-            
-            onClicked: {
-                //obj_logic.go_toShoppingClicked();
-                stackview.push(authenticationPage)
-            }
-        }
-        KButton{
-            id:btn_scanMemberShopCart
-            anchors.top:btn_enterPhone.top
-            anchors.left: btn_enterPhone.right
-            anchors.leftMargin: 20
-            width: 318
-            height: 66
-            
-            
-            y:522
-            fontsize: 22
-            text:  qsTr("Scan MemberShop Cart")
-            borderRadius: 5
-            ishover: false
-            shadow: false
-            opacity: 1
-            
-            onClicked: {
-                obj_logic.login_loyaltyCartClicked()
-            }
-        }
-        KButton{
-            id:btn_help
-            anchors.top:btn_enterPhone.bottom
-            anchors.left: btn_enterPhone.left
-            anchors.topMargin: 20
-            width: 318
-            height: 66
-            
-            y:522
-            fontsize: 22
-            text:  qsTr("Help")
-            borderRadius: 5
-            ishover: false
-            shadow: false
-            opacity: 1
-            
-            onClicked: {
-                //                obj_logic.go_toShoppingClicked();
-                stackview.push(guidpage)
-            }
-        }
-        KButton{
-            id:btn_continue
-            anchors.top:btn_scanMemberShopCart.bottom
-            anchors.left: btn_scanMemberShopCart.left
-            anchors.topMargin: 20
-            width: 318
-            height: 66
-            
-            y:522
-            fontsize: 22
-            text:  qsTr("Continue")
-            borderRadius: 5
-            ishover: false
-            shadow: false
-            opacity: 1
-            
-            onClicked: {
-                obj_logic.continue_clicked();
-            }
-        }
-    }
-    
-    
+
     Rectangle{
-        id:languageButton
+        width: parent.width
+        height: 92
         x:0
-        y:688
-        width: 112
-        height: 112
-        color: "transparent"
-        Image {
-            anchors.fill: parent
-            source: "../Assets/LanguageCircle.png"
+        y:0
+    }
+    Item{
+        id:top_Panel
+        width: parent.width
+        height: 92
+        Rectangle{
             width: parent.width
             height: parent.height
+            x:0
+            y:0
+            Rectangle{
+                width: 50
+                height: 50
+                color: viewset.primaryColor
+                x:421
+                y:25
+                radius: width /2
+            }
+            Text {
+                text: obj_LogicContainerShop.shopPage.user.loggedInUser.name
+                color: "#6D6D6D"
+                width: 148
+                height: 15
+                font.pixelSize: 14
+                x:478
+                y:40
+            }
+            KButton{
+                btn_color: "#9D9D9D"
+                x:995 -40
+                y:32
+                borderRadius: 5
+                width: 200
+                height: 40
+                text: "Lookup By Name"
+                btn_borderWidth:0
+                fontsize: 16
+                ishover: false
+                onClicked: {
+                    stackviewContainer.push(addPluItem)
+                    adsPanel.visible = false
+                    addPlupanel.visible = true
+
+                }
+            }
+            KButton{
+                btn_color: viewset.primaryColor
+                x:819 -40
+                y:32
+                borderRadius: 5
+                width: 164
+                height: 40
+                text: "+ Enter Barcode"
+                btn_borderWidth:0
+                fontsize: 16
+                ishover: false
+                onClicked: {
+                    stackviewContainer.push(manualBarcodeHandler)
+
+                }
+            }
+            Image {
+                source: "../Assets/Help.png"
+                width: 57
+                height: 57
+                x:1156
+                y:25
+            }
+            Image {
+                source: "../Assets/Notification.png"
+                width: 57
+                height: 57
+                x:1208
+                y:25
+            }
+
         }
-        Behavior on opacity{
-            NumberAnimation{duration: 1000}
+    }
+
+    Item {
+        id:main_Panel
+        Text {
+            id:toaddItem
+            text: "To add an item,\n scan its barcode or\n tap the button below."
+            width: 369
+            height: 144
+            x:261+ 390
+            y:326
+            font.pixelSize: 36
+            color: "#9D9D9D"
+            font.bold: true
+            horizontalAlignment:  TextInput.AlignHCenter
         }
-        MouseArea{
-            anchors.fill: parent
+        Rectangle{
+            id:loader
+            x:635
+            y:200
+            width: 400
+            height: 400
+            color: "#343434"
+            radius: width /2
+            AnimatedImage{
+                source: "../Assets/sphere-line-loader.gif"
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 220
+                height: 220
+            }
+            Text {
+                text: "Loading"
+                color: "white"
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                font.pixelSize: 24
+            }
+            onOpacityChanged: {
+                if(opacity == 1){
+                    visible = true
+                    t1.restart()
+                    t1.running = true
+                }
+                if(opacity == 0){
+                    visible = false
+                }
+            }
+            Behavior on opacity {
+                NumberAnimation{duration: 1000}
+            }
+        }
+
+
+
+        KButton{
+            id:btn_entermanualBarcode
+            text: "+ Lookup By Number"
+            x:645
+            y:610
+            width: 382
+            height: 62
+            borderRadius: 4
             onClicked: {
-                backgroundOpacity.opacity = 0.75
-                languageButtons.visible = true
+
+                stackviewContainer.push(manualBarcodeHandler)
+
+            }
+        }
+
+        StackView
+        {
+            id:stackviewContainer
+            width: 890
+            height: 708
+            x:390
+            y:92
+            //initialItem: lstProductHandler
+            //initialItem:addPluItemview
+            //initialItem: newProductHandler
+            initialItem: addPluItem
+            //initialItem: manualBarcodeHandler
+            //initialItem: plulist
+            //initialItem: specialdealslist
+            //initialItem: checkout
+            onDepthChanged: {
+                //                if(stackviewContainer.depth > 0){
+                //                    loader.opacity =0;
+                //                    loader.visible = false;
+                //                    toaddItem.visible = false
+                //                    btn_entermanualBarcode.visible = false
+                //                }
+                //                else{
+                //                    loader.opacity =1;
+                //                    loader.visible = true;
+                //                    toaddItem.visible = true
+                //                    btn_entermanualBarcode.visible = true
+                //                }
+                obj_LogicContainerShop.shopPage.stackview_depthChanged(stackviewContainer.depth)
             }
         }
     }
-    KBattery{
-        battery_level: cls_battery.batterylevel
-        x:32
-        y:32
-        
-    }
-    Rectangle{
-        id:rect_Clock
-        width: 100
-        height: 38
-        color: viewset.primaryColor
-        radius: 50
-        x:1148
-        y:32
-        Timer{
-            running: true
-            repeat: true
-            interval: 1000
-            onTriggered: {
-                txt_time.text =  new Date().getHours() + ":" + new Date().getMinutes()
+
+
+    Item{
+        id:addPlupanel
+        visible: false
+        width: 390
+        height: parent.height
+
+        Rectangle {
+            id:rect_Suggestion
+            anchors.fill: parent
+            color: "white"
+        }
+        Image {
+            source: "../Assets/AptinetText1.png"
+            x:32
+            y:32
+        }
+        Image {
+            id: img_UserCaptured
+            source: "image://KCameraProvider/1"
+            width: 326
+            height: 184
+            x:32
+            y:105
+            property bool counter: false
+            cache: false
+
+            function reloadImage() {
+                counter = !counter
+                source = "image://KCameraProvider/?id=" + counter
             }
         }
         Text {
-            id:txt_time
-            text: new Date().getHours() + ":" + new Date().getMinutes()
-            
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
+            text: "ENTER PLU CODE"
             font.pixelSize: 24
-            color: "white"
             font.bold: true
+            x:32
+            y:327
+            color: viewset.primaryColor
+        }
+        Image {
+            source: "../Assets/EnterPLUIcon.png"
+            x:313
+            y:327
+        }
+        Rectangle{
+            id:rectEnterPLU
+            x:32
+            y:378
+            width: 326
+            height: 56
+            color: "#F1F1F1"
+            radius: 4
+            TextInput{
+                id:txt_PLUBarcodeInput
+                anchors.fill: parent
+                font.pixelSize: 18
+                layer.enabled: true
+                horizontalAlignment: TextInput.AlignHCenter
+                verticalAlignment:  TextInput.AlignVCenter
+                font.family: viewset.danaFuNumFont
+                property string placeholderText: " "
+
+                onFocusChanged: {
+                    numpad.inputtext = txt_PLUBarcodeInput
+                }
+                Text {
+                    text: txt_PLUBarcodeInput.placeholderText
+                    color: "#C6C5CE"
+                    visible: !txt_PLUBarcodeInput.text
+                    font.pixelSize: 18
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.family: viewset.danaFuNumFont
+                }
+                onTextChanged: {
+                    if(text == "665566")
+                    {
+                        stackviewContainer.replace(addPluItemview)
+                    }
+                }
+            }
+
+        }
+        Numpad{
+            id:numpad
+            anchors.top: rectEnterPLU.bottom
+            anchors.topMargin: 0
+            x:32
         }
     }
-    Item{
-        id: languageButtons
-        anchors.fill: parent
-        width: parent.width
+
+    Item {
+        id: adsPanel
+        visible: true
+        width: 390
         height: parent.height
-        visible: false
-        Rectangle{
+
+        Image {
+            id:rect_SuggestionadsPanel
+            source: "../Assets/leftSideBar.png"
             anchors.fill: parent
-            color: "transparent"
+
+        }
+        Image {
+            source: "../Assets/AptinetText1.png"
+            x:32
+            y:32
+        }
+
+        Image {
+            id: img_UserCapturedadsPanel
+            source: "image://KCameraProvider/1"
+            width: 326
+            height: 184
+            x:32
+            y:105
+            cache: false
+            property bool counter: false
+
+
+            function reloadImage() {
+                counter = !counter
+                source = "image://KCameraProvider/?id=" + counter
+
+            }
+        }
+        Image {
+            id: ads_Image
+            source: "../Assets/Ads.png"
+            width: 326
+            height: 184
+            x:32
+            y:309
+        }
+        Text {
+            text: "Special Deals"
+            font.pixelSize: 24
+            color: "white"
+            x:32
+            y:521
+            font.bold: true
+        }
+        KButton {
+            text: "more >"
+            x:270
+            y:520
+            width: 100
+            font.pixelSize: 20
+            font.bold: true
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    backgroundOpacity.opacity = 0
-                    languageButtons.visible = false
+                    if(stackviewContainer.currentItem != specialdealslist)
+                    {
+                        console.log(stackviewContainer.currentItem)
+                        stackviewContainer.push(specialdealslist)
+                    }
+
+
                 }
             }
         }
-        
+        ListView {
+            id:slideshow
+            width: 326
+            height: 800 - y
+            x:32
+            y:571
+
+            clip: true
+            spacing: 10
+            model: obj_LogicContainerShop.shopPage.offersList
+            orientation: ListView.vertical
+            delegate:
+                Item {
+                width: 326
+                height: 144
+                Rectangle{
+                    width: 326
+                    height: 144
+                    color: "white"
+                    opacity: 0.3
+                }
+
+                Rectangle{
+                    width: 326
+                    height: 144
+                    color: "transparent"
+
+                    Rectangle{
+                        width: 144
+                        height: 144
+                        color: "white"
+
+                        Image {
+                            source: model.pic
+                            width: 106
+                            height: 106
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.horizontalCenter: parent.horizontalCenter
+                        }
+                    }
+
+                    Text {
+                        text: model.name
+                        width: 134
+                        height: 66
+                        x:164
+                        y:20
+                        font.pixelSize: 16
+                        wrapMode: Text.WordWrap
+                    }
+                    Text {
+                        x:164
+                        y:98
+                        text: "$ "+model.price
+                        font.pixelSize: 24
+                        color:viewset.primaryColor
+                        font.bold: true
+                    }
+                    Text {
+                        x:248
+                        y:98
+                        text: "-9 %"
+                        font.pixelSize: 24
+                        color: viewset.primaryColor
+                        visible: false
+                    }
+                }
+            }
+        }
+
+    }
+    Item {
+        id: checkoutPanel
+        visible: false
+        width: 390
+        height: parent.height
+
+        Rectangle {
+            color: "white"
+            id:rect_SuggestionadsPanel1
+            anchors.fill: parent
+        }
+        Image {
+            source: "../Assets/AptinetText1.png"
+            x:32
+            y:32
+        }
+        Image {
+            id: img_UserCapturedadsPanel1
+            source: "image://KCameraProvider/1"
+            width: 326
+            height: 184
+            x:32
+            y:105
+            property bool counter: false
+            cache: false
+
+            function reloadImage() {
+                counter = !counter
+                source = "image://KCameraProvider/?id=" + counter
+            }
+        }
+
+        Text {
+            text: "My Cart"
+            font.pixelSize: 24
+            color: "gray"
+            x:32
+            y:326
+            font.bold: true
+        }
         Rectangle{
-            id:backgroundselectLangOpacity
-            anchors.fill: parent
-            color: "#1D1D1D"
-            opacity: 0.75
+            width: 40
+            height: 40
+            radius: width / 2
+            x:142
+            y:321
+            color: viewset.secondaryColor
+            Text {
+                text: "2"
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                color: "white"
+                font.pixelSize: 24
+                font.bold: true
+            }
         }
-        FastBlur {
-            anchors.fill: parent
-            source: parent
-            radius: 32
+
+
+        ListView {
+            id:slideshow1
+            width: 326
+            height: 800 - y
+            x:32
+            y:360
+
+            clip: true
+            spacing: 10
+            model: obj_LogicContainerShop.shopPage.factorList
+            orientation: ListView.vertical
+            delegate:
+                Item {
+                width: 326
+                height: 78
+                Text {
+                    text: model.name
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 16
+                }
+                Rectangle{
+                    color: viewset.primaryColor
+                    width: 30
+                    height: 30
+                    radius: 5
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.right: parent.right
+                    Text {
+                        text: model.countInBasket
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        color: "white"
+                    }
+                }
+            }
         }
-        
-        KBorderButton{
-            borderwidth:0
-            text: "English"
-            x:213
-            y:315
-            width: 185
-            height: 66
-        }
-        KBorderButton{
-            borderwidth:0
-            text: "Deutsch"
-            x:436
-            y:315
-            width: 185
-            height: 66
-            textColor: "black"
-        }
-        KBorderButton{
-            borderwidth:0
-            text: "Français"
-            x:659
-            y:315
-            width: 185
-            height: 66
-            
-            textColor: "black"
-        }
-        KBorderButton{
-            borderwidth:0
-            text: "Italiano"
-            x:882
-            y:315
-            width: 185
-            height: 66
-            textColor: "black"
-        }
-        KBorderButton{
-            borderwidth:0
-            text: "Español"
-            x:213
-            y:419
-            width: 185
-            height: 66
-            textColor: "black"
-            
-        }
-        KBorderButton{
-            borderwidth:0
-            text: "Português"
-            x:436
-            y:419
-            width: 185
-            height: 66
-            textColor: "black"
-        }
-        KBorderButton{
-            borderwidth:0
-            text: "Türkçe"
-            x:659
-            y:419
-            width: 185
-            height: 66
-            textColor: "black"
-        }
-        KBorderButton{
-            borderwidth:0
-            text: "العربية"
-            x:882
-            y:419
-            width: 185
-            height: 66
-            textColor: "black"
-        }
+
     }
-    
-    
+
+
     Component{
-        id:authenticationPage
-        Authentication{
-            id:l
-            obj_LogicContainer: obj_logic
-        }
-        function a(){
-            l.closePopups()
+        id:newProductHandler
+        BarcodeScanned{
+            obj_LogicContainerBarcodeScanned: obj_LogicContainerShop
+
+            onPass: {
+                //stackviewContainer.push(lstProductHandler)
+            }
+
+            onCancel: {
+                //                if(stackviewContainer.depth == 1)
+                //                {
+                //                    stackviewContainer.clear()
+                //                }
+                //                else
+                //                {
+                //                    stackviewContainer.pop()
+                //                }
+            }
         }
     }
-    
+
     Component{
-        id:guidpage
-        GuideTips{
-            
+        id:lstProductHandler
+        LstCheckProducts{
+            obj_LogicContainerLstCheckProducts: obj_LogicContainerShop
+            onGocheckout: {
+                //                adsPanel.visible = false
+                //                checkoutPanel.visible = true
+                //                stackviewContainer.push(checkout)
+            }
+        }
+    }
+
+    Component{
+        id:manualBarcodeHandler
+        ManualBarcode{
+            obj_LogicContainerManualBarcode: obj_LogicContainerShop
+            onOk: {
+                stackviewContainer.replace(newProductHandler)
+            }
+
+            onCancle: {
+                if(stackviewContainer.depth == 1)
+                {
+                    stackviewContainer.clear()
+                }
+                else
+                {
+                    stackviewContainer.pop()
+                }
+
+            }
         }
     }
     Component{
-        id:loyalityAuth
-        LoyalityAuth{
-            obj_LogicContainerLoyalityAuth: obj_LogicContainer
+        id:addPluItem
+        AddPluItems{
+            obj_LogicContainerAddPluItems: obj_LogicContainerShop
+            onSeeAll: {
+                stackviewContainer.push(plulist)
+            }
+
+            onBack: {
+                adsPanel.visible = true
+                addPlupanel.visible = false
+                if(stackviewContainer.depth == 1)
+                {
+                    stackviewContainer.clear()
+                }
+                else
+                {
+                    stackviewContainer.pop()
+                }
+
+            }
         }
     }
-    
+
     Component{
-        id:settingPage
-        SettingPage{
-            obj_LogicSetting: obj_logic;
+        id:addPluItemview
+        AddPluItemsView{
+            obj_LogicContainerAddPluItemsView: obj_LogicContainerShop
+            onConfirm:
+            {
+                //                adsPanel.visible = true
+                //                addPlupanel.visible = false
+                //                stackviewContainer.replace(lstProductHandler)
+            }
+
+            onCancel:
+            {
+                //                adsPanel.visible = true
+                //                addPlupanel.visible = false
+                //                if(stackviewContainer.depth == 1)
+                //                {
+                //                    stackviewContainer.clear()
+                //                }
+                //                else
+                //                {
+                //                    stackviewContainer.pop()
+                //                }
+            }
+
         }
     }
-    
+
+    Component {
+        id: checkout
+        Checkoutpage {
+            obj_LogicContainerCheckoutPage: obj_LogicContainerShop
+            onNfcPaymentClicked: {
+                stackview.push(nfcpayment)
+            }
+
+            onBack: {
+                adsPanel.visible = true
+                checkoutPanel.visible = false
+                stackviewContainer.pop()
+            }
+        }
+    }
+
+    Component {
+        id: nfcpayment
+        PaymentviaNFC {
+            obj_LogicContainerPaymentNFC: obj_LogicContainerShop
+
+        }
+    }
+
+
     Component{
-        id:shoppage
-        Shop{
-            obj_LogicContainerShop: obj_logic;
+        id: plulist
+        PLUListItems {
+            obj_LogicContainerPLUListItems: obj_LogicContainerShop
+            onBack: {
+                stackviewContainer.pop()
+            }
         }
     }
-    
+    ///////////////////////////////////////////POPUPS
+
+    RemoveProductPopUp{
+        id:popUp_RemoveProducts
+        obj_logicRemoveProductList: obj_LogicContainerShop
+    }
+
+    BypassPopUp{
+        id:popUp_bypass
+        obj_logicByPassPopup: obj_LogicContainerShop
+    }
+
     FullMessageTimer{
-        id:messageTimer
+        id:popUp_MessageTimer
     }
-    
+
+    NotificationPopUp{
+        id:popUp_message
+    }
+
+    NotificationPopUp{
+        id:popUp_MessageNotBarcodedProduct
+        message: "Please put the product you scanned into the cart!"
+
+    }
+    NotificationPopUp{
+        id:popUp_MessageNoBarcodeScanned
+        message: "First, take the barcode of the product in front of the barcode scanner, then put it in the cart!"
+    }
+    NotificationPopUp{
+        id:popUpMessageNotAllowedChangeWeight
+        message: "You cannot add or subtract products to the cart during checkout!"
+    }
+    ////////////////////////////////////////////////////
+
+
+    Component{
+        id: specialdealslist
+        LstSpecialDeals {
+            obj_LogicContainerLstSpecialDeals: obj_LogicContainerShop
+            onBack: {
+                if(stackviewContainer.depth == 1)
+                {
+                    stackviewContainer.clear()
+                }
+                else
+                {
+                    stackviewContainer.pop()
+                }
+            }
+        }
+    }
+
     Connections{
-        target:obj_logic
-        function onGoToShopPageSignal(){
-            authenticationPage.a()
-            stackview.push(shoppage)
+        target: cameraProvider
+        function onNewFrameReadSignal() {
+            if(checkoutPanel.visible === true){
+                img_UserCapturedadsPanel1.reloadImage()
+            }
+            if(adsPanel.visible === true){
+                img_UserCapturedadsPanel.reloadImage()
+            }
+
+            if(addPlupanel.visible === true){
+                img_UserCaptured.reloadImage()
+            }
         }
-        
-        function onGoToSettingPageSignal(){
-            stackview.push(settingPage)
+    }
+    Connections{
+        target: obj_LogicContainerShop.shopPage
+        function onShowNewProductScannedSignal(){
+            stackviewContainer.push(newProductHandler)
+            slideshow.model = obj_LogicContainerShop.shopPage.suggestedList
         }
-        
-        function onShowPopupMessageTimerSignal(v){
-            messageTimer.messageText = v
-            messageTimer.open()
+        function onCloseTopStackViewSignal(){
+            if(stackviewContainer.depth == 1)
+            {
+                if(root.isfactorlistview == false)
+                {
+                    stackviewContainer.clear()
+                }
+            }
+            else
+            {
+                stackviewContainer.pop()
+            }
+            slideshow.model = obj_LogicContainerShop.shopPage.offersList
         }
+        function onInitFactorListSignal(){
+            root.isfactorlistview = true
+            stackviewContainer.push(lstProductHandler)
+        }
+        function onOpenPopupMessageTimerSignal(text){
+            popUpMessageTimer.messageText = text
+            popUpMessageTimer.open()
+        }
+        function onCloseAllPopUpSignal(){
+
+        }
+
+        function onVisibleProductListDeleteSignal(){
+
+        }
+
+        function onOpenPopupMessageSignal(text){
+            popUp_message.message = text
+            popUp_message.open()
+        }
+
+        function onClosePopupMessageSignal(){
+            popUp_message.close()
+        }
+
+        function onOpenPopupWeightNotMatchWithBarcodeSignal(){
+            popUp_MessageNotBarcodedProduct.open()
+        }
+
+        function onClosePopupWeightNotMatchWithBarcodeSignal(){
+            popUp_MessageNotBarcodedProduct.close()
+        }
+
+        function onOpenPopupNoBarcodeScannedSignal(){
+            popUp_MessageNoBarcodeScanned.open()
+        }
+
+        function onClosePopupNoBarcodeScannedSignal(){
+            popUp_MessageNoBarcodeScanned.close()
+        }
+
+        function onOpenPopupDeleteProductSignal(){
+            popUp_RemoveProducts.open()
+        }
+
+        function onClosePopupDeleteProductSignal(){
+            popUp_RemoveProducts.close()
+        }
+
+        function onOpenPopUpMessageNotAllowedChangeWeightSignal(){
+            popUpMessageNotAllowedChangeWeight.open()
+        }
+
+        function onClosePopUpMessageNotAllowedChangeWeightSignal(){
+            popUpMessageNotAllowedChangeWeight.close()
+        }
+
     }
 }
