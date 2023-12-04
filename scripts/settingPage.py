@@ -8,9 +8,7 @@ from updateSoftware import UpdateSoftware
 from Services.wifi import WirelessModel
 import time
 from Services.weighsensorCalibration import WeighSensorCalibration
-
-
-
+from Helpers.scannerHelper import ScannerHelper
 
 
 class SettingPage(QObject):
@@ -27,12 +25,12 @@ class SettingPage(QObject):
     _configsRepository: ConfigRepositories
     _apiHandler: Apihandler
     _lastSoftwareVersion: str
-    _wifimodel : WirelessModel
-    _weightsensorval : WeighSensorCalibration
+    _wifimodel: WirelessModel
+    _weightsensorval: WeighSensorCalibration
 
-    def __init__(self):
+    def __init__(self, dal: DAL, scanner: ScannerHelper):
         super().__init__()
-        self._dal = DAL()
+        self._dal = dal
         self._adminRepository = AdminRepository(self._dal)
         self._configsRepository = ConfigRepositories(self._dal)
         self._apiHandler = Apihandler(self._dal)
@@ -40,6 +38,8 @@ class SettingPage(QObject):
         self._updateSoftware = None
         self._weightsensorval = WeighSensorCalibration()
 
+        self._scanner = scanner
+        # self._scanner.IDBarcodeReadSignal.dissconnect()
 
     ### Signals ########################################################################################################
     changedSignal = Signal()
@@ -93,19 +93,18 @@ class SettingPage(QObject):
     def get_weightSensor(self):
         return self._weightsensorval
 
-    def set_weightSensor(self,val):
+    def set_weightSensor(self, val):
         self._weightsensorval = val
         self.changedSignal.emit()
-    
-    weightsensor = Property(WeighSensorCalibration, get_weightSensor, set_weightSensor,notify=changedSignal)
 
+    weightsensor = Property(WeighSensorCalibration, get_weightSensor, set_weightSensor, notify=changedSignal)
 
     ### Sluts ##########################################################################################################
-    @Slot(str, str)
-    def confirm_clicked(self, username: str, password: str):
-        print(username + "       " + password)
-        if self._adminRepository.Login(username) and (password == "123456"):
-            self.loginConfirmedSignal.emit()
+    # @Slot(str, str)
+    # def confirm_clicked(self, username: str, password: str):
+    #     print(username + "       " + password)
+    #     if self._adminRepository.Login(username) and (password == "123456"):
+    #         self.loginConfirmedSignal.emit()
 
     @Slot()
     def cart_infoClicked(self):
@@ -122,6 +121,7 @@ class SettingPage(QObject):
     def gotoWifiSettings(self):
         self._wifimodel = WirelessModel()
         # self._wifimodel.threadscanerFinished.connect(self.finishwifiscannerThread)
+
     @Slot()
     def backFromWifiSettigs(self):
         time.sleep(1)
@@ -130,3 +130,4 @@ class SettingPage(QObject):
         # print("backed")
 
     ### Functions ######################################################################################################
+

@@ -8,6 +8,8 @@ class ScannerHelper(QObject):
     _IDBarcode: str
     _loyaltyCardBarcode: str
 
+    _outOfLogic: bool = False
+
     ### Setting ###################
     _productBarcodeLength: int = 13
     _IDBarcodeLength: int = 20
@@ -24,12 +26,19 @@ class ScannerHelper(QObject):
     QRReadSignal = Signal()
     IDBarcodeReadSignal = Signal()
     loyaltyCardBarcodeReadSignal = Signal()
+    goToSettingSignal = Signal()
 
     def get_barcode(self):
         return self._barcode
 
     def set_barcode(self, v: str):
         self._barcode = v
+
+    def get_IDBarcode(self):
+        return self._IDBarcode
+
+    def set_IDBarcode(self, val: str):
+        self._IDBarcode = val
 
     def get_loyaltyCardBarcode(self):
         return self._loyaltyCardBarcode
@@ -49,6 +58,10 @@ class ScannerHelper(QObject):
         elif len(self._scannerWorker.get_readBytes()) == IDBarcodeLength:
             self._IDBarcode = self._scannerWorker.get_readBytes()[1:-1].decode('latin1')
             self.IDBarcodeReadSignal.emit()
+            # if self._outOfLogic:
+            #     self.goToSettingSignal.emit()
+            # else:
+            #     self.IDBarcodeReadSignal()
         elif len(self._scannerWorker.get_readBytes()) == LoyaltyCardBarcodeLength:
             self._loyaltyCardBarcode = self._scannerWorker.get_readBytes()[1:-1].decode('latin1')
             self.loyaltyCardBarcodeReadSignal.emit()
@@ -59,8 +72,12 @@ class ScannerHelper(QObject):
         #     self.iranbarcode = self._scannerWorker.readed_bytes[1:-1].decode('latin1')
         #     self.Qr_Readed.emit()
 
+    def go_outOfLogic(self):
+        self._outOfLogic = True
+
     def start(self):
         self._scannerWorker.start()
 
     def stop(self):
         self._scannerWorker.stop()
+
