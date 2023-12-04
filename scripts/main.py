@@ -15,7 +15,7 @@ if __name__ == "__main__":
     app = QGuiApplication(sys.argv)
     app.setOverrideCursor(Qt.BlankCursor)
 
-    id = QFontDatabase.addApplicationFont(":../Assets/Archivo/Archivo-Regular.ttf")
+    id = QFontDatabase.addApplicationFont("../Assets/Archivo/Archivo-Regular.ttf")
     app.setFont(QFont(QFontDatabase.applicationFontFamilies(id)[0]))
     
     qmlRegisterType(Battery, "KAST.Battery", 1, 0, "Battery")
