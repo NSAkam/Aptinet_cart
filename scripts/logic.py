@@ -68,12 +68,14 @@ class Logic(QObject):
     ### Sluts ##########################################################################################################
     @Slot()
     def go_toShoppingClicked(self):
+        self._scanner.IDBarcodeReadSignal.disconnect()
         self.set_shopPage(ShopPage(self._dal, self._scanner))
         self._scanner.go_outOfLogic()
         self.goToShopPageSignal.emit()
 
     @Slot()
     def go_toSettingClicked(self):
+        self._scanner.IDBarcodeReadSignal.disconnect()
         self.set_settingPage(SettingPage(self._dal, self._scanner))
         self._scanner.go_outOfLogic()
         if self._adminRepository.Login(self._scanner.get_IDBarcode()):

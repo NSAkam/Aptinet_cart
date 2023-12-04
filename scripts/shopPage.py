@@ -93,6 +93,7 @@ class ShopPage(QObject):
         self._scanner = scanner
         self._scanner.EAN13ReadSignal.connect(self.barcodeRead)
         self._scanner.loyaltyCardBarcodeReadSignal.connect(self.read_loyaltyCardBarcode)
+        self._scanner.IDBarcodeReadSignal.connect(self.test)
         # self._scanner.start()
 
         #### WeightSensor #########################################
@@ -694,6 +695,10 @@ class ShopPage(QObject):
                 self._removeList.clearData()
                 self._trustUser = False
                 self.state = 1
+
+    @Slot()
+    def test(self):
+        print("IDBarcodeSignal connected again successfully")
 
     ###################################################################################################### Functions ###
     def print_states(self):

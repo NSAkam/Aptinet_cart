@@ -39,6 +39,7 @@ class SettingPage(QObject):
         self._weightsensorval = WeighSensorCalibration()
 
         self._scanner = scanner
+        self._scanner.IDBarcodeReadSignal.connect(self.test)
         # self._scanner.IDBarcodeReadSignal.dissconnect()
 
     ### Signals ########################################################################################################
@@ -128,6 +129,10 @@ class SettingPage(QObject):
         self._wifimodel.destroy()
         # del self._wifimodel
         # print("backed")
+
+    @Slot()
+    def test(self):
+        print("IDBarcodeSignal connected again successfully")
 
     ### Functions ######################################################################################################
 
