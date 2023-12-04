@@ -161,3 +161,4 @@ class Logic(QObject):
         self._greenLightWorkerThread.finished.connect(self._greenLightWorkerThread.deleteLater)
         self._greenLightWorkerThread.start()
 
+

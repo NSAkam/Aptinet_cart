@@ -758,3 +758,4 @@ class ShopPage(QObject):
             while self._stackViewDepth > 0:
                 self.closeTopStackViewSignal.emit()
 
+
