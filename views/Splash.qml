@@ -7,7 +7,7 @@ import "Utiles" as Util
 import "Setting"
 import "PopUps"
 import KAST.Logic 1.0
-import KAST.Battery 1.0
+// import KAST.Battery 1.0
 
 
 
