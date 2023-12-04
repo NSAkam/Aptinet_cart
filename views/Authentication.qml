@@ -3,6 +3,7 @@ import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
 import "Components"
 import "Utiles" as Util
+import "PopUps"
 import KAST.Logic 1.0
 
 
@@ -14,6 +15,10 @@ Item {
     height: 800
 
     property Logic obj_LogicContainer
+    
+    function closePopups(){
+        popupInsertSMS.close()
+    }
 
     Util.ViewSettings{
         id:viewset
@@ -142,8 +147,7 @@ Item {
         MouseArea{
             anchors.fill: parent
             onClicked: {
-                obj_LogicContainer.shopPage.enter_phoneNumberClicked(txt_phone.text)
-
+                obj_LogicContainer.login_phoneNumber(txt_phone.text)
             }
         }
     }
@@ -279,23 +283,14 @@ Item {
             topnavbar.backvisible = false
         }
     }
-    Component{
-        id:tostepAuthPage
-        TowStepAuthentication{
-            obj_LogicContainerTowStepAuthentication: obj_LogicContainer
-        }
+    InsertSMS{
+        id:popupInsertSMS
     }
 
-    Component{
-        id:shoppage
-        Shop{
-            obj_LogicContainerShop: obj_LogicContainer
-        }
-    }
     Connections{
-        target:obj_LogicContainer.shopPage
-        function onSuccessfulLoginSignal(){
-            stackview.push(tostepAuthPage)
+        target:obj_LogicContainer
+        function onValidPhoneNumberSignal(){
+            popupInsertSMS.open()
         }
     }
 }
