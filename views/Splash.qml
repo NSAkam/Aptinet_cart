@@ -24,9 +24,9 @@ Item {
         id:obj_logic
     }
 
-    Battery{
-        id:cls_battery
-    }
+    // Battery{
+    //     id:cls_battery
+    // }
 
     Image {
         id: background
