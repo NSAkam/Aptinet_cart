@@ -13,7 +13,7 @@ Item {
     width: 1280
     height: 800
     
-    property Logic obj_LogicSettingSetting
+    property Logic obj_LogicSetting
     
     
     Image {
