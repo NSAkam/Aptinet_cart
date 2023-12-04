@@ -366,7 +366,7 @@ Item {
     }
     InsertSMS{
         id:popupInsertSMS
-        setting_obj: obj_LogicContainer
+        setting_obj: obj_logic
     }
 
     Connections{
