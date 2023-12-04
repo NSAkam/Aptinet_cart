@@ -82,12 +82,12 @@ Item {
         x: 170
         y: 224
 
-        Image {
-            source: "../Assets/blankbasket.png"
-            width: 48
-            height: 48
-            x: 24
-            y: 24
+        Text {
+            text: qsTr("1")
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.pixelSize: 48
+            color: viewset.primaryColor
         }
 
         Rectangle{
@@ -104,7 +104,7 @@ Item {
         }
         Text {
             id: txt_1
-            text: "Make sure the cart is empty."
+            text: "Stop and remove the product from the cart."
             anchors.verticalCenter: rect1.verticalCenter
             anchors.horizontalCenter: rect1.horizontalCenter
             font.pixelSize: 32
@@ -112,10 +112,7 @@ Item {
             Behavior on opacity {
                 NumberAnimation{duration: 1000}
             }
-
         }
-
-
     }
 
     Rectangle {
@@ -125,12 +122,12 @@ Item {
         x: 170
         y: 352
 
-        Image {
-            source: "../Assets/basket2.png"
-            width: 48
-            height: 48
-            x: 24
-            y: 24
+        Text {
+            text: qsTr("2")
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.pixelSize: 48
+            color: viewset.primaryColor
         }
         Rectangle{
             id:rect2
@@ -145,10 +142,13 @@ Item {
         }
         Text {
             id: txt_2
-            text: "Don’t move the cart when add or remove products."
+            text: "After see the window, scan its barcode of the selected product to remove."
             anchors.verticalCenter: rect2.verticalCenter
             anchors.horizontalCenter: rect2.horizontalCenter
             font.pixelSize: 32
+            wrapMode: Text.WordWrap
+            width: 700
+
             opacity: 0
             Behavior on opacity {
                 NumberAnimation{duration: 1000}
@@ -163,12 +163,12 @@ Item {
         x: 170
         y: 480
 
-        Image {
-            source: "../Assets/basket3.png"
-            width: 48
-            height: 48
-            x: 24
-            y: 24
+        Text {
+            text: qsTr("3")
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.pixelSize: 48
+            color: viewset.primaryColor
         }
         Rectangle{
             id:rect3
@@ -184,9 +184,11 @@ Item {
         }
         Text {
             id: txt_3
-            text: "Add or remove products one by one."
+            text: "If you are sure to remove the product, press the confirmation button."
             anchors.verticalCenter: rect3.verticalCenter
             anchors.horizontalCenter: rect3.horizontalCenter
+            width: 700
+            wrapMode: Text.WordWrap
             font.pixelSize: 32
             opacity: 0
             Behavior on opacity {
@@ -211,14 +213,10 @@ Item {
         MouseArea{
             anchors.fill: parent
             onClicked: {
-                stackview.push(g1)
+                stackview.pop()
+                stackview.pop()
+                stackview.pop()
             }
-        }
-    }
-    Component{
-        id:g1
-        GuideTips1{
-
         }
     }
 

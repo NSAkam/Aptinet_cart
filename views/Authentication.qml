@@ -63,20 +63,20 @@ Item {
         }
     }
 
-    Text {
-        id:btn_skip
-        text: "Skip >"
-        color: "#4696FA"
-        font.pixelSize: 24
-        x:1080
-        y:659
-        MouseArea{
-            anchors.fill: parent
-            onClicked: {
-                stackview.push(shoppage)
-            }
-        }
-    }
+    //    Text {
+    //        id:btn_skip
+    //        text: "Skip >"
+    //        color: "#4696FA"
+    //        font.pixelSize: 24
+    //        x:1080
+    //        y:659
+    //        MouseArea{
+    //            anchors.fill: parent
+    //            onClicked: {
+    //                stackview.push(shoppage)
+    //            }
+    //        }
+    //    }
 
     //    Timer{
     //        interval: 1000
@@ -183,8 +183,8 @@ Item {
                 input_enterPhone.x=455
                 input_enterPhone.y = 218
                 btn_blueContinue.visible = true
-                btn_skip.y=233
-                btn_Continue.visible=false
+                //                btn_skip.y=233
+                //                btn_Continue.visible=false
                 txt_start.visible = false
             }
             Text {
@@ -225,20 +225,20 @@ Item {
     }
 
 
-    KButton{
-        id:btn_Continue
-        text: "Continue with Loyalty Card              "
-        anchors.horizontalCenter: parent.horizontalCenter
-        width: 428
-        y:645
-        height: 56
-        borderRadius: 5
-        btn_borderWidth: 0
-        isBold: false
-        onClicked: {
-            stackview.push(loyalityAuth)
-        }
-    }
+    //    KButton{
+    //        id:btn_Continue
+    //        text: "Continue with Loyalty Card              "
+    //        anchors.horizontalCenter: parent.horizontalCenter
+    //        width: 428
+    //        y:645
+    //        height: 56
+    //        borderRadius: 5
+    //        btn_borderWidth: 0
+    //        isBold: false
+    //        onClicked: {
+    //            stackview.push(loyalityAuth)
+    //        }
+    //    }
     Numpad{
         id:numpad
         inputtext : txt_phone
@@ -256,8 +256,9 @@ Item {
 
     TopNav{
         id:topnavbar
-        backvisible: false
+        backvisible: true
         onBackClicked: {
+            stackview.pop()
             txt_phone.focus = false
             numpad.visible = false
             numpad.opacity = 0
@@ -272,8 +273,8 @@ Item {
             input_enterPhone.width = 425
             input_enterPhone.x=428
             input_enterPhone.y = 565
-            btn_skip.y=659
-            btn_Continue.visible=true
+            //            btn_skip.y=659
+            //            btn_Continue.visible=true
             //txt_start.visible = true
             topnavbar.backvisible = false
         }
@@ -284,12 +285,7 @@ Item {
             obj_LogicContainerTowStepAuthentication: obj_LogicContainer
         }
     }
-    Component{
-        id:loyalityAuth
-        LoyalityAuth{
-            obj_LogicContainerLoyalityAuth: obj_LogicContainer
-        }
-    }
+
     Component{
         id:shoppage
         Shop{

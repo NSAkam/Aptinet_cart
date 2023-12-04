@@ -62,12 +62,13 @@ Item {
         height: 92
         x:0
         y:0
-        color: "#F05A28"
+        color: viewset.secondaryColor
 
         Text {
-            text: "Required Tips"
+            text: "Guide to add product to cart"
             color: "white"
             font.family: "Archivo"
+            anchors.horizontalCenter: parent.horizontalCenter
             font.pixelSize: 32
             font.bold: true
             x: 526
@@ -82,12 +83,13 @@ Item {
         x: 170
         y: 224
 
-        Image {
-            source: "../Assets/blankbasket.png"
-            width: 48
-            height: 48
-            x: 24
-            y: 24
+
+        Text {
+            text: qsTr("1")
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.pixelSize: 48
+            color: viewset.secondaryColor
         }
 
         Rectangle{
@@ -104,7 +106,7 @@ Item {
         }
         Text {
             id: txt_1
-            text: "Make sure the cart is empty."
+            text: "scan its barcode of the selected product."
             anchors.verticalCenter: rect1.verticalCenter
             anchors.horizontalCenter: rect1.horizontalCenter
             font.pixelSize: 32
@@ -125,12 +127,12 @@ Item {
         x: 170
         y: 352
 
-        Image {
-            source: "../Assets/basket2.png"
-            width: 48
-            height: 48
-            x: 24
-            y: 24
+        Text {
+            text: qsTr("2")
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.pixelSize: 48
+            color: viewset.secondaryColor
         }
         Rectangle{
             id:rect2
@@ -145,7 +147,7 @@ Item {
         }
         Text {
             id: txt_2
-            text: "Don’t move the cart when add or remove products."
+            text: "You have 7sec to view product information and put in the cart."
             anchors.verticalCenter: rect2.verticalCenter
             anchors.horizontalCenter: rect2.horizontalCenter
             font.pixelSize: 32
@@ -163,12 +165,12 @@ Item {
         x: 170
         y: 480
 
-        Image {
-            source: "../Assets/basket3.png"
-            width: 48
-            height: 48
-            x: 24
-            y: 24
+        Text {
+            text: qsTr("3")
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.pixelSize: 48
+            color: viewset.secondaryColor
         }
         Rectangle{
             id:rect3
@@ -184,7 +186,7 @@ Item {
         }
         Text {
             id: txt_3
-            text: "Add or remove products one by one."
+            text: "Continue after you hear the notification sound."
             anchors.verticalCenter: rect3.verticalCenter
             anchors.horizontalCenter: rect3.horizontalCenter
             font.pixelSize: 32
@@ -211,13 +213,13 @@ Item {
         MouseArea{
             anchors.fill: parent
             onClicked: {
-                stackview.push(g1)
+                stackview.push(g2)
             }
         }
     }
     Component{
-        id:g1
-        GuideTips1{
+        id:g2
+        GuideTips2{
 
         }
     }

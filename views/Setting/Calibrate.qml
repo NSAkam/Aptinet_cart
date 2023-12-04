@@ -425,7 +425,7 @@ Item {
                     }
                     else{
                         console.log("2")
-                        
+
                         obj_LogicCalibrate.settingPage.weightsensor.setWeightW1(txt_weight.text);
                         root.weightedCount = root.weightedCount +1
 

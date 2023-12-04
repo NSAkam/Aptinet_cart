@@ -85,21 +85,16 @@ Item {
 
 
 
-    Rectangle{
+    KButton{
         x:32
         y:640
-        Text {
-            text: "< Back"
-            font.pixelSize: 24
-
-            MouseArea{
-                anchors.fill: parent
-                onClicked: {
-                    root.back()
-                }
-            }
+        text: "< Back"
+        width: 120
+        borderRadius: 5
+        onClicked: {
+            root.back()
         }
     }
-
-
 }
+
+

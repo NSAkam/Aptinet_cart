@@ -34,9 +34,9 @@ Item {
         anchors.fill: parent
         Rectangle{
             id:backgroundOpacity
-            anchors.fill: parent
             color: "#1D1D1D"
-            opacity: 0.75
+            anchors.fill:parent
+            opacity: 0
             Behavior on opacity {
                 NumberAnimation { duration: 1000 }
             }
@@ -54,168 +54,118 @@ Item {
     Image {
         id: aptinetIcon
         source: "../Assets/AptinetIcon1.png"
-        x:486
-        y:283
-        width: 308
-        height: 233
-        Behavior on x {
-            NumberAnimation { duration: 1000 }
-        }
-        Behavior on y {
-            NumberAnimation { duration: 1000 }
-        }
-        Behavior on width {
-            NumberAnimation { duration: 1000 }
-        }
-        Behavior on height {
-            NumberAnimation { duration: 1000 }
-        }
-        onWidthChanged: {
-            if(width == 208){
-                txt_welcome.opacity = 1
-                txt_welcomebot.opacity = 1
-            }
-        }
+        y:124
+        width: 208
+        height: 154
+        anchors.horizontalCenter: parent.horizontalCenter
+        
     }
     
-    Rectangle{
-        id:statrtButton
-        width: 374
-        height: 179
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        color: "transparent"
-        Text {
-            id: txtStartButton
-            color: "#F5AF8C"
-            text: qsTr("Tap To Start >")
-            font.bold: true
-            font.pixelSize: 32
-            font.letterSpacing: -0.5
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-        }
-        
-        NumberAnimation {
-            target: txtStartButton
-            property: "opacity"
-            duration: 1000
-            easing.type: Easing.InOutQuad
-            from:0.25
-            to:1
-            running: true
-            loops: Animation.Infinite
-        }
-        MouseArea{
-            anchors.fill: parent
-            onClicked: {
-                backgroundOpacity.opacity = 0
-                aptinetIcon.x=536;
-                aptinetIcon.y=124;
-                aptinetIcon.width=208;
-                aptinetIcon.height=154;
-                startshoppingButton.opacity = 1;
-                guideButton.opacity = 1;
-                statrtButton.visible = false
-                startshoppingButton.enabled = true;
-                guideButton.enabled = true;
-                settingButton.enabled=true;
-                settingButton.opacity = 1;
-                languageButton.enabled = true
-                languageButton.opacity = 1
-                
-            }
-        }
-        
-    }
+    
     Text {
         id:txt_welcome
         text: qsTr("welcome!")
         font.pixelSize: 64
-        x:485
+        anchors.horizontalCenter: parent.horizontalCenter
         y:342
-        opacity: 0
-        Behavior on opacity {
-            NumberAnimation { duration: 2000 }
-        }
+        opacity: 1
     }
     Text {
         id:txt_welcomebot
         text: qsTr("To a quick shopping experience")
         font.pixelSize: 20
-        x:487
         y:428
-        opacity: 0
-        Behavior on opacity {
-            NumberAnimation { duration: 2000 }
-        }
+        opacity: 1
+        anchors.horizontalCenter: parent.horizontalCenter
     }
-    KButton{
-        id:startshoppingButton
-        width: 318
-        height: 66
-        x:477
-        y:522
-        fontsize: 24
-        text:  qsTr("START")
-        borderRadius: 5
-        ishover: false
-        shadow: false
-        enabled: false
-        opacity: 0
-        Behavior on opacity{
-            NumberAnimation{duration: 1000}
-        }
-        onClicked: {
-            obj_logic.go_toShoppingClicked();
-        }
-    }
-    KBorderButton{
-        id:guideButton
-        width: 318
-        height: 66
-        radius: 5
-        x:477
-        y:612
-        text: "VIEW GUIDE"
-        enabled: false
-        opacity: 0
-        Behavior on opacity{
-            NumberAnimation{duration: 1000}
-        }
-        MouseArea{
-            anchors.fill: parent
+    Rectangle {
+        anchors.horizontalCenter: parent.horizontalCenter
+        width: 650
+        
+        KButton{
+            id:btn_enterPhone
+            width: 318
+            height: 66
+            
+            y:522
+            fontsize: 22
+            text:  qsTr("Enter Phone Number")
+            borderRadius: 5
+            ishover: false
+            shadow: false
+            opacity: 1
+            
             onClicked: {
+                //obj_logic.go_toShoppingClicked();
+                stackview.push(authenticationPage)
+            }
+        }
+        KButton{
+            id:btn_scanMemberShopCart
+            anchors.top:btn_enterPhone.top
+            anchors.left: btn_enterPhone.right
+            anchors.leftMargin: 20
+            width: 318
+            height: 66
+            
+            
+            y:522
+            fontsize: 22
+            text:  qsTr("Scan MemberShop Cart")
+            borderRadius: 5
+            ishover: false
+            shadow: false
+            opacity: 1
+            
+            onClicked: {
+                stackview.push(loyalityAuth)
+                //                obj_logic.go_toShoppingClicked();
+            }
+        }
+        KButton{
+            id:btn_help
+            anchors.top:btn_enterPhone.bottom
+            anchors.left: btn_enterPhone.left
+            anchors.topMargin: 20
+            width: 318
+            height: 66
+            
+            y:522
+            fontsize: 22
+            text:  qsTr("Help")
+            borderRadius: 5
+            ishover: false
+            shadow: false
+            opacity: 1
+            
+            onClicked: {
+                //                obj_logic.go_toShoppingClicked();
                 stackview.push(guidpage)
             }
         }
-    }
-    Rectangle{
-        id:settingButton
-        x:1168
-        y:688
-        width: 112
-        height: 112
-        color: "transparent"
-        Image {
-            anchors.fill: parent
-            source: "../Assets/SettingCircle.png"
-            width: parent.width
-            height: parent.height
-        }
-        enabled: false
-        opacity: 0
-        Behavior on opacity{
-            NumberAnimation{duration: 1000}
-        }
-        
-        MouseArea {
-            anchors.fill: parent
+        KButton{
+            id:btn_continue
+            anchors.top:btn_scanMemberShopCart.bottom
+            anchors.left: btn_scanMemberShopCart.left
+            anchors.topMargin: 20
+            width: 318
+            height: 66
+            
+            y:522
+            fontsize: 22
+            text:  qsTr("Continue")
+            borderRadius: 5
+            ishover: false
+            shadow: false
+            opacity: 1
+            
             onClicked: {
-                obj_logic.go_toSettingClicked();
+                stackview.push(shoppage)
+                //                obj_logic.go_toShoppingClicked();
             }
         }
     }
+    
     
     Rectangle{
         id:languageButton
@@ -230,8 +180,6 @@ Item {
             width: parent.width
             height: parent.height
         }
-        enabled: false
-        opacity: 0
         Behavior on opacity{
             NumberAnimation{duration: 1000}
         }
@@ -301,7 +249,6 @@ Item {
             opacity: 0.75
         }
         FastBlur {
-            
             anchors.fill: parent
             source: parent
             radius: 32
@@ -396,13 +343,27 @@ Item {
             
         }
     }
-    
     Component{
-        id:membershipLogin
-        MembershipLogin{
-            obj_LogicContainer:obj_logic;
+        id:loyalityAuth
+        LoyalityAuth{
+            obj_LogicContainerLoyalityAuth: obj_LogicContainer
         }
     }
+    
+    Component{
+        id:settingPage
+        SettingPage{
+            obj_LogicSettingSetting: obj_logic;
+        }
+    }
+    
+    Component{
+        id:shoppage
+        Shop{
+            obj_LogicContainerShop: obj_logic;
+        }
+    }
+    
     Connections{
         target:obj_logic
         function onGoToShopPageSignal(){
@@ -410,7 +371,7 @@ Item {
         }
         
         function onGoToSettingPageSignal(){
-            stackview.push(membershipLogin)
+            stackview.push(settingPage)
         }
     }
 }

@@ -12,13 +12,13 @@ Item{
     width: 1280
     height: 800
     property Logic obj_LogicContainer
-    
+
     Image {
         id: q
         source: "../../Assets/AuthenticationBackground.png"
         anchors.fill: parent
     }
-    
+
     Rectangle {
         width: 672
         height: 86
@@ -33,7 +33,7 @@ Item{
             samples: 16
             color: "#d3d3d3"
         }
-        
+
         Text {
             text: "Software Version"
             width: 160
@@ -44,7 +44,7 @@ Item{
             font.pixelSize: 20
             font.family: "Archivo"
         }
-        
+
         Text {
             text: obj_LogicContainer.settingPage.configs.appVersion
             width: 30
@@ -70,12 +70,12 @@ Item{
                 anchors.fill: parent
                 onClicked: {
                     stackview.push(updatePage)
-                    
+
                 }
             }
         }
     }
-    
+
     Rectangle {
         width: 672
         height: 0.1
@@ -83,7 +83,7 @@ Item{
         y: 358
         color: "#9D9D9D"
     }
-    
+
     Rectangle {
         width: 672
         height: 86
@@ -98,7 +98,7 @@ Item{
             samples: 16
             color: "#d3d3d3"
         }
-        
+
         Text {
             text: "Unit"
             width: 39
@@ -108,7 +108,7 @@ Item{
             color: "#1D1D1D"
             font.pixelSize: 20
         }
-        
+
         Text {
             text: "Kg"
             width: 25
@@ -118,7 +118,7 @@ Item{
             color: "#6D6D6D"
             font.pixelSize: 20
         }
-        
+
         KBorderButton{
             width: 92
             height: 38
@@ -135,10 +135,10 @@ Item{
                 }
             }
         }
-        
-        
+
+
     }
-    
+
     Rectangle {
         width: 672
         height: 1
@@ -146,7 +146,7 @@ Item{
         y: 446
         color: "#9D9D9D"
     }
-    
+
     Rectangle {
         width: 672
         height: 86
@@ -161,7 +161,7 @@ Item{
             samples: 16
             color: "#d3d3d3"
         }
-        
+
         Text {
             text: "Calibration Date"
             width: 152
@@ -171,7 +171,7 @@ Item{
             color: "#1D1D1D"
             font.pixelSize: 20
         }
-        
+
         Text {
             text: "2023/05/08"
             width: 107
@@ -181,7 +181,7 @@ Item{
             color: "#6D6D6D"
             font.pixelSize: 20
         }
-        
+
         Text {
             text: "Expired"
             width: 73
@@ -192,7 +192,7 @@ Item{
             font.pixelSize: 20
         }
     }
-    
+
     Rectangle {
         id: rectangle1
         radius: 2
@@ -202,7 +202,7 @@ Item{
         y: 300
         color: "#4696FA"
         visible: false
-        
+
         layer.enabled: true
         layer.effect: DropShadow {
             horizontalOffset: 1
@@ -211,7 +211,7 @@ Item{
             samples: 16
             color: "#d3d3d3"
         }
-        
+
         Text {
             text: "gr"
             font.pixelSize: 24
@@ -220,7 +220,7 @@ Item{
             y: 16
         }
     }
-    
+
     Rectangle {
         id: separator1
         width: 64
@@ -229,9 +229,9 @@ Item{
         y: 360
         color: "#9D9D9D"
         visible: false
-        
+
     }
-    
+
     Rectangle {
         id: rectangle2
         radius: 2
@@ -249,7 +249,7 @@ Item{
             samples: 16
             color: "#d3d3d3"
         }
-        
+
         Text {
             text: "Kg"
             font.pixelSize: 24
@@ -258,7 +258,7 @@ Item{
             y: 16
         }
     }
-    
+
     Rectangle {
         id: separator2
         width: 64
@@ -268,7 +268,7 @@ Item{
         color: "#9D9D9D"
         visible: false
     }
-    
+
     Rectangle {
         id: rectangle3
         radius: 2
@@ -286,7 +286,7 @@ Item{
             samples: 16
             color: "#d3d3d3"
         }
-        
+
         Text {
             text: "lb"
             font.pixelSize: 24
@@ -295,7 +295,7 @@ Item{
             y: 16
         }
     }
-    
+
     function toggleRectangles() {
         rectangle1.visible = !rectangle1.visible;
         separator1.visible = !separator1.visible;
@@ -303,8 +303,8 @@ Item{
         separator2.visible = !separator2.visible;
         rectangle3.visible = !rectangle3.visible;
     }
-    
-    
+
+
     Rectangle {
         id: b
         color: "white"
@@ -314,22 +314,22 @@ Item{
         opacity: 0
         x: 0
         y: 92
-        
+
         FastBlur {
-            
+
             anchors.fill: b
             source: q
             radius: 70
         }
     }
-    
+
     Component {
         id: updatePage
         SoftwareVersion{
             obj_Logic: obj_LogicContainer
         }
     }
-    
+
     TopNav{
         backvisible: true
         onBackClicked: {

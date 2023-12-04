@@ -11,14 +11,13 @@ Item {
         id:viewset
     }
 
-    property Logic obj_LogicContainerManualBarcode
+    property QtObject obj_LogicContainerManualBarcode
 
     signal cancle();
     signal ok();
     property bool showlastproduct: false
 
 
-    property QtObject tanzimat
 
     anchors.fill: parent
 

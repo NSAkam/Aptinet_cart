@@ -1,4 +1,5 @@
 import QtQuick 2.15
+import "../Components"
 import KAST.Logic 1.0
 
 
@@ -64,16 +65,95 @@ Item {
         y:359
         radius: 4
         Text {
-            text: "How to add PLU items"
+            text: "How to add Lookup"
             anchors.horizontalCenter:  parent.horizontalCenter
             y:35
             font.pixelSize: 24
             font.bold: true
         }
-        Image {
-            source: "../../Assets/addPluItemsSteps.png"
+        Rectangle{
+            width: 90
+            height: 88
             x:32
             y:113
+            Rectangle{
+                width: 32
+                height: 32
+                x:29
+                color: viewset.secondaryColor
+                radius: width / 2
+                anchors.horizontalCenter: parent.horizontalCenter
+                Text{
+                    text: "1"
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: "white"
+                    font.pixelSize: 16
+                }
+            }
+            Text {
+                text: "Enter \n product code"
+                horizontalAlignment:  TextInput.AlignHCenter
+                y:44
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.pixelSize: 16
+            }
+        }
+        Rectangle{
+            width: 53
+            height: 88
+            x:181
+            y:113
+            Rectangle{
+                width: 32
+                height: 32
+                x:29
+                color: viewset.secondaryColor
+                radius: width / 2
+                anchors.horizontalCenter: parent.horizontalCenter
+                Text{
+                    text: "2"
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: "white"
+                    font.pixelSize: 16
+                }
+            }
+            Text {
+                text: "Add \n to Cart"
+                horizontalAlignment:  TextInput.AlignHCenter
+                y:44
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.pixelSize: 16
+            }
+        }
+        Rectangle{
+            width: 73
+            height: 88
+            x:293
+            y:113
+            Rectangle{
+                width: 32
+                height: 32
+                x:29
+                color: viewset.secondaryColor
+                radius: width / 2
+                anchors.horizontalCenter: parent.horizontalCenter
+                Text{
+                    text: "3"
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: "white"
+                    font.pixelSize: 16
+                }
+            }
+            Text {
+                text: "Confirm \n Wt or Qty"
+                horizontalAlignment:  TextInput.AlignHCenter
+                y:44
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.pixelSize: 16
+            }
         }
     }
 
@@ -150,34 +230,28 @@ Item {
         }
     }
 
-    Rectangle{
-        x:741
+    KButton{
+        x:700
         y:640
-        Text {
-            text: "See All >"
-            font.pixelSize: 24
-            MouseArea{
-                anchors.fill: parent
-                onClicked: {
-                    root.seeAll()
-                }
-            }
+        width: 150
+        text: "See All >"
+        font.pixelSize: 24
+        borderRadius: 5
+        onClicked: {
+            root.seeAll()
         }
     }
 
-    Rectangle{
+    KButton{
         x:32
         y:640
-        Text {
-            text: "< Back"
-            font.pixelSize: 24
+        width: 120
+        text: "< Back"
+        borderRadius: 5
 
-            MouseArea{
-                anchors.fill: parent
-                onClicked: {
-                    root.back()
-                }
-            }
+        onClicked: {
+            root.back()
         }
+
     }
 }

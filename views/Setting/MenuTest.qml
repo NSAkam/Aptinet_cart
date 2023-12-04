@@ -3,6 +3,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtGraphicalEffects 1.12
 import "../Components"
+import "../PopUps"
 
 
 
@@ -23,8 +24,6 @@ Item {
         anchors.fill: parent
     }
 
-
-
     Row {
         spacing: 30
         x: 330
@@ -40,9 +39,7 @@ Item {
             height: 160
 
             background: Rectangle {
-
                 color: "white"
-
             }
 
             onClicked: {
@@ -59,35 +56,20 @@ Item {
                 source: "../../Assets/weightsensor.png"
                 width: 64
                 height: 64
-                x: 34
+                anchors.horizontalCenter: parent.horizontalCenter
                 y: 30
             }
 
 
-            Column {
-                spacing: 5
-                y: 100
-
-                Text {
-                    text: "Weight"
-                    width: 70
-                    height: 20
-                    x: 40
-                    font.family: "Archivo"
-                    color: "#6D6D6D"
-                    font.pixelSize: 16
-                }
-
-                Text {
-                    text: "Sensor"
-                    width: 70
-                    height: 20
-                    x: 40
-                    font.family: "Archivo"
-                    color: "#6D6D6D"
-                    font.pixelSize: 16
-                }
+            Text {
+                text: "Weight\nSensor"
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: 110
+                font.family: "Archivo"
+                color: "#6D6D6D"
+                font.pixelSize: 16
             }
+
 
         }
 
@@ -111,15 +93,13 @@ Item {
             Image {
                 source: "../../Assets/scanner.png"
                 height: 64
-                x: 25
+                anchors.horizontalCenter: parent.horizontalCenter
                 y: 30
             }
 
             Text {
                 text: "Scanner"
-                width: 70
-                height: 20
-                x: 34
+                anchors.horizontalCenter: parent.horizontalCenter
                 y: 124
                 color: "#6D6D6D"
                 font.pixelSize: 18
@@ -147,15 +127,13 @@ Item {
                 source: "../../Assets/lights.png"
                 width: 64
                 height: 64
-                x: 24
+                anchors.horizontalCenter: parent.horizontalCenter
                 y: 30
             }
 
             Text {
                 text: "Lights"
-                width: 52
-                height: 20
-                x: 33
+                anchors.horizontalCenter: parent.horizontalCenter
                 y: 124
                 color: "#6D6D6D"
                 font.pixelSize: 18
@@ -176,15 +154,13 @@ Item {
                 source: "../../Assets/sound.png"
                 width: 72
                 height: 60
-                x: 34
+                anchors.horizontalCenter: parent.horizontalCenter
                 y: 30
             }
 
             Text {
                 text: "Sound"
-                width: 52
-                height: 20
-                x: 33
+                anchors.horizontalCenter: parent.horizontalCenter
                 y: 124
                 color: "#6D6D6D"
                 font.pixelSize: 18
@@ -205,68 +181,13 @@ Item {
         id: weightsesnsorPopup
     }
 
-    Rectangle {
-        id: b
-        color: "black"
-        width: 1280
-        height: 708
-        visible: true
-        opacity: 0
-        x: 0
-        y: 92
-
-        FastBlur {
-
-            anchors.fill: b
-            source: q
-            radius: 70
-        }
-    }
-
-    Rectangle {
-        id: w
-        color: "black"
-        width: 1280
-        height: 708
-        visible: true
-        opacity: 0
-        x: 0
-        y: 92
-
-        FastBlur {
-
-            anchors.fill: w
-            source: q
-            radius: 70
-        }
-    }
-
-    Rectangle {
-        id: s
-        color: "black"
-        width: 1280
-        height: 708
-        visible: true
-        opacity: 0
-        x: 0
-        y: 92
-
-        FastBlur {
-
-            anchors.fill: s
-            source: q
-            radius: 70
-        }
-    }
-
-
     TopNav{
         backvisible: true
         onBackClicked: {
             if(parent.havePopUp ===  true)
             {
                 serverPopup.close()
-                 b.visible = false
+                b.visible = false
             }
             else{
                 stackview.pop()
@@ -288,8 +209,8 @@ Item {
                 stackview.pop()
             }
         }
-        }
     }
+}
 
 // }
 

@@ -1,7 +1,8 @@
 import sys
 from PySide2.QtCore import Qt 
-from PySide2.QtGui import QGuiApplication
+from PySide2.QtGui import QGuiApplication,QFontDatabase,QFont
 from PySide2.QtQml import QQmlApplicationEngine,qmlRegisterType,QQmlDebuggingEnabler
+
 from Services.battery import Battery
 from logic import Logic
 from Services.camera import CameraWorker
@@ -13,6 +14,9 @@ if __name__ == "__main__":
     # debug = QQmlDebuggingEnabler()
     app = QGuiApplication(sys.argv)
     app.setOverrideCursor(Qt.BlankCursor)
+
+    id = QFontDatabase.addApplicationFont(":/Assets/Archivo/Archivo-Regular.ttf")
+    app.setFont(QFont(QFontDatabase.applicationFontFamilies(id)[0]))
     
     qmlRegisterType(Battery, "KAST.Battery", 1, 0, "Battery")
 
@@ -30,6 +34,7 @@ if __name__ == "__main__":
 
 
     ctx = engine.rootContext()
+    
     qml_file = "../views/main.qml"
     engine.load(str(qml_file))
     if not engine.rootObjects():

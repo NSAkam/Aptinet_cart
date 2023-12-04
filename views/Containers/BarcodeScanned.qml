@@ -15,7 +15,6 @@ Item {
     signal cancel()
     signal pass()
 
-    property QtObject tanzimat
 
     anchors.fill: parent
     ViewSettings{

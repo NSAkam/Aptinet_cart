@@ -16,17 +16,17 @@ Item {
     id: root
     width: 1280
     height: 800
-    
+
     property Logic obj_LogicContainerShop
-    
+
     property bool isfactorlistview: false
-    
+
     Component.onCompleted: {
         obj_LogicContainerShop.shopPage.login_finished()
     }
-    
+
     signal addpluitemsClicked()
-    
+
     Util.ViewSettings{
         id:viewset
     }
@@ -38,12 +38,12 @@ Item {
             loader.opacity = 0
         }
     }
-    
+
     Image {
         source: "../Assets/AuthenticationBackground.png"
         anchors.fill: parent
     }
-    
+
     Rectangle{
         width: parent.width
         height: 92
@@ -78,12 +78,12 @@ Item {
             }
             KButton{
                 btn_color: "#9D9D9D"
-                x:995
+                x:995 -40
                 y:32
                 borderRadius: 5
-                width: 149
+                width: 200
                 height: 40
-                text: "Add PLU Items"
+                text: "Lookup By Name"
                 btn_borderWidth:0
                 fontsize: 16
                 ishover: false
@@ -91,12 +91,12 @@ Item {
                     stackviewContainer.push(addPluItem)
                     adsPanel.visible = false
                     addPlupanel.visible = true
-                    
+
                 }
             }
             KButton{
                 btn_color: viewset.primaryColor
-                x:819
+                x:819 -40
                 y:32
                 borderRadius: 5
                 width: 164
@@ -107,7 +107,7 @@ Item {
                 ishover: false
                 onClicked: {
                     stackviewContainer.push(manualBarcodeHandler)
-                    
+
                 }
             }
             Image {
@@ -124,10 +124,10 @@ Item {
                 x:1208
                 y:25
             }
-            
+
         }
     }
-    
+
     Item {
         id:main_Panel
         Text {
@@ -178,24 +178,24 @@ Item {
                 NumberAnimation{duration: 1000}
             }
         }
-        
-        
-        
+
+
+
         KButton{
             id:btn_entermanualBarcode
-            text: "+ Enter barcode manually"
+            text: "+ Lookup By Number"
             x:645
             y:610
             width: 382
             height: 62
             borderRadius: 4
             onClicked: {
-                
+
                 stackviewContainer.push(manualBarcodeHandler)
-                
+
             }
         }
-        
+
         StackView
         {
             id:stackviewContainer
@@ -206,7 +206,7 @@ Item {
             //initialItem: lstProductHandler
             //initialItem:addPluItemview
             //initialItem: newProductHandler
-            //initialItem: addPluItem
+            initialItem: addPluItem
             //initialItem: manualBarcodeHandler
             //initialItem: plulist
             //initialItem: specialdealslist
@@ -228,14 +228,14 @@ Item {
             }
         }
     }
-    
-    
+
+
     Item{
         id:addPlupanel
         visible: false
         width: 390
         height: parent.height
-        
+
         Rectangle {
             id:rect_Suggestion
             anchors.fill: parent
@@ -255,7 +255,7 @@ Item {
             y:105
             property bool counter: false
             cache: false
-            
+
             function reloadImage() {
                 counter = !counter
                 source = "image://KCameraProvider/?id=" + counter
@@ -291,7 +291,7 @@ Item {
                 verticalAlignment:  TextInput.AlignVCenter
                 font.family: viewset.danaFuNumFont
                 property string placeholderText: " "
-                
+
                 onFocusChanged: {
                     numpad.inputtext = txt_PLUBarcodeInput
                 }
@@ -311,7 +311,7 @@ Item {
                     }
                 }
             }
-            
+
         }
         Numpad{
             id:numpad
@@ -320,25 +320,25 @@ Item {
             x:32
         }
     }
-    
+
     Item {
         id: adsPanel
         visible: true
         width: 390
         height: parent.height
-        
+
         Image {
             id:rect_SuggestionadsPanel
             source: "../Assets/leftSideBar.png"
             anchors.fill: parent
-            
+
         }
         Image {
             source: "../Assets/AptinetText1.png"
             x:32
             y:32
         }
-        
+
         Image {
             id: img_UserCapturedadsPanel
             source: "image://KCameraProvider/1"
@@ -348,12 +348,12 @@ Item {
             y:105
             cache: false
             property bool counter: false
-            
-            
+
+
             function reloadImage() {
                 counter = !counter
                 source = "image://KCameraProvider/?id=" + counter
-                
+
             }
         }
         Image {
@@ -372,11 +372,11 @@ Item {
             y:521
             font.bold: true
         }
-        Text {
+        KButton {
             text: "more >"
-            color: viewset.primaryColor
-            x:290
-            y:525
+            x:270
+            y:520
+            width: 100
             font.pixelSize: 20
             font.bold: true
             MouseArea{
@@ -387,8 +387,8 @@ Item {
                         console.log(stackviewContainer.currentItem)
                         stackviewContainer.push(specialdealslist)
                     }
-                    
-                    
+
+
                 }
             }
         }
@@ -398,7 +398,7 @@ Item {
             height: 800 - y
             x:32
             y:571
-            
+
             clip: true
             spacing: 10
             model: obj_LogicContainerShop.shopPage.offersList
@@ -413,17 +413,17 @@ Item {
                     color: "white"
                     opacity: 0.3
                 }
-                
+
                 Rectangle{
                     width: 326
                     height: 144
                     color: "transparent"
-                    
+
                     Rectangle{
                         width: 144
                         height: 144
                         color: "white"
-                        
+
                         Image {
                             source: model.pic
                             width: 106
@@ -432,7 +432,7 @@ Item {
                             anchors.horizontalCenter: parent.horizontalCenter
                         }
                     }
-                    
+
                     Text {
                         text: model.name
                         width: 134
@@ -461,14 +461,14 @@ Item {
                 }
             }
         }
-        
+
     }
     Item {
         id: checkoutPanel
         visible: false
         width: 390
         height: parent.height
-        
+
         Rectangle {
             color: "white"
             id:rect_SuggestionadsPanel1
@@ -488,13 +488,13 @@ Item {
             y:105
             property bool counter: false
             cache: false
-            
+
             function reloadImage() {
                 counter = !counter
                 source = "image://KCameraProvider/?id=" + counter
             }
         }
-        
+
         Text {
             text: "My Cart"
             font.pixelSize: 24
@@ -519,15 +519,15 @@ Item {
                 font.bold: true
             }
         }
-        
-        
+
+
         ListView {
             id:slideshow1
             width: 326
             height: 800 - y
             x:32
             y:360
-            
+
             clip: true
             spacing: 10
             model: obj_LogicContainerShop.shopPage.factorList
@@ -557,19 +557,19 @@ Item {
                 }
             }
         }
-        
+
     }
-    
-    
+
+
     Component{
         id:newProductHandler
         BarcodeScanned{
             obj_LogicContainerBarcodeScanned: obj_LogicContainerShop
-            
+
             onPass: {
                 //stackviewContainer.push(lstProductHandler)
             }
-            
+
             onCancel: {
                 //                if(stackviewContainer.depth == 1)
                 //                {
@@ -582,7 +582,7 @@ Item {
             }
         }
     }
-    
+
     Component{
         id:lstProductHandler
         LstCheckProducts{
@@ -594,7 +594,7 @@ Item {
             }
         }
     }
-    
+
     Component{
         id:manualBarcodeHandler
         ManualBarcode{
@@ -602,7 +602,7 @@ Item {
             onOk: {
                 stackviewContainer.replace(newProductHandler)
             }
-            
+
             onCancle: {
                 if(stackviewContainer.depth == 1)
                 {
@@ -612,7 +612,7 @@ Item {
                 {
                     stackviewContainer.pop()
                 }
-                
+
             }
         }
     }
@@ -623,7 +623,7 @@ Item {
             onSeeAll: {
                 stackviewContainer.push(plulist)
             }
-            
+
             onBack: {
                 adsPanel.visible = true
                 addPlupanel.visible = false
@@ -635,11 +635,11 @@ Item {
                 {
                     stackviewContainer.pop()
                 }
-                
+
             }
         }
     }
-    
+
     Component{
         id:addPluItemview
         AddPluItemsView{
@@ -650,7 +650,7 @@ Item {
                 //                addPlupanel.visible = false
                 //                stackviewContainer.replace(lstProductHandler)
             }
-            
+
             onCancel:
             {
                 //                adsPanel.visible = true
@@ -664,10 +664,10 @@ Item {
                 //                    stackviewContainer.pop()
                 //                }
             }
-            
+
         }
     }
-    
+
     Component {
         id: checkout
         Checkoutpage {
@@ -675,7 +675,7 @@ Item {
             onNfcPaymentClicked: {
                 stackview.push(nfcpayment)
             }
-            
+
             onBack: {
                 adsPanel.visible = true
                 checkoutPanel.visible = false
@@ -683,16 +683,16 @@ Item {
             }
         }
     }
-    
+
     Component {
         id: nfcpayment
         PaymentviaNFC {
             obj_LogicContainerPaymentNFC: obj_LogicContainerShop
-            
+
         }
     }
-    
-    
+
+
     Component{
         id: plulist
         PLUListItems {
@@ -703,29 +703,29 @@ Item {
         }
     }
     ///////////////////////////////////////////POPUPS
-    
+
     RemoveProductPopUp{
         id:popUp_RemoveProducts
         obj_logicRemoveProductList: obj_LogicContainerShop
     }
-    
+
     BypassPopUp{
         id:popUp_bypass
         obj_logicByPassPopup: obj_LogicContainerShop
     }
-    
+
     FullMessageTimer{
         id:popUp_MessageTimer
     }
-    
+
     NotificationPopUp{
         id:popUp_message
     }
-    
+
     NotificationPopUp{
         id:popUp_MessageNotBarcodedProduct
         message: "Please put the product you scanned into the cart!"
-        
+
     }
     NotificationPopUp{
         id:popUp_MessageNoBarcodeScanned
@@ -736,8 +736,8 @@ Item {
         message: "You cannot add or subtract products to the cart during checkout!"
     }
     ////////////////////////////////////////////////////
-    
-    
+
+
     Component{
         id: specialdealslist
         LstSpecialDeals {
@@ -754,7 +754,7 @@ Item {
             }
         }
     }
-    
+
     Connections{
         target: cameraProvider
         function onNewFrameReadSignal() {
@@ -764,7 +764,7 @@ Item {
             if(adsPanel.visible === true){
                 img_UserCapturedadsPanel.reloadImage()
             }
-            
+
             if(addPlupanel.visible === true){
                 img_UserCaptured.reloadImage()
             }
@@ -799,53 +799,53 @@ Item {
             popUpMessageTimer.open()
         }
         function onCloseAllPopUpSignal(){
-            
+
         }
-        
+
         function onVisibleProductListDeleteSignal(){
-            
+
         }
-        
+
         function onOpenPopupMessageSignal(text){
             popUp_message.message = text
             popUp_message.open()
         }
-        
+
         function onClosePopupMessageSignal(){
             popUp_message.close()
         }
-        
+
         function onOpenPopupWeightNotMatchWithBarcodeSignal(){
             popUp_MessageNotBarcodedProduct.open()
         }
-        
+
         function onClosePopupWeightNotMatchWithBarcodeSignal(){
             popUp_MessageNotBarcodedProduct.close()
         }
-        
+
         function onOpenPopupNoBarcodeScannedSignal(){
             popUp_MessageNoBarcodeScanned.open()
         }
-        
+
         function onClosePopupNoBarcodeScannedSignal(){
             popUp_MessageNoBarcodeScanned.close()
         }
-        
+
         function onOpenPopupDeleteProductSignal(){
             popUp_RemoveProducts.open()
         }
-        
+
         function onClosePopupDeleteProductSignal(){
             popUp_RemoveProducts.close()
         }
-        
+
         function onOpenPopUpMessageNotAllowedChangeWeightSignal(){
             popUpMessageNotAllowedChangeWeight.open()
         }
-        
+
         function onClosePopUpMessageNotAllowedChangeWeightSignal(){
             popUpMessageNotAllowedChangeWeight.close()
         }
-        
+
     }
 }

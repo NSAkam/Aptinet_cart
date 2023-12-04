@@ -52,20 +52,20 @@ Item {
         visible: true
     }
 
-    Text {
-        id:btn_skip
-        text: "Skip >"
-        color: "#4696FA"
-        font.pixelSize: 24
-        x:1080
-        y:659
-        MouseArea{
-            anchors.fill: parent
-            onClicked: {
-                stackview.push(shoppage)
-            }
-        }
-    }
+//    Text {
+//        id:btn_skip
+//        text: "Skip >"
+//        color: "#4696FA"
+//        font.pixelSize: 24
+//        x:1080
+//        y:659
+//        MouseArea{
+//            anchors.fill: parent
+//            onClicked: {
+//                stackview.push(shoppage)
+//            }
+//        }
+//    }
 
 
     KButton{

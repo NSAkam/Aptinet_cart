@@ -3,9 +3,11 @@ import QtQuick 2.15
 QtObject {
 
     property color backgroundColor: "#E9E9E9"
-    property color primaryColor: "#F08C5A"
-    property color opacityColor: "#F08C5A"
-    property color focusColor : "#F08C5A"
+    //property color primaryColor: "#F08C5A"
+    property color primaryColor: "#ff6a00"
+
+    property color opacityColor: "#ff6a00"
+    property color focusColor : "#ff6a00"
     property color secondaryColor: "#4696FA"
 
 

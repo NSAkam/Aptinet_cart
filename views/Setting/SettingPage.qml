@@ -13,7 +13,7 @@ Item {
     width: 1280
     height: 800
     
-    property Logic obj_Logic
+    property Logic obj_LogicSettingSetting
     
     
     Image {
@@ -24,210 +24,171 @@ Item {
     
     Row {
         spacing: 30
-        x: 166
-        y: 400
-        anchors {
-            top: parent.top
-            horizontalCenter: parent.horizontalCenter
-            topMargin:300
+        anchors.horizontalCenter: parent.horizontalCenter      
+        
+        Button {
+            width: 128
+            height: 160
+            x: 166
+            y: 312
+            
+            background: Rectangle {
+                
+                color: "white"
+                
+            }
+            
+            
+            Image {
+                source: "../../Assets/server.png"
+                width: 64
+                height: 64
+                y: 30
+                anchors.horizontalCenter: parent.horizontalCenter
+                
+            }
+            
+            Text {
+                text: "Server"
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: 124
+                font.family: "Archivo"
+                color: "gray"
+                font.pixelSize: 18
+            }
+        }
+        
+        Button {
+            width: 128
+            height: 160
+            x: 330
+            y: 312
+            
+            background: Rectangle {
+                
+                color: "white"
+                
+            }
+            
+            onClicked: {
+                obj_LogicSetting.settingPage.gotoWifiSettings()
+                stackview.push(wifi)
+            }
+            
+            Image {
+                source: "../../Assets/wifi.png"
+                height: 64
+                x: 25
+                y: 30
+                anchors.horizontalCenter: parent.horizontalCenter
+                
+            }
+            
+            Text {
+                text: "Wi-Fi"
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: 124
+                color: "gray"
+                font.pixelSize: 18
+            }
+        }
+        
+        Button {
+            width: 128
+            height: 160
+            x: 494
+            y: 312
+            onClicked: {
+                stackview.push(calibrate)
+            }
+            
+            background: Rectangle {
+                
+                color: "white"
+                
+            }
+            
+            Image {
+                source: "../../Assets/calibrate.png"
+                width: 64
+                height: 64
+                y: 30
+                anchors.horizontalCenter: parent.horizontalCenter
+                
+            }
+            
+            Text {
+                text: "Calibrate"
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: 124
+                color: "gray"
+                font.pixelSize: 18
+            }
+        }
+        
+        Button {
+            width: 128
+            height: 160
+            x: 665
+            y: 312
+            onClicked: {
+                stackview.push(deviceTest)
+            }
+            
+            background: Rectangle {
+                
+                color: "white"
+                
+            }
+            
+            Image {
+                source: "../../Assets/device.png"
+                width: 64
+                height: 64
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: 30
+            }
+            
+            Text {
+                text: "Device Test"
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: 124
+                font.family: "Archivo"
+                color: "gray"
+                font.pixelSize: 18
+            }
+        }
+        
+        Button {
+            width: 128
+            height: 160
+            x: 835
+            y: 312
+            background: Rectangle {
+                
+                color: "white"
+                
+            }
+            onClicked: {
+                obj_LogicSetting.settingPage.cart_infoClicked()
+            }
+            
+            Image {
+                source: "../../Assets/cartinfo.png"
+                height: 64
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: 30
+            }
+            
+            Text {
+                text: "Cart Info"
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: 124
+                color: "gray"
+                font.pixelSize: 18
+            }
         }
     }
-    
-    Button {
-        width: 128
-        height: 160
-        x: 166
-        y: 312
-        
-        background: Rectangle {
-            
-            color: "white"
-            
-        }
-        
-        
-        Image {
-            source: "../../Assets/server.png"
-            width: 64
-            height: 64
-            y: 30
-            anchors.horizontalCenter: parent.horizontalCenter
-            
-        }
-        
-        Text {
-            text: "Server"
-            anchors.horizontalCenter: parent.horizontalCenter
-            y: 124
-            font.family: "Archivo"
-            color: "gray"
-            font.pixelSize: 18
-        }
-    }
-    
-    Button {
-        width: 128
-        height: 160
-        x: 330
-        y: 312
-        
-        background: Rectangle {
-            
-            color: "white"
-            
-        }
-        
-        onClicked: {
-            obj_Logic.settingPage.gotoWifiSettings()
-            stackview.push(wifi)
-        }
-        
-        Image {
-            source: "../../Assets/wifi.png"
-            height: 64
-            x: 25
-            y: 30
-            anchors.horizontalCenter: parent.horizontalCenter
-            
-        }
-        
-        Text {
-            text: "Wi-Fi"
-            anchors.horizontalCenter: parent.horizontalCenter
-            y: 124
-            color: "gray"
-            font.pixelSize: 18
-        }
-    }
-    
-    Button {
-        width: 128
-        height: 160
-        x: 494
-        y: 312
-        onClicked: {
-            stackview.push(calibrate)
-        }
-        
-        background: Rectangle {
-            
-            color: "white"
-            
-        }
-        
-        Image {
-            source: "../../Assets/calibrate.png"
-            width: 64
-            height: 64
-            y: 30
-            anchors.horizontalCenter: parent.horizontalCenter
-            
-        }
-        
-        Text {
-            text: "Calibrate"
-            anchors.horizontalCenter: parent.horizontalCenter
-            y: 124
-            color: "gray"
-            font.pixelSize: 18
-        }
-    }
-    
-    Button {
-        width: 128
-        height: 160
-        x: 658
-        y: 312
-        onClicked: {
-            stackview.push(dataEntry)
-        }
-        
-        background: Rectangle {
-            
-            color: "white"
-            
-        }
-        
-        Image {
-            source: "../../Assets/data.png"
-            width: 64
-            height: 64
-            y: 30
-            anchors.horizontalCenter: parent.horizontalCenter
-        }
-        
-        Text {
-            text: "Data Entry"
-            y: 124
-            color: "gray"
-            font.pixelSize: 18
-            anchors.horizontalCenter: parent.horizontalCenter
-        }
-    }
-    
-    Button {
-        width: 128
-        height: 160
-        x: 822
-        y: 312
-        onClicked: {
-            stackview.push(deviceTest)
-        }
-        
-        background: Rectangle {
-            
-            color: "white"
-            
-        }
-        
-        Image {
-            source: "../../Assets/device.png"
-            width: 64
-            height: 64
-            anchors.horizontalCenter: parent.horizontalCenter
-            y: 30
-        }
-        
-        Text {
-            text: "Device Test"
-            anchors.horizontalCenter: parent.horizontalCenter
-            y: 124
-            font.family: "Archivo"
-            color: "gray"
-            font.pixelSize: 18
-        }
-    }
-    
-    Button {
-        width: 128
-        height: 160
-        x: 986
-        y: 312
-        background: Rectangle {
-            
-            color: "white"
-            
-        }
-        onClicked: {
-            obj_Logic.settingPage.cart_infoClicked()
-        }
-        
-        Image {
-            source: "../../Assets/cartinfo.png"
-            height: 64
-            anchors.horizontalCenter: parent.horizontalCenter
-            y: 30
-        }
-        
-        Text {
-            text: "Cart Info"
-            anchors.horizontalCenter: parent.horizontalCenter
-            y: 124
-            color: "gray"
-            font.pixelSize: 18
-        }
-    }
-    // }
     
     Button {
         width: 76
@@ -253,7 +214,7 @@ Item {
             font.pixelSize: 16
         }
         onClicked: {
-            obj_Logic.turnoff()
+            obj_LogicSetting.turnoff()
         }
     }
     
@@ -281,7 +242,7 @@ Item {
             font.pixelSize: 16
         }
         onClicked: {
-            obj_Logic.turnoff()
+            obj_LogicSetting.turnoff()
             cameraProvider.stop()
         }
     }
@@ -289,26 +250,22 @@ Item {
     Component {
         id: wifi
         Wifi{
-            setting_objWifi: obj_Logic
+            setting_objWifi: obj_LogicSetting
         }
     }
     
     Component {
         id:calibrate
         Calibrate{
-            obj_LogicCalibrate: obj_Logic
+            obj_LogicCalibrate: obj_LogicSetting
         }
     }
     
-    Component {
-        id: dataEntry
-        DataEntry1{}
-    }
     
     Component {
         id: cartinfo
         CartInfo{
-            obj_LogicContainer: obj_Logic
+            obj_LogicContainer: obj_LogicSetting
         }
     }
     
@@ -325,7 +282,7 @@ Item {
         
     }
     Connections{
-        target:obj_Logic.settingPage
+        target:obj_LogicSetting.settingPage
         function onCartInfoClickedSignal(){
             stackview.push(cartinfo)
         }
