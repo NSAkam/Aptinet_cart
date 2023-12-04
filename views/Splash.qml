@@ -353,7 +353,7 @@ Item {
     Component{
         id:settingPage
         SettingPage{
-            obj_LogicSettingSetting: obj_logic;
+            obj_LogicSetting: obj_logic;
         }
     }
     
