@@ -74,8 +74,8 @@ Popup {
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
-                        onClicked: setting_obj.settingPage.wifimodel.wifiConfig(txt_password.text)
-                        popup_SetPasssword.close()
+                        onClicked: setting_obj.enter_sentCode(txt_password.text)
+                        
                     }
                 }
             }

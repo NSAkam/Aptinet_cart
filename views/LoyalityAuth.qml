@@ -120,7 +120,7 @@ Item {
         MouseArea{
             anchors.fill: parent
             onClicked: {
-                obj_LogicContainerLoyalityAuth.shopPage.enter_loyaltyCardBarcode(txt_loyal.text)
+                obj_LogicContainerLoyalityAuth.login_loyaltyCode(txt_loyal.text)
             }
         }
     }
@@ -198,25 +198,7 @@ Item {
         backvisible: true
         onBackClicked: {
             stackview.pop()
-        }
-    }
-    Component{
-        id:tostepAuthPage
-        TowStepAuthentication{
-            obj_LogicContainerTowStepAuthentication: obj_LogicContainerLoyalityAuth
-        }
-    }
-    Component{
-        id:shoppage
-        Shop{
-            obj_LogicContainerShop: obj_LogicContainerLoyalityAuth
-        }
-    }
-
-    Connections{
-        target:obj_LogicContainerLoyalityAuth.shopPage
-        function onSuccessfulLoginSignal(){
-            stackview.push(tostepAuthPage)
+            obj_LogicContainerLoyalityAuth.login_loyaltyCartBackClicked()
         }
     }
 }
