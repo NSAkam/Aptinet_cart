@@ -24,7 +24,7 @@ Item {
 
     //progress circle angle
     property double fromAngle: Math.PI * 0.5
-    property double toAngle: Math.PI * 2
+    property double toAngle: Math.PI * 3
 
     property int lineWidth: height / 10
     property int fontSize: height / 7
@@ -43,7 +43,7 @@ Item {
         kprogress.value = value
         canvas.requestPaint()
         background.requestPaint()
-        label.text = value.toFixed(2);
+        labelTitle.text = value.toFixed(2);
 
     }
 
@@ -93,7 +93,7 @@ Item {
         height: parent.height
         antialiasing: true
 
-        property double step: kprogress.value / (kprogress.to - kprogress.from) * (kprogress.toAngle - kprogress.fromAngle)
+        property double step: kprogress.value / (kprogress.to - kprogress.from) * (kprogress.toAngle - kprogress.fromAngle) -1
         property int radius: height/2
 
 
