@@ -60,7 +60,7 @@ class Apihandler(QObject):
         self.updateDownloadedFromServerValue(self._tedadDownloaded + 1)
 
     tedadDownloaded = Property(
-        int, get_tedadDownloaded, set_tedadDownloaded, notify=changedSignal)
+        int, get_tedadDownloaded(), set_tedadDownloaded, notify=changedSignal)
 
     @Slot()
     def startDownloadFromServer(self):
@@ -69,12 +69,12 @@ class Apihandler(QObject):
 
         self._productRepository.deleteAll()
         self.download_products()
-        # self._suggestionRepository.deleteAll()
-        # self.download_suggesstions()
-        # self._adminRepository.deleteAll()
-        # self.download_admins()
-        # self._userServerRepository.deleteAll()
-        # self.download_userServer()
+        self._suggestionRepository.deleteAll()
+        self.download_suggesstions()
+        self._adminRepository.deleteAll()
+        self.download_admins()
+        self._userServerRepository.deleteAll()
+        self.download_userServer()
 
     @Slot()
     def download_products(self):
@@ -117,7 +117,7 @@ class Apihandler(QObject):
 
             res = self._productRepository.insertData(name, description, rate, commentCount, w1, w2, w3, w4, w5, w6, w7, w8, w9, w10,price, finalprice, meanWeight, tolerance, insertedWeight, barcode, isOffer, isPlu, tax, qrCode, productType)
 
-        self.set_tedadDownloaded(self.get_tedadDownloaded + 1)
+        self.set_tedadDownloaded(self.get_tedadDownloaded() + 1)
         QtGui.QGuiApplication.processEvents()
 
     @Slot()
@@ -138,7 +138,7 @@ class Apihandler(QObject):
 
             res = self._suggestionRepository.insertData(
                 productBarcode, sugProductBarcode)
-        self.set_tedadDownloaded(self.get_tedadDownloaded + 1)
+        self.set_tedadDownloaded(self.get_tedadDownloaded() + 1)
         QtGui.QGuiApplication.processEvents()
 
     @Slot()
@@ -159,7 +159,7 @@ class Apihandler(QObject):
 
             res = self._adminRepository.insertData(
                 productBarcode, sugProductBarcode)
-        self.set_tedadDownloaded(self.get_tedadDownloaded + 1)
+        self.set_tedadDownloaded(self.get_tedadDownloaded() + 1)
         QtGui.QGuiApplication.processEvents()
 
     @Slot()
@@ -177,7 +177,7 @@ class Apihandler(QObject):
         for i, x in enumerate(lst):
             res = self._userServerRepository.insertData(lst[i]["id"], lst[i]["loyalityBarcode"], lst[i]["name"], lst[i]
                                                         ["email"], lst[i]["phone"], lst[i]["offerPercentage"], lst[i]["offerLimitedPercentage"], lst[i]["offerMount"])
-        self.set_tedadDownloaded(self.get_tedadDownloaded + 1)
+        self.set_tedadDownloaded(self.get_tedadDownloaded() + 1)
         QtGui.QGuiApplication.processEvents()
 
     @Slot()

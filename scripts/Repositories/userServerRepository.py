@@ -22,7 +22,7 @@ class UserServerRepository():
         if (query.exec_("insert into  ServerUser "
                         "(id,loyalityBarcode,name,email,phone,offerPercentage,offerLimitedPercentage,offerMount) "
                         "values "
-                        "('"+id+"','"+loyalityBarcode+"','"+name+"','"+email+"','"+phone+"','"+offerPercentage+"','"+offerLimitedPercentage+"','"+offerMount+"')") == False):
+                        "('"+str(id)+"','"+str(loyalityBarcode)+"','"+str(name)+"','"+str(email)+"','"+str(phone)+"','"+str(offerPercentage)+"','"+str(offerLimitedPercentage)+"','"+str(offerMount)+"')") == False):
             return True
         else:
             return False

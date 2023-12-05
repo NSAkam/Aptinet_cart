@@ -227,7 +227,7 @@ class ProductRepository:
 
     def updateWeight(self,w: int, barcode: str, weight: int, avg: int, tol: int, iw: int):
         query = QSqlQuery()
-        if (query.exec_("update product set w"+w+" = '"+str(weight)+"' ,insertedWeight= '"+str(iw)+"' , tolerance = '"+str(tol)+"' , meanWeight = '"+str(avg)+"' where barcode = '"+str(barcode)+"'")):
+        if (query.exec_("update product set w"+str(w)+" = '"+str(weight)+"' ,insertedWeight= '"+str(iw)+"' , tolerance = '"+str(tol)+"' , meanWeight = '"+str(avg)+"' where barcode = '"+str(barcode)+"'")):
             return True
         else:
             return False

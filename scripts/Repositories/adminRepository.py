@@ -27,7 +27,7 @@ class AdminRepository():
 
     def insertData(self, barcode: str, name: str):
         query = QSqlQuery()
-        if (query.exec_("insert into admins (barcode,name) VALUES ('"+barcode+"','"+name+"')") == False):
+        if (query.exec_("insert into admins (barcode,name) VALUES ('"+str(barcode)+"','"+str(name)+"')") == False):
             return True
         else:
             return False
