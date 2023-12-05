@@ -17,10 +17,29 @@
 
 import usb1
 
+def hotplug_callback(context, device, event):
+    print("Device %s: %s" % (
+        {
+            usb1.HOTPLUG_EVENT_DEVICE_ARRIVED: 'arrived',
+            usb1.HOTPLUG_EVENT_DEVICE_LEFT: 'left',
+        }[event],
+        device,
+    ))
+    # Note: cannot call synchronous API in this function.
+
 def main():
     with usb1.USBContext() as context:
-        for device in context.getDeviceIterator(skip_on_error=True):
-            print('ID %04x:%04x' % (device.getVendorID(), device.getProductID()), '->'.join(str(x) for x in ['Bus %03i' % (device.getBusNumber(), )] + device.getPortNumberList()), 'Device', device.getDeviceAddress())
+        if not context.hasCapability(usb1.CAP_HAS_HOTPLUG):
+            print('Hotplug support is missing. Please update your libusb version.')
+            return
+        print('Registering hotplug callback...')
+        opaque = context.hotplugRegisterCallback(hotplug_callback)
+        print('Callback registered. Monitoring events, ^C to exit')
+        try:
+            while True:
+                context.handleEvents()
+        except (KeyboardInterrupt, SystemExit):
+            print('Exiting')
 
 if __name__ == '__main__':
     main()
