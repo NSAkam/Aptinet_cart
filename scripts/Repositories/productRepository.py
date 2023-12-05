@@ -84,6 +84,7 @@ class ProductRepository:
             p.rate = query.value(2)
             p.commentCount = query.value(3)
             p.w1 = query.value(4)
+            print(query.value(4))
             p.w2 = query.value(5)
             p.w3 = query.value(6)
             p.w4 = query.value(7)
