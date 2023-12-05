@@ -32,7 +32,7 @@ class ProductRepository:
         if (query.exec_("insert into product "
                         "(name,description,rate,commentCount,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,price,finalprice,meanWeight,tolerance,insertedWeight,barcode,isOffer,isPlu,tax,qrCode,productType) "
                         "values "
-                        "('"+name+"','"+description+"','"+rate+"','"+commentCount+"','"+w1+"','"+w2+"','"+w3+"','"+w4+"','"+w5+"','"+w6+"','"+w7+"','"+w8+"','"+w9+"','"+w10+"','"+price+"','"+finalprice+"','"+meanWeight+"','"+tolerance+"','"+insertedWeight+"','"+barcode+"','"+isOffer+"','"+isPlu+"','"+tax+"','"+qrCode+"','"+productType+"')")):
+                        "('"+str(name)+"','"+str(description)+"','"+str(rate)+"','"+str(commentCount)+"','"+str(w1)+"','"+str(w2)+"','"+str(w3)+"','"+str(w4)+"','"+str(w5)+"','"+str(w6)+"','"+str(w7)+"','"+str(w8)+"','"+str(w9)+"','"+str(w10)+"','"+str(price)+"','"+str(finalprice)+"','"+str(meanWeight)+"','"+str(tolerance)+"','"+str(insertedWeight)+"','"+str(barcode)+"','"+str(isOffer)+"','"+str(isPlu)+"','"+str(tax)+"','"+str(qrCode)+"','"+str(productType)+"')")):
             return True
         else:
             return False
