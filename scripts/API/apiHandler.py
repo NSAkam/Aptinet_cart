@@ -57,7 +57,7 @@ class Apihandler(QObject):
     def set_tedadDownloaded(self, v: int):
         self._tedadDownloaded = v
         self.changedSignal.emit()
-        self.updateDownloadedFromServerValue(self._tedadDownloaded + 1)
+        self.updateDownloadedFromServerValue.emit(self._tedadDownloaded + 1)
 
     tedadDownloaded = Property(
         int, get_tedadDownloaded, set_tedadDownloaded, notify=changedSignal)
