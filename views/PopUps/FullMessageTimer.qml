@@ -31,10 +31,9 @@ Popup {
         interval: 5000
         onTriggered:{
             root.close()
-            console.log("asdasd")
         }
         repeat: false
-        running: true
+        running: false
     }
 
     Rectangle {
