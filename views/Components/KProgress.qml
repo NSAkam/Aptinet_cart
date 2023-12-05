@@ -43,7 +43,7 @@ Item {
         kprogress.value = value
         canvas.requestPaint()
         background.requestPaint()
-        labelTitle.text = value.toFixed(2);
+        labelTitle.text = value.toFixed(0);
 
     }
 
@@ -93,7 +93,7 @@ Item {
         height: parent.height
         antialiasing: true
 
-        property double step: kprogress.value / (kprogress.to - kprogress.from) * (kprogress.toAngle - kprogress.fromAngle) -1
+        property double step: kprogress.value / (kprogress.to - kprogress.from) * (kprogress.toAngle - kprogress.fromAngle)
         property int radius: height/2
 
 

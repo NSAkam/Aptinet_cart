@@ -102,7 +102,7 @@ Item {
     Connections{
         target:obj_LogicServer.settingPage.apiHandler
         function onUpdateDownloadedFromServerValue(v){
-            progressDownloadFromServer.update(v * 25);
+            progressDownloadFromServer.update((v-1) * 25);
         }
     }
 }
