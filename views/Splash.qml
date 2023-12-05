@@ -344,7 +344,7 @@ Item {
     Component{
         id:loyalityAuth
         LoyalityAuth{
-            obj_LogicContainerLoyalityAuth: obj_LogicContainer
+            obj_LogicContainerLoyalityAuth: obj_logic
         }
     }
 
