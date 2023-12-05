@@ -13,6 +13,10 @@ class AdminRepository():
         self.dal = dataAccessLayer
         self.dal.Connect()
 
+    def deleteAll(self):
+        query = QSqlQuery()
+        query.exec_("delete from admins")
+
     def insertALLData(self, adminsList: [Admin]):
         res = True
         query = QSqlQuery()
@@ -20,15 +24,14 @@ class AdminRepository():
             if (query.exec_("insert into admins (barcode,name) VALUES ('"+admin.barcode+"','"+admin.name+"')") == False):
                 res = False
         return res
-    
-    def insertData(self, barcode:str,name:str):
+
+    def insertData(self, barcode: str, name: str):
         query = QSqlQuery()
         if (query.exec_("insert into admins (barcode,name) VALUES ('"+barcode+"','"+name+"')") == False):
             return True
         else:
             return False
-    
-    
+
     def Login(self, adminBarcode: str):
         res = False
         query = QSqlQuery()

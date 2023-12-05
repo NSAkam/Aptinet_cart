@@ -12,6 +12,10 @@ class ProductRepository:
         self.dal = dataAccessLayer
         self.dal.Connect()
 
+    def deleteAll(self):
+        query = QSqlQuery()
+        query.exec_("delete from product")
+
     def insertALLData(self, productList: [Product]):
         res = True
         query = QSqlQuery()

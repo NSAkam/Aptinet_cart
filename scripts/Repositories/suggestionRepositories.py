@@ -11,6 +11,10 @@ class SuggestionRepositories():
     def __init__(self, dataAccessLayer: DAL) -> None:
         self.dal = dataAccessLayer
         self.dal.Connect()
+        
+    def deleteAll(self):
+        query = QSqlQuery()
+        query.exec_("delete from suggestion")
 
     def insertALLData(self, suglist: [Suggestion]):
         res = True

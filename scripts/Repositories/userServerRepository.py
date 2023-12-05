@@ -8,6 +8,11 @@ class UserServerRepository():
 
     dal: DAL
 
+    def deleteAll(self):
+        query = QSqlQuery()
+        query.exec_("delete from ServerUser")
+
+
     def __init__(self, dataAccessLayer: DAL) -> None:
         self.dal = dataAccessLayer
         self.dal.Connect()
