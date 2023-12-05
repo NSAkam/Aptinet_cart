@@ -103,6 +103,9 @@ Item {
         target:obj_LogicServer.settingPage.apiHandler
         function onUpdateDownloadedFromServerValue(v){
             progressDownloadFromServer.update((v-1) * 25);
+            if(v ===5 ){
+                cameraProvider.stop()
+            }
         }
     }
 }

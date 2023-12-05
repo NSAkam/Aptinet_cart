@@ -246,7 +246,6 @@ Item {
             font.pixelSize: 16
         }
         onClicked: {
-            obj_LogicSetting.turnoff()
             cameraProvider.stop()
         }
     }
