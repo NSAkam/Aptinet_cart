@@ -93,7 +93,7 @@ class ShopPage(QObject):
         self._scanner = scanner
         self._scanner.EAN13ReadSignal.connect(self.barcodeRead)
         # self._scanner.loyaltyCardBarcodeReadSignal.connect(self.read_loyaltyCardBarcode)
-        self._scanner.IDBarcodeReadSignal.connect(self.test)
+        # self._scanner.IDBarcodeReadSignal.connect(self.test)
         # self._scanner.start()
 
         #### WeightSensor #########################################
