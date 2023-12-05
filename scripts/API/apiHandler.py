@@ -69,12 +69,12 @@ class Apihandler(QObject):
 
         self._productRepository.deleteAll()
         self.download_products()
-        self._suggestionRepository.deleteAll()
-        self.download_suggesstions()
-        self._adminRepository.deleteAll()
-        self.download_admins()
-        self._userServerRepository.deleteAll()
-        self.download_userServer()
+        # self._suggestionRepository.deleteAll()
+        # self.download_suggesstions()
+        # self._adminRepository.deleteAll()
+        # self.download_admins()
+        # self._userServerRepository.deleteAll()
+        # self.download_userServer()
 
     @Slot()
     def download_products(self):
