@@ -58,7 +58,7 @@ Item {
             }
 
             onClicked: {
-
+                stackview.push(serverDownloadUpload)
             }
         }
 
