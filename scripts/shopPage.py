@@ -56,7 +56,7 @@ class ShopPage(QObject):
     _newProduct: Product
 
     ######################################################################################################## Private ###
-    _state: int = 0
+    _state: int = 1
     _countDownTimer: int = -60
     _startWeight: int = 0
     _basketWeightShouldBe: int = 0
@@ -334,13 +334,13 @@ class ShopPage(QObject):
 
     @Slot(int, int)
     def basketWeightChanged(self, val2: int, val1: int):
-        print(val1, val2)
         if not self._inByPass:
             self.hideOfferListSignal.emit()
             value: int = val2 - val1
-            # self._logStash.newChangeWeight(self._datetime.time, value, self._userID)
 
-            # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ADD WEIGHT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+            # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+            # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ADD Weight <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+            # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
             if val2 >= val1:
                 if self.state == 1:
                     if not self._shouldBarcodeToBeScannToAddProduct:
@@ -504,10 +504,9 @@ class ShopPage(QObject):
                         self.state = 1
                         self.closePopupWeightNotMatchWithBarcodeSignal.emit()
 
-            # # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-            # # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> REMOVE WEIGHT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-            # # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
+            # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+            # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> REMOVE WEIGHT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+            # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
             if val2 < val1:
                 if self.state == 1:
                     self._removeList.validBarcodeSetForRemove(self._factorList.m_data, abs(value))
@@ -582,35 +581,16 @@ class ShopPage(QObject):
                         # else:
                         #     self.state = 8
 
-            #     elif self.state == 10:
-            #         # if abs(val2 - val1) >= 50:
-            #         #     self.state = 11
-            #         #     self._basketweightShouldBe = val1
-            #         #     self.openPopupFullMessageTimer.emit(
-            #         #         "در صورتی که بازرس خروج شما را تایید کرده است، محصولات را از سبد خارج کنید!")
-            #         #     # notifSound()
-            #         pass
-            #
-            #     elif self.state == 11:
-            #         # if abs(val2 - val1) >= 30:
-            #         #     if self._basketweightShouldBe - self._basketWeightTolerance <= val2 <= self._basketweightShouldBe + self._basketWeightTolerance:
-            #         #         self.state = 10
-            #         #         self._basketweightShouldBe = val2
-            #         #         self.closePopUpMessageNotAllowedToAddProduct.emit()
-            #         pass
-
     @Slot()
     def timerSlot(self):
         while self._canTimerTick:
             if self.state == 2 or self.state == 1:
                 self.countDownTimer = self.countDownTimer - 1
                 sleep(1)
-                print("timer: " + str(self.countDownTimer))
+
             if self.countDownTimer == self._timerOffset:
                 if self.state == 2:
                     self.closeTopStackViewSignal.emit()
-                    print("close")
-                    # print("close stack view emit")
                     # sleep(1)
             if self.countDownTimer == 0:
                 if self.state == 2:
@@ -625,41 +605,41 @@ class ShopPage(QObject):
                     self._shouldBarcodeToBeScannToAddProduct = True
                     # self._weighsensor.lightest_weight = self._lightest_weight_for_heavy_weight_product
 
-    @Slot(str)
-    def enter_phoneNumberClicked(self, phoneNumber: str):
-        serverUser = self._userServerRepository.loginByPhone(phoneNumber)
-        if not serverUser.get_id() == "":
-            self._user.set_loggedInUser(serverUser)
-            self.successfulLoginSignal.emit()
-            self.login_finished()
-
-        else:
-            pass  # pop up nat valid phone number
-
-    @Slot()
-    def read_loyaltyCardBarcode(self):
-        serverUser = self._userServerRepository.loginByloyalityBarcode(self._scanner.get_loyaltyCardBarcode())
-        if not serverUser.get_id() == "":
-            self._user.set_loggedInUser(serverUser)
-            self.successfulLoginSignal.emit()
-            self.login_finished()
-
-        else:
-            pass  # pop up timer
-
-    @Slot(str)
-    def enter_loyaltyCardBarcode(self, loyaltyCode: str):
-        serverUser = self._userServerRepository.loginByloyalityBarcode(loyaltyCode)
-        if not serverUser.get_id() == "":
-            self._user.set_loggedInUser(serverUser)
-            self.successfulLoginSignal.emit()
-            self.login_finished()
-        else:
-            pass  # pop up timer
-
-    @Slot()
-    def login_finished(self):
-        self.set_state(1)
+    # @Slot(str)
+    # def enter_phoneNumberClicked(self, phoneNumber: str):
+    #     serverUser = self._userServerRepository.loginByPhone(phoneNumber)
+    #     if not serverUser.get_id() == "":
+    #         self._user.set_loggedInUser(serverUser)
+    #         self.successfulLoginSignal.emit()
+    #         self.login_finished()
+    #
+    #     else:
+    #         pass  # pop up nat valid phone number
+    #
+    # @Slot()
+    # def read_loyaltyCardBarcode(self):
+    #     serverUser = self._userServerRepository.loginByloyalityBarcode(self._scanner.get_loyaltyCardBarcode())
+    #     if not serverUser.get_id() == "":
+    #         self._user.set_loggedInUser(serverUser)
+    #         self.successfulLoginSignal.emit()
+    #         self.login_finished()
+    #
+    #     else:
+    #         pass  # pop up timer
+    #
+    # @Slot(str)
+    # def enter_loyaltyCardBarcode(self, loyaltyCode: str):
+    #     serverUser = self._userServerRepository.loginByloyalityBarcode(loyaltyCode)
+    #     if not serverUser.get_id() == "":
+    #         self._user.set_loggedInUser(serverUser)
+    #         self.successfulLoginSignal.emit()
+    #         self.login_finished()
+    #     else:
+    #         pass  # pop up timer
+    #
+    # @Slot()
+    # def login_finished(self):
+    #     self.set_state(1)
 
     @Slot(int)
     def stackview_depthChanged(self, Depth: int):
@@ -694,10 +674,6 @@ class ShopPage(QObject):
                 self._trustUser = False
                 self.state = 1
 
-    @Slot()
-    def test(self):
-        print("IDBarcodeSignal connected again successfully")
-
     ###################################################################################################### Functions ###
     def print_states(self):
         if self._state == 0:
@@ -723,9 +699,9 @@ class ShopPage(QObject):
         self.set_basketLoad(load)
         self.set_basketIsFull(True) if load == 100 else self.set_basketIsFull(False)
 
-    def clear_stackView(self):
-        while self._stackViewDepth > 1:
-            self.closeNewStackViewtHandler.emit()
+    # def clear_stackView(self):
+    #     while self._stackViewDepth > 1:
+    #         self.closeNewStackViewtHandler.emit()
 
     def turn_onGreenLight(self):
         self.greenLight = GreenLight(True)
@@ -750,7 +726,7 @@ class ShopPage(QObject):
         else:
             self._weightSensor.lightest_weight = self._lightestWeightForHeavyProduct
 
-    def clearStackView(self):
+    def clear_stackView(self):
         if self._initFactorListFlag:
             while self._stackViewDepth > 1:
                 self.closeTopStackViewSignal.emit()
