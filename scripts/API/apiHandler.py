@@ -154,8 +154,8 @@ class Apihandler(QObject):
         QtGui.QGuiApplication.processEvents()
 
         for i, x in enumerate(lst):
-            productBarcode: str = lst[i]["productBarcode"]
-            sugProductBarcode: str = lst[i]["sugProductBarcode"]
+            productBarcode: str = lst[i]["barcode"]
+            sugProductBarcode: str = lst[i]["name"]
 
             res = self._adminRepository.insertData(
                 productBarcode, sugProductBarcode)
