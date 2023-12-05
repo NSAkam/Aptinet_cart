@@ -12,10 +12,10 @@ Item {
     visible: true
     width: 1280
     height: 800
-    
+
     property Logic obj_LogicServer
-    
-    
+
+
     Image {
         id: q
         source: "../../Assets/AuthenticationBackground.png"
@@ -25,7 +25,7 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
         spacing: 30
-        
+
         Rectangle{
             width: 259
             height: 364
@@ -40,7 +40,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 y:40
             }
-            
+
             KButton{
                 y:280
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -69,7 +69,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 y:40
             }
-            
+
             KButton{
                 y:280
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -85,24 +85,24 @@ Item {
             }
         }
     }
-    
+
     TopNav{
         backvisible: true
         onBackClicked: {
             stackview.pop()
         }
     }
-    
+
     Connections{
         target: obj_LogicServer.settingPage
-        onUpdateUploadToServerSignal:{
-            progressUploadedToServer.update(value);
+        function onUpdateUploadToServerSignal(v){
+            progressUploadedToServer.update(v);
         }
     }
     Connections{
         target:obj_LogicServer.settingPage.apiHandler
-        onUpdateDownloadedFromServerValue:{
-            progressDownloadFromServer.update(value * 25);
+        function onUpdateDownloadedFromServerValue(v){
+            progressDownloadFromServer.update(v * 25);
         }
     }
 }
