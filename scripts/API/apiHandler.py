@@ -60,7 +60,7 @@ class Apihandler(QObject):
         self.updateDownloadedFromServerValue(self._tedadDownloaded + 1)
 
     tedadDownloaded = Property(
-        int, get_tedadDownloaded(), set_tedadDownloaded, notify=changedSignal)
+        int, get_tedadDownloaded, set_tedadDownloaded, notify=changedSignal)
 
     @Slot()
     def startDownloadFromServer(self):
