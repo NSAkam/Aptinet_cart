@@ -14,8 +14,11 @@ Popup {
     width: 1280
     height: 800
     modal: true
-    focus: true
+    focus: false
+    onOpened: {
+        closetimer.start();
 
+    }
     background:
         Rectangle {
         id:rectContainer
@@ -26,7 +29,10 @@ Popup {
     Timer {
         id: closetimer
         interval: 5000
-        onTriggered:root.close()
+        onTriggered:{
+            root.close()
+            console.log("asdasd")
+        }
         repeat: false
         running: true
     }
