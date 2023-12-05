@@ -114,7 +114,7 @@ class SettingPage(QObject):
     @Slot(int)
     def set_uploadedPercentage(self,v:int):
         self._uploadedPercentage = v
-        self.updateUploadToServerSignal.emit()
+        self.updateUploadToServerSignal.emit(v)
 
     uploadedPercentage = Property(int,get_uploadedPercentage,set_uploadedPercentage,notify=updateUploadToServerSignal)
 
