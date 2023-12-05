@@ -51,7 +51,7 @@ Item {
                 borderRadius: 5
                 btn_borderWidth: 0
                 onClicked: {
-                    obj_LogicServer.startUploadToServer()
+                    obj_LogicServer.settingPage.startUploadToServer()
                 }
             }
         }
