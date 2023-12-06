@@ -67,7 +67,7 @@ Item {
                 y:25
                 radius: width /2
                 Image {
-                    source: "../Assets/FaceScanning.png"
+                    source: "../Assets/guest1.png"
                     width: parent.width - 4
                     height: parent.height -4
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -213,7 +213,7 @@ Item {
             //initialItem: lstProductHandler
             //initialItem:addPluItemview
             //initialItem: newProductHandler
-            initialItem: addPluItem
+            //initialItem: addPluItem
             //initialItem: manualBarcodeHandler
             //initialItem: plulist
             //initialItem: specialdealslist
