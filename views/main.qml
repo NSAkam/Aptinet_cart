@@ -5,7 +5,7 @@ import QtGraphicalEffects 1.0
 import "Utiles" as Util
 
 
-Window {
+ApplicationWindow {
     id:mainwindow
     width: 1280
     height: 800

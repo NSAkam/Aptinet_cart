@@ -9,16 +9,17 @@ Item {
     id: root
     width: 572
     height: 450
-
-    property Logic obj_LogicContainerAddPluItemsView
+    
+    property Logic obj_LogicContainerAddPluItemsCountedView
+    
     Image {
         source: "../../Assets/StackBackground.png"
         anchors.fill: parent
     }
-
+    
     signal cancel()
     signal confirm()
-
+    
     Rectangle{
         id: viewitemrect
         width: parent.width
@@ -27,7 +28,7 @@ Item {
         y: 120
         color: "white"
         radius: 4
-
+        
         Image {
             id: productimage
             source: "../../Assets/product.png"
@@ -36,7 +37,7 @@ Item {
             x: 32
             y: 24
         }
-
+        
         Text {
             id: productidtext
             text: "#8560"
@@ -44,9 +45,9 @@ Item {
             y: 58
             font.pixelSize: 24
             color: "#9D9D9D"
-
+            
         }
-
+        
         Text {
             id: productnametext
             text: "Pineapple"
@@ -55,9 +56,9 @@ Item {
             font.pixelSize: 36
             font.bold: true
             color: "#1D1D1D"
-
+            
         }
-
+        
         Text {
             id: unitpricetext
             text: "$ 6.99/kg"
@@ -66,27 +67,62 @@ Item {
             font.pixelSize: 24
             font.weight: Font.DemiBold
             color: "#F08C5A"
-
+            
         }
-
-        Image {
-            id: weightimage
-            source: "../../Assets/weighticon.png"
-            width: 48
-            height: 48
-            x: 44
-            y: 264
+        
+        Text{
+            text: "Quantity"
+            x:44
+            y:275
         }
-
+        Rectangle{
+            width: 24
+            height: 24
+            color: "#4696FA"
+            x:146
+            y:281
+            Text {
+                text: qsTr("-")
+                color: "white"
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.pixelSize: 48
+            }
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    
+                }
+            }
+        }
         Text {
-            id: addtocarttext
-            text: "Add to cart\nto be calculated"
-            font.pixelSize: 20
-            x: 108
-            y: 262
-            color: "#9D9D9D"
+            text: qsTr("0")
+            color: "black"
+            x:186
+            y:275
+            font.pixelSize: 24
         }
-
+        Rectangle{
+            width: 24
+            height: 24
+            color: "#4696FA"
+            x:217
+            y:281
+            Text {
+                text: qsTr("+")
+                color: "white"
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.pixelSize: 24
+            }
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    
+                }
+            }
+        }
+        
         Text {
             id: totalpricevalue
             text: "$ 0.0"
@@ -96,7 +132,7 @@ Item {
             font.bold: true
             color: "#4696FA"
         }
-
+        
         Text {
             id: totalpricetext
             text: "Total Price"
@@ -105,7 +141,7 @@ Item {
             font.pixelSize: 24
             color: "#9D9D9D"
         }
-
+        
         KButton{
             text: "Cancel"
             x: 32
@@ -118,7 +154,7 @@ Item {
                 root.cancel()
             }
         }
-
+        
         KButton {
             text: "Confirm"
             x: 273
@@ -128,17 +164,19 @@ Item {
             borderRadius: 4
             btn_color: viewset.secondaryColor
             btn_bordercolor: viewset.secondaryColor
-
+            
             Image {
                 source: "../../Assets/goRightInItemView.png"
                 x: 226
                 y: 24
-
+                
             }
             onClicked: {
                 root.confirm()
             }
         }
-
+        
     }
+}
+
 }

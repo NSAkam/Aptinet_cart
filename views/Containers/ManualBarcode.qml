@@ -12,7 +12,10 @@ Item {
     }
 
     property QtObject obj_LogicContainerManualBarcode
-
+    Image {
+        source: "../../Assets/StackBackground.png"
+        anchors.fill: parent
+    }
     signal cancle();
     signal ok();
     property bool showlastproduct: false

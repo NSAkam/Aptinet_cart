@@ -14,10 +14,6 @@ Popup {
 
     signal ok()
 
-    onOpened: {
-        txt_ManualBarcodeInput.text = ""
-        txt_ManualBarcodeInput.forceActiveFocus()
-    }
 
 
     property string messageText:"value"
@@ -111,7 +107,7 @@ Popup {
                             MouseArea{
                                 anchors.fill: parent
                                 onClicked: {
-                                    obj_logicByPassPopup.shopPage.increaseClicked(index)
+                                    obj_logicByPassPopup.shopPage.increase_clicked(index)
                                 }
                             }
                         }
@@ -149,7 +145,7 @@ Popup {
                             MouseArea{
                                 anchors.fill: parent
                                 onClicked: {
-                                    obj_logicByPassPopup.shopPage.decreaseClicked(index)
+                                    obj_logicByPassPopup.shopPage.decrease_clicked(index)
                                 }
                             }
                         }

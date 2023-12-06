@@ -11,7 +11,10 @@ Item {
     property int radiusVal: 40
 
     property Logic obj_LogicContainerRatingPage
-
+    Image {
+        source: "../../Assets/StackBackground.png"
+        anchors.fill: parent
+    }
     Text {
         text: "How would you rate your shopping experience?"
         font.pixelSize: 24

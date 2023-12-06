@@ -21,10 +21,6 @@ Item {
 
     property bool isfactorlistview: false
 
-    Component.onCompleted: {
-        obj_LogicContainerShop.shopPage.login_finished()
-    }
-
     signal addpluitemsClicked()
 
     Util.ViewSettings{
@@ -114,7 +110,7 @@ Item {
                 ishover: false
                 onClicked: {
                     stackviewContainer.push(manualBarcodeHandler)
-
+                    obj_LogicContainerShop.shopPage.enter_manualBarcode()
                 }
             }
             Image {
@@ -188,20 +184,20 @@ Item {
 
 
 
-//        KButton{
-//            id:btn_entermanualBarcode
-//            text: "+ Lookup By Number"
-//            x:645
-//            y:610
-//            width: 382
-//            height: 62
-//            borderRadius: 4
-//            onClicked: {
+        //        KButton{
+        //            id:btn_entermanualBarcode
+        //            text: "+ Lookup By Number"
+        //            x:645
+        //            y:610
+        //            width: 382
+        //            height: 62
+        //            borderRadius: 4
+        //            onClicked: {
 
-//                stackviewContainer.push(manualBarcodeHandler)
+        //                stackviewContainer.push(manualBarcodeHandler)
 
-//            }
-//        }
+        //            }
+        //        }
 
         StackView
         {
@@ -210,7 +206,7 @@ Item {
             height: 708
             x:390
             y:92
-            //initialItem: lstProductHandler
+            //initialItem: lstProductFactor
             //initialItem:addPluItemview
             //initialItem: newProductHandler
             //initialItem: addPluItem
@@ -574,24 +570,17 @@ Item {
             obj_LogicContainerBarcodeScanned: obj_LogicContainerShop
 
             onPass: {
-                //stackviewContainer.push(lstProductHandler)
+                //stackviewContainer.push(lstProductFactor)
             }
 
             onCancel: {
-                //                if(stackviewContainer.depth == 1)
-                //                {
-                //                    stackviewContainer.clear()
-                //                }
-                //                else
-                //                {
-                //                    stackviewContainer.pop()
-                //                }
+                obj_LogicContainerShop.shopPage.cancel_newProductClicked()
             }
         }
     }
 
     Component{
-        id:lstProductHandler
+        id:lstProductFactor
         LstCheckProducts{
             obj_LogicContainerLstCheckProducts: obj_LogicContainerShop
             onGocheckout: {
@@ -655,7 +644,7 @@ Item {
             {
                 //                adsPanel.visible = true
                 //                addPlupanel.visible = false
-                //                stackviewContainer.replace(lstProductHandler)
+                //                stackviewContainer.replace(lstProductFactor)
             }
 
             onCancel:
@@ -719,6 +708,9 @@ Item {
     BypassPopUp{
         id:popUp_bypass
         obj_logicByPassPopup: obj_LogicContainerShop
+        onOk: {
+            obj_LogicContainerShop.accept_byPassClicked()
+        }
     }
 
     FullMessageTimer{
@@ -799,7 +791,7 @@ Item {
         }
         function onInitFactorListSignal(){
             root.isfactorlistview = true
-            stackviewContainer.push(lstProductHandler)
+            stackviewContainer.push(lstProductFactor)
         }
         function onOpenPopupMessageTimerSignal(text){
             popUpMessageTimer.messageText = text
@@ -854,5 +846,23 @@ Item {
             popUpMessageNotAllowedChangeWeight.close()
         }
 
+        function onClearStackViewSignal(v){
+            stackviewContainer.clear()
+            if(v === true ){
+                stackviewContainer.push(lst)
+            }
+            else{
+                toaddItem.visible = true
+                loader.visible = true
+            }
+        }
+
+        function onOpenPopupByPassSignal(){
+            popUp_bypass.open()
+        }
+
+        function onClosePopupByPassSignal(){
+            popUp_bypass.close()
+        }
     }
 }

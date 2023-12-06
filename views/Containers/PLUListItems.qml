@@ -11,7 +11,10 @@ Item {
 
     property Logic obj_LogicContainerPLUListItems
 
-
+    Image {
+        source: "../../Assets/StackBackground.png"
+        anchors.fill: parent
+    }
     GridView {
         id: productsgridview
         width: 890
