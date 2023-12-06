@@ -1,11 +1,12 @@
 #! /usr/bin/env python3
 """
-Sample for python PCSC wrapper module: send a Control Code to a card or
-reader
+Sample for python PCSC wrapper module: perform a simple transaction
 
-__author__ = "Ludovic Rousseau"
+__author__ = "http://www.gemalto.com"
 
-Copyright 2007-2010 Ludovic Rousseau
+Copyright 2001-2012 gemalto
+Author: Jean-Daniel Aussel, mailto:jean-daniel.aussel@gemalto.com
+Copyright 2010 Ludovic Rousseau
 Author: Ludovic Rousseau, mailto:ludovic.rousseau@free.fr
 
 This file is part of pyscard.
@@ -26,68 +27,73 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 """
 
 from smartcard.scard import *
-from smartcard.util import toBytes, toHexString, toASCIIString
 
 try:
     hresult, hcontext = SCardEstablishContext(SCARD_SCOPE_USER)
     if hresult != SCARD_S_SUCCESS:
         raise error(
-            'Failed to establish context: ' + SCardGetErrorMessage(hresult))
+            'Failed to establish context: ' +
+            SCardGetErrorMessage(hresult))
     print('Context established!')
 
     try:
         hresult, readers = SCardListReaders(hcontext, [])
         if hresult != SCARD_S_SUCCESS:
             raise error(
-                'Failed to list readers: ' + SCardGetErrorMessage(hresult))
+                'Failed to list readers: ' +
+                SCardGetErrorMessage(hresult))
         print('PCSC Readers:', readers)
 
         if len(readers) < 1:
             raise error('No smart card readers')
 
         for zreader in readers:
-
-            print('Trying to Control reader:', zreader)
+            print('Trying to perform transaction on card in', zreader)
 
             try:
                 hresult, hcard, dwActiveProtocol = SCardConnect(
-                    hcontext, zreader, SCARD_SHARE_DIRECT, SCARD_PROTOCOL_T0)
+                    hcontext,
+                    zreader,
+                    SCARD_SHARE_SHARED,
+                    SCARD_PROTOCOL_T0 | SCARD_PROTOCOL_T1)
                 if hresult != SCARD_S_SUCCESS:
                     raise error(
-                        'Unable to connect: ' + SCardGetErrorMessage(hresult))
+                        'unable to connect: ' +
+                        SCardGetErrorMessage(hresult))
                 print('Connected with active protocol', dwActiveProtocol)
 
                 try:
-                    if 'winscard' == resourceManager:
-                        # IOCTL_SMARTCARD_GET_ATTRIBUTE = SCARD_CTL_CODE(2)
-                        hresult, response = SCardControl(
-                            hcard,
-                            SCARD_CTL_CODE(2),
-                            toBytes("%.8lx" % SCARD_ATTR_VENDOR_NAME))
-                        if hresult != SCARD_S_SUCCESS:
-                            raise error(
-                                'SCardControl failed: ' +
-                                SCardGetErrorMessage(hresult))
-                        print('SCARD_ATTR_VENDOR_NAME:', toASCIIString(response))
-                    elif 'pcsclite' == resourceManager:
-                        # get feature request
-                        hresult, response = SCardControl(
-                            hcard,
-                            SCARD_CTL_CODE(3400),
-                            [])
-                        if hresult != SCARD_S_SUCCESS:
-                            raise error(
-                                'SCardControl failed: ' +
-                                SCardGetErrorMessage(hresult))
-                        print('CM_IOCTL_GET_FEATURE_REQUEST:', toHexString(response))
+                    hresult = SCardBeginTransaction(hcard)
+                    if hresult != SCARD_S_SUCCESS:
+                        raise error(
+                            'failed to begin transaction: ' +
+                            SCardGetErrorMessage(hresult))
+                    print('Beginning transaction')
+
+                    hresult, reader, state, protocol, atr = SCardStatus(hcard)
+                    if hresult != SCARD_S_SUCCESS:
+                        raise error(
+                            'failed to get status: ' +
+                            SCardGetErrorMessage(hresult))
+                    print('ATR:', end=' ')
+                    for i in range(len(atr)):
+                        print("0x%.2X" % atr[i], end=' ')
+                    print("")
+
                 finally:
+                    hresult = SCardEndTransaction(hcard, SCARD_LEAVE_CARD)
+                    if hresult != SCARD_S_SUCCESS:
+                        raise error(
+                            'failed to end transaction: ' +
+                            SCardGetErrorMessage(hresult))
+                    print('Transaction ended')
+
                     hresult = SCardDisconnect(hcard, SCARD_UNPOWER_CARD)
                     if hresult != SCARD_S_SUCCESS:
                         raise error(
-                            'Failed to disconnect: ' +
+                            'failed to disconnect: ' +
                             SCardGetErrorMessage(hresult))
                     print('Disconnected')
-
             except error as message:
                 print(error, message)
 
@@ -95,7 +101,7 @@ try:
         hresult = SCardReleaseContext(hcontext)
         if hresult != SCARD_S_SUCCESS:
             raise error(
-                'Failed to release context: ' +
+                'failed to release context: ' +
                 SCardGetErrorMessage(hresult))
         print('Released context.')
 
