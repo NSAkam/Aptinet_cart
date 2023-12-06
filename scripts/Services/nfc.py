@@ -52,7 +52,7 @@ if __name__ == '__main__':
     cardobserver = PrintObserver()
     cardmonitor.addObserver(cardobserver)
 
-    sleep(10)
+    sleep(1000)
 
     # don't forget to remove observer, or the
     # monitor will poll forever...
