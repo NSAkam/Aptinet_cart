@@ -60,7 +60,7 @@ class ShopPage(QObject):
     _countDownTimer: int = -60
     _startWeight: int = 0
     _basketWeightShouldBe: int = 0
-    _basketWeightRemoveProcces: int = 0
+    _basketWeightRemoveProcess: int = 0
     _basketLoad: int = 0
     _stackViewDepth: int
     _basketIsFull: bool = False
@@ -72,10 +72,8 @@ class ShopPage(QObject):
     _trustUser: bool = False
     _shouldBarcodeToBeScannToAddProduct: bool = True
     _lightWeightProductExistInBasket: bool = False
-    _initFactorListFlag: bool = False
 
     ######################################################################################################## Modules ###
-    # _scanner: ScannerHelper
     _weightSensor: WeightSensorWorker
 
     def __init__(self, dal: DAL, user: User, scanner: ScannerHelper):
@@ -92,17 +90,12 @@ class ShopPage(QObject):
         #### Barcode Scanner ######################################
         self._scanner = scanner
         self._scanner.EAN13ReadSignal.connect(self.barcodeRead)
-        # self._scanner.loyaltyCardBarcodeReadSignal.connect(self.read_loyaltyCardBarcode)
-        # self._scanner.IDBarcodeReadSignal.connect(self.test)
-        # self._scanner.start()
+        self._scanner.IDBarcodeReadSignal.connect(self.IDBarcode_read)
 
         #### WeightSensor #########################################
         self._weightSensor = WeightSensorWorker()
         self._weightSensor.basketweight_changed.connect(self.basketWeightChanged)
         self._weightSensor.start()
-
-        # self._weightSensor = WeightSensorHelper()
-        # self._weightSensor.stepBasketWeightChangedSignal.connect(self.basketWeightChanged)
 
         #### Models ###############################################
         self._newProduct = Product()
@@ -132,17 +125,20 @@ class ShopPage(QObject):
         self._timerThread = Thread(target=self.timerSlot)
         self._timerThread.start()
 
-        ###########################################################
+        ########################################################### end of __init__
 
     ######################################################################################################## Signals ###
     changedSignal = Signal()
-    successfulLoginSignal = Signal()
-    closeAllPopUpSignal = Signal()
-    hideOfferListSignal = Signal()
-    # visibleProductListDeleteSignal = Signal()
 
-    # showStartUpShoppingLabelSignal = Signal(bool)
-    initFactorListSignal = Signal()
+    #### Stack view Signals #######################################
+    clearStackViewSignal = Signal(bool)   # clear stack view: if false clear all stack view, if true keep first view
+    closeTopStackViewSignal = Signal()  # close top stack view. maybe used for several purpose like close new product scanned stack view
+
+    showNewProductScannedSignal = Signal()  # pop up new product scanned
+
+
+    #### Popup Signals ############################################
+    closeAllPopUpSignal = Signal()
 
     openPopupMessageTimerSignal = Signal(str)
     clodePopUpMessageTimer = Signal()
@@ -150,23 +146,20 @@ class ShopPage(QObject):
     openPopupMessageSignal = Signal(str)
     closePopupMessageSignal = Signal()
 
-    showNewProductScannedSignal = Signal()  # pop up new product scanned
-    # closeNewProductScannedSignal = Signal()
-
-    # closeNewStackViewHandlerSignal = Signal()
-    closeTopStackViewSignal = Signal()  # close top stack view. maybe used for several purpose like close new product scanned stack view
-
     openPopupWeightNotMatchWithBarcodeSignal = Signal()  # pop up weight not match with scanned barcode
     closePopupWeightNotMatchWithBarcodeSignal = Signal()
 
-    openPopupNoBarcodeScannedSignal = Signal()
-    closePopupNoBarcodeScannedSignal = Signal()  # add product to basket with out scanning barcode
+    openPopupNoBarcodeScannedSignal = Signal()   # add product to basket without scanning barcode
+    closePopupNoBarcodeScannedSignal = Signal()
 
     openPopupDeleteProductSignal = Signal()  # remove product from basket
     closePopupDeleteProductSignal = Signal()
 
-    openPopUpMessageNotAllowedChangeWeightSignal = Signal()  # change weifgt at the end of shopping
+    openPopUpMessageNotAllowedChangeWeightSignal = Signal()  # change weight at the end of shopping
     closePopUpMessageNotAllowedChangeWeightSignal = Signal()
+
+    openPopupByPassSignal = Signal()   # open by pass pop up
+    closePopupByPassSignal = Signal()
 
     ##################################################################################################### Properties ###
     def get_state(self):
@@ -279,7 +272,6 @@ class ShopPage(QObject):
     def barcodeRead(self):
         self._shouldBarcodeToBeScannToAddProduct = True
         if not self._inByPass:
-            # self.hideOfferListSignal.emit()
             product = self._productRepository.get_product(self._scanner.get_barcode())
 
             self._bypassList.insertProduct(product.copy_product(), 0)
@@ -335,7 +327,6 @@ class ShopPage(QObject):
     @Slot(int, int)
     def basketWeightChanged(self, val2: int, val1: int):
         if not self._inByPass:
-            self.hideOfferListSignal.emit()
             value: int = val2 - val1
 
             # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -391,9 +382,6 @@ class ShopPage(QObject):
                         self.closeTopStackViewSignal.emit()
                         self.countDownTimer = -11
                         self._shouldBarcodeToBeScannToAddProduct = True
-                        if not self._initFactorListFlag:
-                            self.initFactorListSignal.emit()
-                            self._initFactorListFlag = True
 
                     else:
                         if (value < self.newProduct.meanWeight + self.newProduct.tolerance) and (
@@ -415,9 +403,6 @@ class ShopPage(QObject):
                             self.closeTopStackViewSignal.emit()
                             self.countDownTimer = -1
                             self._shouldBarcodeToBeScannToAddProduct = False
-                            if not self._initFactorListFlag:
-                                self.initFactorListSignal.emit()
-                                self._initFactorListFlag = True
 
                         else:
                             self.openPopupWeightNotMatchWithBarcodeSignal.emit()
@@ -456,7 +441,7 @@ class ShopPage(QObject):
                             "لطفا کالایی که در سبد قرار داده اید را برداشته و فرآیند حذف را کامل کنید. سپس اقدام به اضافه کردن کالای مورد نظر کنید")
                         # notifSound()
                         self.state = 6
-                        self._basketWeightRemoveProcces = val1
+                        self._basketWeightRemoveProcess = val1
 
                 elif self.state == 6:
                     if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
@@ -464,14 +449,14 @@ class ShopPage(QObject):
                         self.state = 1
                         self.closePopupMessageSignal.emit()
                         self.closePopupDeleteProductSignal.emit()
-                    elif self._basketWeightRemoveProcces - self._basketWeightTolerance <= val2 <= self._basketWeightRemoveProcces + self._basketWeightTolerance:
-                        self._basketWeightRemoveProcces = val2
+                    elif self._basketWeightRemoveProcess - self._basketWeightTolerance <= val2 <= self._basketWeightRemoveProcess + self._basketWeightTolerance:
+                        self._basketWeightRemoveProcess = val2
                         self.state = 5
                         self.closePopupMessageSignal.emit()
 
                 elif self.state == 7:
-                    if self._basketWeightRemoveProcces - self._basketWeightTolerance <= val2 <= self._basketWeightRemoveProcces + self._basketWeightTolerance:
-                        self._basketWeightRemoveProcces = val2
+                    if self._basketWeightRemoveProcess - self._basketWeightTolerance <= val2 <= self._basketWeightRemoveProcess + self._basketWeightTolerance:
+                        self._basketWeightRemoveProcess = val2
                         self.state = 5
                         self.closePopupMessageSignal.emit()
                     elif self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
@@ -543,11 +528,11 @@ class ShopPage(QObject):
                         "لطفا کالایی که از سبد برداشته اید در سبد قرار دهید و پس از اتمام فرآید حذف کالای قبلی مجددا اقدام به حذف آن کالا کنید")
                     # notifSound()
                     self.state = 7
-                    self._basketWeightRemoveProcces = val1
+                    self._basketWeightRemoveProcess = val1
 
                 elif self.state == 6:
-                    if self._basketWeightRemoveProcces - self._basketWeightTolerance <= val2 <= self._basketWeightRemoveProcces + self._basketWeightTolerance:
-                        self._basketWeightRemoveProcces = val2
+                    if self._basketWeightRemoveProcess - self._basketWeightTolerance <= val2 <= self._basketWeightRemoveProcess + self._basketWeightTolerance:
+                        self._basketWeightRemoveProcess = val2
                         self.state = 5
                         self.closePopupMessageSignal.emit()
 
@@ -605,45 +590,13 @@ class ShopPage(QObject):
                     self._shouldBarcodeToBeScannToAddProduct = True
                     # self._weighsensor.lightest_weight = self._lightest_weight_for_heavy_weight_product
 
-    # @Slot(str)
-    # def enter_phoneNumberClicked(self, phoneNumber: str):
-    #     serverUser = self._userServerRepository.loginByPhone(phoneNumber)
-    #     if not serverUser.get_id() == "":
-    #         self._user.set_loggedInUser(serverUser)
-    #         self.successfulLoginSignal.emit()
-    #         self.login_finished()
-    #
-    #     else:
-    #         pass  # pop up nat valid phone number
-    #
-    # @Slot()
-    # def read_loyaltyCardBarcode(self):
-    #     serverUser = self._userServerRepository.loginByloyalityBarcode(self._scanner.get_loyaltyCardBarcode())
-    #     if not serverUser.get_id() == "":
-    #         self._user.set_loggedInUser(serverUser)
-    #         self.successfulLoginSignal.emit()
-    #         self.login_finished()
-    #
-    #     else:
-    #         pass  # pop up timer
-    #
-    # @Slot(str)
-    # def enter_loyaltyCardBarcode(self, loyaltyCode: str):
-    #     serverUser = self._userServerRepository.loginByloyalityBarcode(loyaltyCode)
-    #     if not serverUser.get_id() == "":
-    #         self._user.set_loggedInUser(serverUser)
-    #         self.successfulLoginSignal.emit()
-    #         self.login_finished()
-    #     else:
-    #         pass  # pop up timer
-    #
-    # @Slot()
-    # def login_finished(self):
-    #     self.set_state(1)
-
-    @Slot(int)
-    def stackview_depthChanged(self, Depth: int):
-        self._stackViewDepth = Depth
+    @Slot()
+    def cancel_newProductClicked(self):
+        self.clear_stackView()
+        self.countDownTimer = 0
+        if self.state == 2:
+            self.state = 1
+            self._shouldBarcodeToBeScannToAddProduct = True
 
     @Slot()
     def productRemoveClicked(self):
@@ -674,14 +627,84 @@ class ShopPage(QObject):
                 self._trustUser = False
                 self.state = 1
 
+    @Slot()
+    def IDBarcode_read(self):
+        if not self._inByPass:
+            self._inByPass = True
+            self.clear_stackView()
+            self.closeAllPopUpSignal.emit()
+            self.openPopupByPassSignal.emit()
+
+    @Slot()
+    def accept_byPassClicked(self):
+        if self._weightSensor.isstable:
+            self._factorList.clearData()
+            self._factorList.insert_productList(self._bypassList.m_data)
+            self.state = 1
+            self._inByPass = False
+            self.closeAllPopUpSignal.emit()
+            # initial all private variable to default value
+        else:
+            self.openPopupMessageTimerSignal.emit("Please Wait !")
+
+    @Slot()
+    def increase_clicked(self, index: int):
+        self._bypassList.increaseClicked(index)
+
+    @Slot()
+    def decrease_clicked(self, index: int):
+        self._bypassList.decreaseClicked(index)
+
+    @Slot()
+    def clicked_manualBarcode(self):
+        if self.state == 1:
+            pass
+
+    @Slot(str)
+    def enter_manualBarcode(self, barcode: str):
+        if len(barcode) == self._scanner.get_productBarcodeLength():
+            if self._productRepository.get_product(barcode).price != 0:
+                self.clear_stackView()
+                self._scanner.barcode = barcode
+                self.barcodeRead()
+            else:
+                self.openPopupMessageTimerSignal.emit("Please check entered barcode !")
+        else:
+            self.openPopupMessageTimerSignal.emit("please enter " + str(self._scanner.get_productBarcodeLength()) + " digits barcode !")
+
+
     ###################################################################################################### Functions ###
     def print_states(self):
-        if self._state == 0:
-            print("login")
-        if self._state == 1:
-            print("stable")
-        elif self._state == 2:
-            print("\nState " + str(self._state) + " : A barcode is read and waiting to add the item.\n")
+        if self.state == 1:
+            print("\nState " + str(self._states) + " : Stable.\n")
+        elif self.state == 2:
+            print("\nState " + str(self._states) +
+                  " : A Barcode was readed and waiting for Weight to add.\n")
+        elif self.state == 3:
+            print("\nState " + str(self._states) +
+                  " : Inserted Weight not match with readed Barcode.\n")
+        elif self.state == 4:
+            print("\nState " + str(
+                self._states) + " : Inserted Weight without barcode.(match with last product or waiting for remove)\n")
+        elif self.state == 5:
+            print("\nState " + str(self._states) +
+                  " : Weight removed. waiting to read barcode\n")
+        elif self.state == 6:
+            print("\nState " + str(self._states) +
+                  " : Insert Invalid Weight While Remove Product.\n")
+        elif self.state == 7:
+            print("\nState " + str(self._states) +
+                  " : 1+ steps removed Weight.\n")
+        elif self.state == 8:
+            print("\nState " + str(self._states) + " : Finish clicked.\n")
+        elif self.state == 9:
+            print("\nState " + str(self._states) +
+                  " : Weight Changed During Payment.\n")
+        elif self.state == 10:
+            print("\nState " + str(self._states) + " : END.\n")
+        elif self.state == 11:
+            print("\nState " + str(self._states) +
+                  " : Change Weight After END.\n")
 
     def add_productToFactor(self, p: Product, c: int, u: bool, w2: int, w1: int):
         # insertSound()
@@ -698,10 +721,6 @@ class ShopPage(QObject):
         load = min(max(load, 0), 100)
         self.set_basketLoad(load)
         self.set_basketIsFull(True) if load == 100 else self.set_basketIsFull(False)
-
-    # def clear_stackView(self):
-    #     while self._stackViewDepth > 1:
-    #         self.closeNewStackViewtHandler.emit()
 
     def turn_onGreenLight(self):
         self.greenLight = GreenLight(True)
@@ -727,11 +746,9 @@ class ShopPage(QObject):
             self._weightSensor.lightest_weight = self._lightestWeightForHeavyProduct
 
     def clear_stackView(self):
-        if self._initFactorListFlag:
-            while self._stackViewDepth > 1:
-                self.closeTopStackViewSignal.emit()
+        if len(self._factorList.m_data) > 0:
+            self.clearStackViewSignal.emit(True)
         else:
-            while self._stackViewDepth > 0:
-                self.closeTopStackViewSignal.emit()
+            self.clearStackViewSignal.emit(False)
 
 
