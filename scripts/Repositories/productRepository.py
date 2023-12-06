@@ -77,11 +77,19 @@ class ProductRepository:
             p.tax = query.value(22)
             p.QR = query.value(23)
             p.productType = query.value(24)
+            p._taxPercentage =taxPercentage
+            p.quantifier = quantifire
         return p
 
     def get_topOfferProducts(self):
         res: [Product] = []
         query = QSqlQuery()
+        taxPercentage = 0
+        quantifire = ""
+        query.exec_("select quatifire,taxPercentage from Config LIMIT 1")
+        while query.next:
+            quantifire = query.value(0)
+            taxPercentage =query.value(1)
         query.exec_(
             "SELECT name,description,rate,commentCount,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,price,finalprice,meanWeight,tolerance,insertedWeight,barcode,isOffer,isPlu,tax,qrCode,productType "
             "FROM product "
@@ -114,12 +122,20 @@ class ProductRepository:
             p.tax = query.value(22)
             p.QR = query.value(23)
             p.productType = query.value(24)
+            p._taxPercentage = taxPercentage
+            p.quantifier = quantifire
             res.append(p)
         return res
 
     def get_offerProducts(self):
         res: [Product] = []
         query = QSqlQuery()
+        taxPercentage = 0
+        quantifire = ""
+        query.exec_("select quatifire,taxPercentage from Config LIMIT 1")
+        while query.next:
+            quantifire = query.value(0)
+            taxPercentage =query.value(1)
         query.exec_(
             "SELECT name,description,rate,commentCount,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,price,finalprice,meanWeight,tolerance,insertedWeight,barcode,isOffer,isPlu,tax,qrCode,productType "
             "FROM product "
@@ -152,12 +168,20 @@ class ProductRepository:
             p.tax = query.value(22)
             p.QR = query.value(23)
             p.productType = query.value(24)
+            p._taxPercentage = taxPercentage
+            p.quantifier = quantifire
             res.append(p)
         return res
 
     def get_suggesstionProducts(self, productBarcode: str):
         res: [Product] = []
         query = QSqlQuery()
+        taxPercentage = 0
+        quantifire = ""
+        query.exec_("select quatifire,taxPercentage from Config LIMIT 1")
+        while query.next:
+            quantifire = query.value(0)
+            taxPercentage =query.value(1)
         query.exec_(
             "select "
             "name,description,rate,commentCount,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,price,finalprice,meanWeight,tolerance,insertedWeight,barcode,isOffer,isPlu,tax,qrCode,productType "
@@ -190,12 +214,20 @@ class ProductRepository:
             p.tax = query.value(22)
             p.QR = query.value(23)
             p.productType = query.value(24)
+            p._taxPercentage = taxPercentage
+            p.quantifier = quantifire
             res.append(p)
         return res
 
     def get_pluProducts(self):
         res: [Product] = []
         query = QSqlQuery()
+        taxPercentage = 0
+        quantifire = ""
+        query.exec_("select quatifire,taxPercentage from Config LIMIT 1")
+        while query.next:
+            quantifire = query.value(0)
+            taxPercentage =query.value(1)
         query.exec_(
             "SELECT name,description,rate,commentCount,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,price,finalprice,meanWeight,tolerance,insertedWeight,barcode,isOffer,isPlu,tax,qrCode,productType "
             "FROM product "
@@ -228,6 +260,8 @@ class ProductRepository:
             p.tax = query.value(22)
             p.QR = query.value(23)
             p.productType = query.value(24)
+            p._taxPercentage=taxPercentage
+            p.quantifier = quantifire
             res.append(p)
         return res
 
