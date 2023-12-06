@@ -1,13 +1,11 @@
 #! /usr/bin/env python3
 """
-Sample for python PCSC wrapper module: perform a simple transaction
+Sample script that monitors smartcard readers.
 
 __author__ = "http://www.gemalto.com"
 
 Copyright 2001-2012 gemalto
 Author: Jean-Daniel Aussel, mailto:jean-daniel.aussel@gemalto.com
-Copyright 2010 Ludovic Rousseau
-Author: Ludovic Rousseau, mailto:ludovic.rousseau@free.fr
 
 This file is part of pyscard.
 
@@ -26,89 +24,37 @@ along with pyscard; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 """
 
-from smartcard.scard import *
+from time import sleep
 
-try:
-    hresult, hcontext = SCardEstablishContext(SCARD_SCOPE_USER)
-    if hresult != SCARD_S_SUCCESS:
-        raise error(
-            'Failed to establish context: ' +
-            SCardGetErrorMessage(hresult))
-    print('Context established!')
+from smartcard.ReaderMonitoring import ReaderMonitor, ReaderObserver
 
-    try:
-        hresult, readers = SCardListReaders(hcontext, [])
-        if hresult != SCARD_S_SUCCESS:
-            raise error(
-                'Failed to list readers: ' +
-                SCardGetErrorMessage(hresult))
-        print('PCSC Readers:', readers)
 
-        if len(readers) < 1:
-            raise error('No smart card readers')
+class printobserver(ReaderObserver):
+    """A simple reader observer that is notified
+    when readers are added/removed from the system and
+    prints the list of readers
+    """
 
-        for zreader in readers:
-            print('Trying to perform transaction on card in', zreader)
+    def update(self, observable, actions):
+        (addedreaders, removedreaders) = actions
+        print("Added readers", addedreaders)
+        print("Removed readers", removedreaders)
 
-            try:
-                hresult, hcard, dwActiveProtocol = SCardConnect(
-                    hcontext,
-                    zreader,
-                    SCARD_SHARE_SHARED,
-                    SCARD_PROTOCOL_T0 | SCARD_PROTOCOL_T1)
-                if hresult != SCARD_S_SUCCESS:
-                    raise error(
-                        'unable to connect: ' +
-                        SCardGetErrorMessage(hresult))
-                print('Connected with active protocol', dwActiveProtocol)
+if __name__ == '__main__':
+    print("Add or remove a smartcard reader to the system.")
+    print("This program will exit in 10 seconds")
+    print("")
+    readermonitor = ReaderMonitor()
+    readerobserver = printobserver()
+    readermonitor.addObserver(readerobserver)
 
-                try:
-                    hresult = SCardBeginTransaction(hcard)
-                    if hresult != SCARD_S_SUCCESS:
-                        raise error(
-                            'failed to begin transaction: ' +
-                            SCardGetErrorMessage(hresult))
-                    print('Beginning transaction')
+    sleep(10)
 
-                    hresult, reader, state, protocol, atr = SCardStatus(hcard)
-                    if hresult != SCARD_S_SUCCESS:
-                        raise error(
-                            'failed to get status: ' +
-                            SCardGetErrorMessage(hresult))
-                    print('ATR:', end=' ')
-                    for i in range(len(atr)):
-                        print("0x%.2X" % atr[i], end=' ')
-                    print("")
+    # don't forget to remove observer, or the
+    # monitor will poll forever...
+    readermonitor.deleteObserver(readerobserver)
 
-                finally:
-                    hresult = SCardEndTransaction(hcard, SCARD_LEAVE_CARD)
-                    if hresult != SCARD_S_SUCCESS:
-                        raise error(
-                            'failed to end transaction: ' +
-                            SCardGetErrorMessage(hresult))
-                    print('Transaction ended')
-
-                    hresult = SCardDisconnect(hcard, SCARD_UNPOWER_CARD)
-                    if hresult != SCARD_S_SUCCESS:
-                        raise error(
-                            'failed to disconnect: ' +
-                            SCardGetErrorMessage(hresult))
-                    print('Disconnected')
-            except error as message:
-                print(error, message)
-
-    finally:
-        hresult = SCardReleaseContext(hcontext)
-        if hresult != SCARD_S_SUCCESS:
-            raise error(
-                'failed to release context: ' +
-                SCardGetErrorMessage(hresult))
-        print('Released context.')
-
-except error as e:
-    print(e)
-
-import sys
-if 'win32' == sys.platform:
-    print('press Enter to continue')
-    sys.stdin.read(1)
+    import sys
+    if 'win32' == sys.platform:
+        print('press Enter to continue')
+        sys.stdin.read(1)
