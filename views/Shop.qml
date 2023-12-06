@@ -224,7 +224,7 @@ Item {
                 //                    toaddItem.visible = true
                 //                    btn_entermanualBarcode.visible = true
                 //                }
-                console.log(stackviewContainer.currentItem)
+                console.log(stackviewContainer.currentItem.objectName)
                 obj_LogicContainerShop.shopPage.stackview_depthChanged(stackviewContainer.depth)
             }
         }
