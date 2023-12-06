@@ -1,10 +1,12 @@
 #! /usr/bin/env python3
-"""Manual unit tests for smartcard.CardRequest
+"""
+Sample for python PCSC wrapper module: send a Control Code to a card or
+reader
 
-__author__ = "http://www.gemalto.com"
+__author__ = "Ludovic Rousseau"
 
-Copyright 2001-2012 gemalto
-Author: Jean-Daniel Aussel, mailto:jean-daniel.aussel@gemalto.com
+Copyright 2007-2010 Ludovic Rousseau
+Author: Ludovic Rousseau, mailto:ludovic.rousseau@free.fr
 
 This file is part of pyscard.
 
@@ -23,190 +25,84 @@ along with pyscard; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 """
 
-import random
-import string
-import time
-import unittest
+from smartcard.scard import *
+from smartcard.util import toBytes, toHexString, toASCIIString
 
-from smartcard.CardConnection import CardConnection
-from smartcard.CardMonitoring import CardMonitor, CardObserver
-from smartcard.CardRequest import CardRequest
-from smartcard.CardType import AnyCardType, ATRCardType
-from smartcard.Exceptions import CardConnectionException
-from smartcard.Exceptions import CardRequestTimeoutException
-from smartcard.util import toHexString
-from smartcard.System import readers
+try:
+    hresult, hcontext = SCardEstablishContext(SCARD_SCOPE_USER)
+    if hresult != SCARD_S_SUCCESS:
+        raise error(
+            'Failed to establish context: ' + SCardGetErrorMessage(hresult))
+    print('Context established!')
 
-#
-# setup test first: detect current readers and cards
-#
-print('insert two smartcard readers')
-while True:
-    readerz = readers()
-    if 2 <= len(readerz):
-        break
-    time.sleep(.3)
-for reader in readerz:
-    print('\t', reader)
+    try:
+        hresult, readers = SCardListReaders(hcontext, [])
+        if hresult != SCARD_S_SUCCESS:
+            raise error(
+                'Failed to list readers: ' + SCardGetErrorMessage(hresult))
+        print('PCSC Readers:', readers)
 
-print('insert two cards in the readers')
-cardrequest = CardRequest()
-while True:
-    cardz = cardrequest.waitforcardevent()
-    if 2 <= len(cardz):
-        break
-    time.sleep(.3)
-for card in cardz:
-    print('\t', toHexString(card.atr))
+        if len(readers) < 1:
+            raise error('No smart card readers')
 
+        for zreader in readers:
 
-class testcase_manualCardRequest(unittest.TestCase, CardObserver):
-    """Test case for CardRequest."""
+            print('Trying to Control reader:', zreader)
 
-    def setUp(self):
-        pass
-
-    def tearDown(self):
-        pass
-
-    def removeAllCards(self):
-        print('please remove all inserted smart cards')
-        cardrequest = CardRequest()
-        while True:
-            cards = cardrequest.waitforcardevent()
-            if 0 == len(cards):
-                break
-            time.sleep(.3)
-        print('ok')
-
-    def testcase_CardRequestNewCardAnyCardTypeInfiniteTimeOut(self):
-        """Test smartcard.CardRequest for any new card without time-out."""
-
-        self.removeAllCards()
-        cardtype = AnyCardType()
-        cardrequest = CardRequest(
-            timeout=None, cardType=cardtype, newcardonly=True)
-        print('re-insert any combination of cards six time')
-        count = 0
-        for i in range(0, 6):
-            cardservice = cardrequest.waitforcard()
             try:
-                cardservice.connection.connect()
-                print(toHexString(
-                    cardservice.connection.getATR()), \
-                    'in', cardservice.connection.getReader())
-            except CardConnectionException:
-                # card was removed too fast
-                pass
-            cardservice.connection.disconnect()
-            count += 1
-        self.assertEqual(6, count)
+                hresult, hcard, dwActiveProtocol = SCardConnect(
+                    hcontext, zreader, SCARD_SHARE_DIRECT, SCARD_PROTOCOL_T0)
+                if hresult != SCARD_S_SUCCESS:
+                    raise error(
+                        'Unable to connect: ' + SCardGetErrorMessage(hresult))
+                print('Connected with active protocol', dwActiveProtocol)
 
-    def testcase_CardRequestNewCardATRCardTypeInfiniteTimeOut(self):
-        """Test smartcard.CardRequest for new card with given ATR
-        without time-out."""
+                try:
+                    if 'winscard' == resourceManager:
+                        # IOCTL_SMARTCARD_GET_ATTRIBUTE = SCARD_CTL_CODE(2)
+                        hresult, response = SCardControl(
+                            hcard,
+                            SCARD_CTL_CODE(2),
+                            toBytes("%.8lx" % SCARD_ATTR_VENDOR_NAME))
+                        if hresult != SCARD_S_SUCCESS:
+                            raise error(
+                                'SCardControl failed: ' +
+                                SCardGetErrorMessage(hresult))
+                        print('SCARD_ATTR_VENDOR_NAME:', toASCIIString(response))
+                    elif 'pcsclite' == resourceManager:
+                        # get feature request
+                        hresult, response = SCardControl(
+                            hcard,
+                            SCARD_CTL_CODE(3400),
+                            [])
+                        if hresult != SCARD_S_SUCCESS:
+                            raise error(
+                                'SCardControl failed: ' +
+                                SCardGetErrorMessage(hresult))
+                        print('CM_IOCTL_GET_FEATURE_REQUEST:', toHexString(response))
+                finally:
+                    hresult = SCardDisconnect(hcard, SCARD_UNPOWER_CARD)
+                    if hresult != SCARD_S_SUCCESS:
+                        raise error(
+                            'Failed to disconnect: ' +
+                            SCardGetErrorMessage(hresult))
+                    print('Disconnected')
 
-        self.removeAllCards()
-        count = 0
-        for i in range(0, 6):
-            card = random.choice(cardz)
-            cardtype = ATRCardType(card.atr)
-            cardrequest = CardRequest(
-                timeout=None, cardType=cardtype, newcardonly=True)
-            print('re-insert card', toHexString(card.atr), 'into', card.reader)
-            cardservice = cardrequest.waitforcard()
-            print('ok')
-            try:
-                cardservice.connection.connect()
-                self.assertEqual(cardservice.connection.getATR(), card.atr)
-            except CardConnectionException:
-                # card was removed too fast
-                pass
-            cardservice.connection.disconnect()
-            count += 1
-        self.assertEqual(6, count)
+            except error as message:
+                print(error, message)
 
-    def testcase_CardRequestNewCardAnyCardTypeFiniteTimeOutNoInsertion(self):
-        """Test smartcard.CardRequest for new card with time-out and no
-        insertion before time-out."""
+    finally:
+        hresult = SCardReleaseContext(hcontext)
+        if hresult != SCARD_S_SUCCESS:
+            raise error(
+                'Failed to release context: ' +
+                SCardGetErrorMessage(hresult))
+        print('Released context.')
 
-        self.removeAllCards()
+except error as e:
+    print(e)
 
-        # make sure we have 6 time-outs
-        cardtype = AnyCardType()
-        cardrequest = CardRequest(
-            timeout=1, cardType=cardtype, newcardonly=True)
-        count = 0
-        for i in range(0, 6):
-            try:
-                before = time.time()
-                cardservice = cardrequest.waitforcard()
-            except CardRequestTimeoutException as e:
-                elapsed = int(10 * (time.time() - before))
-                print('.', end=' ')
-                self.assertTrue(elapsed >= 10 and elapsed <= 11.)
-                count += 1
-        print('\n')
-        self.assertEqual(6, count)
-
-    def testcase_CardRequestNewCardAnyCardTypeFiniteTimeOutInsertion(self):
-        """Test smartcard.CardRequest for new card with time-out and
-        insertion before time-out."""
-
-        self.removeAllCards()
-
-        # make sure insertion is within 5s
-        cardtype = AnyCardType()
-        cardrequest = CardRequest(
-            timeout=5, cardType=cardtype, newcardonly=True)
-        count = 0
-        for i in range(0, 6):
-            try:
-                print('re-insert any card within the next 5 seconds')
-                before = time.time()
-                cardservice = cardrequest.waitforcard()
-                count += 1
-                elapsed = int(10 * (time.time() - before))
-                self.assertTrue(elapsed <= 55.)
-            except CardRequestTimeoutException as e:
-                print('too slow... Test will show a failure')
-        print('\n')
-        self.assertEqual(6, count)
-
-    def testcase_CardRequestNewCardInReaderNotPresentInfiniteTimeOut(self):
-        """Test smartcard.CardRequest for any new card in a specific
-        reader not present without time-out."""
-
-        print('please remove a smart card reader')
-        _readerz = readers()
-        while True:
-            readerz = readers()
-            if len(_readerz) > len(readerz):
-                break
-            time.sleep(.1)
-
-        for reader in readerz:
-            _readerz.remove(reader)
-
-        cardtype = AnyCardType()
-        cardrequest = CardRequest(
-            timeout=None,
-            readers=[_readerz[0]],
-            cardType=cardtype,
-            newcardonly=True)
-        print('Re-insert reader ', _readerz[0], 'with a card inside')
-        cardservice = cardrequest.waitforcard()
-        cardservice.connection.connect()
-        print(toHexString(
-            cardservice.connection.getATR()), \
-            'in', cardservice.connection.getReader())
-        cardservice.connection.disconnect()
-
-
-def suite():
-    suite1 = unittest.makeSuite(testcase_manualCardRequest)
-    return unittest.TestSuite(suite1)
-
-
-if __name__ == '__main__':
-    unittest.main()
+import sys
+if 'win32' == sys.platform:
+    print('press Enter to continue')
+    sys.stdin.read(1)
