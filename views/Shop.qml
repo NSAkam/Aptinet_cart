@@ -68,7 +68,8 @@ Item {
                 radius: width /2
                 Image {
                     source: "../Assets/FaceScanning.png"
-                    width: parent.width-4
+                    width: parent.width - 4
+                    height: parent.height -4
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                 }
