@@ -789,10 +789,6 @@ Item {
             }
             slideshow.model = obj_LogicContainerShop.shopPage.offersList
         }
-        function onInitFactorListSignal(){
-            root.isfactorlistview = true
-            stackviewContainer.push(lstProductFactor)
-        }
         function onOpenPopupMessageTimerSignal(text){
             popUpMessageTimer.messageText = text
             popUpMessageTimer.open()

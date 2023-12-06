@@ -39,6 +39,12 @@ class ProductRepository:
 
     def get_product(self, barcode):
         query = QSqlQuery()
+        taxPercentage = 0
+        quantifire = ""
+        query.exec_("select quatifire,taxPercentage from Config LIMIT 1")
+        while query.next:
+            quantifire = query.value(0)
+            taxPercentage =query.value(1)
         query.exec_(
             "SELECT name,description,rate,commentCount,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,price,finalprice,meanWeight,tolerance,insertedWeight,barcode,isOffer,isPlu,tax,qrCode,productType "
             "FROM product "
