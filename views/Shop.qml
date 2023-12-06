@@ -181,20 +181,20 @@ Item {
 
 
 
-        KButton{
-            id:btn_entermanualBarcode
-            text: "+ Lookup By Number"
-            x:645
-            y:610
-            width: 382
-            height: 62
-            borderRadius: 4
-            onClicked: {
+//        KButton{
+//            id:btn_entermanualBarcode
+//            text: "+ Lookup By Number"
+//            x:645
+//            y:610
+//            width: 382
+//            height: 62
+//            borderRadius: 4
+//            onClicked: {
 
-                stackviewContainer.push(manualBarcodeHandler)
+//                stackviewContainer.push(manualBarcodeHandler)
 
-            }
-        }
+//            }
+//        }
 
         StackView
         {
@@ -224,7 +224,6 @@ Item {
                 //                    toaddItem.visible = true
                 //                    btn_entermanualBarcode.visible = true
                 //                }
-                console.log(stackviewContainer.currentItem.objectName)
                 obj_LogicContainerShop.shopPage.stackview_depthChanged(stackviewContainer.depth)
             }
         }
