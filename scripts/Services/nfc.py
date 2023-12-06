@@ -35,14 +35,15 @@ class SelectPoller(object):
     def poll(self, timeout=None):
         flag_list = (select.POLLIN, select.POLLOUT, select.POLLPRI)
         result = {}
-        for fd_list, happened_flag,fd in zip(
+        for fd_list, happened_flag in zip(
                 select.select(*([[
                     fd
                     for fd, events in self._fd_dict.items() if events & flag
                 ] for flag in flag_list] + [timeout])),
                 flag_list,
             ):
-            result[fd] = result.get(fd, 0) | happened_flag
+            pass
+            # result[fd] = result.get(fd, 0) | happened_flag
         return list(result.items())
 # (end of demonstration helpers)
 
