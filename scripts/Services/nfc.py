@@ -1,44 +1,65 @@
-from smartcard.CardRequest import CardRequest
-from smartcard.Exceptions import CardRequestTimeoutException
 from smartcard.CardType import AnyCardType
-from smartcard import util
+from smartcard.CardRequest import CardRequest
+from smartcard.CardConnectionObserver import CardConnectionObserver
+from smartcard.util import toHexString
 
 
-# respond to the insertion of any type of smart card
-card_type = AnyCardType()
+class TracerAndSELECTInterpreter(CardConnectionObserver):
+    """This observer will interprer SELECT and GET RESPONSE bytes
+    and replace them with a human readable string."""
 
-# create the request. Wait for up to x seconds for a card to be attached
-request = CardRequest(timeout=0, cardType=card_type)
-hasopened = False
+    def update(self, cardconnection, ccevent):
 
-while True:
-    # listen for the card
-    service = None
-    try:
-        service = request.waitforcard()
-    except CardRequestTimeoutException:
-        print("ERROR: No card detected")
+        if 'connect' == ccevent.type:
+            print('connecting to ' + cardconnection.getReader())
+
+        elif 'disconnect' == ccevent.type:
+            print('disconnecting from ' + cardconnection.getReader())
+
+        elif 'command' == ccevent.type:
+            str = toHexString(ccevent.args[0])
+            str = str.replace("A0 A4 00 00 02", "SELECT")
+            str = str.replace("A0 C0 00 00", "GET RESPONSE")
+            print('>', str)
+
+        elif 'response' == ccevent.type:
+            if [] == ccevent.args[0]:
+                print('<  []', "%-2X %-2X" % tuple(ccevent.args[-2:]))
+            else:
+                print('<',
+                      toHexString(ccevent.args[0]),
+                      "%-2X %-2X" % tuple(ccevent.args[-2:]))
 
 
-    # could add "exit(-1)" to make code terminate
+# define the apdus used in this script
+GET_RESPONSE = [0XA0, 0XC0, 00, 00]
+SELECT = [0xA0, 0xA4, 0x00, 0x00, 0x02]
+DF_TELECOM = [0x7F, 0x10]
 
-    # when a card is attached, open a connection
-    try:
-        conn = service.connection
-        conn.connect()
 
-        # get the ATR and UID of the card
-        get_uid = util.toBytes("FF CA 00 00 00")
-        data, sw1, sw2 = conn.transmit(get_uid)
-        uid = util.toHexString(data)
-        status = util.toHexString([sw1, sw2])
+# we request any type and wait for 10s for card insertion
+cardtype = AnyCardType()
+cardrequest = CardRequest(timeout=10, cardType=cardtype)
+cardservice = cardrequest.waitforcard()
 
-        # print the ATR and UID of the card
-        if conn and not hasopened:
-            print("ATR = {}".format(util.toHexString(conn.getATR())))
-            print("UID = {}\tstatus = {}".format(uid, status))
-           
+# create an instance of our observer and attach to the connection
+observer = TracerAndSELECTInterpreter()
+cardservice.connection.addObserver(observer)
 
-            hasopened=True
-    except:
-        print("no connection")
+
+# connect and send APDUs
+# the observer will trace on the console
+cardservice.connection.connect()
+
+apdu = SELECT + DF_TELECOM
+response, sw1, sw2 = cardservice.connection.transmit(apdu)
+if sw1 == 0x9F:
+    apdu = GET_RESPONSE + [sw2]
+    response, sw1, sw2 = cardservice.connection.transmit(apdu)
+else:
+    print('no DF_TELECOM')
+
+import sys
+if 'win32' == sys.platform:
+    print('press Enter to continue')
+    sys.stdin.read(1)
