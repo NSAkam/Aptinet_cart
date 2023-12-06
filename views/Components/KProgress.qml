@@ -16,8 +16,8 @@ Item {
 
     //value parameters
     property double from:0
-    property double value: 3
-    property double to: 7
+    property double value: 50
+    property double to: 100
 
     //progress from right to left
     property bool reverse: false
@@ -29,22 +29,21 @@ Item {
     property int lineWidth: height / 10
     property int fontSize: height / 7
 
-    property color kprogressBackgroundColor: "gray"
-    property color kprogressColor: "#F2C335"
+    property color kprogressBackgroundColor: "#F8C6AD"
+    property color kprogressColor: "#ff6a00"
 
-    property string title: "1"
+    property string title: "0"
     property alias titleFont: labelTitle.font.family
     property alias titleFontSize: labelTitle.font.pointSize
     property alias titleFontColor: labelTitle.color
 
     function update(value) {
-
-        shadow.radius =14- value/7
-        shadow1.radius =18- value/7
+        //        shadow.radius =14- value/7
+        //        shadow1.radius =18- value/7
         kprogress.value = value
         canvas.requestPaint()
         background.requestPaint()
-        //label.text = value.toFixed(2);
+        labelTitle.text = value.toFixed(0);
 
     }
 
@@ -54,7 +53,8 @@ Item {
         text: kprogress.title
         visible: true
         anchors.horizontalCenter: parent.horizontalCenter
-        font.pixelSize: 64
+        anchors.verticalCenter: parent.verticalCenter
+        font.pixelSize: 32
         font.family: viewset.danaFuNumBoldFont
         font.bold: true
         color: viewset.primaryColor
@@ -78,7 +78,7 @@ Item {
 
             var ctx = background.getContext('2d');
             ctx.strokeStyle = kprogress.kprogressBackgroundColor;
-            ctx.lineWidth = 2;
+            ctx.lineWidth = 15;
             ctx.lineCap = "round"
             ctx.beginPath();
             ctx.clearRect(0, 0, background.width, background.height);
@@ -93,7 +93,7 @@ Item {
         height: parent.height
         antialiasing: true
 
-        property double step: kprogress.value / (kprogress.to - kprogress.from) * (kprogress.toAngle - kprogress.fromAngle) - 1
+        property double step: kprogress.value / (kprogress.to - kprogress.from) * (kprogress.toAngle - kprogress.fromAngle)
         property int radius: height/2
 
 
@@ -104,8 +104,7 @@ Item {
 
             var ctx = canvas.getContext('2d');
             ctx.strokeStyle = kprogress.kprogressColor;
-            ctx.lineWidth = 6;
-            ctx.lineCap = "round"
+            ctx.lineWidth = 15;
             ctx.beginPath();
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             if (kprogress.reverse) {

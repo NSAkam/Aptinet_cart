@@ -21,10 +21,6 @@ Item {
 
     property bool isfactorlistview: false
 
-    Component.onCompleted: {
-        obj_LogicContainerShop.shopPage.login_finished()
-    }
-
     signal addpluitemsClicked()
 
     Util.ViewSettings{
@@ -66,6 +62,13 @@ Item {
                 x:421
                 y:25
                 radius: width /2
+                Image {
+                    source: "../Assets/guest1.png"
+                    width: parent.width - 4
+                    height: parent.height -4
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                }
             }
             Text {
                 text: obj_LogicContainerShop.shopPage.user.loggedInUser.name
@@ -96,18 +99,18 @@ Item {
             }
             KButton{
                 btn_color: viewset.primaryColor
-                x:819 -40
+                x:819 -76
                 y:32
                 borderRadius: 5
-                width: 164
+                width: 200
                 height: 40
-                text: "+ Enter Barcode"
+                text: "+ Lookup By Number"
                 btn_borderWidth:0
                 fontsize: 16
                 ishover: false
                 onClicked: {
                     stackviewContainer.push(manualBarcodeHandler)
-
+                    obj_LogicContainerShop.shopPage.enter_manualBarcode()
                 }
             }
             Image {
@@ -132,7 +135,7 @@ Item {
         id:main_Panel
         Text {
             id:toaddItem
-            text: "To add an item,\n scan its barcode or\n tap the button below."
+            text: "To add an item,\n scan its barcode or\n tap the Lookup By Number."
             width: 369
             height: 144
             x:261+ 390
@@ -181,20 +184,20 @@ Item {
 
 
 
-        KButton{
-            id:btn_entermanualBarcode
-            text: "+ Lookup By Number"
-            x:645
-            y:610
-            width: 382
-            height: 62
-            borderRadius: 4
-            onClicked: {
+        //        KButton{
+        //            id:btn_entermanualBarcode
+        //            text: "+ Lookup By Number"
+        //            x:645
+        //            y:610
+        //            width: 382
+        //            height: 62
+        //            borderRadius: 4
+        //            onClicked: {
 
-                stackviewContainer.push(manualBarcodeHandler)
+        //                stackviewContainer.push(manualBarcodeHandler)
 
-            }
-        }
+        //            }
+        //        }
 
         StackView
         {
@@ -203,10 +206,10 @@ Item {
             height: 708
             x:390
             y:92
-            //initialItem: lstProductHandler
+            //initialItem: lstProductFactor
             //initialItem:addPluItemview
             //initialItem: newProductHandler
-            initialItem: addPluItem
+            //initialItem: addPluItem
             //initialItem: manualBarcodeHandler
             //initialItem: plulist
             //initialItem: specialdealslist
@@ -567,24 +570,17 @@ Item {
             obj_LogicContainerBarcodeScanned: obj_LogicContainerShop
 
             onPass: {
-                //stackviewContainer.push(lstProductHandler)
+                //stackviewContainer.push(lstProductFactor)
             }
 
             onCancel: {
-                //                if(stackviewContainer.depth == 1)
-                //                {
-                //                    stackviewContainer.clear()
-                //                }
-                //                else
-                //                {
-                //                    stackviewContainer.pop()
-                //                }
+                obj_LogicContainerShop.shopPage.cancel_newProductClicked()
             }
         }
     }
 
     Component{
-        id:lstProductHandler
+        id:lstProductFactor
         LstCheckProducts{
             obj_LogicContainerLstCheckProducts: obj_LogicContainerShop
             onGocheckout: {
@@ -648,7 +644,7 @@ Item {
             {
                 //                adsPanel.visible = true
                 //                addPlupanel.visible = false
-                //                stackviewContainer.replace(lstProductHandler)
+                //                stackviewContainer.replace(lstProductFactor)
             }
 
             onCancel:
@@ -712,6 +708,9 @@ Item {
     BypassPopUp{
         id:popUp_bypass
         obj_logicByPassPopup: obj_LogicContainerShop
+        onOk: {
+            obj_LogicContainerShop.accept_byPassClicked()
+        }
     }
 
     FullMessageTimer{
@@ -792,7 +791,7 @@ Item {
         }
         function onInitFactorListSignal(){
             root.isfactorlistview = true
-            stackviewContainer.push(lstProductHandler)
+            stackviewContainer.push(lstProductFactor)
         }
         function onOpenPopupMessageTimerSignal(text){
             popUpMessageTimer.messageText = text
@@ -847,5 +846,23 @@ Item {
             popUpMessageNotAllowedChangeWeight.close()
         }
 
+        function onClearStackViewSignal(v){
+            stackviewContainer.clear()
+            if(v === true ){
+                stackviewContainer.push(lst)
+            }
+            else{
+                toaddItem.visible = true
+                loader.visible = true
+            }
+        }
+
+        function onOpenPopupByPassSignal(){
+            popUp_bypass.open()
+        }
+
+        function onClosePopupByPassSignal(){
+            popUp_bypass.close()
+        }
     }
 }

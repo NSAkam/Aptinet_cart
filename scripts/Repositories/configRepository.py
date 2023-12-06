@@ -37,7 +37,6 @@ class ConfigRepositories():
         return appversion
     
     def get_Config(self):
-        print("sdiashodkasdjuiasjdopas")
         query = QSqlQuery()
         c = Config()
         query.exec_("select storeId,is_kg,currency,appVersion,dbVersion,imagesVersion,basketName from Config LIMIT 1")

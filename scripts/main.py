@@ -18,7 +18,7 @@ if __name__ == "__main__":
     id = QFontDatabase.addApplicationFont("../Assets/Archivo/Archivo-Regular.ttf")
     app.setFont(QFont(QFontDatabase.applicationFontFamilies(id)[0]))
     
-    # qmlRegisterType(Battery, "KAST.Battery", 1, 0, "Battery")
+    qmlRegisterType(Battery, "KAST.Battery", 1, 0, "Battery")
 
     qmlRegisterType(Logic, "KAST.Logic" , 1, 0 ,"Logic")
     

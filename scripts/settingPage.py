@@ -9,6 +9,7 @@ from Services.wifi import WirelessModel
 import time
 from Services.weighsensorCalibration import WeighSensorCalibration
 from Helpers.scannerHelper import ScannerHelper
+from Services.uploader import Uploader
 
 
 class SettingPage(QObject):
@@ -27,6 +28,11 @@ class SettingPage(QObject):
     _lastSoftwareVersion: str
     _wifimodel: WirelessModel
     _weightsensorval: WeighSensorCalibration
+    _updateSoftware:UpdateSoftware
+    
+    _uploader : Uploader
+    _uploadedPercentage : int = 0
+
 
     def __init__(self, dal: DAL, scanner: ScannerHelper):
         super().__init__()
@@ -47,6 +53,8 @@ class SettingPage(QObject):
     loginConfirmedSignal = Signal()
     cartInfoClickedSignal = Signal()
     updateAvailableSignal = Signal()
+
+    updateUploadToServerSignal = Signal(int)
 
     ### Properties #####################################################################################################
     def get_configs(self):
@@ -100,6 +108,16 @@ class SettingPage(QObject):
 
     weightsensor = Property(WeighSensorCalibration, get_weightSensor, set_weightSensor, notify=changedSignal)
 
+    def get_uploadedPercentage(self):
+        return self._uploadedPercentage
+
+    @Slot(int)
+    def set_uploadedPercentage(self,v:int):
+        self._uploadedPercentage = v
+        self.updateUploadToServerSignal.emit(v)
+
+    uploadedPercentage = Property(int,get_uploadedPercentage,set_uploadedPercentage,notify=updateUploadToServerSignal)
+
     ### Sluts ##########################################################################################################
     # @Slot(str, str)
     # def confirm_clicked(self, username: str, password: str):
@@ -134,5 +152,17 @@ class SettingPage(QObject):
     def test(self):
         print("IDBarcodeSignal connected again successfully")
 
+    @Slot()
+    def startUploadToServer(self):
+        # print("startUpload")
+        self._uploader = Uploader()
+        self._uploader.succeeded.connect(self.uploadFinished)
+        self._uploader.setCurrentProgress.connect(self.set_uploadedPercentage)
+        self._uploader.start()
+    
+    @Slot()
+    def uploadFinished(self):
+        pass
+    
     ### Functions ######################################################################################################
 

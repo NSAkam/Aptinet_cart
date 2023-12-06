@@ -14,7 +14,10 @@ Item {
 
     signal cancel()
     signal pass()
-
+    Image {
+        source: "../../Assets/StackBackground.png"
+        anchors.fill: parent
+    }
 
     anchors.fill: parent
     ViewSettings{

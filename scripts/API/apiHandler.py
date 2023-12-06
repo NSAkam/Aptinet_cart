@@ -31,19 +31,21 @@ class Apihandler(QObject):
         self._userServerRepository = UserServerRepository(self.dal)
         self._adminRepository = AdminRepository(self.dal)
 
-
     appVersionRecievedSignal = Signal(str)
     dbVersionRecievedSignal = Signal(str)
     imagesVersionRecievedSignal = Signal(str)
 
-    changedSignal=Signal()
-        
+    changedSignal = Signal()
+    updateDownloadedFromServerValue = Signal(int)
 
     def get_tedadToDownload(self):
         return self._tedadToDownload
 
     def set_tedadToDownload(self, v: int):
-        self._tedadToDownload = self._tedadToDownload + v
+        if (v == 0):
+            self._tedadToDownload = 0
+        else:
+            self._tedadToDownload = self._tedadToDownload + v
         self.changedSignal.emit()
 
     tedadToDownload = Property(
@@ -55,11 +57,24 @@ class Apihandler(QObject):
     def set_tedadDownloaded(self, v: int):
         self._tedadDownloaded = v
         self.changedSignal.emit()
-        # self.updateDownloadedFromServerValue(self._tedadDownloaded + 1)
+        self.updateDownloadedFromServerValue.emit(self._tedadDownloaded + 1)
 
     tedadDownloaded = Property(
         int, get_tedadDownloaded, set_tedadDownloaded, notify=changedSignal)
 
+    @Slot()
+    def startDownloadFromServer(self):
+        self.set_tedadToDownload(0)
+        self.set_tedadToDownload(0)
+
+        self._productRepository.deleteAll()
+        self.download_products()
+        self._suggestionRepository.deleteAll()
+        self.download_suggesstions()
+        self._adminRepository.deleteAll()
+        self.download_admins()
+        self._userServerRepository.deleteAll()
+        self.download_userServer()
 
     @Slot()
     def download_products(self):
@@ -100,11 +115,10 @@ class Apihandler(QObject):
             qrCode: str = lst[i]["qrCode"]
             productType: str = lst[i]["productType"]
 
-            res = self._productRepository.insertData(name, description, rate, commentCount, w1, w2, w3, w4, w5, w6, w7, w8, w9, w10,
-                                                     price, finalprice, meanWeight, tolerance, insertedWeight, barcode, isOffer, isPlu, tax, qrCode, productType)
-            if (res == True):
-                self.set_tedadDownloaded(self.getTedadDownloaded() + 1)
-                QtGui.QGuiApplication.processEvents()
+            res = self._productRepository.insertData(name, description, rate, commentCount, w1, w2, w3, w4, w5, w6, w7, w8, w9, w10,price, finalprice, meanWeight, tolerance, insertedWeight, barcode, isOffer, isPlu, tax, qrCode, productType)
+
+        self.set_tedadDownloaded(self.get_tedadDownloaded() + 1)
+        QtGui.QGuiApplication.processEvents()
 
     @Slot()
     def download_suggesstions(self):
@@ -124,9 +138,8 @@ class Apihandler(QObject):
 
             res = self._suggestionRepository.insertData(
                 productBarcode, sugProductBarcode)
-            if (res == True):
-                self.set_tedadDownloaded(self.getTedadDownloaded() + 1)
-                QtGui.QGuiApplication.processEvents()
+        self.set_tedadDownloaded(self.get_tedadDownloaded() + 1)
+        QtGui.QGuiApplication.processEvents()
 
     @Slot()
     def download_admins(self):
@@ -141,14 +154,13 @@ class Apihandler(QObject):
         QtGui.QGuiApplication.processEvents()
 
         for i, x in enumerate(lst):
-            productBarcode: str = lst[i]["productBarcode"]
-            sugProductBarcode: str = lst[i]["sugProductBarcode"]
+            productBarcode: str = lst[i]["barcode"]
+            sugProductBarcode: str = lst[i]["name"]
 
             res = self._adminRepository.insertData(
                 productBarcode, sugProductBarcode)
-            if (res == True):
-                self.set_tedadDownloaded(self.getTedadDownloaded() + 1)
-                QtGui.QGuiApplication.processEvents()
+        self.set_tedadDownloaded(self.get_tedadDownloaded() + 1)
+        QtGui.QGuiApplication.processEvents()
 
     @Slot()
     def download_userServer(self):
@@ -165,17 +177,15 @@ class Apihandler(QObject):
         for i, x in enumerate(lst):
             res = self._userServerRepository.insertData(lst[i]["id"], lst[i]["loyalityBarcode"], lst[i]["name"], lst[i]
                                                         ["email"], lst[i]["phone"], lst[i]["offerPercentage"], lst[i]["offerLimitedPercentage"], lst[i]["offerMount"])
-            if (res == True):
-                self.set_tedadDownloaded(self.getTedadDownloaded() + 1)
-                QtGui.QGuiApplication.processEvents()
-
+        self.set_tedadDownloaded(self.get_tedadDownloaded() + 1)
+        QtGui.QGuiApplication.processEvents()
 
     @Slot()
     def get_appVersion(self):
         api = restapi.restAPI()
         api.recived.connect(self.appVersion_Recived)
         api.Get(self.url + "api/APP/GetAppVersion")
-    
+
     @Slot(str)
     def appVersion_Recived(self, v: str):
         print("appVersion_Recived" + v)
@@ -186,7 +196,7 @@ class Apihandler(QObject):
         api = restapi.restAPI()
         api.recived.connect(self.dbVersion_Recived)
         api.Get(self.url + "api/APP/GetDbVersion")
-    
+
     @Slot(str)
     def dbVersion_Recived(self, v: str):
         self.dbVersionRecievedSignal.emit(v)
@@ -196,7 +206,7 @@ class Apihandler(QObject):
         api = restapi.restAPI()
         api.recived.connect(self.imagesVersion_Recived)
         api.Get(self.url + "api/APP/GetImagesVersion")
-    
+
     @Slot(str)
     def imagesVersion_Recived(self, v: str):
         self.imagesVersionRecievedSignal.emit(v)

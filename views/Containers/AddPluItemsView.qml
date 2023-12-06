@@ -11,7 +11,10 @@ Item {
     height: 450
 
     property Logic obj_LogicContainerAddPluItemsView
-
+    Image {
+        source: "../../Assets/StackBackground.png"
+        anchors.fill: parent
+    }
 
     signal cancel()
     signal confirm()
