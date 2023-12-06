@@ -62,7 +62,7 @@ class SelectPoller(object):
                 ] for flag in flag_list] + [timeout])),
                 flag_list,
             ):
-            result[fd] = result.get(fd, 0) | happened_flag
+            result[fd_list] = result.get(fd_list, 0) | happened_flag
         return list(result.items())
 # (end of demonstration helpers)
 
