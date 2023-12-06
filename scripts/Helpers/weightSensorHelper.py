@@ -11,6 +11,7 @@ class WeightSensorHelper(QObject):
     _startWeight: int
     _atStartUp: bool = True
     _canRead: bool = True
+    _isStable: bool = False
     _basketWeight1: int = 0
     _basketWeight2: int = 0
     _basketWeight: int = 0
@@ -23,6 +24,7 @@ class WeightSensorHelper(QObject):
     _mecNoiseReducBufferSize: int = 50
     _loadCellTolerance: int = 8
     _lightestWeight: int = 25
+    _stabilityTolerance: int = 25
 
     def __init__(self):
         super().__init__()
@@ -110,6 +112,15 @@ class WeightSensorHelper(QObject):
 
     lightestWeight = Property(int, get_lightestWeight, set_lightestWeight, notify=changedSignal)
 
+    def get_isStable(self):
+        return self._isStable
+
+    def set_isStable(self, val: bool):
+        self._isStable = val
+        self.changedSignal.emit()
+
+    isStable = Property(bool, get_isStable, set_isStable, notify=changedSignal)
+
     @Slot()
     def new_weight(self):
         self._mecNoiseReducBuffer.pop(0)
@@ -118,10 +129,15 @@ class WeightSensorHelper(QObject):
         self.set_momentoBasketWeight(self._weighSensorWorker.outlier_remover(self._mecNoiseReducBuffer))
 
         self._canRead = True
+        self.isStable = True
         for i in range(self._mecNoiseReducBufferSize):
             for j in range(i+1, self._mecNoiseReducBufferSize):
                 diff = abs(self._mecNoiseReducBuffer[i] - self._mecNoiseReducBuffer[j])
-                if diff > self._loadCellTolerance:
+                if diff > self._stabilityTolerance:
+                    self.isStable = False
+                    self._canRead = False
+                    break
+                elif diff > self._loadCellTolerance:
                     self._canRead = False
 
         if self._canRead:

@@ -47,6 +47,11 @@ class Product(QObject):
     _productWeightInBasket: int = 0
     _countInBasket: int = 0
 
+    _Qprice: str = ""
+    _Qweigh: str = ""
+    _quantifier: str = ""
+    _taxPercentage: bool = 0
+
     def __init__(self):
         super().__init__()
 
@@ -91,7 +96,7 @@ class Product(QObject):
 
     commentCount = Property(int, get_commentCount,
                             set_commentCount, notify=changedSignal)
-    
+
     def getpic(self):
         if (os.path.isfile("/home/aptinet/pics/" + self.get_barcode() + ".png") == False):
             return "file:///home/aptinet/pics/DefaultProduct.png"
@@ -196,7 +201,10 @@ class Product(QObject):
         return self._price
 
     def set_price(self, value):
-        self._price = value
+        if self._tax:
+            self._price = value * (1 + self._taxPercentage)
+        else:
+            self._price = value
         self.changedSignal.emit()
 
     price = Property(float, get_price, set_price, notify=changedSignal)
@@ -205,7 +213,10 @@ class Product(QObject):
         return self._finalPrice
 
     def set_finalPrice(self, value):
-        self._finalPrice = value
+        if self._tax:
+            self._finalPrice = value * (1 + self._taxPercentage)
+        else:
+            self._finalPrice = value
         self.changedSignal.emit()
 
     finalPrice = Property(float, get_finalPrice,
@@ -249,7 +260,6 @@ class Product(QObject):
         self.changedSignal.emit()
 
     barcode = Property(str, get_barcode, set_barcode, notify=changedSignal)
-
 
     def get_isOffer(self):
         return self._isOffer
@@ -325,6 +335,46 @@ class Product(QObject):
     countInBasket = Property(int, get_countInBasket,
                              set_countInBasket, notify=changedSignal)
 
+    def get_Qprice(self):
+        if self._dataModelShow == 1:
+            if self.quantifier == "kg":
+                return "$ " + str(round(self._finalPrice, 2)) + " /Kg"
+            elif self.quantifier == "lb":
+                lb = self._productWeightInBasket / 453.59237
+                price = self._finalPrice / 1000 * 453.59237
+                if lb < 1:
+                    return "$ " + str(round((price / 16), 2)) + " /oz"
+                elif lb >= 1:
+                    return "$ " + str(round(price, 2)) + " /lb"
+        else:
+            return ""
+
+    Qprice = Property(str, get_Qprice, notify=changedSignal)
+
+    def get_Qweigh(self):
+        if self._dataModelShow == 1:
+            if self.quantifier == "kg":
+                return str(round(self.productWeightInBasket / 1000)) + " Kg"
+            elif self.quantifier == "lb":
+                lb = self.productWeightInBasket / 453.59237
+                if lb > 1:
+                    return str(round(lb, 2)) + " lb"
+                else:
+                    return str(round((lb * 16), 2)) + " oz"
+        else:
+            return ""
+
+    Qweigh = Property(str, get_Qweigh, notify=changedSignal)
+
+    def get_quantifier(self):
+        return self._quantifier
+
+    def set_quantifier(self, val: str):
+        self._quantifier = val
+        self.changedSignal.emit()
+
+    quantifier = Property(str, get_quantifier, set_quantifier, notify=changedSignal)
+
     def copy_product(self):
         """
         create copy of product
@@ -356,6 +406,8 @@ class Product(QObject):
         product.set_tax(self.tax)
         product.set_QR(self.QR)
         product.set_productType(self.productType)
+        product._taxPercentage = self._taxPercentage
+        product.set_quantifier(self._quantifier)
         return product
 
     def call_newWeightParameter(self, weight: int):
