@@ -101,7 +101,7 @@ Item {
                 borderRadius: 5
                 width: 164
                 height: 40
-                text: "+ Enter Barcode"
+                text: "+ Lookup By Number"
                 btn_borderWidth:0
                 fontsize: 16
                 ishover: false
@@ -132,7 +132,7 @@ Item {
         id:main_Panel
         Text {
             id:toaddItem
-            text: "To add an item,\n scan its barcode or\n tap the button below."
+            text: "To add an item,\n scan its barcode or\n tap the Lookup by number."
             width: 369
             height: 144
             x:261+ 390
