@@ -55,15 +55,9 @@ class ProductModel(QAbstractListModel):
         price: float = 0
         for i in self.m_data:
             if i.isPlu:
-                if i._tax:
-                    price = price + ((i.price * i.productWeightInBasket/1000) * (1 + i._taxPercentage))
-                else:
-                    price = price + (i.price * i.productWeightInBasket/1000)
+                price = price + (i.price * i.productWeightInBasket/1000)
             else:
-                if i._tax:
-                    price = price + ((i.price * i.countInBasket) * (1 + i._taxPercentage))
-                else:
-                    price = price + (i.price * i.countInBasket)
+                price = price + (i.price * i.countInBasket)
         return round(price, 2)
 
     priceNoDiscount = Property(int, get_pricenodiscount, notify=changed)
@@ -72,15 +66,9 @@ class ProductModel(QAbstractListModel):
         finalprice: float = 0
         for i in self.m_data:
             if i.isPlu:
-                if i._tax:
-                    finalprice = finalprice + ((i.finalPrice * i.productWeightInBasket/1000)*(1+i._taxPercentage))
-                else:
-                    finalprice = finalprice + (i.finalPrice * i.productWeightInBasket/1000)
+                finalprice = finalprice + (i.finalPrice * i.productWeightInBasket/1000)
             else:
-                if i._tax:
-                    finalprice = finalprice + ((i.finalPrice * i.countInBasket) * (1 + i._taxPercentage))
-                else:
-                    finalprice = finalprice + (i.finalPrice * i.countInBasket)
+                finalprice = finalprice + (i.finalPrice * i.countInBasket)
         return round(finalprice, 2)
 
     finalprice = Property(float, get_finalprice, notify=changed)
