@@ -47,7 +47,6 @@ class PrintObserver(QObject):
         (addedcards, removedcards) = actions
         for card in addedcards:
             print("+Inserted: ", toHexString(card.atr))
-            self.readedSignal.emit()
         for card in removedcards:
             print("-Removed: ", toHexString(card.atr))
             self.readedSignal.emit()
