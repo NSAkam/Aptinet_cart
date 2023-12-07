@@ -152,7 +152,7 @@ Item {
                 }
                 Text {
                     id: factorItemprice
-                    text: "$ "+modelData.finalPrice + " /kg"
+                    text: modelData.Qprice 
                     font.pixelSize: 18
                     anchors.left: factorItemPic.right
                     anchors.leftMargin: 57
@@ -160,7 +160,7 @@ Item {
                 }
                 Text {
                     id: factorItemQty
-                    text: "Wt:" +modelData.productWeightInBasket  + " kg"
+                    text: "Wt:" +modelData.Qweigh 
                     font.pixelSize: 18
                     anchors.left: factorItemPic.right
                     anchors.leftMargin: 193
