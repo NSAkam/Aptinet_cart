@@ -12,10 +12,10 @@ class nfc(QObject):
 
     def __init__(self):
         super().__init__()
-        cardmonitor = CardMonitor()
-        cardobserver = PrintObserver()
-        cardobserver.readedSignal.connect(self.read)
-        cardmonitor.addObserver(cardobserver)
+        self.cardmonitor = CardMonitor()
+        self.cardobserver = PrintObserver()
+        self.cardobserver.readedSignal.connect(self.read)
+        self.cardmonitor.addObserver(self.cardobserver)
         # sleep(1000)
         # cardmonitor.deleteObserver(cardobserver)
 
