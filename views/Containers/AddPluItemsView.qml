@@ -115,7 +115,7 @@ Item {
             width: 225
             height: 64
             onClicked: {
-                stackview.pop()
+                root.cancel()
             }
         }
 

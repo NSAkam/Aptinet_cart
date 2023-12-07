@@ -21,7 +21,7 @@ Item {
 
     property bool isfactorlistview: false
 
-    signal addpluitemsClicked()
+//    signal addpluitemsClicked()
 
     Util.ViewSettings{
         id:viewset
@@ -611,7 +611,7 @@ Item {
             }
 
             onBack: {
-
+                
             }
         }
     }
@@ -627,7 +627,7 @@ Item {
 
             onCancel:
             {
-
+                stackviewContainer.pop()
             }
 
         }
