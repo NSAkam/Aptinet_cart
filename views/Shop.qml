@@ -746,8 +746,8 @@ Item {
         target: obj_LogicContainerShop.shopPage
 
         function onOpenPopupMessageTimerSignal(text){
-            popUpMessageTimer.messageText = text
-            popUpMessageTimer.open()
+            popUp_MessageTimer.messageText = text
+            popUp_MessageTimer.open()
         }
         function onCloseAllPopUpSignal(){
             popUp_RemoveProducts.close()
@@ -829,7 +829,7 @@ Item {
             stackviewContainer.push(manualBarcodeHandler)
         }
 
-        function onshowFactorListSignal(){
+        function onShowFactorListSignal(){
             stackviewContainer.push(lstProductFactor)
         }
 
