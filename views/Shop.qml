@@ -92,7 +92,7 @@ Item {
                 fontsize: 16
                 ishover: false
                 onClicked: {
-                    obj_LogicContainerShop.shopPage.show_addPLUItemsClicked()                    
+                    obj_LogicContainerShop.shopPage.show_addPLUItemsClicked()
                 }
             }
             KButton{
@@ -108,7 +108,7 @@ Item {
                 fontsize: 16
                 ishover: false
                 onClicked: {
-                    obj_LogicContainerShop.shopPage.manual_barcodeClicked()                    
+                    obj_LogicContainerShop.shopPage.manual_barcodeClicked()
                 }
             }
             Image {
@@ -225,7 +225,7 @@ Item {
                 //                    toaddItem.visible = true
                 //                    btn_entermanualBarcode.visible = true
                 //                }
-                obj_LogicContainerShop.shopPage.stackview_depthChanged(stackviewContainer.depth)
+                //obj_LogicContainerShop.shopPage.stackview_depthChanged(stackviewContainer.depth)
             }
         }
     }
@@ -566,7 +566,7 @@ Item {
             }
 
             onCancel: {
-                
+
             }
         }
     }
@@ -576,7 +576,7 @@ Item {
         LstCheckProducts{
             obj_LogicContainerLstCheckProducts: obj_LogicContainerShop
             onGocheckout: {
-                
+
             }
         }
     }
@@ -611,7 +611,7 @@ Item {
             }
 
             onBack: {
-                
+
             }
         }
     }
@@ -627,7 +627,7 @@ Item {
 
             onCancel:
             {
-               
+
             }
 
         }
@@ -648,7 +648,7 @@ Item {
             }
 
             onBack: {
-               
+
             }
         }
     }
@@ -765,9 +765,6 @@ Item {
             popUpMessageNotAllowedChangeWeight.close()
         }
 
-        function onVisibleProductListDeleteSignal(){
-            popUp_RemoveProducts.open()
-        }
 
         function onOpenPopupMessageSignal(text){
             popUp_message.message = text
@@ -817,7 +814,7 @@ Item {
         function onClosePopupByPassSignal(){
             popUp_bypass.close()
         }
-        
+
         function onClosePopUpMessageTimer(){
             popUp_MessageTimer.close()
         }
@@ -867,7 +864,7 @@ Item {
             stackviewContainer.push(addPluItem)
         }
 
-        function onShowWeighedPLUItemsSignal(){
+        function onShowWeightedPLUItemsSignal(){
             stackviewContainer.push(addPluItemview)
         }
 
