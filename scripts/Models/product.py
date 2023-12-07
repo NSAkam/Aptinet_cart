@@ -352,6 +352,7 @@ class Product(QObject):
     Qprice = Property(str, get_Qprice, notify=changedSignal)
 
     def get_Qweigh(self):
+        print(self._dataModelShow)
         if self._dataModelShow == 1:
             if self.quantifier == "kg":
                 return str(round(self.productWeightInBasket / 1000)) + " Kg"
