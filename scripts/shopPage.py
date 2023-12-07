@@ -73,6 +73,7 @@ class ShopPage(QObject):
     _trustUser: bool = False
     _shouldBarcodeToBeScannToAddProduct: bool = True
     _lightWeightProductExistInBasket: bool = False
+    _pluStartWeight: int = 0
 
     ######################################################################################################## Modules ###
     _weightSensor: WeightSensorWorker
@@ -103,18 +104,18 @@ class ShopPage(QObject):
         self._newProduct = Product()
         self._factorList = ProductModel()
         self._offersList = ProductModel()
-        self._offersList.insert_productList(self._productRepository.get_offerProducts())
+        self._offersList.initialize_productList(self._productRepository.get_offerProducts())
         self._offerTopTen = ProductModel()
-        self._offerTopTen.insert_productList(self._productRepository.get_topOfferProducts())
+        self._offerTopTen.initialize_productList(self._productRepository.get_topOfferProducts())
         self._suggestedList = ProductModel()
         self._pluList = ProductModel()
         self._pluTopFour = ProductModel()
         plus = self._productRepository.get_pluProducts()
-        self._pluList.insert_productList(plus)
+        self._pluList.initialize_productList(plus)
         if len(plus) > 4:
-            self._pluTopFour.insert_productList(plus[:4])
+            self._pluTopFour.initialize_productList(plus[:4])
         else:
-            self._pluTopFour.insert_productList(plus)
+            self._pluTopFour.initialize_productList(plus)
 
         self._bypassList = ProductModel()
         self._removeList = ProductModel()
@@ -301,7 +302,7 @@ class ShopPage(QObject):
                         self.clear_stackView()
                         self.newProduct = product
                         self.countDownTimer = self._insertProductTime + self._timerOffset
-                        self._suggestedList.insert_productList(self._productRepository.get_suggesstionProducts(product.barcode))
+                        self._suggestedList.initialize_productList(self._productRepository.get_suggesstionProducts(product.barcode))
                         self.showNewProductScannedSignal.emit()
                         self.hideTopBtnSignal.emit()
                         self._shouldBarcodeToBeScannToAddProduct = True
@@ -519,6 +520,9 @@ class ShopPage(QObject):
                         self._basketWeightShouldBe = val2
                         self.turn_onGreenLight()
 
+                elif self.state == 14:
+                    self.newProduct.set_productWeightInBasket(val2 - self._pluStartWeight)
+
             # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
             # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> REMOVE WEIGHT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
             # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -614,6 +618,9 @@ class ShopPage(QObject):
                         self._basketWeightShouldBe = val2
                         self.turn_onGreenLight()
 
+                elif self.state == 14:
+                    self.newProduct.set_productWeightInBasket(val2 - self._pluStartWeight)
+
     @Slot()
     def timerSlot(self):
         while self._canTimerTick:
@@ -705,31 +712,70 @@ class ShopPage(QObject):
 
     @Slot()
     def show_addPLUItemsClicked(self):   # not in state 5
-        pass
+        if self.state == 1:
+            self.showAddPLUItemsSignal.emit()
+            self.newProduct = Product()
 
     @Slot()
     def back_addPLUItemsClicked(self):
-        pass
+        self.clear_stackView()
 
     @Slot(str)
-    def item_PLUClicked(self, PLUCode: str):
-        pass
+    def item_PLUClicked(self, pluCode: str):
+        self.newProduct = self._productRepository.get_product(pluCode)
+        if self.newProduct.get_productType() == "weighted":
+            self.state = 14
+            self.showWeightedPLUItemsSignal.emit()
+            self.openPopupMessageSignal.emit("Taring ! Please don't move basket.")
+            taring = True
+            while taring:
+                if self._weightSensor._canread:
+                    self._pluStartWeight = self._weightSensor._BasketWeight2
+                    taring = False
+            self.closePopupMessageSignal.emit()
+        elif self.newProduct.get_productType() == "counted":
+            self.state = 15
+            self.showCountedPLUItemsSignal.emit()
 
     @Slot()
     def confirm_PLUItemClicked(self):
-        pass
+        if self.state == 14:
+            if self._weightSensor.isstable:
+                self._factorList.insertProduct(self.newProduct, 1)
+                self._bypassList.insertProduct(self.newProduct.copy_product(), 1)
+                self.state = 1
+                self.clear_stackView()
+                self._basketWeightShouldBe = self._pluStartWeight + self.newProduct.productWeightInBasket
+                self.cal_basketLoad(self._basketWeightShouldBe)
+                insertSound()
+            else:
+                self.openPopupMessageTimerSignal.emit("Please wait !")
+        elif self.state == 15:
+            if self._weightSensor.isstable:
+                self._factorList.insertProduct(self.newProduct, self.newProduct.countInBasket)
+                self._bypassList.insertProduct(self.newProduct.copy_product(), self.newProduct.countInBasket)
+                self.state = 1
+                self.clear_stackView()
+                self._basketWeightShouldBe = self._weightSensor.readbasketweight()
+                self.cal_basketLoad(self._basketWeightShouldBe)
+                insertSound()
+            else:
+                self.openPopupMessageTimerSignal.emit("Please wait !")
 
     @Slot(str)
     def search_PLUItem(self, PLUCode: str):
-        pass
+        self.newProduct = self._productRepository.get_product(PLUCode)
 
     @Slot()
     def increase_PLUClicked(self):
-        pass
+        if self.state == 15:
+            self.newProduct.countInBasket = self.newProduct.countInBasket + 1
 
     @Slot()
     def decrease_PLUClicked(self):
-        pass
+        if self.state == 15:
+            if self.newProduct.countInBasket > 0:
+                self.newProduct.countInBasket = self.newProduct.countInBasket -1
 
     @Slot()
     def product_removeConfirmClicked(self):
@@ -779,6 +825,7 @@ class ShopPage(QObject):
             self._canRemoveProductClick = False
             self._trustUser = False
             self._shouldBarcodeToBeScannToAddProduct = True
+            self._pluStartWeight = 0
 
         else:
             self.openPopupMessageTimerSignal.emit("Please Wait !")
@@ -830,7 +877,22 @@ class ShopPage(QObject):
             print("\nState " + str(self._states) + " : Insert Invalid Weight While Remove Product.\n")
         elif self.state == 7:
             print("\nState " + str(self._states) + " : 1+ steps removed Weight.\n")
-
+        elif self.state == 8:
+            print("\nState " + str(self._states) + " : checkout clicked.\n")
+        elif self.state == 9:
+            print("\nState " + str(self._states) + " : weight change in checkout.\n")
+        elif self.state == 10:
+            print("\nState " + str(self._states) + " : 1+ steps removed Weight.\n")
+        elif self.state == 11:
+            print("\nState " + str(self._states) + " : 1+ steps removed Weight.\n")
+        elif self.state == 12:
+            print("\nState " + str(self._states) + " : 1+ steps removed Weight.\n")
+        elif self.state == 13:
+            print("\nState " + str(self._states) + " : 1+ steps removed Weight.\n")
+        elif self.state == 14:
+            print("\nState " + str(self._states) + " : 1+ steps removed Weight.\n")
+        elif self.state == 15:
+            print("\nState " + str(self._states) + " : 1+ steps removed Weight.\n")
         # elif self.state == 8:
         #     print("\nState " + str(self._states) + " : Finish clicked.\n")
         # elif self.state == 9:
