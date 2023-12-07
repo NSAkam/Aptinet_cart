@@ -61,7 +61,7 @@ Item {
 
         Text {
             id: unitpricetext
-            text: obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.finalPrice
+            text:"$ " + obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.finalPrice + " /each"
             x: 248
             y: 149
             font.pixelSize: 24
@@ -96,7 +96,7 @@ Item {
             }
         }
         Text {
-            text: obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.countInBasket
+            text:"$ " + (obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.countInBasket * obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.finalPrice).toFixed(2)
             color: "black"
             x:186
             y:275
@@ -172,7 +172,7 @@ Item {
 
             }
             onClicked: {
-                obj_LogicContainerAddPluItemsCountedView.shopPage.confirm_PLUItem()
+                obj_LogicContainerAddPluItemsCountedView.shopPage.confirm_PLUItemClicked()
             }
         }
 
