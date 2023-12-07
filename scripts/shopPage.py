@@ -882,25 +882,17 @@ class ShopPage(QObject):
         elif self.state == 9:
             print("\nState " + str(self._states) + " : weight change in checkout.\n")
         elif self.state == 10:
-            print("\nState " + str(self._states) + " : 1+ steps removed Weight.\n")
+            print("\nState " + str(self._states) + " : waiting for payment in payment page.\n")
         elif self.state == 11:
-            print("\nState " + str(self._states) + " : 1+ steps removed Weight.\n")
+            print("\nState " + str(self._states) + " : weight change while waiting for payment.\n")
         elif self.state == 12:
-            print("\nState " + str(self._states) + " : 1+ steps removed Weight.\n")
+            print("\nState " + str(self._states) + " : go to after payment page after successful payment.\n")
         elif self.state == 13:
-            print("\nState " + str(self._states) + " : 1+ steps removed Weight.\n")
+            print("\nState " + str(self._states) + " : weight change after payment.\n")
         elif self.state == 14:
-            print("\nState " + str(self._states) + " : 1+ steps removed Weight.\n")
+            print("\nState " + str(self._states) + " : weighted PLU product selected.\n")
         elif self.state == 15:
-            print("\nState " + str(self._states) + " : 1+ steps removed Weight.\n")
-        # elif self.state == 8:
-        #     print("\nState " + str(self._states) + " : Finish clicked.\n")
-        # elif self.state == 9:
-        #     print("\nState " + str(self._states) + " : Weight Changed During Payment.\n")
-        # elif self.state == 10:
-        #     print("\nState " + str(self._states) + " : END.\n")
-        # elif self.state == 11:
-        #     print("\nState " + str(self._states) + " : Change Weight After END.\n")
+            print("\nState " + str(self._states) + " : counted PLU product selected.\n")
 
     def add_productToFactor(self, p: Product, c: int, u: bool, w2: int, w1: int):
         insertSound()
