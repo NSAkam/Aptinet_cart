@@ -829,7 +829,7 @@ Item {
             stackviewContainer.push(manualBarcodeHandler)
         }
 
-        function onshowFactorListSignal(){
+        function onShowFactorListSignal(){
             stackviewContainer.push(lstProductFactor)
         }
 
