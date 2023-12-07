@@ -864,7 +864,7 @@ Item {
             stackviewContainer.push(addPluItem)
         }
 
-        function onShowWeighedPLUItemsSignal(){
+        function onShowWeightedPLUItemsSignal(){
             stackviewContainer.push(addPluItemview)
         }
 
