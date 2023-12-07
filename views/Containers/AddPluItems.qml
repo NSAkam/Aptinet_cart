@@ -235,7 +235,7 @@ Item {
                 }
 
                 Text {
-                    text: "$ "+model.finalPrice+"/kg"
+                    text: model.Qprice
                     x: 16
                     y: 211
                     font.pixelSize: 20
