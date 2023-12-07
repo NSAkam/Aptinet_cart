@@ -80,7 +80,7 @@ Item {
 
         Text {
             id: addtocarttext
-            text: (obj_LogicContainerAddPluItemsView.shopPage.newProduct.Qweigh *1).toFixed(2)
+            text: obj_LogicContainerAddPluItemsView.shopPage.newProduct.Qweigh
             font.pixelSize: 32
             x: 108
             y: 262
