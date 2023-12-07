@@ -235,7 +235,7 @@ Item {
                 }
 
                 Text {
-                    text: dataModelShow===1? model.Qprice:model.finalPrice
+                    text: dataModelShow===1? model.Qprice:"$ " + model.finalPrice + " /each"
                     x: 16
                     y: 211
                     font.pixelSize: 20
