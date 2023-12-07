@@ -714,6 +714,7 @@ class ShopPage(QObject):
     def show_addPLUItemsClicked(self):   # not in state 5
         if self.state == 1:
             self.showAddPLUItemsSignal.emit()
+            self.hideTopBtnSignal.emit()
             self.newProduct = Product()
 
     @Slot()
