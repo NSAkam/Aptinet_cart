@@ -359,7 +359,7 @@ class ShopPage(QObject):
                     if not self._shouldBarcodeToBeScannToAddProduct and self.newProduct.get_productType() == "normal":
                         if ((value < self.newProduct.meanWeight + self.newProduct.tolerance) and (
                                 value >= self.newProduct.meanWeight - self.newProduct.tolerance)):
-                            # insertSound()
+                            insertSound()
                             self._factorList.insertProduct(self.newProduct, 1)
                             self._bypassList.insertProduct(self.newProduct.copy_product(), 1)
                             self.cal_basketLoad(val2)
@@ -372,7 +372,7 @@ class ShopPage(QObject):
                             self._shouldBarcodeToBeScannToAddProduct = True
                             self.openPopupNoBarcodeScannedSignal.emit()
                             if abs(value) > 20:
-                                # notifSound()
+                                notifSound()
                                 pass
                             self._basketWeightShouldBe = val1
                             self.state = 4
@@ -380,14 +380,14 @@ class ShopPage(QObject):
                     else:
                         self.openPopupNoBarcodeScannedSignal.emit()
                         if abs(value) > 20:
-                            # notifSound()
+                            notifSound()
                             pass
                         self._basketWeightShouldBe = val1
                         self.state = 4
 
                 elif self.state == 2:
                     if self.newProduct.insertedWeight < self._validInsertedWeightForCalTol:
-                        # insertSound()
+                        insertSound()
                         self._productRepository.updateProduductWeight(self.newProduct, val2 - val1)
                         self._factorList.insertProduct(self.newProduct, 1)
                         self._bypassList.insertProduct(self.newProduct.copy_product(), 1)
@@ -402,7 +402,7 @@ class ShopPage(QObject):
                     else:
                         if (value < self.newProduct.meanWeight + self.newProduct.tolerance) and (
                                 value >= self.newProduct.meanWeight - self.newProduct.tolerance):
-                            # insertSound()
+                            insertSound()
                             self._productRepository.updateProduductWeight(self.newProduct, val2 - val1)
                             self._factorList.insertProduct(self._newProduct, 1)
                             self._bypassList.insertProduct(self._newProduct, 1)
@@ -415,7 +415,7 @@ class ShopPage(QObject):
                             self._shouldBarcodeToBeScannToAddProduct = False
                         else:
                             self.openPopupWeightNotMatchWithBarcodeSignal.emit()
-                            # notifSound()
+                            notifSound()
                             self._basketWeightShouldBe = val1
                             self.state = 3
 
@@ -427,7 +427,7 @@ class ShopPage(QObject):
                         self.clear_stackView()
                     else:
                         self.openPopupMessageTimerSignal.emit("please remove not scanned product !")
-                        # notifSound()
+                        notifSound()
 
                 elif self.state == 4:
                     if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
@@ -437,7 +437,7 @@ class ShopPage(QObject):
                         self.clear_stackView()
                     elif self._basketWeightShouldBe + self._basketWeightTolerance <= val2:
                         self.openPopupMessageTimerSignal.emit("please remove not scanned products and then insert them one by one !")
-                        # notifSound()
+                        notifSound()
 
                 elif self.state == 5:
                     if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
@@ -449,7 +449,7 @@ class ShopPage(QObject):
                         self._trustUser = False
                     else:
                         self.openPopupMessageSignal.emit("please remove inserted product from basket and first complete remove process and then insert product!")
-                        # notifSound()
+                        notifSound()
                         self.state = 6
                         self._basketWeightRemoveProcess = val1
 
@@ -508,7 +508,7 @@ class ShopPage(QObject):
                     self._removeList.validBarcodeSetForRemove(self._factorList.m_data, abs(value))
                     if not len(self._removeList.m_validBarcodeSetForDelete) == 0:
                         self.openPopupDeleteProductSignal.emit()
-                        # notifSound2()
+                        notifSound2()
                         self._basketWeightShouldBe = val1
                         self.state = 5
 
@@ -516,7 +516,7 @@ class ShopPage(QObject):
                     self._removeList.validBarcodeSetForRemove(self._factorList.m_data, abs(value))
                     self.clear_stackView()
                     self.openPopupDeleteProductSignal.emit()
-                    # notifSound2()
+                    notifSound2()
                     self._basketWeightShouldBe = val1
                     self.countDownTimer = -20
                     self.state = 5
@@ -537,7 +537,7 @@ class ShopPage(QObject):
 
                 elif self.state == 5:
                     self.openPopupMessageSignal.emit("Please replace product that removed from basket and after complete current remove process, remove another product !")
-                    # notifSound()
+                    notifSound()
                     self.state = 7
                     self._basketWeightRemoveProcess = val1
 
@@ -699,7 +699,7 @@ class ShopPage(QObject):
     @Slot()
     def product_removeConfirmClicked(self):
         if self._trustUser:
-            # deleteSound()
+            deleteSound()
             self._canRemoveProductClick = False
             self._factorList.removeProducts(self._removeList.m_data)
             self._bypassList.removeProductsUpdateBypass(self._removeList.m_data)
@@ -711,11 +711,11 @@ class ShopPage(QObject):
 
         else:
             if not self._canRemoveProductClick:
-                # notifSound2()
+                notifSound2()
                 self.openPopupMessageTimerSignal.emit("Please scann all product that remove from basket !")
                 self._trustUser = True
             else:
-                # deleteSound()
+                deleteSound()
                 self._canRemoveProductClick = False
                 self._factorList.removeProducts(self._removeList.m_data)
                 self._bypassList.removeProductsUpdateBypass(self._removeList.m_data)
@@ -787,7 +787,7 @@ class ShopPage(QObject):
         #     print("\nState " + str(self._states) + " : Change Weight After END.\n")
 
     def add_productToFactor(self, p: Product, c: int, u: bool, w2: int, w1: int):
-        # insertSound()
+        insertSound()
         self._factorList.insertProduct(p, c)
         self._bypassList.insertProduct(p.copy_product(), c)
         if u:

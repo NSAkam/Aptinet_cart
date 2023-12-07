@@ -2,13 +2,13 @@ from PySide2.QtMultimedia import QMediaPlayer,QMediaContent,QSound
 
 
 def deleteSound():
-    QSound.play("/home/kast/hazf.wav")
+    QSound.play("/home/aptinet/hazf.wav")
 
 def insertSound():
-    QSound.play("/home/kast/ezafe.wav")
+    QSound.play("/home/aptinet/ezafe.wav")
 
 def notifSound():
-    QSound.play("/home/kast/notif.wav")
+    QSound.play("/home/aptinet/notif.wav")
 
 def notifSound2():
-    QSound.play("/home/kast/notif2.wav")
+    QSound.play("/home/aptinet/notif2.wav")
