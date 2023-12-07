@@ -137,11 +137,11 @@ class ShopPage(QObject):
 
     showFactorListSignal = Signal()   # show factor list
     showNewProductScannedSignal = Signal()  # show new product scanned and suggestion list
-    showOfferListSignal = Signal()   # show all offer list
+    showAllOfferListSignal = Signal()   # show all offer list
     showManualBarcodeSignal = Signal()   # show manual barcode view
     showAddPLUItemsSignal = Signal()   # shoe first PLU view
-    showWeightedPLUItemSignal = Signal()   # show weighted PLU view
-    showCountedPLUItemSignal = Signal()   # show counted PLU view
+    showWeightedPLUItemsSignal = Signal()   # show weighted PLU view
+    showCountedPLUItemsSignal = Signal()   # show counted PLU view
     showTopBtnSignal = Signal()   # show manual barcode btn and PLU btn
     showCheckOutSignal = Signal()   # show check out view
 
@@ -632,7 +632,7 @@ class ShopPage(QObject):
 
     @Slot()
     def see_allOfferListClicked(self):
-        self.showOfferListSignal.emit()
+        self.showAllOfferListSignal.emit()
 
     @Slot()
     def manual_barcodeClicked(self):
