@@ -12,14 +12,14 @@ class nfc(QObject):
 
     def __init__(self):
         super().__init__()
-        cardmonitor = CardMonitor()
-        cardobserver = PrintObserver()
-        cardobserver.readedSignal.connect(self.read)
-        cardmonitor.addObserver(cardobserver)
-        sleep(1000)
-        cardmonitor.deleteObserver(cardobserver)
+        self.cardmonitor = CardMonitor()
+        self.cardobserver = PrintObserver()
+        self.cardobserver.readedSignal.connect(self.read)
+        self.cardmonitor.addObserver(self.cardobserver)
+        # sleep(1000)
+        # cardmonitor.deleteObserver(cardobserver)
 
-    @Slot
+    @Slot()
     def read(self):
         self.nfcReaderSignal.emit()
 
@@ -31,11 +31,15 @@ class nfc(QObject):
 
 
 # a simple card observer that prints inserted/removed cards
-class PrintObserver(CardObserver,QObject):
+class PrintObserver(QObject):
     """A simple card observer that is notified
     when cards are inserted/removed from the system and
     prints the list of cards
     """
+
+    def __init__(self):
+        super().__init__()
+
     readedSignal = Signal()
 
 
