@@ -490,7 +490,7 @@ class ShopPage(QObject):
                 elif self.state == 9:
                     if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
                         self.state = 8
-                        self.closePopupMessageSignal.emi()
+                        self.closePopupMessageSignal.emit()
 
                 # elif self.state == 8:
                 #     if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
@@ -584,7 +584,7 @@ class ShopPage(QObject):
                 elif self.state == 9:
                     if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
                         self.state = 8
-                        self.closePopupMessageSignal.emi()
+                        self.closePopupMessageSignal.emit()
 
                 # elif self.state == 8:
                 #     self.state = 9
