@@ -9,17 +9,17 @@ Item {
     id: root
     width: 572
     height: 450
-    
+
     property Logic obj_LogicContainerAddPluItemsCountedView
-    
+
     Image {
         source: "../../Assets/StackBackground.png"
         anchors.fill: parent
     }
-    
+
     signal cancel()
     signal confirm()
-    
+
     Rectangle{
         id: viewitemrect
         width: parent.width
@@ -28,7 +28,7 @@ Item {
         y: 120
         color: "white"
         radius: 4
-        
+
         Image {
             id: productimage
             source: obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.pic
@@ -37,7 +37,7 @@ Item {
             x: 32
             y: 24
         }
-        
+
         Text {
             id: productidtext
             text: "#" + obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.barcode
@@ -45,9 +45,9 @@ Item {
             y: 58
             font.pixelSize: 24
             color: "#9D9D9D"
-            
+
         }
-        
+
         Text {
             id: productnametext
             text: obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.name
@@ -56,9 +56,9 @@ Item {
             font.pixelSize: 36
             font.bold: true
             color: "#1D1D1D"
-            
+
         }
-        
+
         Text {
             id: unitpricetext
             text: obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.finalPrice
@@ -67,9 +67,9 @@ Item {
             font.pixelSize: 24
             font.weight: Font.DemiBold
             color: "#F08C5A"
-            
+
         }
-        
+
         Text{
             text: "Quantity"
             x:44
@@ -122,7 +122,7 @@ Item {
                 }
             }
         }
-        
+
         Text {
             id: totalpricevalue
             text: "$ " + (obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.countInBasket * obj_LogicContainerAddPluItemsCountedView.newProduct.finalPrice).toFixed(2)
@@ -132,7 +132,7 @@ Item {
             font.bold: true
             color: "#4696FA"
         }
-        
+
         Text {
             id: totalpricetext
             text: "Total Price"
@@ -141,7 +141,7 @@ Item {
             font.pixelSize: 24
             color: "#9D9D9D"
         }
-        
+
         KButton{
             text: "Cancel"
             x: 32
@@ -154,7 +154,7 @@ Item {
                 root.cancel()
             }
         }
-        
+
         KButton {
             text: "Confirm"
             x: 273
@@ -164,19 +164,17 @@ Item {
             borderRadius: 4
             btn_color: viewset.secondaryColor
             btn_bordercolor: viewset.secondaryColor
-            
+
             Image {
                 source: "../../Assets/goRightInItemView.png"
                 x: 226
                 y: 24
-                
+
             }
             onClicked: {
                 obj_LogicContainerAddPluItemsCountedView.shopPage.confirm_PLUItem()
             }
         }
-        
-    }
-}
 
+    }
 }
