@@ -96,7 +96,7 @@ Item {
             }
         }
         Text {
-            text:"$ " + (obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.countInBasket * obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.finalPrice).toFixed(2)
+            text:obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.countInBasket
             color: "black"
             x:186
             y:275
