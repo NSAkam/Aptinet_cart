@@ -826,6 +826,7 @@ class ShopPage(QObject):
             self._weightSensor.lightest_weight = self._lightestWeightForHeavyProduct
 
     def clear_stackView(self):
+        self.showTopBtnSignal.emit()
         self.clearStackViewSignal.emit()
         if len(self._factorList.m_data) > 0:
             self.showFactorListSignal.emit()
