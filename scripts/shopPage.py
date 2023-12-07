@@ -346,6 +346,9 @@ class ShopPage(QObject):
                 if len(self._removeList.m_data) == 1:
                     self.openPopupDeleteProductSignal.emit()
 
+            elif self.state == 8:
+                self.openPopupMessageTimerSignal.emit("Can't add product at this session.")
+
     @Slot(int, int)
     def basketWeightChanged(self, val2: int, val1: int):
         if not self._inByPass:
@@ -478,6 +481,17 @@ class ShopPage(QObject):
                         self._removeList.clearData()
                         self._trustUser = False
 
+                elif self.state == 8:
+                    self.openPopupMessageSignal.emit("Cant add or remove product in this session.")
+                    self._basketWeightShouldBe = val1
+                    self.state = 9
+                    notifSound
+
+                elif self.state == 9:
+                    if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
+                        self.state = 8
+                        self.closePopupMessageSignal.emi()
+
                 # elif self.state == 8:
                 #     if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
                 #         self._basketWeightShouldBe = val2
@@ -560,6 +574,17 @@ class ShopPage(QObject):
                         self.closePopupDeleteProduct.emit()
                         self._removeList.clearData()
                         self._trustUser = False
+
+                elif self.state == 8:
+                    self.openPopupMessageSignal.emit("Cant add or remove product in this session.")
+                    self._basketWeightShouldBe = val1
+                    self.state = 9
+                    notifSound()
+
+                elif self.state == 9:
+                    if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
+                        self.state = 8
+                        self.closePopupMessageSignal.emi()
 
                 # elif self.state == 8:
                 #     self.state = 9
@@ -758,7 +783,12 @@ class ShopPage(QObject):
 
     @Slot()
     def checkout_clicked(self):
-        pass
+        if self.state == 1:
+            if len(self._factorList.m_data) > 0:
+                self.state = 8
+                self.showCheckOutSignal.emit()
+            else:
+                self.openPopupMessageTimerSignal.emit("Yor factor is empty !")
 
     ###################################################################################################### Functions ###
     def print_states(self):
