@@ -611,7 +611,7 @@ Item {
             }
 
             onBack: {
-                
+
             }
         }
     }
@@ -636,6 +636,9 @@ Item {
         id:addPluItemCountedview
         AddPluItemsCountedView{
             obj_LogicContainerAddPluItemsCountedView : obj_LogicContainerShop
+            onCancel: {
+                stackviewContainer.pop()
+            }
         }
     }
 

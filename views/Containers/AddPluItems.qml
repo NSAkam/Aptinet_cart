@@ -235,7 +235,7 @@ Item {
                 }
 
                 Text {
-                    text: model.Qprice
+                    text: dataModelShow===1? model.Qprice:model.finalPrice
                     x: 16
                     y: 211
                     font.pixelSize: 20
