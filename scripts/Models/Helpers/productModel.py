@@ -282,7 +282,7 @@ class ProductModel(QAbstractListModel):
         ix = self.index(index, 0)
 
         # self.beginResetModel()
-        self.m_data[index].settedad(self.m_data[index].gettedad() + 1)
+        self.m_data[index].set_countInBasket(self.m_data[index].get_countInBasket() + 1)
         # self.endResetModel()
         self.dataChanged.emit(ix, ix, self.roleNames())
 
@@ -291,8 +291,8 @@ class ProductModel(QAbstractListModel):
         ix = self.index(index, 0)
         # self.m_data[index].settedad(self.m_data[index].gettedad() + 1)
         # self.beginResetModel()
-        if self.m_data[index].gettedad() > 0:
-            self.m_data[index].settedad(self.m_data[index].gettedad() - 1)
+        if self.m_data[index].get_countInBasket() > 0:
+            self.m_data[index].set_countInBasket(self.m_data[index].get_countInBasket() - 1)
         # self.endResetModel()
         self.dataChanged.emit(ix, ix, self.roleNames())
 

@@ -89,7 +89,8 @@ class CameraWorker(QThread):
                     #                frame2.strides[0], QImage.Format_BGR888)
 
                     frame2 = cv2.cvtColor(frame2, cv2.COLOR_RGB2BGR)
-                    image = QImage(frame2, frame2.shape[1], frame2.shape[0],
+                    temp = cv2.rotate(frame2, cv2.ROTATE_90_COUNTERCLOCKWISE)
+                    image = QImage(temp, frame2.shape[1], frame2.shape[0],
                                    frame2.strides[0], QImage.Format_RGB888)
                     
                     self.capturedImage = image

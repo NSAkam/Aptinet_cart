@@ -20,6 +20,7 @@ class ScannerHelper(QObject):
         self._scannerWorker = ScannerWorker()
         self._scannerWorker.barcodeValueReadSignal.connect(self.barcode_read)
         self.start()
+        self._barcode = ""
 
 
     EAN13ReadSignal = Signal()
