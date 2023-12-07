@@ -790,6 +790,12 @@ class ShopPage(QObject):
             else:
                 self.openPopupMessageTimerSignal.emit("Yor factor is empty !")
 
+    @Slot()
+    def checkout_backClicked(self):
+        if self.state == 8:
+            self.state = 1
+            self.clear_stackView()
+
     ###################################################################################################### Functions ###
     def print_states(self):
         if self.state == 1:
