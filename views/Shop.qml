@@ -306,7 +306,7 @@ Item {
                     font.family: viewset.danaFuNumFont
                 }
                 onTextChanged: {
-                    if(text.length > 4)
+                    if(text.length > 3)
                     {
                         obj_LogicContainerShop.shopPage.search_PLUItem(text)
                     }
@@ -841,6 +841,9 @@ Item {
         function onClearStackViewSignal(){
             stackviewContainer.clear()
             slideshow.model = obj_LogicContainerShop.shopPage.offersList
+            adsPanel.visible = true
+            checkoutPanel.visible=false
+            addPlupanel.visible = false
         }
 
         function onCloseTopStackViewSignal(){
@@ -861,7 +864,11 @@ Item {
 
         function onShowAddPLUItemsSignal()
         {
+            adsPanel.visible = false
+            checkoutPanel.visible=false
+            addPlupanel.visible = true
             stackviewContainer.push(addPluItem)
+
         }
 
         function onShowWeightedPLUItemsSignal(){
@@ -873,6 +880,9 @@ Item {
         }
 
         function onShowCheckOutSignal(){
+            adsPanel.visible = false
+            checkoutPanel.visible=true
+            addPlupanel.visible = false
             stackviewContainer.push(checkout)
         }
 
