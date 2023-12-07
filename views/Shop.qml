@@ -225,7 +225,7 @@ Item {
                 //                    toaddItem.visible = true
                 //                    btn_entermanualBarcode.visible = true
                 //                }
-                obj_LogicContainerShop.shopPage.stackview_depthChanged(stackviewContainer.depth)
+                //obj_LogicContainerShop.shopPage.stackview_depthChanged(stackviewContainer.depth)
             }
         }
     }
