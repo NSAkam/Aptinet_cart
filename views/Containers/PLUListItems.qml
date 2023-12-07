@@ -44,7 +44,14 @@ Item {
                 height: 249
                 color: "white"
                 radius: 4
-
+                
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        obj_LogicContainerPLUListItems.shopPage.item_PLUClicked(model.barcode)
+                    }
+                }
+                
                 Image {
                     id: productimage
                     source: model.pic

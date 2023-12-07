@@ -11,7 +11,7 @@ Item {
         id:viewset
     }
 
-    property QtObject obj_LogicContainerManualBarcode
+    property Logic obj_LogicContainerManualBarcode
     Image {
         source: "../../Assets/StackBackground.png"
         anchors.fill: parent
@@ -116,9 +116,7 @@ Item {
             borderRadius: 4
             btn_borderWidth: 0
             onClicked: {
-                if(txt_ManualBarcodeInput.text == "665566"){
-                    manualBarcode_Panel.ok()
-                }
+               obj_LogicContainerManualBarcode.shopPage.confirm_manualBarcodeClicked(txt_ManualBarcodeInput.text)
             }
             Text {
                 text: qsTr(">")
@@ -140,7 +138,7 @@ Item {
             borderRadius: 4
             btn_borderWidth: 0
             onClicked: {
-                manualBarcode_Panel.cancle()
+                obj_LogicContainerManualBarcode.shopPage.cancel_manualBarcodeClicked()
             }
         }
     }

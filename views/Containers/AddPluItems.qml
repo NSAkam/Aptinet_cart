@@ -32,8 +32,15 @@ Item {
         y:94
         radius: 4
         color: white
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                obj_LogicContainerAddPluItems.shopPage.item_PLUClicked(obj_LogicContainerAddPluItems.shopPage.newProduct.barcode)
+            }
+        }
+
         Image {
-            source: "../../Assets/pluAddItem.png"
+            source: obj_LogicContainerAddPluItems.shopPage.newProduct.barcode.pic
             x:32
             y:54
         }
@@ -43,7 +50,7 @@ Item {
             font.pixelSize: 24
             font.bold: true
             color: "#D9D9D9"
-            text: "#0000"
+            text: "#" + obj_LogicContainerAddPluItems.shopPage.newProduct.barcode
         }
         Text {
             x:204
@@ -51,7 +58,7 @@ Item {
             font.pixelSize: 24
             font.bold: true
             color: "#D9D9D9"
-            text: "Name"
+            text: obj_LogicContainerAddPluItems.shopPage.newProduct.name
         }
         Text {
             x:204
@@ -59,7 +66,7 @@ Item {
             font.pixelSize: 24
             font.bold: true
             color: "#D9D9D9"
-            text: "$ 0.0 /kg"
+            text: obj_LogicContainerAddPluItems.shopPage.newProduct.dataModelShow === 0 ? "$ "+ obj_LogicContainerAddPluItems.shopPage.newProduct.finalPrice+" each" : obj_LogicContainerAddPluItems.shopPage.newProduct.Qprice
         }
     }
     Rectangle{
@@ -192,6 +199,12 @@ Item {
                 height: 249
                 color: "white"
                 radius: 4
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        obj_LogicContainerAddPluItems.shopPage.item_PLUClicked(model.barcode)
+                    }
+                }
 
                 Image {
                     id: productimage
@@ -254,7 +267,7 @@ Item {
         borderRadius: 5
 
         onClicked: {
-            root.back()
+            obj_LogicContainerAddPluItems.shopPage.back_addPLUItemsClicked()
         }
 
     }

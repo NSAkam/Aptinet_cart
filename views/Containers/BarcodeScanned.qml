@@ -187,7 +187,7 @@ Item {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    barcode_scanned.cancel()
+                    obj_LogicContainerBarcodeScanned.shopPage.cancel_newProductClicked()
                 }
             }
         }
