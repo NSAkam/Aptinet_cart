@@ -80,8 +80,8 @@ Item {
 
         Text {
             id: addtocarttext
-            text: obj_LogicContainerAddPluItemsView.shopPage.newProduct.Qweigh
-            font.pixelSize: 20
+            text: (obj_LogicContainerAddPluItemsView.shopPage.newProduct.Qweigh *1).toFixed(2)
+            font.pixelSize: 32
             x: 108
             y: 262
             color: "#9D9D9D"
@@ -89,8 +89,8 @@ Item {
 
         Text {
             id: totalpricevalue
-            text: "$ " + (obj_LogicContainerAddPluItemsView.shopPage.newProduct.finalPrice * obj_LogicContainerAddPluItemsView.shopPage.newProduct.productWeightInBasket).toFixed(2)
-            x: 428
+            text: "$ " + ((obj_LogicContainerAddPluItemsView.shopPage.newProduct.productWeightInBasket /1000) * obj_LogicContainerAddPluItemsView.shopPage.newProduct.finalPrice).toFixed(2)
+            x: 412
             y: 241
             font.pixelSize: 32
             font.bold: true
@@ -115,7 +115,7 @@ Item {
             width: 225
             height: 64
             onClicked: {
-                root.cancel()
+                stackview.pop()
             }
         }
 
