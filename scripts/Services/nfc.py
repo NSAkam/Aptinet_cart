@@ -19,7 +19,7 @@ class nfc(QObject):
         sleep(1000)
         cardmonitor.deleteObserver(cardobserver)
 
-    @Slot
+    @Slot()
     def read(self):
         self.nfcReaderSignal.emit()
 
