@@ -649,11 +649,12 @@ class ShopPage(QObject):
 
     @Slot(str)
     def confirm_manualBarcodeClicked(self, barcode: str):
+        print(barcode)
         if self.state == 1:
             if len(barcode) == self._scanner.get_productBarcodeLength():
                 if self._productRepository.get_product(barcode).price != 0:
                     self.clear_stackView()
-                    self._scanner.barcode = barcode
+                    self._scanner._barcode = barcode
                     self.barcodeRead()
                 else:
                     self.openPopupMessageTimerSignal.emit("Please check entered barcode !")
