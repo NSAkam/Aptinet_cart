@@ -107,7 +107,7 @@ Item {
 
         Text {
             id: savingsvalue
-            text: "$ 22.00"
+            text:"$  " + (obj_LogicContainerLstCheckProducts.shopPage.factorList.priceNoDiscount - obj_LogicContainerLstCheckProducts.shopPage.factorList.finalprice).toFixed(2)
             font.pixelSize: 24
             color: viewset.primaryColor
             x: 495
@@ -195,7 +195,7 @@ Item {
 
         Text {
             id: totalvalue
-            text: "$ 68.72"
+            text: "$  " + (obj_LogicContainerCheckoutPage.shopPage.factorList.finalprice)
             font.pixelSize: 32
             color: viewset.secondaryColor
             x: 466
@@ -217,7 +217,7 @@ Item {
         }
 
         KButton {
-            text: "Payment via NFC"
+            text: "Payment"
             fontsize: 24
             x: 274
             y: 99
