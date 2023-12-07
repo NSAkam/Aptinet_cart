@@ -338,14 +338,14 @@ class Product(QObject):
     def get_Qprice(self):
         if self.dataModelShow == 1:
             if self.quantifier == "kg":
-                return "$ " + str(self._finalPrice) + " /Kg"
+                return "$ " + "{:.2f}".format(self._finalPrice) + " /Kg"
             elif self.quantifier == "lb":
                 lb = self._productWeightInBasket / 453.59237
                 price = self._finalPrice / 1000 * 453.59237
                 if lb < 1:
-                    return "$ " + str(price / 16) + " /oz"
+                    return "$ " + "{:.2f}".format(price / 16) + " /oz"
                 elif lb >= 1:
-                    return "$ " + str(price) + " /lb"
+                    return "$ " + "{:.2f}".format(price) + " /lb"
         else:
             return ""
 
@@ -359,7 +359,6 @@ class Product(QObject):
             elif self.quantifier == "lb":
                 lb = self.productWeightInBasket / 453.59237
                 if lb > 1:
-                    "{:.2f}".format(lb)
                     return "{:.2f}".format(lb) + " lb"
                 else:
                     return "{:.2f}".format(lb * 16) + " oz"
