@@ -26,6 +26,7 @@ class ProductModel(QAbstractListModel):
     QpriceRole = Qt.UserRole + 15
     QweighRole = Qt.UserRole + 16
     quantifierRole = Qt.UserRole + 17
+    productWeightInBasketRole = Qt.UserRole + 18
 
 
     m_data = [Product]
@@ -149,6 +150,8 @@ class ProductModel(QAbstractListModel):
             return prod.Qweigh
         elif(role == self.quantifierRole):
             return prod.quantifier
+        elif(role == self.productWeightInBasketRole):
+            return prod.productWeightInBasket
         else:
             return None
 
@@ -171,7 +174,10 @@ class ProductModel(QAbstractListModel):
         default[self.QpriceRole] = QByteArray(b"Qprice")
         default[self.QweighRole] = QByteArray(b"Qweigh")
         default[self.quantifierRole] = QByteArray(b"quantifier")
+        default[self.productWeightInBasketRole] = QByteArray(b"productWeightInBasket")
+
         return default
+    
     
 
     # def data(self):
