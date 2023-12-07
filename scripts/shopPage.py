@@ -812,7 +812,7 @@ class ShopPage(QObject):
             self.showPaymentSignal.emit()
             self.state = 10
             self._nfc = nfc()
-            nfc.nfcReaderSignal.connect(self.nfc_read)
+            self._nfc.nfcReaderSignal.connect(self.nfc_read)
 
     ###################################################################################################### Functions ###
     def print_states(self):
