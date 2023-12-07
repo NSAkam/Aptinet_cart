@@ -16,8 +16,8 @@ class nfc(QObject):
         cardobserver = PrintObserver()
         cardobserver.readedSignal.connect(self.read)
         cardmonitor.addObserver(cardobserver)
-        sleep(1000)
-        cardmonitor.deleteObserver(cardobserver)
+        # sleep(1000)
+        # cardmonitor.deleteObserver(cardobserver)
 
     @Slot()
     def read(self):
