@@ -136,7 +136,7 @@ Item {
 
             }
             onClicked: {
-                obj_LogicContainerAddPluItemsView.shopPage.confirm_PLUItem()
+                obj_LogicContainerAddPluItemsView.shopPage.confirm_PLUItemClicked()
             }
         }
 
