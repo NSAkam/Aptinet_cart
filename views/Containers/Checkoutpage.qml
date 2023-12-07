@@ -87,7 +87,7 @@ Item {
 
         Text {
             id: cartsubtotalvalue
-            text: "$ 90.72"
+            text: "$  " + (obj_LogicContainerCheckoutPage.shopPage.factorList.finalprice)
             font.pixelSize: 24
             color: viewset.primaryColor
             x: 495
