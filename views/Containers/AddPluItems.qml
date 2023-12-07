@@ -31,7 +31,7 @@ Item {
         x:32
         y:94
         radius: 4
-        color: white
+        color: "white"
         MouseArea{
             anchors.fill: parent
             onClicked: {
@@ -40,7 +40,7 @@ Item {
         }
 
         Image {
-            source: obj_LogicContainerAddPluItems.shopPage.newProduct.barcode.pic
+            source: obj_LogicContainerAddPluItems.shopPage.newProduct.pic
             x:32
             y:54
         }
@@ -190,7 +190,7 @@ Item {
         interactive: false
 
 
-        model: obj_LogicContainerPLUListItems.shopPage.pluTopFour
+        model: obj_LogicContainerAddPluItems.shopPage.pluTopFour
         delegate:
             Item {
             Rectangle {
