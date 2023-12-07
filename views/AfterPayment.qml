@@ -8,7 +8,7 @@ import "Utiles" as Util
 import KAST.Logic 1.0
 
 
-Window {
+Item {
 
     width: 1280
     height: 800
