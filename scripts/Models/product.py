@@ -354,14 +354,15 @@ class Product(QObject):
     def get_Qweigh(self):
         if self.dataModelShow == 1:
             if self.quantifier == "kg":
-                print(str(self.productWeightInBasket / 1000) + " Kg")
-                return str(self.productWeightInBasket / 1000) + " Kg"
+
+                return "{:.2f}".format(self.productWeightInBasket / 1000) + " Kg"
             elif self.quantifier == "lb":
                 lb = self.productWeightInBasket / 453.59237
                 if lb > 1:
-                    return str(lb) + " lb"
+                    "{:.2f}".format(lb)
+                    return "{:.2f}".format(lb) + " lb"
                 else:
-                    return str(lb * 16) + " oz"
+                    return "{:.2f}".format(lb * 16) + " oz"
         else:
             return ""
 
