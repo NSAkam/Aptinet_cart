@@ -15,6 +15,7 @@ from Services.dal import DAL
 from Services.sound import *
 from Services.gpio import GreenLight
 from Services.weightsensor import WeightSensorWorker
+from Services.nfc import nfc
 
 from Helpers.scannerHelper import ScannerHelper
 # from Helpers.weightSensorHelper import WeightSensorHelper
@@ -75,6 +76,7 @@ class ShopPage(QObject):
 
     ######################################################################################################## Modules ###
     _weightSensor: WeightSensorWorker
+    _nfc: nfc
 
     def __init__(self, dal: DAL, user: User, scanner: ScannerHelper):
         super().__init__()
@@ -144,6 +146,8 @@ class ShopPage(QObject):
     showCountedPLUItemsSignal = Signal()   # show counted PLU view
     showTopBtnSignal = Signal()   # show manual barcode btn and PLU btn
     showCheckOutSignal = Signal()   # show check out view
+    showPaymentSignal = Signal()
+    showAfterPaymentSignal = Signal()
 
     #### Popup Signals ############################################
     closeAllPopUpSignal = Signal()
@@ -492,27 +496,28 @@ class ShopPage(QObject):
                         self.state = 8
                         self.closePopupMessageSignal.emit()
 
-                # elif self.state == 8:
-                #     if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
-                #         self._basketWeightShouldBe = val2
-                #         self.state = 1
-                #     else:
-                #         self.state = 9
-                #         self._basketWeightShouldBe = val1
-                #         self.openPopUpMessageNotAllowedChangeWeightSignal.emit()
-                #
-                # #         if not self._paymentCartScanned:
-                # #             if abs(val2 - self._basketWeightShouldBe) >= 100:
-                # #                 self.state = 9
-                # #                 self.openPopUpMessageNotAllowedChangeWeight.emit()
-                # #                 notifSound()
-                # #                 self._basketWeightShouldBe = val1
-                #
-                # elif self.state == 9:
-                #     if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
-                #         self._basketWeightShouldBe = val2
-                #         self.state = 1
-                #         self.closePopupWeightNotMatchWithBarcodeSignal.emit()
+                elif self.state == 10:
+                    self.openPopupMessageSignal.emit("Cant add or remove product in this session.")
+                    self._basketWeightShouldBe = val1
+                    self.state = 11
+                    notifSound()
+
+                elif self.state == 11:
+                    if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
+                        self.state = 10
+                        self.closePopupMessageSignal.emit()
+
+                elif self.state == 12:
+                    if abs(val2 - val1) > 100:
+                        self._basketWeightShouldBe = val1
+                        self.turn_offGreenlight()
+                        self.state = 13
+
+                elif self.state == 13:
+                    if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
+                        self.state = 12
+                        self._basketWeightShouldBe = val2
+                        self.turn_onGreenLight()
 
             # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
             # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> REMOVE WEIGHT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -586,30 +591,28 @@ class ShopPage(QObject):
                         self.state = 8
                         self.closePopupMessageSignal.emit()
 
-                # elif self.state == 8:
-                #     self.state = 9
-                #     self.openPopUpMessageNotAllowedChangeWeightSignal.emit()
-                #     # notifSound()
-                #     self._basketWeightShouldBe = val1
-                #
-                #     # if not self._paymentCartScanned:
-                #     #     if abs(value) >= 100:
-                #     #         self.state = 9
-                #     #         self.openPopUpMessageNotAllowedChangeWeight.emit()
-                #     #         notifSound()
-                #     #         self._basketweightShouldBe = val1
-                #
-                # elif self.state == 9:
-                #     # if abs(value) >= 30:
-                #     if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
-                #         self._basketWeightShouldBe = val2
-                #         self.closePopUpMessageNotAllowedChangeWeightSignal.emit()
-                #         self.state = 8
-                #         # if self._successfulPayment:
-                #         #     self.state =10
-                #         #     self.showAfterPayment.emit()
-                #         # else:
-                #         #     self.state = 8
+                elif self.state == 10:
+                    self.openPopupMessageSignal.emit("Cant add or remove product in this session.")
+                    self._basketWeightShouldBe = val1
+                    self.state = 11
+                    notifSound()
+
+                elif self.state == 11:
+                    if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
+                        self.state = 10
+                        self.closePopupMessageSignal.emit()
+
+                elif self.state == 12:
+                    if abs(val2 - val1) > 100:
+                        self._basketWeightShouldBe = val1
+                        self.turn_offGreenlight()
+                        self.state = 13
+
+                elif self.state == 13:
+                    if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
+                        self.state = 12
+                        self._basketWeightShouldBe = val2
+                        self.turn_onGreenLight()
 
     @Slot()
     def timerSlot(self):
@@ -644,6 +647,13 @@ class ShopPage(QObject):
             self.clear_stackView()
             self.closeAllPopUpSignal.emit()
             self.openPopupByPassSignal.emit()
+
+    @Slot()
+    def nfc_read(self):
+        if self.state == 10:
+            self.state = 12
+            self.showAfterPaymentSignal.emit()
+            self.turn_onGreenLight()
 
     ####################################################################################################### UI Sluts ###
     @Slot()
@@ -795,6 +805,14 @@ class ShopPage(QObject):
         if self.state == 8:
             self.state = 1
             self.clear_stackView()
+
+    @Slot()
+    def payment_clicked(self):
+        if self.state == 8:
+            self.showPaymentSignal.emit()
+            self.state = 10
+            self._nfc = nfc()
+            nfc.nfcReaderSignal.connect(self.nfc_read)
 
     ###################################################################################################### Functions ###
     def print_states(self):
