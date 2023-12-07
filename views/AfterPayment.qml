@@ -8,7 +8,7 @@ import "Utiles" as Util
 import KAST.Logic 1.0
 
 
-Item {
+Window {
 
     width: 1280
     height: 800
@@ -48,8 +48,8 @@ Item {
             Image {
                 source: "../Assets/questionmark.png"
                 anchors.centerIn: parent
-//                width: 57
-//                height: 57
+                //                width: 57
+                //                height: 57
             }
         }
 
@@ -66,8 +66,8 @@ Item {
             Image {
                 source: "../Assets/alarm.png"
                 anchors.centerIn: parent
-//                width: 57
-//                height: 57
+                //                width: 57
+                //                height: 57
             }
         }
 
@@ -145,7 +145,7 @@ Item {
                 text: "You’re good to go!"
                 font.pixelSize: 40
                 color: "#36EB00"
-                x: 32
+                anchors.horizontalCenter: parent.horizontalCenter
                 y: 246
                 font.bold: true
             }
@@ -167,16 +167,101 @@ Item {
             y: 451
             visible: false
         }
-
-        RatingPage {
-            width: 393
-            height: 280
-            x: 444
-            y: 451
-            visible: true
+        Text {
+            text: "How would you rate your shopping experience?"
+            font.pixelSize: 24
+            horizontalAlignment: Text.AlignHCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            y: 473
+            color: "#1D1D1D"
         }
 
+        Row {
+            spacing: 32
+            y: 579
+            anchors.horizontalCenter: parent.horizontalCenter
+
+
+            Rectangle {
+                width: 70
+                height: 70
+                radius: 70
+                KButton {
+                    anchors.fill: parent
+                    btn_color: "#92dc7c"
+                    btn_bordercolor: "#92dc7c"
+
+                    Image {
+                        source: "../Assets/badrate.png"
+                        anchors.centerIn: parent
+                    }
+
+                }
+
+            }
+
+
+
+            Rectangle {
+                width: 70
+                height: 70
+                radius: 70
+
+                KButton {
+                    anchors.fill: parent
+                    btn_color: "#7ad35f"
+                    btn_bordercolor: "#7ad35f"
+
+                    Image {
+                        source: "../Assets/goodrate.png"
+                        anchors.centerIn: parent
+                    }
+                }
+
+            }
+
+
+            Rectangle {
+                width: 70
+                height: 70
+                radius: 70
+
+                KButton {
+                    anchors.fill: parent
+                    btn_color: "#67db45"
+                    btn_bordercolor: "#67db45"
+
+                    Image {
+                        source: "../Assets/verygoodrate.png"
+                        anchors.centerIn: parent
+                    }
+                }
+
+            }
+
+
+            Rectangle {
+                width: 70
+                height: 70
+                radius: 70
+                color: "#4ce51f"
+
+                KButton {
+                    anchors.fill: parent
+                    btn_color: "#4ce51f"
+                    btn_bordercolor: "#4ce51f"
+
+                    Image {
+                        source: "../Assets/excellentrate.png"
+                        anchors.centerIn: parent
+                    }
+
+
+
+                }
+            }
+
+        }
 
     }
-
 }
