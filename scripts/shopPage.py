@@ -830,7 +830,6 @@ class ShopPage(QObject):
         self.clearStackViewSignal.emit()
         if len(self._factorList.m_data) > 0:
             self.showFactorListSignal.emit()
-            print("add factor list")
 
 
 
