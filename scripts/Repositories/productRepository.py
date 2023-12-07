@@ -42,7 +42,7 @@ class ProductRepository:
         taxPercentage = 0
         quantifire = ""
         query.exec_("select quatifire,taxPercentage from Config LIMIT 1")
-        while query.next:
+        while query.next():
             quantifire = query.value(0)
             taxPercentage =query.value(1)
         query.exec_(
@@ -87,7 +87,7 @@ class ProductRepository:
         taxPercentage = 0
         quantifire = ""
         query.exec_("select quatifire,taxPercentage from Config LIMIT 1")
-        while query.next:
+        while query.next():
             quantifire = query.value(0)
             taxPercentage =query.value(1)
         query.exec_(
@@ -128,14 +128,12 @@ class ProductRepository:
         return res
 
     def get_offerProducts(self):
-        print("aasdasdas")
         res: [Product] = []
         query = QSqlQuery()
         taxPercentage = 0
         quantifire = ""
         query.exec_("select quatifire,taxPercentage from Config LIMIT 1")
-        while query.next:
-            print("1")
+        while query.next():
             quantifire = query.value(0)
             taxPercentage =query.value(1)
         query.exec_(
@@ -144,7 +142,6 @@ class ProductRepository:
             "WHERE isOffer = '1'"
         )
         while query.next():
-            print("2")
             p = Product()
             p.name = query.value(0)
             p.description = query.value(1)
@@ -182,7 +179,7 @@ class ProductRepository:
         taxPercentage = 0
         quantifire = ""
         query.exec_("select quatifire,taxPercentage from Config LIMIT 1")
-        while query.next:
+        while query.next():
             quantifire = query.value(0)
             taxPercentage =query.value(1)
         query.exec_(
@@ -228,7 +225,7 @@ class ProductRepository:
         taxPercentage = 0
         quantifire = ""
         query.exec_("select quatifire,taxPercentage from Config LIMIT 1")
-        while query.next:
+        while query.next():
             quantifire = query.value(0)
             taxPercentage =query.value(1)
         query.exec_(
