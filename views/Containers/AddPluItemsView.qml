@@ -80,7 +80,7 @@ Item {
 
         Text {
             id: addtocarttext
-            text: obj_LogicContainerAddPluItemsView.shopPage.newProduct.Qweigh
+            text: (obj_LogicContainerAddPluItemsView.shopPage.newProduct.Qweigh *1).toFixed(2)
             font.pixelSize: 32
             x: 108
             y: 262
@@ -115,7 +115,7 @@ Item {
             width: 225
             height: 64
             onClicked: {
-                root.cancel()
+                stackview.pop()
             }
         }
 
