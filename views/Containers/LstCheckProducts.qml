@@ -247,7 +247,7 @@ Item {
         }
         Text {
             id:check_TotalSaved
-            text: "$  " + obj_LogicContainerLstCheckProducts.shopPage.factorList.profit
+            text: "$  " + (obj_LogicContainerLstCheckProducts.shopPage.factorList.priceNoDiscount - obj_LogicContainerLstCheckProducts.shopPage.factorList.finalprice)
             font.pixelSize: 20
             x:344
             y:42
@@ -263,7 +263,7 @@ Item {
         }
         Text {
             id:check_TotalPrice
-            text: "$  " + obj_LogicContainerLstCheckProducts.shopPage.factorList.priceToPay
+            text: "$  " + obj_LogicContainerLstCheckProducts.shopPage.factorList.finalprice
             font.pixelSize: 32
             x:463
             y:32
