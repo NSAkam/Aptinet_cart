@@ -107,7 +107,7 @@ Item {
 
         Text {
             id: savingsvalue
-            text:"$  " + (obj_LogicContainerLstCheckProducts.shopPage.factorList.priceNoDiscount - obj_LogicContainerLstCheckProducts.shopPage.factorList.finalprice).toFixed(2)
+            text:"$  " + (obj_LogicContainerCheckoutPage.shopPage.factorList.priceNoDiscount - obj_LogicContainerCheckoutPage.shopPage.factorList.finalprice).toFixed(2)
             font.pixelSize: 24
             color: viewset.primaryColor
             x: 495
