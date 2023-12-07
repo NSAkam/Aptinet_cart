@@ -23,6 +23,10 @@ class ProductModel(QAbstractListModel):
     DataModelShowRole = Qt.UserRole + 12
     PicRole = Qt.UserRole + 13
     ProductTypeRole = Qt.UserRole + 14
+    QpriceRole = Qt.UserRole + 15
+    QweighRole = Qt.UserRole + 16
+    quantifierRole = Qt.UserRole + 17
+
 
     m_data = [Product]
     m_validBarcodeSetForDelete = []
@@ -139,6 +143,12 @@ class ProductModel(QAbstractListModel):
             return prod.pic
         elif (role == self.ProductTypeRole):
             return prod.productType
+        elif(role == self.QpriceRole):
+            return prod.Qprice
+        elif(role == self.QweighRole):
+            return prod.Qweigh
+        elif(role == self.quantifierRole):
+            return prod.quantifier
         else:
             return None
 
@@ -158,7 +168,11 @@ class ProductModel(QAbstractListModel):
         default[self.DataModelShowRole] = QByteArray(b"dataModelShow")
         default[self.ProductTypeRole] = QByteArray(b"productType")
         default[self.PicRole] = QByteArray(b"pic")
+        default[self.QpriceRole] = QByteArray(b"Qprice")
+        default[self.QweighRole] = QByteArray(b"Qweigh")
+        default[self.quantifierRole] = QByteArray(b"quantifier")
         return default
+    
 
     # def data(self):
     #     return self.m_data

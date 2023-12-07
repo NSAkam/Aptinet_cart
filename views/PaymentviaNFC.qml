@@ -82,23 +82,23 @@ Item {
             height: parent.height
             x:0
             y:0
-            Rectangle{
-                width: 50
-                height: 50
-                color: viewset.primaryColor
-                x:530 + 390
-                y:24
-                radius: width /2
-            }
-            Text {
-                text: "user Email"
-                color: "#6D6D6D"
-                width: 148
-                height: 15
-                font.pixelSize: 14
-                x:586 + 390
-                y:40.5
-            }
+//            Rectangle{
+//                width: 50
+//                height: 50
+//                color: viewset.primaryColor
+//                x:530 + 390
+//                y:24
+//                radius: width /2
+//            }
+//            Text {
+//                text: "user Email"
+//                color: "#6D6D6D"
+//                width: 148
+//                height: 15
+//                font.pixelSize: 14
+//                x:586 + 390
+//                y:40.5
+//            }
             Image {
                 source: "../Assets/Help.png"
                 width: 57
@@ -164,7 +164,7 @@ Item {
     Component{
         id:afterpaymentPage
         AfterPayment{
-
+            obj_LogicContainerAfterPayment: obj_LogicContainerPaymentNFC
         }
     }
 
