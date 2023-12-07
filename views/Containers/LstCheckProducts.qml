@@ -283,6 +283,7 @@ Item {
             height: 84
             x:32
             y:28
+            visible: false
         }
         KButton{
             id:btn_Checkout
