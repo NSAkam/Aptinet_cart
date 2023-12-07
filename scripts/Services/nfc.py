@@ -36,6 +36,10 @@ class PrintObserver(CardObserver,QObject):
     when cards are inserted/removed from the system and
     prints the list of cards
     """
+
+    def __init__(self):
+        super().__init__()
+        
     readedSignal = Signal()
 
 
