@@ -862,4 +862,3 @@ class ShopPage(QObject):
             self.showFactorListSignal.emit()
 
 
-
