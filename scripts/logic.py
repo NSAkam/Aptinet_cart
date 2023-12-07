@@ -19,8 +19,8 @@ class Logic(QObject):
 
     ### Repositories ###################################################################################################
     _adminRepository: AdminRepository
-    _userRepository = UserRepository
-    _userServerRepository = UserServerRepository
+    _userRepository : UserRepository
+    _userServerRepository : UserServerRepository
 
     ### Private ########################################################################################################
     _shopPage: ShopPage
@@ -29,7 +29,7 @@ class Logic(QObject):
     _fan: Fan
     _dal: DAL
     _user: User
-    _phoneNumber: str =""
+    _phoneNumber: str = ""
 
     ### Modules ########################################################################################################
     _scanner: ScannerHelper
