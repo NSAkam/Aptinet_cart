@@ -737,7 +737,7 @@ class ShopPage(QObject):
 
             self.state = 1
             self._countDownTimer = -60
-            self._basketWeightShouldBe = self._weighsensor.readbasketweight()
+            self._basketWeightShouldBe = self._weightsensor.readbasketweight()
             self._basketWeightRemoveProcess = 0
             self.cal_basketLoad(self._basketWeightShouldBe)
             self._manualBarcodeEntered = False
