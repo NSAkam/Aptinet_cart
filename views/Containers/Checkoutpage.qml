@@ -242,7 +242,7 @@ Item {
             }
 
             onClicked: {
-                root.nfcPaymentClicked()
+                obj_LogicContainerCheckoutPage.shopPage.payment_clicked()
             }
 
 
