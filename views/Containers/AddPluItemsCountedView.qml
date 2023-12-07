@@ -125,7 +125,7 @@ Item {
 
         Text {
             id: totalpricevalue
-            text: "$ " + (obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.countInBasket * obj_LogicContainerAddPluItemsCountedView.newProduct.finalPrice).toFixed(2)
+            text: "$ " + (obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.countInBasket * obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.finalPrice).toFixed(2)
             x: 428
             y: 241
             font.pixelSize: 32
