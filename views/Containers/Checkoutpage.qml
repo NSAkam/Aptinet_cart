@@ -124,7 +124,7 @@ Item {
             color: "#F1F1F1"
             radius: 4
             TextInput{
-                id:txt_PLUBarcodeInput
+                id:txt_OfferCodeInput
                 anchors.fill: parent
                 font.pixelSize: 18
                 layer.enabled: true
@@ -134,13 +134,13 @@ Item {
                 property string placeholderText: "Enter Discount Code"
 
                 onFocusChanged: {
-                    numpad.inputtext = txt_PLUBarcodeInput
+                    numpad.inputtext = txt_OfferCodeInput
                     numpad.visible = true
                 }
                 Text {
-                    text: txt_PLUBarcodeInput.placeholderText
+                    text: txt_OfferCodeInput.placeholderText
                     color: "#C6C5CE"
-                    visible: !txt_PLUBarcodeInput.text
+                    visible: !txt_OfferCodeInput.text
                     font.pixelSize: 18
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -161,6 +161,11 @@ Item {
             borderRadius: 4
             btn_color: viewset.secondaryColor
             btn_bordercolor: viewset.secondaryColor
+            onClicked: {
+                if(txt_OfferCodeInput.text === "2212"){
+                    totalvalue.text = "$  " + ((obj_LogicContainerCheckoutPage.shopPage.factorList.finalprice) - (obj_LogicContainerCheckoutPage.shopPage.factorList.finalprice *0.1)).toFixed(2)
+                }
+            }
         }
     }
 
@@ -278,6 +283,7 @@ Item {
         y:290
         onEnter: {
             numpad.visible = false
+            
         }
     }
 
