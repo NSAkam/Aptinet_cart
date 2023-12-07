@@ -43,7 +43,7 @@ class Product(QObject):
 
     _productType: str = ""
 
-    _dataModelShow: int = 0  # 1 is normal 2 is PLU
+    _dataModelShow: int = 0  #  0 is normal and counted 1 is PLU
     _productWeightInBasket: int = 0
     _countInBasket: int = 0
 

@@ -80,6 +80,7 @@ Item {
                 y:40
             }
             KButton{
+                id:btn_lookupbyname
                 btn_color: "#9D9D9D"
                 x:995 -40
                 y:32
@@ -91,13 +92,11 @@ Item {
                 fontsize: 16
                 ishover: false
                 onClicked: {
-                    stackviewContainer.push(addPluItem)
-                    adsPanel.visible = false
-                    addPlupanel.visible = true
-
+                    obj_LogicContainerShop.shopPage.show_addPLUItemsClicked()                    
                 }
             }
             KButton{
+                id:btn_lookupbynumber
                 btn_color: viewset.primaryColor
                 x:819 -76
                 y:32
@@ -109,8 +108,7 @@ Item {
                 fontsize: 16
                 ishover: false
                 onClicked: {
-                    stackviewContainer.push(manualBarcodeHandler)
-                    obj_LogicContainerShop.shopPage.enter_manualBarcode()
+                    obj_LogicContainerShop.shopPage.manual_barcodeClicked()                    
                 }
             }
             Image {
@@ -207,7 +205,7 @@ Item {
             x:390
             y:92
             //initialItem: lstProductFactor
-            //initialItem:addPluItemview
+            //initialItem: addPluItemview
             //initialItem: newProductHandler
             //initialItem: addPluItem
             //initialItem: manualBarcodeHandler
@@ -308,9 +306,9 @@ Item {
                     font.family: viewset.danaFuNumFont
                 }
                 onTextChanged: {
-                    if(text == "665566")
+                    if(text.length > 4)
                     {
-                        stackviewContainer.replace(addPluItemview)
+                        obj_LogicContainerShop.shopPage.search_PLUItem(text)
                     }
                 }
             }
@@ -385,13 +383,7 @@ Item {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    if(stackviewContainer.currentItem != specialdealslist)
-                    {
-                        console.log(stackviewContainer.currentItem)
-                        stackviewContainer.push(specialdealslist)
-                    }
-
-
+                    obj_LogicContainerShop.shopPage.see_allOfferListClicked()
                 }
             }
         }
@@ -570,11 +562,11 @@ Item {
             obj_LogicContainerBarcodeScanned: obj_LogicContainerShop
 
             onPass: {
-                //stackviewContainer.push(lstProductFactor)
+
             }
 
             onCancel: {
-                obj_LogicContainerShop.shopPage.cancel_newProductClicked()
+                
             }
         }
     }
@@ -584,9 +576,7 @@ Item {
         LstCheckProducts{
             obj_LogicContainerLstCheckProducts: obj_LogicContainerShop
             onGocheckout: {
-                //                adsPanel.visible = false
-                //                checkoutPanel.visible = true
-                //                stackviewContainer.push(checkout)
+                
             }
         }
     }
@@ -617,21 +607,11 @@ Item {
         AddPluItems{
             obj_LogicContainerAddPluItems: obj_LogicContainerShop
             onSeeAll: {
-                stackviewContainer.push(plulist)
+
             }
 
             onBack: {
-                adsPanel.visible = true
-                addPlupanel.visible = false
-                if(stackviewContainer.depth == 1)
-                {
-                    stackviewContainer.clear()
-                }
-                else
-                {
-                    stackviewContainer.pop()
-                }
-
+                
             }
         }
     }
@@ -642,25 +622,20 @@ Item {
             obj_LogicContainerAddPluItemsView: obj_LogicContainerShop
             onConfirm:
             {
-                //                adsPanel.visible = true
-                //                addPlupanel.visible = false
-                //                stackviewContainer.replace(lstProductFactor)
+
             }
 
             onCancel:
             {
-                //                adsPanel.visible = true
-                //                addPlupanel.visible = false
-                //                if(stackviewContainer.depth == 1)
-                //                {
-                //                    stackviewContainer.clear()
-                //                }
-                //                else
-                //                {
-                //                    stackviewContainer.pop()
-                //                }
+               
             }
 
+        }
+    }
+    Component{
+        id:addPluItemCountedview
+        AddPluItemsCountedView{
+            obj_LogicContainerAddPluItemsCountedView : obj_LogicContainerShop
         }
     }
 
@@ -669,13 +644,11 @@ Item {
         Checkoutpage {
             obj_LogicContainerCheckoutPage: obj_LogicContainerShop
             onNfcPaymentClicked: {
-                stackview.push(nfcpayment)
+
             }
 
             onBack: {
-                adsPanel.visible = true
-                checkoutPanel.visible = false
-                stackviewContainer.pop()
+               
             }
         }
     }
@@ -694,7 +667,7 @@ Item {
         PLUListItems {
             obj_LogicContainerPLUListItems: obj_LogicContainerShop
             onBack: {
-                stackviewContainer.pop()
+
             }
         }
     }
@@ -709,7 +682,7 @@ Item {
         id:popUp_bypass
         obj_logicByPassPopup: obj_LogicContainerShop
         onOk: {
-            obj_LogicContainerShop.accept_byPassClicked()
+            obj_LogicContainerShop.shopPage.accept_byPassClicked()
         }
     }
 
@@ -771,38 +744,29 @@ Item {
     }
     Connections{
         target: obj_LogicContainerShop.shopPage
-        function onShowNewProductScannedSignal(){
-            stackviewContainer.push(newProductHandler)
-            slideshow.model = obj_LogicContainerShop.shopPage.suggestedList
-        }
-        function onCloseTopStackViewSignal(){
-            if(stackviewContainer.depth == 1)
-            {
-                if(root.isfactorlistview == false)
-                {
-                    stackviewContainer.clear()
-                }
-            }
-            else
-            {
-                stackviewContainer.pop()
-            }
-            slideshow.model = obj_LogicContainerShop.shopPage.offersList
-        }
-        function onInitFactorListSignal(){
-            root.isfactorlistview = true
-            stackviewContainer.push(lstProductFactor)
-        }
+
         function onOpenPopupMessageTimerSignal(text){
             popUpMessageTimer.messageText = text
             popUpMessageTimer.open()
         }
         function onCloseAllPopUpSignal(){
+            popUp_RemoveProducts.close()
 
+            popUp_bypass.close()
+
+            popUp_MessageTimer.close()
+
+            popUp_message.close()
+
+            popUp_MessageNotBarcodedProduct.close()
+
+            popUp_MessageNoBarcodeScanned.close()
+
+            popUpMessageNotAllowedChangeWeight.close()
         }
 
         function onVisibleProductListDeleteSignal(){
-
+            popUp_RemoveProducts.open()
         }
 
         function onOpenPopupMessageSignal(text){
@@ -846,23 +810,83 @@ Item {
             popUpMessageNotAllowedChangeWeight.close()
         }
 
-        function onClearStackViewSignal(v){
-            stackviewContainer.clear()
-            if(v === true ){
-                stackviewContainer.push(lst)
-            }
-            else{
-                toaddItem.visible = true
-                loader.visible = true
-            }
-        }
-
         function onOpenPopupByPassSignal(){
             popUp_bypass.open()
         }
 
         function onClosePopupByPassSignal(){
             popUp_bypass.close()
+        }
+        
+        function onClosePopUpMessageTimer(){
+            popUp_MessageTimer.close()
+        }
+
+        /////////////////////////////////////
+
+        function onShowAllOfferListSignal(){
+            stackviewContainer.push(specialdealslist)
+        }
+
+        function onShowManualBarcodeSignal(){
+            stackviewContainer.push(manualBarcodeHandler)
+        }
+
+        function onshowFactorListSignal(){
+            stackviewContainer.push(lstProductFactor)
+        }
+
+        function onShowNewProductScannedSignal(){
+            stackviewContainer.push(newProductHandler)
+            slideshow.model = obj_LogicContainerShop.shopPage.suggestedList
+        }
+
+        function onClearStackViewSignal(){
+            stackviewContainer.clear()
+            slideshow.model = obj_LogicContainerShop.shopPage.offersList
+        }
+
+        function onCloseTopStackViewSignal(){
+            stackviewContainer.pop()
+            //            if(stackviewContainer.depth == 1)
+            //            {
+            //                if(root.isfactorlistview == false)
+            //                {
+            //                    stackviewContainer.clear()
+            //                }
+            //            }
+            //            else
+            //            {
+            //                stackviewContainer.pop()
+            //            }
+
+        }
+
+        function onShowAddPLUItemsSignal()
+        {
+            stackviewContainer.push(addPluItem)
+        }
+
+        function onShowWeighedPLUItemsSignal(){
+            stackviewContainer.push(addPluItemview)
+        }
+
+        function onShowCountedPLUItemsSignal(){
+            stackviewContainer.push(addPluItemCountedview)
+        }
+
+        function onShowCheckOutSignal(){
+            stackviewContainer.push(checkout)
+        }
+
+        function onShowTopBtnSignal(){
+            btn_lookupbynumber.visible = true
+            btn_lookupbyname.visible = true
+        }
+
+        function onHideTopBtnSignal(){
+            btn_lookupbynumber.visible = false
+            btn_lookupbyname.visible = false
         }
     }
 }

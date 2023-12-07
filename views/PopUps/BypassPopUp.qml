@@ -43,7 +43,7 @@ Popup {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    popUpSettingpageOnShop.open()
+
                 }
             }
         }
@@ -107,7 +107,7 @@ Popup {
                             MouseArea{
                                 anchors.fill: parent
                                 onClicked: {
-                                    obj_logicByPassPopup.shopPage.increase_clicked(index)
+                                    obj_logicByPassPopup.shopPage.bypass_increaseClicked(index)
                                 }
                             }
                         }
@@ -145,7 +145,7 @@ Popup {
                             MouseArea{
                                 anchors.fill: parent
                                 onClicked: {
-                                    obj_logicByPassPopup.shopPage.decrease_clicked(index)
+                                    obj_logicByPassPopup.shopPage.bypass_decreaseClicked(index)
                                 }
                             }
                         }

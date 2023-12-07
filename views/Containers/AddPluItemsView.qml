@@ -30,7 +30,7 @@ Item {
 
         Image {
             id: productimage
-            source: "../../Assets/product.png"
+            source: obj_LogicContainerAddPluItemsView.shopPage.newProduct.pic
             width: 185
             height: 185
             x: 32
@@ -39,7 +39,7 @@ Item {
 
         Text {
             id: productidtext
-            text: "#8560"
+            text: "#" + obj_LogicContainerAddPluItemsView.shopPage.newProduct.barcode
             x: 248
             y: 58
             font.pixelSize: 24
@@ -49,7 +49,7 @@ Item {
 
         Text {
             id: productnametext
-            text: "Pineapple"
+            text: obj_LogicContainerAddPluItemsView.shopPage.newProduct.name
             x: 248
             y: 100
             font.pixelSize: 36
@@ -60,7 +60,7 @@ Item {
 
         Text {
             id: unitpricetext
-            text: "$ 6.99/kg"
+            text: obj_LogicContainerAddPluItemsView.shopPage.newProduct.Qprice
             x: 248
             y: 149
             font.pixelSize: 24
@@ -80,7 +80,7 @@ Item {
 
         Text {
             id: addtocarttext
-            text: "Add to cart\nto be calculated"
+            text: obj_LogicContainerAddPluItemsView.shopPage.newProduct.Qweigh
             font.pixelSize: 20
             x: 108
             y: 262
@@ -89,7 +89,7 @@ Item {
 
         Text {
             id: totalpricevalue
-            text: "$ 0.0"
+            text: "$ " + (obj_LogicContainerAddPluItemsView.shopPage.newProduct.finalPrice * obj_LogicContainerAddPluItemsView.shopPage.newProduct.productWeightInBasket).toFixed(2)
             x: 428
             y: 241
             font.pixelSize: 32
@@ -136,7 +136,7 @@ Item {
 
             }
             onClicked: {
-                root.confirm()
+                obj_LogicContainerAddPluItemsView.shopPage.confirm_PLUItem()
             }
         }
 

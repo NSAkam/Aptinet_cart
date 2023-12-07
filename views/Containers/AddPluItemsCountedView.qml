@@ -9,17 +9,17 @@ Item {
     id: root
     width: 572
     height: 450
-    
+
     property Logic obj_LogicContainerAddPluItemsCountedView
-    
+
     Image {
         source: "../../Assets/StackBackground.png"
         anchors.fill: parent
     }
-    
+
     signal cancel()
     signal confirm()
-    
+
     Rectangle{
         id: viewitemrect
         width: parent.width
@@ -28,48 +28,48 @@ Item {
         y: 120
         color: "white"
         radius: 4
-        
+
         Image {
             id: productimage
-            source: "../../Assets/product.png"
+            source: obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.pic
             width: 185
             height: 185
             x: 32
             y: 24
         }
-        
+
         Text {
             id: productidtext
-            text: "#8560"
+            text: "#" + obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.barcode
             x: 248
             y: 58
             font.pixelSize: 24
             color: "#9D9D9D"
-            
+
         }
-        
+
         Text {
             id: productnametext
-            text: "Pineapple"
+            text: obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.name
             x: 248
             y: 100
             font.pixelSize: 36
             font.bold: true
             color: "#1D1D1D"
-            
+
         }
-        
+
         Text {
             id: unitpricetext
-            text: "$ 6.99/kg"
+            text: obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.finalPrice
             x: 248
             y: 149
             font.pixelSize: 24
             font.weight: Font.DemiBold
             color: "#F08C5A"
-            
+
         }
-        
+
         Text{
             text: "Quantity"
             x:44
@@ -91,12 +91,12 @@ Item {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    
+                    obj_LogicContainerAddPluItemsCountedView.shopPage.decrease_PLUClicked()
                 }
             }
         }
         Text {
-            text: qsTr("0")
+            text: obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.countInBasket
             color: "black"
             x:186
             y:275
@@ -118,21 +118,21 @@ Item {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    
+                    obj_LogicContainerAddPluItemsCountedView.shopPage.increase_PLUClicked()
                 }
             }
         }
-        
+
         Text {
             id: totalpricevalue
-            text: "$ 0.0"
+            text: "$ " + (obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.countInBasket * obj_LogicContainerAddPluItemsCountedView.newProduct.finalPrice).toFixed(2)
             x: 428
             y: 241
             font.pixelSize: 32
             font.bold: true
             color: "#4696FA"
         }
-        
+
         Text {
             id: totalpricetext
             text: "Total Price"
@@ -141,7 +141,7 @@ Item {
             font.pixelSize: 24
             color: "#9D9D9D"
         }
-        
+
         KButton{
             text: "Cancel"
             x: 32
@@ -154,7 +154,7 @@ Item {
                 root.cancel()
             }
         }
-        
+
         KButton {
             text: "Confirm"
             x: 273
@@ -164,19 +164,17 @@ Item {
             borderRadius: 4
             btn_color: viewset.secondaryColor
             btn_bordercolor: viewset.secondaryColor
-            
+
             Image {
                 source: "../../Assets/goRightInItemView.png"
                 x: 226
                 y: 24
-                
+
             }
             onClicked: {
-                root.confirm()
+                obj_LogicContainerAddPluItemsCountedView.shopPage.confirm_PLUItem()
             }
         }
-        
-    }
-}
 
+    }
 }

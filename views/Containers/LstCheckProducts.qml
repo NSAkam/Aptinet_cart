@@ -296,7 +296,7 @@ Item {
             height: 72
             btn_borderWidth: 0
             onClicked: {
-                lstFactor.gocheckout()
+                obj_LogicContainerLstCheckProducts.shopPage.checkout_Clicked()
             }
         }
     }
