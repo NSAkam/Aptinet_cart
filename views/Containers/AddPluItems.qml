@@ -43,8 +43,8 @@ Item {
             source: obj_LogicContainerAddPluItems.shopPage.newProduct.pic
             x:32
             y:54
-            width: 60
-            height: 52
+            width: 140
+            height: 140
         }
         Text {
             x:204
