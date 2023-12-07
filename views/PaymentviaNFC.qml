@@ -164,7 +164,7 @@ Item {
     Component{
         id:afterpaymentPage
         AfterPayment{
-
+            obj_LogicContainerAfterPayment: obj_LogicContainerPaymentNFC
         }
     }
 
@@ -174,6 +174,4 @@ Item {
             stackview.push(afterpaymentPage)
         }
     }
-
-
 }

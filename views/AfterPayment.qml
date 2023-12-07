@@ -160,13 +160,6 @@ Window {
             }
 
         }
-        EnterEmail {
-            width: 393
-            height: 280
-            x: 444
-            y: 451
-            visible: false
-        }
         Text {
             text: "How would you rate your shopping experience?"
             font.pixelSize: 24
