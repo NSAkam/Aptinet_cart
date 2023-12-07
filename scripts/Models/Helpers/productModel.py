@@ -194,7 +194,9 @@ class ProductModel(QAbstractListModel):
 
     def insert_productList(self, prods: [Product]):
         self.beginResetModel()
-        self.m_data = prods
+        for p in prods:
+            if p.get_countInBasket() > 0:
+                self.m_data.append(p)
         self.endResetModel()
 
 
