@@ -31,7 +31,7 @@ class nfc(QObject):
 
 
 # a simple card observer that prints inserted/removed cards
-class PrintObserver(CardObserver,QObject):
+class PrintObserver(QObject):
     """A simple card observer that is notified
     when cards are inserted/removed from the system and
     prints the list of cards
@@ -39,7 +39,7 @@ class PrintObserver(CardObserver,QObject):
 
     def __init__(self):
         super().__init__()
-        
+
     readedSignal = Signal()
 
 
