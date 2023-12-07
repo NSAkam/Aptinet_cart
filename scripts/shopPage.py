@@ -413,7 +413,6 @@ class ShopPage(QObject):
                             self.clear_stackView()
                             self.countDownTimer = -1
                             self._shouldBarcodeToBeScannToAddProduct = False
-
                         else:
                             self.openPopupWeightNotMatchWithBarcodeSignal.emit()
                             # notifSound()
