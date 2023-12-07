@@ -217,7 +217,7 @@ Item {
             width: 205
             height: 72
             onClicked: {
-                root.back()
+                obj_LogicContainerCheckoutPage.shopPage.checkout_backClicked()
             }
         }
 
@@ -242,7 +242,7 @@ Item {
             }
 
             onClicked: {
-                root.nfcPaymentClicked()
+                obj_LogicContainerCheckoutPage.shopPage.payment_clicked()
             }
 
 
@@ -283,7 +283,7 @@ Item {
         y:290
         onEnter: {
             numpad.visible = false
-            
+
         }
     }
 

@@ -885,5 +885,9 @@ Item {
             btn_lookupbynumber.visible = false
             btn_lookupbyname.visible = false
         }
+        
+        function onShowPaymentSignal(){
+            stackviewContainer.push(nfcpayment)
+        }
     }
 }

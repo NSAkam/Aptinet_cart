@@ -147,7 +147,7 @@ Item {
         MouseArea{
             anchors.fill: parent
             onClicked: {
-                stackview.push(afterpaymentPage)
+
             }
         }
     }
@@ -165,6 +165,13 @@ Item {
         id:afterpaymentPage
         AfterPayment{
 
+        }
+    }
+
+    Connections{
+        target:obj_LogicContainerPaymentNFC.shopPage
+        function onShowAfterPaymentSignal(){
+            stackview.push(afterpaymentPage)
         }
     }
 
