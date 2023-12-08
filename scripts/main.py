@@ -1,6 +1,7 @@
 import sys
 from PySide2.QtCore import Qt 
 from PySide2.QtGui import QGuiApplication,QFontDatabase,QFont
+from PyQt5.QtMultimedia import QCameraInfo
 from PySide2.QtQml import QQmlApplicationEngine,qmlRegisterType,QQmlDebuggingEnabler
 
 # from Services.battery import Battery
@@ -12,7 +13,9 @@ from Helpers.cameraHelper import CameraHelper
 
 if __name__ == "__main__":
     # debug = QQmlDebuggingEnabler()
-    
+    myList = QCameraInfo.availableCameras()
+    print('List = ', myList)
+
     QGuiApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
 
     app = QGuiApplication(sys.argv)

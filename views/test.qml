@@ -20,18 +20,18 @@ anchors.bottom: parent.bottom
         }
     }
 
-Item{
-        id: cameraRight
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.left: swipeView.right
-        anchors.bottom: parent.bottom
+// Item{
+//         id: cameraRight
+//         anchors.right: parent.right
+//         anchors.top: parent.top
+//         anchors.left: swipeView.right
+//         anchors.bottom: parent.bottom
 
-        CamCam{
-            theID: QtMultimedia.availableCameras[1].deviceId
-            backgroundColor: "blue"
-        }
-    }
+//         CamCam{
+//             theID: QtMultimedia.availableCameras[1].deviceId
+//             backgroundColor: "blue"
+//         }
+//     }
 
 }
 
