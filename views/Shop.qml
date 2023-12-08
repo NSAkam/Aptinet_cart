@@ -348,21 +348,32 @@ Item {
             running: true
             onTriggered: {
                 if(parent.cid ===1){
-                    console.log("t")
                     parent.cid =0
+                    vo.source = camera1
                 }
                 else{
-                    console.log("b")
+                    vo.source = camera2
                     parent.cid = 1
                 }
-                camera.deviceId = QtMultimedia.availableCameras[parent.cid].deviceId
             }
         }
 
         Camera{
-            id:camera
+            id:camera1
             imageProcessing.whiteBalanceMode: CameraImageProcessing.WhiteBalanceFlash
+            deviceId: QtMultimedia.availableCameras[0].deviceId
+            exposure {
+                exposureCompensation: -1.0
+                exposureMode: Camera.ExposurePortrait
+            }
 
+            flash.mode: Camera.FlashRedEyeReduction
+        }
+        
+        Camera{
+            id:camera2
+            imageProcessing.whiteBalanceMode: CameraImageProcessing.WhiteBalanceFlash
+            deviceId: QtMultimedia.availableCameras[1].deviceId
             exposure {
                 exposureCompensation: -1.0
                 exposureMode: Camera.ExposurePortrait
@@ -374,7 +385,7 @@ Item {
 
         VideoOutput{
             id: vo
-            source: camera
+            source: camera1
             width: 326
             height: 184
             x:32
