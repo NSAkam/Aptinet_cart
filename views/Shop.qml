@@ -377,7 +377,7 @@ Item {
                     deviceId: QtMultimedia.availableCameras[0].deviceId
 //                    viewfinder.resolution.width: 640
 //                    viewfinder.resolution.height: 480
-                    videoRecorder.frameRate: 15
+//                    videoRecorder.frameRate: 15
 
                 }
 
