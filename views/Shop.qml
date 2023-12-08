@@ -347,7 +347,6 @@ Item {
             repeat: true
             running: true
             onTriggered: {
-                camera.deviceId = QtMultimedia.availableCameras[parent.cid].deviceId
                 if(parent.cid ===1){
                     console.log("t")
                     parent.cid =0
@@ -356,6 +355,7 @@ Item {
                     console.log("b")
                     parent.cid = 1
                 }
+                camera.deviceId = QtMultimedia.availableCameras[parent.cid].deviceId
             }
         }
 
