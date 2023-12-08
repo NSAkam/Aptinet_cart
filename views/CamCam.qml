@@ -15,6 +15,13 @@ Item{
         id: background
         anchors.fill: parent
         color: "blue"
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                console.log("test1")
+                camera.imageCapture.capture()
+            }
+        }
     }
 
     Camera{
@@ -70,6 +77,5 @@ Item{
             console.log("test1")
             camera.imageCapture.capture()
         }
-        z:100
     }
 }
