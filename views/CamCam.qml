@@ -58,6 +58,7 @@ Item{
             console.log("test2")
             photoPreview.source = preview  // Show the preview in an Image
         }
+        repeat: true
     }
 
     VideoOutput{
