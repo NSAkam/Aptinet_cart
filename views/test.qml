@@ -14,7 +14,7 @@ anchors.top: parent.top
 anchors.bottom: parent.bottom
 
         CamCam{
-            theID: QtMultimedia.availableCameras[0].deviceId
+            //theID: QtMultimedia.availableCameras[0].deviceId
             backgroundColor: "red"
         }
     }
