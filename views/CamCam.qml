@@ -18,7 +18,7 @@ Item{
     Camera{
         id:camera
         captureMode: Camera.CaptureViewfinder
-        videoRecorder.frameRate: 25
+        videoRecorder.frameRate: 60
         //        videoRecorder.frameRate: 10
 
         //        imageProcessing {
@@ -36,7 +36,7 @@ Item{
         anchors.fill: parent
         fillMode: VideoOutput.PreserveAspectCrop
         flushMode: VideoOutput.LastFrame
-        height: cameraPopup.height * 0.25
-        width: cameraPopup.width * 0.5
+        height:50
+        width: cameraPopup.width * 100
     }
 }
