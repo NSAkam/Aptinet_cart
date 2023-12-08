@@ -31,7 +31,6 @@ Item{
         id: vo
         z:99
         source: camera
-        anchors.fill: parent
         fillMode: VideoOutput.PreserveAspectCrop
         flushMode: VideoOutput.LastFrame
         height: cameraPopup.height * 0.3
