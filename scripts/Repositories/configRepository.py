@@ -38,8 +38,8 @@ class ConfigRepositories():
     
     def get_lang(self):
         query = QSqlQuery()
-        lang = -1
-        query.exec_("select Config from lang LIMIT 1")
+        lang = -1  
+        query.exec_("select lang from Config LIMIT 1")
         while query.next():
             lang = query.value(0)
         return lang
