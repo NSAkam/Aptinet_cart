@@ -17,13 +17,13 @@ Item {
     id: root
     width: 1280
     height: 800
-    
+
     property Logic obj_LogicContainerShop
-    
+
     property bool isfactorlistview: false
-    
+
     //    signal addpluitemsClicked()
-    
+
     Util.ViewSettings{
         id:viewset
     }
@@ -35,12 +35,12 @@ Item {
             loader.opacity = 0
         }
     }
-    
+
     Image {
         source: "../Assets/AuthenticationBackground.png"
         anchors.fill: parent
     }
-    
+
     Rectangle{
         width: parent.width
         height: 92
@@ -126,10 +126,10 @@ Item {
                 x:1208
                 y:25
             }
-            
+
         }
     }
-    
+
     Item {
         id:main_Panel
         Text {
@@ -180,9 +180,9 @@ Item {
                 NumberAnimation{duration: 1000}
             }
         }
-        
-        
-        
+
+
+
         //        KButton{
         //            id:btn_entermanualBarcode
         //            text: "+ Lookup By Number"
@@ -192,12 +192,12 @@ Item {
         //            height: 62
         //            borderRadius: 4
         //            onClicked: {
-        
+
         //                stackviewContainer.push(manualBarcodeHandler)
-        
+
         //            }
         //        }
-        
+
         StackView
         {
             id:stackviewContainer
@@ -230,14 +230,14 @@ Item {
             }
         }
     }
-    
-    
+
+
     Item{
         id:addPlupanel
         visible: false
         width: 390
         height: parent.height
-        
+
         Rectangle {
             id:rect_Suggestion
             anchors.fill: parent
@@ -257,7 +257,7 @@ Item {
             y:105
             property bool counter: false
             cache: false
-            
+
             function reloadImage() {
                 counter = !counter
                 source = "image://KCameraProvider/?id=" + counter
@@ -293,7 +293,7 @@ Item {
                 verticalAlignment:  TextInput.AlignVCenter
                 font.family: viewset.danaFuNumFont
                 property string placeholderText: " "
-                
+
                 onFocusChanged: {
                     numpad.inputtext = txt_PLUBarcodeInput
                 }
@@ -313,7 +313,7 @@ Item {
                     }
                 }
             }
-            
+
         }
         Numpad{
             id:numpad
@@ -322,73 +322,75 @@ Item {
             x:32
         }
     }
-    
+
     Item {
         id: adsPanel
         visible: true
         width: 390
         height: parent.height
-        
+
         Image {
             id:rect_SuggestionadsPanel
             source: "../Assets/leftSideBar.png"
             anchors.fill: parent
-            
+
         }
         Image {
             source: "../Assets/AptinetText1.png"
             x:32
             y:32
         }
-        
-        property int cid: 0
-        Timer{
-            interval: 5000
-            repeat: true
-            running: true
-            onTriggered: {
-                if(parent.cid ===1){
-                    parent.cid =0
-                    vo1.visible = false
-                    vo2.visible = true
-                }
-                else{
-                    
-                    parent.cid = 1
-                    vo1.visible = true
-                    vo2.visible = false
-                }
-            }
-        }
+
+
         Loader{
             width: 326
             height: 184
             x:32
             y:105
-            asynchronous: true
-            
+            asynchronous: false
+
+            property int cid: 0
+            Timer{
+                interval: 5000
+                repeat: true
+                running: true
+                onTriggered: {
+                    if(parent.cid ===1){
+                        parent.cid =0
+                        vo1.visible = false
+                        vo2.visible = true
+                    }
+                    else{
+
+                        parent.cid = 1
+                        vo1.visible = true
+                        vo2.visible = false
+                    }
+                }
+            }
+
             Camera{
                 id:camera1
                 imageProcessing.whiteBalanceMode: CameraImageProcessing.WhiteBalanceFlash
                 deviceId: QtMultimedia.availableCameras[0].deviceId
                 viewfinder.resolution.width: 640
                 viewfinder.resolution.height: 480
-                
+
             }
-            
+
             Camera{
                 id:camera2
                 imageProcessing.whiteBalanceMode: CameraImageProcessing.WhiteBalanceFlash
                 deviceId: QtMultimedia.availableCameras[1].deviceId
                 viewfinder.resolution.width: 640
                 viewfinder.resolution.height: 480
-                
+
             }
-            
-            
+
+
             VideoOutput{
                 id: vo1
-                
+
                 source: camera1
                 anchors.fill: parent
 
@@ -405,7 +407,7 @@ Item {
                 flushMode: VideoOutput.LastFrame
             }
         }
-        
+
         //        Image {
         //            id: img_UserCapturedadsPanel
         //            source: "image://KCameraProvider/1"
@@ -415,12 +417,12 @@ Item {
         //            y:105
         //            cache: false
         //            property bool counter: false
-        
-        
+
+
         //            function reloadImage() {
         //                counter = !counter
         //                source = "image://KCameraProvider/?id=" + counter
-        
+
         //            }
         //        }
         Image {
@@ -459,7 +461,7 @@ Item {
             height: 800 - y
             x:32
             y:571
-            
+
             clip: true
             spacing: 10
             model: obj_LogicContainerShop.shopPage.offersList
@@ -474,17 +476,17 @@ Item {
                     color: "white"
                     opacity: 0.3
                 }
-                
+
                 Rectangle{
                     width: 326
                     height: 144
                     color: "transparent"
-                    
+
                     Rectangle{
                         width: 144
                         height: 144
                         color: "white"
-                        
+
                         Image {
                             source: model.pic
                             width: 106
@@ -493,7 +495,7 @@ Item {
                             anchors.horizontalCenter: parent.horizontalCenter
                         }
                     }
-                    
+
                     Text {
                         text: model.name
                         width: 134
@@ -522,14 +524,14 @@ Item {
                 }
             }
         }
-        
+
     }
     Item {
         id: checkoutPanel
         visible: false
         width: 390
         height: parent.height
-        
+
         Rectangle {
             color: "white"
             id:rect_SuggestionadsPanel1
@@ -549,13 +551,13 @@ Item {
             y:105
             property bool counter: false
             cache: false
-            
+
             function reloadImage() {
                 counter = !counter
                 source = "image://KCameraProvider/?id=" + counter
             }
         }
-        
+
         Text {
             text: "My Cart"
             font.pixelSize: 24
@@ -580,15 +582,15 @@ Item {
                 font.bold: true
             }
         }
-        
-        
+
+
         ListView {
             id:slideshow1
             width: 326
             height: 800 - y
             x:32
             y:360
-            
+
             clip: true
             spacing: 10
             model: obj_LogicContainerShop.shopPage.factorList
@@ -618,35 +620,35 @@ Item {
                 }
             }
         }
-        
+
     }
-    
-    
+
+
     Component{
         id:newProductHandler
         BarcodeScanned{
             obj_LogicContainerBarcodeScanned: obj_LogicContainerShop
-            
+
             onPass: {
-                
+
             }
-            
+
             onCancel: {
-                
+
             }
         }
     }
-    
+
     Component{
         id:lstProductFactor
         LstCheckProducts{
             obj_LogicContainerLstCheckProducts: obj_LogicContainerShop
             onGocheckout: {
-                
+
             }
         }
     }
-    
+
     Component{
         id:manualBarcodeHandler
         ManualBarcode{
@@ -654,7 +656,7 @@ Item {
             onOk: {
                 stackviewContainer.replace(newProductHandler)
             }
-            
+
             onCancle: {
                 if(stackviewContainer.depth == 1)
                 {
@@ -664,7 +666,7 @@ Item {
                 {
                     stackviewContainer.pop()
                 }
-                
+
             }
         }
     }
@@ -673,29 +675,29 @@ Item {
         AddPluItems{
             obj_LogicContainerAddPluItems: obj_LogicContainerShop
             onSeeAll: {
-                
+
             }
-            
+
             onBack: {
-                
+
             }
         }
     }
-    
+
     Component{
         id:addPluItemview
         AddPluItemsView{
             obj_LogicContainerAddPluItemsView: obj_LogicContainerShop
             onConfirm:
             {
-                
+
             }
-            
+
             onCancel:
             {
                 stackviewContainer.pop()
             }
-            
+
         }
     }
     Component{
@@ -707,46 +709,46 @@ Item {
             }
         }
     }
-    
+
     Component {
         id: checkout
         Checkoutpage {
             obj_LogicContainerCheckoutPage: obj_LogicContainerShop
             onNfcPaymentClicked: {
-                
+
             }
-            
+
             onBack: {
-                
+
             }
         }
     }
-    
+
     Component {
         id: nfcpayment
         PaymentviaNFC {
             obj_LogicContainerPaymentNFC: obj_LogicContainerShop
-            
+
         }
     }
-    
-    
+
+
     Component{
         id: plulist
         PLUListItems {
             obj_LogicContainerPLUListItems: obj_LogicContainerShop
             onBack: {
-                
+
             }
         }
     }
     ///////////////////////////////////////////POPUPS
-    
+
     RemoveProductPopUp{
         id:popUp_RemoveProducts
         obj_logicRemoveProductList: obj_LogicContainerShop
     }
-    
+
     BypassPopUp{
         id:popUp_bypass
         obj_logicByPassPopup: obj_LogicContainerShop
@@ -754,19 +756,19 @@ Item {
             obj_LogicContainerShop.shopPage.accept_byPassClicked()
         }
     }
-    
+
     FullMessageTimer{
         id:popUp_MessageTimer
     }
-    
+
     NotificationPopUp{
         id:popUp_message
     }
-    
+
     NotificationPopUp{
         id:popUp_MessageNotBarcodedProduct
         message: "Please put the product you scanned into the cart!"
-        
+
     }
     NotificationPopUp{
         id:popUp_MessageNoBarcodeScanned
@@ -777,8 +779,8 @@ Item {
         message: "You cannot add or subtract products to the cart during checkout!"
     }
     ////////////////////////////////////////////////////
-    
-    
+
+
     Component{
         id: specialdealslist
         LstSpecialDeals {
@@ -795,7 +797,7 @@ Item {
             }
         }
     }
-    
+
     //    Connections{
     //        target: cameraProvider
     //        function onNewFrameReadSignal() {
@@ -805,7 +807,7 @@ Item {
     //            if(adsPanel.visible === true){
     //                img_UserCapturedadsPanel.reloadImage()
     //            }
-    
+
     //            if(addPlupanel.visible === true){
     //                img_UserCaptured.reloadImage()
     //            }
@@ -813,100 +815,100 @@ Item {
     //    }
     Connections{
         target: obj_LogicContainerShop.shopPage
-        
+
         function onOpenPopupMessageTimerSignal(text){
             popUp_MessageTimer.messageText = text
             popUp_MessageTimer.open()
         }
         function onCloseAllPopUpSignal(){
             popUp_RemoveProducts.close()
-            
+
             popUp_bypass.close()
-            
+
             popUp_MessageTimer.close()
-            
+
             popUp_message.close()
-            
+
             popUp_MessageNotBarcodedProduct.close()
-            
+
             popUp_MessageNoBarcodeScanned.close()
-            
+
             popUpMessageNotAllowedChangeWeight.close()
         }
-        
-        
+
+
         function onOpenPopupMessageSignal(text){
             popUp_message.message = text
             popUp_message.open()
         }
-        
+
         function onClosePopupMessageSignal(){
             popUp_message.close()
         }
-        
+
         function onOpenPopupWeightNotMatchWithBarcodeSignal(){
             popUp_MessageNotBarcodedProduct.open()
         }
-        
+
         function onClosePopupWeightNotMatchWithBarcodeSignal(){
             popUp_MessageNotBarcodedProduct.close()
         }
-        
+
         function onOpenPopupNoBarcodeScannedSignal(){
             popUp_MessageNoBarcodeScanned.open()
         }
-        
+
         function onClosePopupNoBarcodeScannedSignal(){
             popUp_MessageNoBarcodeScanned.close()
         }
-        
+
         function onOpenPopupDeleteProductSignal(){
             popUp_RemoveProducts.open()
         }
-        
+
         function onClosePopupDeleteProductSignal(){
             popUp_RemoveProducts.close()
         }
-        
+
         function onOpenPopUpMessageNotAllowedChangeWeightSignal(){
             popUpMessageNotAllowedChangeWeight.open()
         }
-        
+
         function onClosePopUpMessageNotAllowedChangeWeightSignal(){
             popUpMessageNotAllowedChangeWeight.close()
         }
-        
+
         function onOpenPopupByPassSignal(){
             popUp_bypass.open()
         }
-        
+
         function onClosePopupByPassSignal(){
             popUp_bypass.close()
         }
-        
+
         function onClosePopUpMessageTimer(){
             popUp_MessageTimer.close()
         }
-        
+
         /////////////////////////////////////
-        
+
         function onShowAllOfferListSignal(){
             stackviewContainer.push(specialdealslist)
         }
-        
+
         function onShowManualBarcodeSignal(){
             stackviewContainer.push(manualBarcodeHandler)
         }
-        
+
         function onShowFactorListSignal(){
             stackviewContainer.push(lstProductFactor)
         }
-        
+
         function onShowNewProductScannedSignal(){
             stackviewContainer.push(newProductHandler)
             slideshow.model = obj_LogicContainerShop.shopPage.suggestedList
         }
-        
+
         function onClearStackViewSignal(){
             stackviewContainer.clear()
             slideshow.model = obj_LogicContainerShop.shopPage.offersList
@@ -914,7 +916,7 @@ Item {
             checkoutPanel.visible=false
             addPlupanel.visible = false
         }
-        
+
         function onCloseTopStackViewSignal(){
             stackviewContainer.pop()
             //            if(stackviewContainer.depth == 1)
@@ -928,43 +930,43 @@ Item {
             //            {
             //                stackviewContainer.pop()
             //            }
-            
+
         }
-        
+
         function onShowAddPLUItemsSignal()
         {
             adsPanel.visible = false
             checkoutPanel.visible=false
             addPlupanel.visible = true
             stackviewContainer.push(addPluItem)
-            
+
         }
-        
+
         function onShowWeightedPLUItemsSignal(){
             stackviewContainer.push(addPluItemview)
         }
-        
+
         function onShowCountedPLUItemsSignal(){
             stackviewContainer.push(addPluItemCountedview)
         }
-        
+
         function onShowCheckOutSignal(){
             adsPanel.visible = false
             checkoutPanel.visible=true
             addPlupanel.visible = false
             stackviewContainer.push(checkout)
         }
-        
+
         function onShowTopBtnSignal(){
             btn_lookupbynumber.visible = true
             btn_lookupbyname.visible = true
         }
-        
+
         function onHideTopBtnSignal(){
             btn_lookupbynumber.visible = false
             btn_lookupbyname.visible = false
         }
-        
+
         function onShowPaymentSignal(){
             stackview.push(nfcpayment)
         }
