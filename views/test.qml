@@ -1,11 +1,11 @@
 import QtQuick 2.0
 import QtMultimedia 5.4
 Item {
-    width: 640
-    height: 360
+    width: 1280
+    height: 800
     Camera {
         id: camera
-        imageProcessing.whiteBalanceMode: CameraImageProcessing.WhiteBalanceFlash
+//        imageProcessing.whiteBalanceMode: CameraImageProcessing.WhiteBalanceFlash
         exposure {
             exposureCompensation: -1.0
             exposureMode: Camera.ExposurePortrait
