@@ -347,7 +347,6 @@ Item {
             height: 184
             x:32
             y:105
-            asynchronous: false
 
             property int cid: 0
             Timer{
@@ -375,6 +374,7 @@ Item {
                 deviceId: QtMultimedia.availableCameras[0].deviceId
                 viewfinder.resolution.width: 640
                 viewfinder.resolution.height: 480
+                videoRecorder.frameRate: 15
 
             }
 
@@ -384,6 +384,7 @@ Item {
                 deviceId: QtMultimedia.availableCameras[1].deviceId
                 viewfinder.resolution.width: 640
                 viewfinder.resolution.height: 480
+                videoRecorder.frameRate: 15
 
             }
 
