@@ -9,9 +9,11 @@ from Helpers.batteryHelper import BatteryHelper
 from Repositories.adminRepository import AdminRepository
 from Repositories.userRepository import UserRepository
 from Repositories.userServerRepository import UserServerRepository
+from Repositories.configRepository import ConfigRepositories
 from Models.user import User
 import os
 import sys
+from Services.lang import languageReader
 
 
 class Logic(QObject):
@@ -21,8 +23,9 @@ class Logic(QObject):
 
     ### Repositories ###################################################################################################
     _adminRepository: AdminRepository
-    _userRepository : UserRepository
-    _userServerRepository : UserServerRepository
+    _userRepository: UserRepository
+    _userServerRepository: UserServerRepository
+    _configRepository:ConfigRepositories
 
     ### Private ########################################################################################################
     _shopPage: ShopPage
@@ -35,7 +38,10 @@ class Logic(QObject):
 
     ### Modules ########################################################################################################
     _scanner: ScannerHelper
-    _battery = BatteryHelper
+    _battery: BatteryHelper
+
+    ### Language #######################################################################################################
+    _lang: languageReader
 
     def __init__(self) -> None:
         super().__init__()
@@ -43,6 +49,7 @@ class Logic(QObject):
         self._fan = Fan()
         self._fan.turn_onFan()
         self._dal = DAL()
+        
 
         self._scanner = ScannerHelper()
         self._scanner.IDBarcodeReadSignal.connect(self.go_toSettingClicked)
@@ -51,7 +58,8 @@ class Logic(QObject):
 
         self._battery = BatteryHelper()
         # self._battery.start()
-
+        self._configRepository = ConfigRepositories(self._dal)
+        self._lang = languageReader(self._configRepository.get_lang())
         self._adminRepository = AdminRepository(self._dal)
         self._userRepository = UserRepository(self._dal)
         self._userServerRepository = UserServerRepository(self._dal)
@@ -68,6 +76,11 @@ class Logic(QObject):
     showPopupMessageTimerSignal = Signal(str)
 
     ### Properties #####################################################################################################
+    def get_lang(self):
+        return self._lang
+
+    lang = Property(languageReader, get_lang)
+
     def get_shopPage(self):
         return self._shopPage
 
@@ -75,7 +88,8 @@ class Logic(QObject):
         self._shopPage = val
         self.changedSignal.emit()
 
-    shopPage = Property(ShopPage, get_shopPage, set_shopPage, notify=changedSignal)
+    shopPage = Property(ShopPage, get_shopPage,
+                        set_shopPage, notify=changedSignal)
 
     def get_settingPage(self):
         return self._settingPage
@@ -84,7 +98,8 @@ class Logic(QObject):
         self.changedSignal.emit()
         self._settingPage = val
 
-    settingPage = Property(SettingPage, get_settingPage, set_settingPage, notify=changedSignal)
+    settingPage = Property(SettingPage, get_settingPage,
+                           set_settingPage, notify=changedSignal)
 
     ### Sluts ##########################################################################################################
     @Slot(str)
@@ -106,11 +121,13 @@ class Logic(QObject):
 
     @Slot()
     def login_loyaltyCartClicked(self):
-        self._scanner.loyaltyCardBarcodeReadSignal.connect(self.login_loyaltyCart)
+        self._scanner.loyaltyCardBarcodeReadSignal.connect(
+            self.login_loyaltyCart)
 
     @Slot()
     def login_loyaltyCart(self):
-        serverUser = self._userServerRepository.loginByloyalityBarcode(self._scanner.get_loyaltyCardBarcode())
+        serverUser = self._userServerRepository.loginByloyalityBarcode(
+            self._scanner.get_loyaltyCardBarcode())
         if not serverUser.get_id() == "":
             self._scanner.loyaltyCardBarcodeReadSignal.disconnect()
             self._user.set_loggedInUser(serverUser)
@@ -120,7 +137,8 @@ class Logic(QObject):
 
     @Slot(str)
     def login_loyaltyCode(self, loyaltyCode: str):
-        serverUser = self._userServerRepository.loginByloyalityBarcode(loyaltyCode)
+        serverUser = self._userServerRepository.loginByloyalityBarcode(
+            loyaltyCode)
         if not serverUser.get_id() == "":
             self._user.set_loggedInUser(serverUser)
             self.continue_clicked()
@@ -164,7 +182,15 @@ class Logic(QObject):
     ### Functions ######################################################################################################
     def turnoff_greenLight(self):
         self._greenLightWorkerThread = GreenLight(False)
-        self._greenLightWorkerThread.finished.connect(self._greenLightWorkerThread.deleteLater)
+        self._greenLightWorkerThread.finished.connect(
+            self._greenLightWorkerThread.deleteLater)
         self._greenLightWorkerThread.start()
 
-
+    @Slot(str)
+    def language_Changed(self,v):
+        if(v == "arabic"):
+            self._configRepository.set_lang("arabic")
+        elif(v == "en"):
+            self._configRepository.set_lang("en")
+        else:
+            self._configRepository.set_lang("en")

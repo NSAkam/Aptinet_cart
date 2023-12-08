@@ -61,7 +61,7 @@ Item {
 
     Text {
         id:txt_welcome
-        text: qsTr("welcome!")
+        text: qsTr(obj_logic.lang.txt_welcome)
         font.pixelSize: 64
         anchors.horizontalCenter: parent.horizontalCenter
         y:342
@@ -69,7 +69,7 @@ Item {
     }
     Text {
         id:txt_welcomebot
-        text: qsTr("To a quick shopping experience")
+        text: qsTr(obj_logic.lang.txt_Toaquickshoppingexperience)
         font.pixelSize: 20
         y:428
         opacity: 1
@@ -255,6 +255,12 @@ Item {
             y:315
             width: 185
             height: 66
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    obj_logic.language_Changed("en")
+                }
+            }
         }
         KBorderButton{
             borderwidth:0
@@ -320,6 +326,12 @@ Item {
             width: 185
             height: 66
             textColor: "black"
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    obj_logic.language_Changed("arabic")
+                }
+            }
         }
     }
 

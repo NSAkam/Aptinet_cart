@@ -36,6 +36,22 @@ class ConfigRepositories():
             appversion = query.value(0)
         return appversion
     
+    def get_lang(self):
+        query = QSqlQuery()
+        lang = -1
+        query.exec_("select lang from lang LIMIT 1")
+        while query.next():
+            lang = query.value(0)
+        return lang
+    
+    def set_lang(self,lang:str):
+        query = QSqlQuery()
+        appversion = -1
+        query.exec_("update Config set lang = '"+str(lang)+"'")
+        while query.next():
+            appversion = query.value(0)
+        return appversion
+    
     
     def get_Config(self):
         query = QSqlQuery()
