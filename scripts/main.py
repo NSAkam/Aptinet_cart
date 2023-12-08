@@ -13,8 +13,8 @@ from Helpers.cameraHelper import CameraHelper
 
 if __name__ == "__main__":
     # debug = QQmlDebuggingEnabler()
-    myList = QCameraInfo.availableCameras()
-    print('List = ', myList)
+    # myList = QCameraInfo.availableCameras()
+    # print('List = ', myList)
 
     QGuiApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
 
