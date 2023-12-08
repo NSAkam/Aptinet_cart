@@ -30,7 +30,6 @@ class CameraHelper(QQuickImageProvider):
     def read_frame(self):
         if(self._image != self._camera.capturedImage):
             self._image = self._camera.capturedImage
-            self.newImageReadSignal.emit()
             # self._image = image
 
     def requestImage(self, id, p_str, size):
