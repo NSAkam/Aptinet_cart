@@ -45,6 +45,9 @@ class Logic(QObject):
 
     def __init__(self) -> None:
         super().__init__()
+        self._configRepository = ConfigRepositories(self._dal)
+        self._lang = languageReader(self._configRepository.get_lang())
+        
         self.turnoff_greenLight()
         self._fan = Fan()
         self._fan.turn_onFan()
@@ -58,8 +61,7 @@ class Logic(QObject):
 
         self._battery = BatteryHelper()
         # self._battery.start()
-        self._configRepository = ConfigRepositories(self._dal)
-        self._lang = languageReader(self._configRepository.get_lang())
+
         self._adminRepository = AdminRepository(self._dal)
         self._userRepository = UserRepository(self._dal)
         self._userServerRepository = UserServerRepository(self._dal)
