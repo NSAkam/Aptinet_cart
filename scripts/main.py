@@ -10,7 +10,8 @@ from Helpers.cameraHelper import CameraHelper
 
 
 if __name__ == "__main__":
-    # debug = QQmlDebuggingEnabler()
+    debug = QQmlDebuggingEnabler()
+    
     app = QGuiApplication(sys.argv)
     app.setOverrideCursor(Qt.BlankCursor)
 
