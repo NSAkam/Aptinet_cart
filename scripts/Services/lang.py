@@ -19,11 +19,11 @@ class languageReader(QObject):
 
 
     def get_txt_welcome(self):
-        return self.lst["welcome!"]
+        return str(self.lst["welcome!"])
     
     txt_welcome = Property(str,get_txt_welcome)
 
     def get_txt_Toaquickshoppingexperience(self):
-        return self.lst["To a quick shopping experience"]
+        return str(self.lst["To a quick shopping experience"])
     
     txt_Toaquickshoppingexperience =Property (str,get_txt_Toaquickshoppingexperience)
