@@ -373,11 +373,11 @@ Item {
 
                 Camera{
                     id:camera1
-//                    imageProcessing.whiteBalanceMode: CameraImageProcessing.WhiteBalanceFlash
+                    imageProcessing.whiteBalanceMode: CameraImageProcessing.WhiteBalanceFlash
                     deviceId: QtMultimedia.availableCameras[0].deviceId
-//                    viewfinder.resolution.width: 640
-//                    viewfinder.resolution.height: 480
-//                    videoRecorder.frameRate: 15
+                    viewfinder.resolution.width: 640
+                    viewfinder.resolution.height: 480
+                    videoRecorder.frameRate: 15
 
                 }
 
