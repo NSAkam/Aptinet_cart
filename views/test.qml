@@ -7,19 +7,19 @@ Window {
     width: 1280
     height: 800
     title: qsTr("Hello World")
-    Item{
-        id: cameraLeft
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        width: 500
-        height: 500
+//    Item{
+//        id: cameraLeft
+//        anchors.left: parent.left
+//        anchors.top: parent.top
+//        anchors.bottom: parent.bottom
+//        width: 500
+//        height: 500
 
-        CamCam{
-            theID: QtMultimedia.availableCameras[0].deviceId
-            backgroundColor: "red"
-        }
-    }
+//        CamCam{
+//            theID: QtMultimedia.availableCameras[0].deviceId
+//            backgroundColor: "red"
+//        }
+//    }
 
      Item{
              id: cameraRight

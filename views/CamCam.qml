@@ -17,13 +17,15 @@ Item{
 
     Camera{
         id:camera
+//        videoRecorder.frameRate: 10
 
-        imageProcessing {
+//        imageProcessing {
 
-            whiteBalanceMode: Camera.WhiteBalanceTungsten
-            contrast: 0.66
-            saturation: -0.5
-        }    }
+//            whiteBalanceMode: Camera.WhiteBalanceTungsten
+//            contrast: 0.66
+//            saturation: -0.5
+//        }
+    }
 
     VideoOutput{
         id: vo
