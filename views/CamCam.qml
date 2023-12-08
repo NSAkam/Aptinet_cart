@@ -1,5 +1,7 @@
 import QtQuick 2.12
 import QtMultimedia 5.15
+import QtQuick.Controls 2.15
+
 
 Item{
     id:cameraWindow
@@ -57,5 +59,14 @@ Item{
         height: 100
         id: photoPreview
         anchors.right: parent.right
+    }
+
+    Button{
+        width: 100
+        height: 100
+        anchors.bottom: parent.bottom
+        onClicked: {
+            camera.imageCapture.capture()
+        }
     }
 }
