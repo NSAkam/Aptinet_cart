@@ -34,7 +34,7 @@ Item{
         anchors.fill: parent
         fillMode: VideoOutput.PreserveAspectCrop
         flushMode: VideoOutput.LastFrame
-        height: cameraPopup.height * 0.75
-        width: cameraPopup.width * 0.5
+        height: cameraPopup.height * 0.3
+        width: cameraPopup.width * 0.3
     }
 }
