@@ -78,8 +78,12 @@ class Logic(QObject):
     ### Properties #####################################################################################################
     def get_lang(self):
         return self._lang
+    
+    def set_lang(self,v):
+        self._lang = v
+        self.changedSignal.emit()
 
-    lang = Property(languageReader, get_lang)
+    lang = Property(languageReader, get_lang,set_lang,notify=changedSignal)
 
     def get_shopPage(self):
         return self._shopPage
