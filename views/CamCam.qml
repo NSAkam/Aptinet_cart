@@ -17,8 +17,7 @@ Item{
 
     Camera{
         id:camera
-        captureMode: Camera.CaptureViewfinder
-        videoRecorder.frameRate: 60
+        //        captureMode: Camera.CaptureViewfinder
         //        videoRecorder.frameRate: 10
 
         //        imageProcessing {
@@ -27,6 +26,20 @@ Item{
         //            contrast: 0.66
         //            saturation: -0.5
         //        }
+        imageProcessing.whiteBalanceMode: CameraImageProcessing.WhiteBalanceFlash
+
+        exposure {
+            exposureCompensation: -1.0
+            exposureMode: Camera.ExposurePortrait
+        }
+
+        flash.mode: Camera.FlashRedEyeReduction
+
+        imageCapture {
+            onImageCaptured: {
+                photoPreview.source = preview  // Show the preview in an Image
+            }
+        }
     }
 
     VideoOutput{
@@ -36,7 +49,12 @@ Item{
         anchors.fill: parent
         fillMode: VideoOutput.PreserveAspectCrop
         flushMode: VideoOutput.LastFrame
-        height:50
-        width: cameraPopup.width * 100
+        height: 150
+        width: 150
+    }
+    Image {
+        width: 100
+        height: 100
+        id: photoPreview
     }
 }
