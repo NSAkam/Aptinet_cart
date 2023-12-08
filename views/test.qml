@@ -25,7 +25,6 @@ Window {
         id: cameraRight
         anchors.right: parent.right
         anchors.top: parent.top
-        anchors.left: swipeView.right
         anchors.fill: parent
 
         CamCam{

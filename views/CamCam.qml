@@ -39,6 +39,7 @@ Item{
 
         imageCapture {
             onImageCaptured: {
+                console.log("test2")
                 photoPreview.source = preview  // Show the preview in an Image
             }
         }
@@ -66,6 +67,7 @@ Item{
         height: 100
         anchors.bottom: parent.bottom
         onClicked: {
+            console.log("test1")
             camera.imageCapture.capture()
         }
     }
