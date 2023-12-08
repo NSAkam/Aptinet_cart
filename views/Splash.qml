@@ -61,7 +61,7 @@ Item {
 
     Text {
         id:txt_welcome
-        text: qsTr(obj_logic.lang.txt_welcome)
+        //text: qsTr(obj_logic.lang.txt_welcome)
         font.pixelSize: 64
         anchors.horizontalCenter: parent.horizontalCenter
         y:342
@@ -69,7 +69,7 @@ Item {
     }
     Text {
         id:txt_welcomebot
-        text: qsTr(obj_logic.lang.txt_Toaquickshoppingexperience)
+        //text: qsTr(obj_logic.lang.txt_Toaquickshoppingexperience)
         font.pixelSize: 20
         y:428
         opacity: 1
