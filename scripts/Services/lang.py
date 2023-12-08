@@ -11,7 +11,7 @@ class languageReader(QObject):
 
     def __init__(self,namefile):
         print(namefile)
-        f = open("../../" +str(namefile)+".json", "r")
+        f = open( "/home/aptinet/"+ str(namefile)+".json", "r")
         s= f.read()
         self.lst = json.loads(s)
         super().__init__()
