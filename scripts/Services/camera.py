@@ -77,9 +77,10 @@ class CameraWorker(QThread):
                     # frame1 = cv2.cvtColor(frame1, cv2.COLOR_RGB2BGR)
                     # image = QImage(frame1, frame1.shape[1], frame1.shape[0],
                     #                frame1.strides[0], QImage.Format_RGB888)
-                    self.capturedImage = image
-                    self.newFrameReadSignal.emit()
-                    # QGuiApplication.processEvents()
+                    if(self.capturedImage != image):
+                        self.capturedImage = image
+                        self.newFrameReadSignal.emit()
+                        # QGuiApplication.processEvents()
                 else:
                     print("cam1 no frame")
             else:
@@ -95,9 +96,10 @@ class CameraWorker(QThread):
                     image = QImage(temp, temp.shape[1], temp.shape[0],
                                    temp.strides[0], QImage.Format_RGB888)
                     
-                    self.capturedImage = image
-                    self.newFrameReadSignal.emit()
-                    # QGuiApplication.processEvents()
+                    if(self.capturedImage != image):
+                        self.capturedImage = image
+                        self.newFrameReadSignal.emit()
+                        # QGuiApplication.processEvents()
                 else:
                     print("cam2 no frame")
             # time.sleep(1)

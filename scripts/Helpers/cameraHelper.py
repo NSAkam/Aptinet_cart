@@ -28,8 +28,9 @@ class CameraHelper(QQuickImageProvider):
 
     @Slot()
     def read_frame(self):
-        self._image = self._camera.capturedImage
-        # self._image = image
+        if(self._image != self._camera.capturedImage):
+            self._image = self._camera.capturedImage
+            # self._image = image
 
     def requestImage(self, id, p_str, size):
         return self._image
@@ -37,8 +38,8 @@ class CameraHelper(QQuickImageProvider):
     # def requestImageResponse(self,id,_):
     #     return self._image
 
-    def start(self):
-        self._camera.start()
+    # def start(self):
+    #     self._camera.start()
 
-    def stop(self):
-        self._camera.stop()
+    # def stop(self):
+    #     self._camera.stop()
