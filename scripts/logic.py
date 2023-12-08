@@ -44,16 +44,14 @@ class Logic(QObject):
     _lang: languageReader
 
     def __init__(self) -> None:
-        self._dal = DAL()
-        self._configRepository = ConfigRepositories(self._dal)
-        self._lang = languageReader(self._configRepository.get_lang())
+
         super().__init__()
 
         
         self.turnoff_greenLight()
         self._fan = Fan()
         self._fan.turn_onFan()
-        
+        self._dal = DAL()
         
 
         self._scanner = ScannerHelper()
@@ -63,7 +61,9 @@ class Logic(QObject):
 
         self._battery = BatteryHelper()
         # self._battery.start()
-
+        
+        self._configRepository = ConfigRepositories(self._dal)
+        self._lang = languageReader(self._configRepository.get_lang())
         self._adminRepository = AdminRepository(self._dal)
         self._userRepository = UserRepository(self._dal)
         self._userServerRepository = UserServerRepository(self._dal)
@@ -87,7 +87,7 @@ class Logic(QObject):
         self._lang = v
         self.changedSignal.emit()
 
-    lang = Property(languageReader, get_lang,set_lang,notify=changedSignal)
+    # lang = Property(languageReader, get_lang,set_lang,notify=changedSignal)
 
     def get_shopPage(self):
         return self._shopPage
