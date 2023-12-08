@@ -1,8 +1,8 @@
 from time import sleep
 import typing
 
-from smartcard.CardMonitoring import CardMonitor, CardObserver
-from smartcard.util import toHexString
+# from smartcard.CardMonitoring import CardMonitor, CardObserver
+# from smartcard.util import toHexString
 from PySide2.QtCore import QObject, Signal, Property, Slot, QThread
 
 
