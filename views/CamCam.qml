@@ -17,8 +17,12 @@ Item{
 
     Camera{
         id:camera
-        CameraImageProcessing.whiteBalanceMode: CameraImageProcessing.whiteBalanceMode
-    }
+
+        imageProcessing {
+            whiteBalanceMode: Camera.WhiteBalanceTungsten
+            contrast: 0.66
+            saturation: -0.5
+        }    }
 
     VideoOutput{
         id: vo
