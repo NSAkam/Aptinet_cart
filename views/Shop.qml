@@ -22,7 +22,7 @@ Item {
 
     property bool isfactorlistview: false
 
-//    signal addpluitemsClicked()
+    //    signal addpluitemsClicked()
 
     Util.ViewSettings{
         id:viewset
@@ -340,30 +340,38 @@ Item {
             x:32
             y:32
         }
+        Rectangle{
+            width: 326
+            height: 184
+            x:32
+            y:105
+            color: "red"
 
-        Camera {
-                 id: camera
-                 imageProcessing.whiteBalanceMode:
-                 CameraImageProcessing.WhiteBalanceFlash
+            Camera {
+                id: camera
+                imageProcessing.whiteBalanceMode:
+                    CameraImageProcessing.WhiteBalanceFlash
+            }
         }
 
-//        Image {
-//            id: img_UserCapturedadsPanel
-//            source: "image://KCameraProvider/1"
-//            width: 326
-//            height: 184
-//            x:32
-//            y:105
-//            cache: false
-//            property bool counter: false
+
+        //        Image {
+        //            id: img_UserCapturedadsPanel
+        //            source: "image://KCameraProvider/1"
+        //            width: 326
+        //            height: 184
+        //            x:32
+        //            y:105
+        //            cache: false
+        //            property bool counter: false
 
 
-//            function reloadImage() {
-//                counter = !counter
-//                source = "image://KCameraProvider/?id=" + counter
+        //            function reloadImage() {
+        //                counter = !counter
+        //                source = "image://KCameraProvider/?id=" + counter
 
-//            }
-//        }
+        //            }
+        //        }
         Image {
             id: ads_Image
             source: "../Assets/Ads.png"
