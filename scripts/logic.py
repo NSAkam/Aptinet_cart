@@ -44,9 +44,10 @@ class Logic(QObject):
     _lang: languageReader
 
     def __init__(self) -> None:
-        super().__init__()
         self._configRepository = ConfigRepositories(self._dal)
         self._lang = languageReader(self._configRepository.get_lang())
+        super().__init__()
+
         
         self.turnoff_greenLight()
         self._fan = Fan()
