@@ -365,28 +365,17 @@ Item {
             id:camera1
             imageProcessing.whiteBalanceMode: CameraImageProcessing.WhiteBalanceFlash
             deviceId: QtMultimedia.availableCameras[0].deviceId
-            exposure {
-                exposureCompensation: -1.0
-                exposureMode: Camera.ExposurePortrait
-            }
-            viewfinder.resolution.width: 326
-            viewfinder.resolution.height: 184
-            flash.mode: Camera.FlashRedEyeReduction
+            viewfinder.resolution.width: 640
+            viewfinder.resolution.height: 480
+
         }
 
         Camera{
             id:camera2
             imageProcessing.whiteBalanceMode: CameraImageProcessing.WhiteBalanceFlash
             deviceId: QtMultimedia.availableCameras[1].deviceId
-            viewfinder.resolution.width: 326
-            viewfinder.resolution.height: 184
-            exposure {
-                exposureCompensation: -1.0
-                exposureMode: Camera.ExposurePortrait
-            }
-
-            flash.mode: Camera.FlashRedEyeReduction
-            
+            viewfinder.resolution.width: 640
+            viewfinder.resolution.height: 480
         }
 
 
