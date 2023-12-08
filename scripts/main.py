@@ -41,8 +41,8 @@ if __name__ == "__main__":
 
     ctx = engine.rootContext()
     
-    # qml_file = "../views/main.qml"
-    qml_file = "../views/test.qml"
+    qml_file = "../views/main.qml"
+    # qml_file = "../views/test.qml"
     engine.load(str(qml_file))
     if not engine.rootObjects():
         sys.exit(-1)
