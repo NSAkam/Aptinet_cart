@@ -369,7 +369,8 @@ Item {
                 exposureCompensation: -1.0
                 exposureMode: Camera.ExposurePortrait
             }
-
+            viewfinder.resolution.width: 326
+            viewfinder.resolution.height: 184
             flash.mode: Camera.FlashRedEyeReduction
         }
 
@@ -377,12 +378,15 @@ Item {
             id:camera2
             imageProcessing.whiteBalanceMode: CameraImageProcessing.WhiteBalanceFlash
             deviceId: QtMultimedia.availableCameras[1].deviceId
+            viewfinder.resolution.width: 326
+            viewfinder.resolution.height: 184
             exposure {
                 exposureCompensation: -1.0
                 exposureMode: Camera.ExposurePortrait
             }
 
             flash.mode: Camera.FlashRedEyeReduction
+            
         }
 
 
