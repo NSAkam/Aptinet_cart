@@ -4,6 +4,8 @@ from settingPage import SettingPage
 from Helpers.scannerHelper import ScannerHelper
 from Services.gpio import GreenLight, Fan
 from Services.dal import DAL
+from Helpers.batteryHelper import BatteryHelper
+
 from Repositories.adminRepository import AdminRepository
 from Repositories.userRepository import UserRepository
 from Repositories.userServerRepository import UserServerRepository
@@ -33,6 +35,7 @@ class Logic(QObject):
 
     ### Modules ########################################################################################################
     _scanner: ScannerHelper
+    _battery = BatteryHelper
 
     def __init__(self) -> None:
         super().__init__()
@@ -45,6 +48,9 @@ class Logic(QObject):
         self._scanner.IDBarcodeReadSignal.connect(self.go_toSettingClicked)
         # self._scanner.goToSettingSignal.connect(self.go_toSettingClicked)
         self._scanner.start()
+
+        self._battery = BatteryHelper()
+        # self._battery.start()
 
         self._adminRepository = AdminRepository(self._dal)
         self._userRepository = UserRepository(self._dal)

@@ -204,30 +204,30 @@ class BatteryWorker(QThread):
 #         # print(resultList)
 #         return int(sum(resultList) / len(resultList)) if len(resultList) > 0 else 0
 #
+# #
+# class Battery(QObject):
+#     _level: float = 50
+#     _threadUpdate: BatteryWorker
 #
-class Battery(QObject):
-    _level: float = 50
-    _threadUpdate: BatteryWorker
-
-    def __init__(self):
-        super().__init__()
-        self._threadUpdate = BatteryWorker()
-        self._threadUpdate.newLevelSignal.connect(self.updateLevel)
-        self._threadUpdate.start()
-
-    @Slot(int)
-    def updateLevel(self, v: int):
-        self.setLevel(v)
-
-    @Signal
-    def changed(self):
-        pass
-
-    def getLevel(self):
-        return self._level
-
-    def setLevel(self, v):
-        self._level = v
-        self.changed.emit()
-
-    batterylevel = Property(float, getLevel, setLevel, notify=changed)
+#     def __init__(self):
+#         super().__init__()
+#         self._threadUpdate = BatteryWorker()
+#         self._threadUpdate.newLevelSignal.connect(self.updateLevel)
+#         self._threadUpdate.start()
+#
+#     @Slot(int)
+#     def updateLevel(self, v: int):
+#         self.setLevel(v)
+#
+#     @Signal
+#     def changed(self):
+#         pass
+#
+#     def getLevel(self):
+#         return self._level
+#
+#     def setLevel(self, v):
+#         self._level = v
+#         self.changed.emit()
+#
+#     batterylevel = Property(float, getLevel, setLevel, notify=changed)

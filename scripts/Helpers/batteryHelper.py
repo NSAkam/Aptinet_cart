@@ -16,7 +16,6 @@ class BatteryHelper(QObject):
         super().__init__()
         self._batteryWorker = BatteryWorker()
         self._batteryWorker.newLevelSignal.connect(self.new_levelRead)
-        self.start()
         self.set_batteryLevel(50)
         self._inStartUp = 0
 
