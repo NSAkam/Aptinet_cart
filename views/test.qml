@@ -4,14 +4,13 @@ import QtQuick.Window 2.12
 
 Window {
 visible: true
-width: 1200
-height: 500
+width: 1280
+height: 800
 title: qsTr("Hello World")
 Item{
 id: cameraLeft
 anchors.left: parent.left
 anchors.top: parent.top
-anchors.right: swipeView.left
 anchors.bottom: parent.bottom
 
         CamCam{
