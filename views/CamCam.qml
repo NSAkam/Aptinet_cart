@@ -56,7 +56,7 @@ Item{
         interval: 1000
         onTriggered: {
             console.log("test2")
-            photoPreview.source = preview  // Show the preview in an Image
+            camera.imageCapture.capture()
         }
         repeat: true
     }
