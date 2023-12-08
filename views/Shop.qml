@@ -731,8 +731,8 @@ Item {
     }
 
     Connections{
-        target: cameraProvider
-        function onNewFrameReadSignal() {
+        target: KCameraProvider
+        function onNewImageReadSignal() {
             if(checkoutPanel.visible === true){
                 img_UserCapturedadsPanel1.reloadImage()
             }
