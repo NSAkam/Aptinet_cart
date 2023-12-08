@@ -11,8 +11,10 @@ from Helpers.cameraHelper import CameraHelper
 
 
 if __name__ == "__main__":
-    debug = QQmlDebuggingEnabler()
+    # debug = QQmlDebuggingEnabler()
     
+    QGuiApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
+
     app = QGuiApplication(sys.argv)
     app.setOverrideCursor(Qt.BlankCursor)
 
@@ -27,11 +29,11 @@ if __name__ == "__main__":
 
 
 
-    cworker = CameraWorker()
-    engine.rootContext().setContextProperty("cameraProvider",cworker)
-    camera = CameraHelper(cworker)
-    engine.addImageProvider("KCameraProvider", camera)
-    cworker.start()
+    # cworker = CameraWorker()
+    # engine.rootContext().setContextProperty("cameraProvider",cworker)
+    # camera = CameraHelper(cworker)
+    # engine.addImageProvider("KCameraProvider", camera)
+    # cworker.start()
 
 
     ctx = engine.rootContext()

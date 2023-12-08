@@ -4,6 +4,7 @@ import QtGraphicalEffects 1.15
 import QtQuick.Window 2.0
 import QtQuick.Controls.Styles 1.4
 import QtGraphicalEffects 1.0
+import QtMultimedia 5.0
 import "Components"
 import "Containers"
 import "Utiles" as Util
@@ -340,23 +341,29 @@ Item {
             y:32
         }
 
-        Image {
-            id: img_UserCapturedadsPanel
-            source: "image://KCameraProvider/1"
-            width: 326
-            height: 184
-            x:32
-            y:105
-            cache: false
-            property bool counter: false
-
-
-            function reloadImage() {
-                counter = !counter
-                source = "image://KCameraProvider/?id=" + counter
-
-            }
+        Camera {
+                 id: camera
+                 imageProcessing.whiteBalanceMode:
+                 CameraImageProcessing.WhiteBalanceFlash
         }
+
+//        Image {
+//            id: img_UserCapturedadsPanel
+//            source: "image://KCameraProvider/1"
+//            width: 326
+//            height: 184
+//            x:32
+//            y:105
+//            cache: false
+//            property bool counter: false
+
+
+//            function reloadImage() {
+//                counter = !counter
+//                source = "image://KCameraProvider/?id=" + counter
+
+//            }
+//        }
         Image {
             id: ads_Image
             source: "../Assets/Ads.png"
