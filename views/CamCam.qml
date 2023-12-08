@@ -46,7 +46,7 @@ Item{
         id: vo
         z:99
         source: camera
-        anchors.fill: parent
+        anchors.left: parent.left
         fillMode: VideoOutput.PreserveAspectCrop
         flushMode: VideoOutput.LastFrame
         height: 150
@@ -56,5 +56,6 @@ Item{
         width: 100
         height: 100
         id: photoPreview
+        anchors.right: parent.right
     }
 }
