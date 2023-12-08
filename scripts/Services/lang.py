@@ -10,7 +10,8 @@ class languageReader(QObject):
     
 
     def __init__(self,namefile):
-        f = open("../../" +namefile+".json", "r")
+        print(namefile)
+        f = open("../../" +str(namefile)+".json", "r")
         s= f.read()
         self.lst = json.loads(s)
         super().__init__()
