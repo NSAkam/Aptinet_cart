@@ -21,7 +21,8 @@ class MainApp(QWidget):
         self.image_label.setFixedSize(self.video_size)
 
         self.quit_button = QPushButton("Quit")
-        self.quit_button.clicked.connect(self.close)
+        # self.quit_button.clicked.connect(self.close)
+        self.quit_button.click
 
         self.main_layout = QVBoxLayout()
         self.main_layout.addWidget(self.image_label)

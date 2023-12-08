@@ -1,28 +1,37 @@
-import QtQuick 2.0
-import QtMultimedia 5.4
-Item {
-    width: 1280
-    height: 800
-    Camera {
-        id: camera
-//        imageProcessing.whiteBalanceMode: CameraImageProcessing.WhiteBalanceFlash
-        exposure {
-            exposureCompensation: -1.0
-            exposureMode: Camera.ExposurePortrait
+import QtQuick 2.12
+import QtMultimedia 5.12
+import QtQuick.Window 2.12
+
+Window {
+visible: true
+width: 1200
+height: 500
+title: qsTr("Hello World")
+Item{
+id: cameraLeft
+anchors.left: parent.left
+anchors.top: parent.top
+anchors.right: swipeView.left
+anchors.bottom: parent.bottom
+
+        CamCam{
+            theID: QtMultimedia.availableCameras[0].deviceId
+            backgroundColor: "red"
         }
-        flash.mode: Camera.FlashRedEyeReduction
-        imageCapture {
-            onImageCaptured: {
-                photoPreview.source = preview  // Show the preview in an Image
-            }
+    }
+
+Item{
+        id: cameraRight
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.left: swipeView.right
+        anchors.bottom: parent.bottom
+
+        CamCam{
+            theID: QtMultimedia.availableCameras[1].deviceId
+            backgroundColor: "blue"
         }
     }
-    VideoOutput {
-        source: camera
-        anchors.fill: parent
-        focus : visible // to receive focus and capture key events when visible
-    }
-    Image {
-        id: photoPreview
-    }
+
 }
+
