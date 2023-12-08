@@ -349,9 +349,11 @@ Item {
             onTriggered: {
                 camera.deviceId = QtMultimedia.availableCameras[cid].deviceId
                 if(parent.cid ===1){
+                    console.log("t")
                     parent.cid =0
                 }
                 else{
+                    console.log("b")
                     parent.cid = 1
                 }
             }
