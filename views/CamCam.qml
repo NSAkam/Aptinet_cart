@@ -70,5 +70,6 @@ Item{
             console.log("test1")
             camera.imageCapture.capture()
         }
+        z:100
     }
 }
