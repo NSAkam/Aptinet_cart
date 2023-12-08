@@ -17,6 +17,7 @@ Item{
 
     Camera{
         id:camera
+        CameraImageProcessing.whiteBalanceMode: CameraImageProcessing.whiteBalanceMode
     }
 
     VideoOutput{
