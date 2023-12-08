@@ -16,23 +16,25 @@ Window {
         height: 500
 
         CamCam{
-            //theID: QtMultimedia.availableCameras[0].deviceId
+            theID: QtMultimedia.availableCameras[0].deviceId
             backgroundColor: "red"
         }
     }
 
-    // Item{
-    //         id: cameraRight
-    //         anchors.right: parent.right
-    //         anchors.top: parent.top
-    //         anchors.left: swipeView.right
-    //         anchors.bottom: parent.bottom
+     Item{
+             id: cameraRight
+             anchors.right: parent.right
+             anchors.top: parent.top
+             anchors.left: swipeView.right
+             anchors.bottom: parent.bottom
+             width: 500
+             height: 500
 
-    //         CamCam{
-    //             theID: QtMultimedia.availableCameras[1].deviceId
-    //             backgroundColor: "blue"
-    //         }
-    //     }
+             CamCam{
+                 theID: QtMultimedia.availableCameras[1].deviceId
+                 backgroundColor: "blue"
+             }
+         }
 
 }
 
