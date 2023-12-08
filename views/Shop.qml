@@ -353,7 +353,7 @@ Item {
                     vo2.visible = true
                 }
                 else{
-                    
+
                     parent.cid = 1
                     vo1.visible = true
                     vo2.visible = false
@@ -399,7 +399,7 @@ Item {
         }
         VideoOutput{
             id: vo2
-            source: camera1
+            source: camera2
             width: 326
             height: 184
             x:32
@@ -799,21 +799,21 @@ Item {
         }
     }
 
-    Connections{
-        target: cameraProvider
-        function onNewFrameReadSignal() {
-            if(checkoutPanel.visible === true){
-                img_UserCapturedadsPanel1.reloadImage()
-            }
-            if(adsPanel.visible === true){
-                img_UserCapturedadsPanel.reloadImage()
-            }
+//    Connections{
+//        target: cameraProvider
+//        function onNewFrameReadSignal() {
+//            if(checkoutPanel.visible === true){
+//                img_UserCapturedadsPanel1.reloadImage()
+//            }
+//            if(adsPanel.visible === true){
+//                img_UserCapturedadsPanel.reloadImage()
+//            }
 
-            if(addPlupanel.visible === true){
-                img_UserCaptured.reloadImage()
-            }
-        }
-    }
+//            if(addPlupanel.visible === true){
+//                img_UserCaptured.reloadImage()
+//            }
+//        }
+//    }
     Connections{
         target: obj_LogicContainerShop.shopPage
 
