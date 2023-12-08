@@ -349,11 +349,14 @@ Item {
             onTriggered: {
                 if(parent.cid ===1){
                     parent.cid =0
-                    vo.source = camera1
+                    vo1.visible = false
+                    vo2.visible = true
                 }
                 else{
-                    vo.source = camera2
+                    
                     parent.cid = 1
+                    vo1.visible = true
+                    vo2.visible = false
                 }
             }
         }
@@ -369,7 +372,7 @@ Item {
 
             flash.mode: Camera.FlashRedEyeReduction
         }
-        
+
         Camera{
             id:camera2
             imageProcessing.whiteBalanceMode: CameraImageProcessing.WhiteBalanceFlash
@@ -384,7 +387,18 @@ Item {
 
 
         VideoOutput{
-            id: vo
+            id: vo1
+            source: camera1
+            width: 326
+            height: 184
+            x:32
+            y:105
+            anchors.left: parent.left
+            fillMode: VideoOutput.PreserveAspectCrop
+            flushMode: VideoOutput.LastFrame
+        }
+        VideoOutput{
+            id: vo2
             source: camera1
             width: 326
             height: 184
