@@ -679,7 +679,7 @@ Item {
         AddPluItems{
             obj_LogicContainerAddPluItems: obj_LogicContainerShop
             onSeeAll: {
-
+                stackviewContainer.push(plulist)
             }
 
             onBack: {
@@ -742,7 +742,7 @@ Item {
         PLUListItems {
             obj_LogicContainerPLUListItems: obj_LogicContainerShop
             onBack: {
-
+                stackviewContainer.pop()
             }
         }
     }
@@ -790,14 +790,7 @@ Item {
         LstSpecialDeals {
             obj_LogicContainerLstSpecialDeals: obj_LogicContainerShop
             onBack: {
-                if(stackviewContainer.depth == 1)
-                {
-                    stackviewContainer.clear()
-                }
-                else
-                {
-                    stackviewContainer.pop()
-                }
+                obj_LogicContainerShop.shopPage.close_allOfferListClicked()
             }
         }
     }
