@@ -953,5 +953,6 @@ class ShopPage(QObject):
     def clear_stackView(self):
         self.showTopBtnSignal.emit()
         self.clearStackViewSignal.emit()
+        self._inOfferList = False
         if len(self._factorList.m_data) > 0:
             self.showFactorListSignal.emit()
