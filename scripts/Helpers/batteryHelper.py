@@ -24,7 +24,7 @@ class BatteryHelper(QObject):
     stopChargingSignal = Signal()
 
     def get_batteryLevel(self):
-        return self._level
+        return self._batteryLevel
 
     def set_batteryLevel(self, v: int):
         self._batteryLevel = v
