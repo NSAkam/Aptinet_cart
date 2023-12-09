@@ -11,6 +11,8 @@ from Repositories.userRepository import UserRepository
 from Repositories.userServerRepository import UserServerRepository
 from Repositories.configRepository import ConfigRepositories
 from Models.user import User
+from Models.lang import Lang
+from Models.Helpers.langModel import LangModel
 import os
 import sys
 from Services.lang import languageReader
@@ -42,8 +44,11 @@ class Logic(QObject):
 
     ### Language #######################################################################################################
     _lang: languageReader
+    _langList: LangModel
 
     def __init__(self) -> None:
+        path = "/home/aptinet/languages"
+        self._langList.insert_languageList([Lang(".".join(f.split(".")[:-1])) for f in os.listdir(path)])
 
         super().__init__()
 
