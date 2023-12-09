@@ -256,7 +256,7 @@ Item {
             clip: true
             interactive: true
 
-            model: obj_logic.obj_logic
+            model: obj_logic.langList
             delegate:KBorderButton{
                 borderwidth:0
                 text: model.name

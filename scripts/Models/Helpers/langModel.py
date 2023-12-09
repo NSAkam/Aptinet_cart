@@ -28,9 +28,9 @@ class LangModel(QAbstractListModel):
     def data(self, index, role: int) -> Any:  # Override
         if (not index.isValid()):
             return
-        prod = self.m_data[index.row()]
+        lan = self.m_data[index.row()]
         if (role == self.NameRole):
-            return prod.name
+            return lan.name
         else:
             return None
 
