@@ -256,10 +256,10 @@ Item {
             clip: true
             interactive: true
 
-            model: obj_logic.langList
+            model: 10
             delegate:KBorderButton{
                 borderwidth:0
-                text: model.name
+                text: "asd"
                 x:213
                 y:315
                 width: 185
