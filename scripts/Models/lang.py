@@ -8,8 +8,7 @@ class Lang(QObject):
     def changedSignal(self):
         pass
 
-    def __init__(self, name):
-        self.set_name(name)
+    def __init__(self):
         super().__init__()
 
     def get_name(self):
