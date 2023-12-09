@@ -58,7 +58,14 @@ class Logic(QObject):
         # ll=[]
         # ll.append(l)
         # self._langList.insert_languageList(ll)
-        self._langList.insert_languageList([Lang(".".join(f.split(".")[:-1])) for f in os.listdir(path)])
+        # self._langList.insert_languageList([Lang(".".join(f.split(".")[:-1])) for f in os.listdir(path)])
+        lList = []
+        for lang in [".".join(f.split(".")[:-1]) for f in os.listdir(path)]:
+            l = Lang()
+            l.set_name(lang)
+            lList.append(l)
+        self._langList.insert_languageList(lList)
+
 
 
         self.turnoff_greenLight()
