@@ -139,8 +139,8 @@ class Logic(QObject):
         serverUser = self._userServerRepository.loginByPhone(phoneNumber)
         if not serverUser.get_id() == "":
             self._user.set_loggedInUser(serverUser)
-            # self._phoneNumber = phoneNumber
-            self.validPhoneNumberSignal.emit()
+            # self.validPhoneNumberSignal.emit()
+            self.continue_clicked()
         else:
             self.showPopupMessageTimerSignal.emit("not valid phone number")
 
