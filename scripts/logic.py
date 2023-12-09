@@ -25,7 +25,7 @@ class Logic(QObject):
     _adminRepository: AdminRepository
     _userRepository: UserRepository
     _userServerRepository: UserServerRepository
-    _configRepository:ConfigRepositories
+    _configRepository: ConfigRepositories
 
     ### Private ########################################################################################################
     _shopPage: ShopPage
@@ -47,12 +47,10 @@ class Logic(QObject):
 
         super().__init__()
 
-        
         self.turnoff_greenLight()
         self._fan = Fan()
         self._fan.turn_onFan()
         self._dal = DAL()
-        
 
         self._scanner = ScannerHelper()
         self._scanner.IDBarcodeReadSignal.connect(self.go_toSettingClicked)
@@ -61,7 +59,7 @@ class Logic(QObject):
 
         self._battery = BatteryHelper()
         # self._battery.start()
-        
+
         self._configRepository = ConfigRepositories(self._dal)
         self.set_lang(languageReader(self._configRepository.get_lang()))
         self._adminRepository = AdminRepository(self._dal)
@@ -82,12 +80,12 @@ class Logic(QObject):
     ### Properties #####################################################################################################
     def get_lang(self):
         return self._lang
-    
-    def set_lang(self,v):
+
+    def set_lang(self, v):
         self._lang = v
         self.changedSignal.emit()
 
-    lang = Property(languageReader, get_lang,set_lang,notify=changedSignal)
+    lang = Property(languageReader, get_lang, set_lang, notify=changedSignal)
 
     def get_shopPage(self):
         return self._shopPage
@@ -195,10 +193,10 @@ class Logic(QObject):
         self._greenLightWorkerThread.start()
 
     @Slot(str)
-    def language_Changed(self,v):
-        if(v == "arabic"):
+    def language_Changed(self, v):
+        if (v == "arabic"):
             self._configRepository.set_lang("arabic")
-        elif(v == "en"):
+        elif (v == "en"):
             self._configRepository.set_lang("en")
         else:
             self._configRepository.set_lang("en")
