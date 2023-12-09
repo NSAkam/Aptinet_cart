@@ -47,6 +47,9 @@ class Logic(QObject):
     _langList: LangModel
 
     def __init__(self) -> None:
+        super().__init__()
+        
+        
         path = "/home/aptinet/languages/"
 
         self._langList = LangModel()
@@ -57,7 +60,6 @@ class Logic(QObject):
         self._langList.insert_languageList(ll)  
         # self._langList.insert_languageList([Lang(".".join(f.split(".")[:-1])) for f in os.listdir(path)])
 
-        super().__init__()
 
         self.turnoff_greenLight()
         self._fan = Fan()
