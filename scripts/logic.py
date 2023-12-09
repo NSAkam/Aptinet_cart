@@ -53,12 +53,19 @@ class Logic(QObject):
         path = "/home/aptinet/languages/"
 
         self._langList = LangModel()
-        l = Lang()
-        l.set_name("en")
-        ll=[]
-        ll.append(l)
-        self._langList.insert_languageList(ll)  
+        # l = Lang()
+        # l.set_name("en")
+        # ll=[]
+        # ll.append(l)
+        # self._langList.insert_languageList(ll)
         # self._langList.insert_languageList([Lang(".".join(f.split(".")[:-1])) for f in os.listdir(path)])
+        lList = []
+        for lang in [".".join(f.split(".")[:-1]) for f in os.listdir(path)]:
+            l = Lang()
+            l.set_name(lang)
+            lList.append(l)
+        self._langList.insert_languageList(lList)
+
 
 
         self.turnoff_greenLight()
@@ -199,14 +206,9 @@ class Logic(QObject):
 
     @Slot(str)
     def language_Changed(self, v):
-        if v == "arabic":
-            self._configRepository.set_lang("arabic")
-            self.languageChangedSignal.emit()
-        elif v == "en":
-            self._configRepository.set_lang("en")
-            self.languageChangedSignal.emit()
-        else:
-            self._configRepository.set_lang("en")
+        self._configRepository.set_lang(v)
+        self.languageChangedSignal.emit()
+
 
     @Slot()
     def reset_app(self):
