@@ -47,11 +47,8 @@ class Logic(QObject):
     _langList: LangModel
 
     def __init__(self) -> None:
-        path = "/home/aptinet/languages"
-        l =Lang("eaa")
-        ll = []
-        ll.append(l)
-        self._langList.insert_languageList(ll)
+        path = "/home/aptinet/languages/"
+        self._langList.insert_languageList([Lang(".".join(f.split(".")[:-1])) for f in os.listdir(path)])
 
         super().__init__()
 
@@ -84,6 +81,7 @@ class Logic(QObject):
     goToSettingPageSignal = Signal()
     validPhoneNumberSignal = Signal()
     showPopupMessageTimerSignal = Signal(str)
+    languageChangedSignal = Signal()
 
     ### Properties #####################################################################################################
     def get_lang(self):
@@ -190,6 +188,17 @@ class Logic(QObject):
         else:
             print("Not Authorized !!!")
 
+    @Slot(str)
+    def language_Changed(self, v):
+        if v == "arabic":
+            self._configRepository.set_lang("arabic")
+            self.languageChangedSignal.emit()
+        elif v == "en":
+            self._configRepository.set_lang("en")
+            self.languageChangedSignal.emit()
+        else:
+            self._configRepository.set_lang("en")
+
     @Slot()
     def reset_app(self):
         os.execl(sys.executable, sys.executable, *sys.argv)
@@ -205,11 +214,4 @@ class Logic(QObject):
             self._greenLightWorkerThread.deleteLater)
         self._greenLightWorkerThread.start()
 
-    @Slot(str)
-    def language_Changed(self, v):
-        if (v == "arabic"):
-            self._configRepository.set_lang("arabic")
-        elif (v == "en"):
-            self._configRepository.set_lang("en")
-        else:
-            self._configRepository.set_lang("en")
+
