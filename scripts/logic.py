@@ -53,12 +53,12 @@ class Logic(QObject):
         path = "/home/aptinet/languages/"
 
         self._langList = LangModel()
-        l = Lang()
-        l.set_name("en")
-        ll=[]
-        ll.append(l)
-        self._langList.insert_languageList(ll)  
-        # self._langList.insert_languageList([Lang(".".join(f.split(".")[:-1])) for f in os.listdir(path)])
+        # l = Lang()
+        # l.set_name("en")
+        # ll=[]
+        # ll.append(l)
+        # self._langList.insert_languageList(ll)
+        self._langList.insert_languageList([Lang(".".join(f.split(".")[:-1])) for f in os.listdir(path)])
 
 
         self.turnoff_greenLight()
