@@ -37,7 +37,7 @@ class BatteryWorker(QThread):
 
         self._canReadBarcode = True
 
-    newLevelSignal = Signal(int)
+    newLevelSignal = Signal()
 
     def get_level(self):
         return self._level
@@ -49,7 +49,7 @@ class BatteryWorker(QThread):
             self._level = 100
         else:
             self._level = v
-        self.newLevelSignal.emit(int(self._level))
+        self.newLevelSignal.emit()
 
     def run(self):
         try:
