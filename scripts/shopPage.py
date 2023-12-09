@@ -64,6 +64,8 @@ class ShopPage(QObject):
     _basketWeightRemoveProcess: int = 0
     _basketLoad: int = 0
     _stackViewDepth: int
+    _pluStartWeight: int = 0
+
     _basketIsFull: bool = False
     _inByPass: bool = False
     _loginFinished: bool = False
@@ -73,7 +75,7 @@ class ShopPage(QObject):
     _trustUser: bool = False
     _shouldBarcodeToBeScannToAddProduct: bool = True
     _lightWeightProductExistInBasket: bool = False
-    _pluStartWeight: int = 0
+    _inOfferList: bool = False
 
     ######################################################################################################## Modules ###
     _weightSensor: WeightSensorWorker
@@ -134,19 +136,19 @@ class ShopPage(QObject):
     changedSignal = Signal()
 
     #### Stack view Signals #######################################
-    clearStackViewSignal = Signal()   # clear stack view
+    clearStackViewSignal = Signal()  # clear stack view
     closeTopStackViewSignal = Signal()  # close top stack view. maybe used for several purpose like close new product scanned stack view
-    hideTopBtnSignal = Signal()   # hide manual barcode btn and PLU btn
+    hideTopBtnSignal = Signal()  # hide manual barcode btn and PLU btn
 
-    showFactorListSignal = Signal()   # show factor list
+    showFactorListSignal = Signal()  # show factor list
     showNewProductScannedSignal = Signal()  # show new product scanned and suggestion list
-    showAllOfferListSignal = Signal()   # show all offer list
-    showManualBarcodeSignal = Signal()   # show manual barcode view
-    showAddPLUItemsSignal = Signal()   # shoe first PLU view
-    showWeightedPLUItemsSignal = Signal()   # show weighted PLU view
-    showCountedPLUItemsSignal = Signal()   # show counted PLU view
-    showTopBtnSignal = Signal()   # show manual barcode btn and PLU btn
-    showCheckOutSignal = Signal()   # show check out view
+    showAllOfferListSignal = Signal()  # show all offer list
+    showManualBarcodeSignal = Signal()  # show manual barcode view
+    showAddPLUItemsSignal = Signal()  # shoe first PLU view
+    showWeightedPLUItemsSignal = Signal()  # show weighted PLU view
+    showCountedPLUItemsSignal = Signal()  # show counted PLU view
+    showTopBtnSignal = Signal()  # show manual barcode btn and PLU btn
+    showCheckOutSignal = Signal()  # show check out view
     showPaymentSignal = Signal()
     showAfterPaymentSignal = Signal()
 
@@ -162,7 +164,7 @@ class ShopPage(QObject):
     openPopupWeightNotMatchWithBarcodeSignal = Signal()  # pop up weight not match with scanned barcode
     closePopupWeightNotMatchWithBarcodeSignal = Signal()
 
-    openPopupNoBarcodeScannedSignal = Signal()   # add product to basket without scanning barcode
+    openPopupNoBarcodeScannedSignal = Signal()  # add product to basket without scanning barcode
     closePopupNoBarcodeScannedSignal = Signal()
 
     openPopupDeleteProductSignal = Signal()  # remove product from basket
@@ -171,7 +173,7 @@ class ShopPage(QObject):
     openPopUpMessageNotAllowedChangeWeightSignal = Signal()  # change weight at the end of shopping
     closePopUpMessageNotAllowedChangeWeightSignal = Signal()
 
-    openPopupByPassSignal = Signal()   # open by pass pop up
+    openPopupByPassSignal = Signal()  # open by pass pop up
     closePopupByPassSignal = Signal()
 
     ##################################################################################################### Properties ###
@@ -302,7 +304,8 @@ class ShopPage(QObject):
                         self.clear_stackView()
                         self.newProduct = product
                         self.countDownTimer = self._insertProductTime + self._timerOffset
-                        self._suggestedList.initialize_productList(self._productRepository.get_suggesstionProducts(product.barcode))
+                        self._suggestedList.initialize_productList(
+                            self._productRepository.get_suggesstionProducts(product.barcode))
                         self.showNewProductScannedSignal.emit()
                         self.hideTopBtnSignal.emit()
                         self._shouldBarcodeToBeScannToAddProduct = True
@@ -444,7 +447,8 @@ class ShopPage(QObject):
                         self.state = 1
                         self.clear_stackView()
                     elif self._basketWeightShouldBe + self._basketWeightTolerance <= val2:
-                        self.openPopupMessageTimerSignal.emit("please remove not scanned products and then insert them one by one !")
+                        self.openPopupMessageTimerSignal.emit(
+                            "please remove not scanned products and then insert them one by one !")
                         notifSound()
 
                 elif self.state == 5:
@@ -456,7 +460,8 @@ class ShopPage(QObject):
                         self._removeList.clearData()
                         self._trustUser = False
                     else:
-                        self.openPopupMessageSignal.emit("please remove inserted product from basket and first complete remove process and then insert product!")
+                        self.openPopupMessageSignal.emit(
+                            "please remove inserted product from basket and first complete remove process and then insert product!")
                         notifSound()
                         self.state = 6
                         self._basketWeightRemoveProcess = val1
@@ -559,7 +564,8 @@ class ShopPage(QObject):
                         self.state = 1
 
                 elif self.state == 5:
-                    self.openPopupMessageSignal.emit("Please replace product that removed from basket and after complete current remove process, remove another product !")
+                    self.openPopupMessageSignal.emit(
+                        "Please replace product that removed from basket and after complete current remove process, remove another product !")
                     notifSound()
                     self.state = 7
                     self._basketWeightRemoveProcess = val1
@@ -673,7 +679,15 @@ class ShopPage(QObject):
 
     @Slot()
     def see_allOfferListClicked(self):
-        self.showAllOfferListSignal.emit()
+        if self.state == 1 and self._inOfferList == False:
+            self.showAllOfferListSignal.emit()
+            self._inOfferList = True
+
+    @Slot()
+    def close_allOfferListClicked(self):
+        if self.state == 1:
+            self.clear_stackView()
+            self._inOfferList = False
 
     @Slot()
     def manual_barcodeClicked(self):
@@ -700,7 +714,8 @@ class ShopPage(QObject):
                 else:
                     self.openPopupMessageTimerSignal.emit("Please check entered barcode !")
             else:
-                self.openPopupMessageTimerSignal.emit("please enter " + str(self._scanner.get_productBarcodeLength()) + " digits barcode !")
+                self.openPopupMessageTimerSignal.emit(
+                    "please enter " + str(self._scanner.get_productBarcodeLength()) + " digits barcode !")
         elif self.state == 5:
             if len(barcode) == self._scanner.get_productBarcodeLength():
                 self.closeTopStackViewSignal.emit()
@@ -711,7 +726,7 @@ class ShopPage(QObject):
                     "please enter " + str(self._scanner.get_productBarcodeLength()) + " digits barcode !")
 
     @Slot()
-    def show_addPLUItemsClicked(self):   # not in state 5
+    def show_addPLUItemsClicked(self):  # not in state 5
         if self.state == 1:
             self.showAddPLUItemsSignal.emit()
             self.hideTopBtnSignal.emit()
@@ -776,7 +791,7 @@ class ShopPage(QObject):
     def decrease_PLUClicked(self):
         if self.state == 15:
             if self.newProduct.countInBasket > 0:
-                self.newProduct.countInBasket = self.newProduct.countInBasket -1
+                self.newProduct.countInBasket = self.newProduct.countInBasket - 1
 
     @Slot()
     def product_removeConfirmClicked(self):
@@ -871,7 +886,8 @@ class ShopPage(QObject):
         elif self.state == 3:
             print("\nState " + str(self._states) + " : Inserted Weight not match with read Barcode.\n")
         elif self.state == 4:
-            print("\nState " + str(self._states) + " : Inserted Weight without barcode.(match with last product or non valid insert weight)\n")
+            print("\nState " + str(
+                self._states) + " : Inserted Weight without barcode.(match with last product or non valid insert weight)\n")
         elif self.state == 5:
             print("\nState " + str(self._states) + " : Weight removed. waiting to read barcode\n")
         elif self.state == 6:
@@ -939,5 +955,3 @@ class ShopPage(QObject):
         self.clearStackViewSignal.emit()
         if len(self._factorList.m_data) > 0:
             self.showFactorListSignal.emit()
-
-
