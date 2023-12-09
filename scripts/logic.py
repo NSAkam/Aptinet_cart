@@ -103,7 +103,7 @@ class Logic(QObject):
     def get_lanList(self):
         return self._langList
 
-    langList = Property(LangModel, get_lanList, constant=True)
+    langList = Property(QObject, get_lanList, constant=True)
 
     def get_shopPage(self):
         return self._shopPage
