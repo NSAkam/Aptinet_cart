@@ -109,7 +109,6 @@ Item {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    console.log("asdasdasd")
                     root.back()
                 }
             }
