@@ -48,25 +48,15 @@ class Logic(QObject):
 
     def __init__(self) -> None:
         super().__init__()
-        
-        
-        path = "/home/aptinet/languages/"
 
+        path = "/home/aptinet/languages/"
         self._langList = LangModel()
-        # l = Lang()
-        # l.set_name("en")
-        # ll=[]
-        # ll.append(l)
-        # self._langList.insert_languageList(ll)
-        # self._langList.insert_languageList([Lang(".".join(f.split(".")[:-1])) for f in os.listdir(path)])
         lList = []
         for lang in [".".join(f.split(".")[:-1]) for f in os.listdir(path)]:
             l = Lang()
             l.set_name(lang)
             lList.append(l)
         self._langList.insert_languageList(lList)
-
-
 
         self.turnoff_greenLight()
         self._fan = Fan()
@@ -79,7 +69,7 @@ class Logic(QObject):
         self._scanner.start()
 
         self._battery = BatteryHelper()
-        # self._battery.start()
+        self._battery.start()
 
         self._configRepository = ConfigRepositories(self._dal)
         self.set_lang(languageReader(self._configRepository.get_lang()))
@@ -133,6 +123,15 @@ class Logic(QObject):
 
     settingPage = Property(SettingPage, get_settingPage,
                            set_settingPage, notify=changedSignal)
+
+    def get_battery(self):
+        return self._battery
+
+    def set_battery(self, v):
+        self._battery = v
+        self.changedSignal.emit()
+
+    battery = Property(BatteryHelper, get_battery, set_battery, notify=changedSignal)
 
     ### Sluts ##########################################################################################################
     @Slot(str)
@@ -209,7 +208,6 @@ class Logic(QObject):
         self._configRepository.set_lang(v)
         self.languageChangedSignal.emit()
 
-
     @Slot()
     def reset_app(self):
         os.execl(sys.executable, sys.executable, *sys.argv)
@@ -224,5 +222,3 @@ class Logic(QObject):
         self._greenLightWorkerThread.finished.connect(
             self._greenLightWorkerThread.deleteLater)
         self._greenLightWorkerThread.start()
-
-
