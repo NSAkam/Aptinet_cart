@@ -73,7 +73,7 @@ class BatteryWorker(QThread):
                         self.save_maxElecNumber(elecNumber)
 
                     self.set_level(int(((elecNumber - self._minElecNumber) / (self._maxElecNumber - self._minElecNumber)) * 100))
-                    time.sleep(100)
+                    time.sleep(0.1)
         except:
             pass
 
