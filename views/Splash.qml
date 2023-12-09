@@ -242,94 +242,33 @@ Item {
             color: "#1D1D1D"
             opacity: 0.75
         }
-        FastBlur {
-            anchors.fill: parent
-            source: parent
-            radius: 32
-        }
 
-        KBorderButton{
-            borderwidth:0
-            text: "English"
+        GridView {
+            id: productsgridview
             x:213
-            y:315
-            width: 185
-            height: 66
-            MouseArea{
-                anchors.fill: parent
-                onClicked: {
-                    obj_logic.language_Changed("en")
-                }
-            }
-        }
-        KBorderButton{
-            borderwidth:0
-            text: "Deutsch"
-            x:436
-            y:315
-            width: 185
-            height: 66
-            textColor: "black"
-        }
-        KBorderButton{
-            borderwidth:0
-            text: "Français"
-            x:659
-            y:315
-            width: 185
-            height: 66
+            width: 854
+            height: 170
+            cellWidth: 200
+            cellHeight: 80
+            focus: true
+            anchors.verticalCenter: parent.verticalCenter
+            flow: GridView.FlowLeftToRight
+            clip: true
+            interactive: true
 
-            textColor: "black"
-        }
-        KBorderButton{
-            borderwidth:0
-            text: "Italiano"
-            x:882
-            y:315
-            width: 185
-            height: 66
-            textColor: "black"
-        }
-        KBorderButton{
-            borderwidth:0
-            text: "Español"
-            x:213
-            y:419
-            width: 185
-            height: 66
-            textColor: "black"
-
-        }
-        KBorderButton{
-            borderwidth:0
-            text: "Português"
-            x:436
-            y:419
-            width: 185
-            height: 66
-            textColor: "black"
-        }
-        KBorderButton{
-            borderwidth:0
-            text: "Türkçe"
-            x:659
-            y:419
-            width: 185
-            height: 66
-            textColor: "black"
-        }
-        KBorderButton{
-            borderwidth:0
-            text: "العربية"
-            x:882
-            y:419
-            width: 185
-            height: 66
-            textColor: "black"
-            MouseArea{
-                anchors.fill: parent
-                onClicked: {
-                    obj_logic.language_Changed("arabic")
+            model: obj_logic.obj_logic
+            delegate:KBorderButton{
+                borderwidth:0
+                text: model.name
+                x:213
+                y:315
+                width: 185
+                height: 66
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        obj_logic.language_Changed(parent.text)
+                    }
                 }
             }
         }
@@ -396,6 +335,10 @@ Item {
         }
         function onValidPhoneNumberSignal(){
             popupInsertSMS.open()
+        }
+
+        function onLanguageChangedSignal(){
+            cameraProvider.stop()
         }
     }
 }
