@@ -92,6 +92,11 @@ class Logic(QObject):
 
     lang = Property(languageReader, get_lang, set_lang, notify=changedSignal)
 
+    def get_lanList(self):
+        return self._langList
+
+    langList = Property(LangModel, get_lanList, constant=True)
+
     def get_shopPage(self):
         return self._shopPage
 
