@@ -920,6 +920,13 @@ class ShopPage(QObject):
             self._nfc = nfc()
             self._nfc.nfcReaderSignal.connect(self.nfc_read)
 
+    @Slot()
+    def payment_QRClicked(self):
+        if self.state == 10:
+            self.state = 12
+            self.showAfterPaymentSignal.emit()
+            self.turn_onGreenLight()
+
     @Slot(str)
     def send_factorEmailClicked(self, emailAddress: str):
         # if emailAddress == "Please enter your email address !": send message = "Please enter your email address !"
