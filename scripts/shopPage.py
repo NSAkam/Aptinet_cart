@@ -869,6 +869,13 @@ class ShopPage(QObject):
             self.state = 1
             self.clear_stackView()
 
+    @Slot(str)
+    def apply_couponCode(self, code):
+        if code == "2212":
+            self.factorList.set_offerCouponPercentage(10.0)
+        else:
+            self.openPopupMessageTimerSignal.emit("Invalid code, please check the code !")
+
     @Slot()
     def payment_clicked(self):
         if self.state == 8:

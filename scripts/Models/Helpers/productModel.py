@@ -107,6 +107,13 @@ class ProductModel(QAbstractListModel):
     def setValidBarcodeSetForDelete(self, v):
         self.m_validBarcodeSetForDelete = v
 
+    def get_offerCouponPercentage(self):
+        return self._offerCouponPercentage
+
+    def set_offerCouponPercentage(self, percentage: float):
+        self._offerCouponPercentage = percentage
+        self.changed.emit()
+
     # Function #################################################################
 
     def rowCount(self, parent) -> int:  # Override
