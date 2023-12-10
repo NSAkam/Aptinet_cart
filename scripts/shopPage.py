@@ -514,10 +514,10 @@ class ShopPage(QObject):
                         self.closePopupMessageSignal.emit()
 
                 elif self.state == 12:
-                    if abs(val2 - val1) > 100:
+                    if abs(val2 - val1) > 50:
                         self._basketWeightShouldBe = val1
                         self.turn_offGreenlight()
-                        self.openPopupMessageSignal.emit("cant add or remove product in this")
+                        self.openPopupMessageSignal.emit("Cant add or remove product in this session.")
                         self.state = 13
 
                 elif self.state == 13:
@@ -615,9 +615,9 @@ class ShopPage(QObject):
                         self.closePopupMessageSignal.emit()
 
                 elif self.state == 12:
-                    if abs(val2 - val1) > 100:
+                    if abs(val2 - val1) > 50:
                         self._basketWeightShouldBe = val1
-                        self.openPopupMessageSignal.emit("cant add or remove product in this")
+                        self.openPopupMessageSignal.emit("Cant add or remove product in this session.")
                         self.turn_offGreenlight()
                         self.state = 13
 
