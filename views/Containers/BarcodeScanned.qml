@@ -132,7 +132,7 @@ Item {
             x:539 - 40
             y:146
             font.pixelSize: 24
-            color: "#F08C5A"
+            color: "#36EB00"
         }
         Text {
             text: obj_LogicContainerBarcodeScanned.shopPage.newProduct.finalPriceQML
