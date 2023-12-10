@@ -41,7 +41,7 @@ Item {
     TopNav{
         backvisible: true
         onBackClicked: {
-            stackview.pop()
+            obj_LogicContainerPaymentQr.shopPage.payment_backClicked()
         }
     }
     //    Rectangle{
@@ -128,7 +128,6 @@ Item {
         MouseArea{
             anchors.fill: parent
             onClicked: {
-                console.log("asdasd")
                obj_LogicContainerPaymentQr.shopPage.payment_QRClicked()
             }
         }

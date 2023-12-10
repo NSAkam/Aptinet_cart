@@ -41,6 +41,9 @@ Item {
     }
     TopNav{
         backvisible: true
+        onBackClicked: {
+            obj_LogicContainerPaymentNFC.shopPage.payment_backClicked()
+        }
     }
     Rectangle{
         width: 50
