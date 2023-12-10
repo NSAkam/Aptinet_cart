@@ -176,7 +176,7 @@ Item {
                         popup_SetEmail.open()
                     }
                 }
-
+                
                 Text {
                     id:txt_email
                     
@@ -184,19 +184,20 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
                     
-                        
+                    
                     
                 }
-
+                
             }
             KButton{
                 borderRadius: 5
                 anchors.left: rect_emeiltxt.right
+                anchors.top: rect_emeiltxt.top
                 text: "Send Email"
                 width: 200
                 height: 50
                 onClicked: {
-                    obj_LogicContainerAfterPayment.shopPage.send_factorEmailClicked()                           
+                    obj_LogicContainerAfterPayment.shopPage.send_factorEmailClicked(txt_email.text)                           
                 }
             }
         }
