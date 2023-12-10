@@ -47,8 +47,6 @@ class Product(QObject):
     _productWeightInBasket: int = 0
     _countInBasket: int = 0
 
-    _Qprice: str = ""
-    _Qweigh: str = ""
     _quantifier: str = ""
     _taxPercentage: bool = 0
 
