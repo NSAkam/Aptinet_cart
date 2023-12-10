@@ -277,7 +277,7 @@ Item {
         }
         Text {
             id:check_TotalPrice
-            text: "$  " + (obj_LogicContainerLstCheckProducts.shopPage.factorList.finalprice)
+            text: "$  " + (obj_LogicContainerLstCheckProducts.shopPage.factorList.finalprice *1).toFixed(2)
             font.pixelSize: 32
             x:463
             y:32
