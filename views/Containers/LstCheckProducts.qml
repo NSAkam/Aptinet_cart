@@ -100,12 +100,12 @@ Item {
                     x:479
                     y:86
                     color: viewset.primaryColor
-                    font.pixelSize: 32
+                    font.pixelSize: 24
                 }
                 Text {
                     id: factorItemTotalPrice
                     text: modelData.totalFinalPriceQML
-                    x:679
+                    x:630
                     y:86
                     color: viewset.primaryColor
                     font.pixelSize: 32
@@ -184,15 +184,15 @@ Item {
                 }
                 Text {
                     text: modelData.totalSavingQML
-                    x:579
+                    x:479
                     y:86
                     color: viewset.primaryColor
-                    font.pixelSize: 32
+                    font.pixelSize: 24
                 }
                 Text {
                     id: factorItemTotalPrice
                     text: modelData.totalFinalPriceQML
-                    x:679
+                    x:630
                     y:86
                     color: viewset.primaryColor
                     font.pixelSize: 32

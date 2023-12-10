@@ -55,8 +55,8 @@ Item {
                 Image {
                     id: productimage
                     source: model.pic
-                    width: 120
-                    height: 120
+                    width: 110
+                    height: 110
                     anchors.horizontalCenter: parent.horizontalCenter
                     y: 8
                 }
@@ -64,15 +64,17 @@ Item {
                 Text {
                     text: "# "+model.barcode
                     x: 16
-                    y: 144
+                    y: 134
                     font.pixelSize: 16
                     color: "#9D9D9D"
                     lineHeight: Font.Normal
                 }
                 Text {
                     text: model.name
+                    width: parent.width -16
+                    elide: Text.ElideRight
                     x: 16
-                    y: 173
+                    y: 163
                     font.pixelSize: 24
                     color: "#1D1D1D"
                     lineHeight: Font.Normal
@@ -80,14 +82,14 @@ Item {
 
                 Text {
                     text: model.savingQML
-                    x: 40
-                    y: 211
+                    x: 16
+                    y: 198
                     font.pixelSize: 10
                     color: "#F08C5A"
                     lineHeight: Font.Normal
                     font.bold: true
                 }
-                
+
                 Text {
                     text: model.finalPriceQML
                     x: 16
