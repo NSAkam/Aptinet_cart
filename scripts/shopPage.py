@@ -921,7 +921,13 @@ class ShopPage(QObject):
             self._nfc.nfcReaderSignal.connect(self.nfc_read)
 
     @Slot()
-    def payment_QRClicked(self):
+    def payment_viaQRClicked(self):
+        if self.state == 8:
+            self.showPaymentSignal.emit()
+            self.state = 10
+
+    @Slot()
+    def payment_QRClicked(self):   # this ia a demo for payment through Qr code
         if self.state == 10:
             self.state = 12
             self.showAfterPaymentSignal.emit()
