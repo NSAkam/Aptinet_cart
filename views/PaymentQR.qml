@@ -42,6 +42,7 @@ Item {
         backvisible: true
         onBackClicked: {
             obj_LogicContainerPaymentQr.shopPage.payment_backClicked()
+            stackview.pop()
         }
     }
     //    Rectangle{

@@ -43,6 +43,7 @@ Item {
         backvisible: true
         onBackClicked: {
             obj_LogicContainerPaymentNFC.shopPage.payment_backClicked()
+            stackview.pop()
         }
     }
     Rectangle{
