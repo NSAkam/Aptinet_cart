@@ -759,6 +759,8 @@ class ShopPage(QObject):
     @Slot()
     def back_addPLUItemsClicked(self):
         self.clear_stackView()
+        if self.state == 14 or self.state == 15:
+            self.state = 1
 
     @Slot(str)
     def item_PLUClicked(self, pluCode: str):
