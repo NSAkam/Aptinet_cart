@@ -846,6 +846,18 @@ class ShopPage(QObject):
                 self.closePopupDeleteProductSignal.emit()
                 self.clear_stackView()
 
+    @Slot(str)
+    def product_removeManualBarcodeEntered(self, barcode: str):
+        pass
+
+    @Slot(int)
+    def product_removeIncreaseClicked(self, index: int):
+        pass
+
+    @Slot(int)
+    def product_removeDecreaseClicked(self, index: int):
+        pass
+
     @Slot()
     def accept_byPassClicked(self):
         if self._weightSensor.isstable:
@@ -907,6 +919,11 @@ class ShopPage(QObject):
             self.state = 10
             self._nfc = nfc()
             self._nfc.nfcReaderSignal.connect(self.nfc_read)
+
+    @Slot(str)
+    def send_factorEmailClicked(self, emailAddress: str):
+        # if emailAddress == "Please enter your email address !": send message = "Please enter your email address !"
+        print(emailAddress)
 
     ###################################################################################################### Functions ###
     def print_states(self):
