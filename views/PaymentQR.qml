@@ -38,7 +38,7 @@ Item {
     }
     TopNav{
         backvisible: true
-        backClicked: {
+        onBackClicked: {
             stackview.pop()
         }
     }
