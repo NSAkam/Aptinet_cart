@@ -4,15 +4,18 @@ import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import "../Utiles"
 import "../Components"
-import KAST.Logic 1.0
 
 Popup {
-    id: popup_SetPasssword
-    property Logic setting_obj
+    id: popup_insert
+
     ViewSettings{
         id:viewset
     }
+    signal closePup()
 
+    signal enter(key:string)
+
+    property string title: "value"
     width: 1280
     height: 800
     modal: true
@@ -37,14 +40,14 @@ Popup {
             y:140
             color: "white"
 
+//            Text {
+//                text: "Enter the Password for “ 0928154754 ”"
+//                anchors.horizontalCenter: parent.horizontalCenter
+//                y:24
+//                font.pixelSize: 16
+//            }
             Text {
-                text: "Enter the Password for “ 0928154754 ”"
-                anchors.horizontalCenter: parent.horizontalCenter
-                y:24
-                font.pixelSize: 16
-            }
-            Text {
-                text: "enter Code that sms"
+                text: popup_insert.title
                 font.pixelSize: 24
                 font.bold: true
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -52,7 +55,7 @@ Popup {
             }
 
             Text {
-                text: "Change Phone"
+                text: "Close"
                 y:64
                 x:32
                 font.pixelSize: 24
@@ -60,7 +63,7 @@ Popup {
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
-                        popup_SetPasssword.close()
+                        popup_insert.closePup()
                     }
                 }
             }
@@ -74,8 +77,7 @@ Popup {
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
-                        onClicked: setting_obj.enter_sentCode(txt_password.text)
-                        
+                        popup_insert.enter(txt_password.text)
                     }
                 }
             }
@@ -104,7 +106,7 @@ Popup {
                     //horizontalAlignment: TextInput.AlignHCenter
                     verticalAlignment:  TextInput.AlignVCenter
                     font.family: viewset.danaFuNumFont
-                    property string placeholderText: "Password"
+                    property string placeholderText: " "
 
                     onFocusChanged: {
 

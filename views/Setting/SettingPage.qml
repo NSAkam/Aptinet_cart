@@ -274,7 +274,9 @@ Item {
 
     Component {
         id: deviceTest
-        MenuTest{}
+        MenuTest{
+            obj_LogicMenuTest: obj_LogicSetting
+        }
     }
 
     Component{

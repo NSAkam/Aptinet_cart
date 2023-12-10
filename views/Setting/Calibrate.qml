@@ -419,12 +419,10 @@ Item {
                     w = 0
                     if(root.weightedCount === 0)
                     {
-                        console.log("1")
                         obj_LogicCalibrate.settingPage.weightsensor.setWeightZero();
                         root.weightedCount = root.weightedCount + 1
                     }
                     else{
-                        console.log("2")
 
                         obj_LogicCalibrate.settingPage.weightsensor.setWeightW1(txt_weight.text);
                         root.weightedCount = root.weightedCount +1
@@ -468,7 +466,7 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
         text: ""+obj_LogicCalibrate.settingPage.weightsensor.currentweight+" گرم"
-
+        visible: false
     }
 
     TopNav{

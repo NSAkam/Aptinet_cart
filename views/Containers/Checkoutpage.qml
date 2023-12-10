@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtGraphicalEffects 1.15
 import "../Utiles" as Util
 import "../Components"
+import "../"
 import KAST.Logic 1.0
 
 
@@ -9,6 +10,8 @@ Item {
     id: root
     signal nfcPaymentClicked()
     signal back()
+    width: 1280
+    height: 800
 
     property Logic obj_LogicContainerCheckoutPage
     Image {
@@ -23,7 +26,7 @@ Item {
         radius: 8
         color: Qt.rgba(255, 255, 255, 0.6)
         x: 120
-        y: 54 + 25
+        y: 14 + 25
 
         Text {
             id: cart_subtotal_text
@@ -172,11 +175,11 @@ Item {
     Rectangle {
         id: bottompart
         width: 632
-        height: 195
+        height: 235
         radius: 8
         color: Qt.rgba(255, 255, 255, 0.9)
         x: 120
-        y: 362 + 25
+        y: 322 + 25
 
         Text {
             id: totaltext
@@ -184,7 +187,7 @@ Item {
             font.pixelSize: 20
             color: "#6D6D6D"
             x: 48
-            y: 38.5
+            y: 30.5
         }
 
         Rectangle {
@@ -195,7 +198,7 @@ Item {
             border.color: "#D9D9D9"
             border.width: 0.5
             x: 118.5
-            y: 55.5
+            y: 48
         }
 
         Text {
@@ -204,7 +207,7 @@ Item {
             font.pixelSize: 32
             color: viewset.secondaryColor
             x: 466
-            y: 32
+            y: 24
             font.bold: true
         }
 
@@ -212,10 +215,10 @@ Item {
             text: "Back"
             fontsize: 24
             x: 43
-            y: 99
+            y: 91
             borderRadius: 4
             width: 205
-            height: 72
+            height: 60
             onClicked: {
                 obj_LogicContainerCheckoutPage.shopPage.checkout_backClicked()
             }
@@ -225,9 +228,9 @@ Item {
             text: "Payment"
             fontsize: 24
             x: 274
-            y: 99
+            y: 91
             width: 304
-            height: 72
+            height: 60
             borderRadius: 4
             btn_color: viewset.secondaryColor
             btn_bordercolor: viewset.secondaryColor
@@ -243,6 +246,24 @@ Item {
 
             onClicked: {
                 obj_LogicContainerCheckoutPage.shopPage.payment_clicked()
+            }
+
+
+        }
+
+        KButton {
+            text: "Payment Via QR"
+            fontsize: 24
+            x: 43
+            y: 160
+            width: 535
+            height: 60
+            borderRadius: 4
+            btn_color: viewset.secondaryColor
+            btn_bordercolor: viewset.secondaryColor
+
+            onClicked: {
+                stackview.push(paymentQRCode)
             }
 
 
@@ -285,6 +306,14 @@ Item {
             numpad.visible = false
 
         }
+    }
+
+    Component{
+        id:paymentQRCode
+        PaymentQR{
+
+        }
+
     }
 
 }
