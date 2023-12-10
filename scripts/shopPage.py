@@ -101,6 +101,7 @@ class ShopPage(QObject):
         self._weightSensor = WeightSensorWorker()
         self._weightSensor.basketweight_changed.connect(self.basketWeightChanged)
         self._weightSensor.start()
+        self._weightSensor.startWeightchanged.connect(self.read_startWeight)
 
         #### Models ###############################################
         self._newProduct = Product()
@@ -357,6 +358,15 @@ class ShopPage(QObject):
             elif self.state == 8:
                 self.openPopupMessageTimerSignal.emit("Can't add product at this session.")
 
+    @Slot(int)
+    def startWeightchanged(self, startWeight: int):
+        if abs(startWeight) > 20:
+            self.state = -1
+            self._basketWeightShouldBe = 0
+            self.openPopupMessageSignal.emit("Please clear the cart !")
+        else:
+            self._basketWeightShouldBe = 0
+
     @Slot(int, int)
     def basketWeightChanged(self, val2: int, val1: int):
         if not self._inByPass:
@@ -366,7 +376,12 @@ class ShopPage(QObject):
             # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ADD Weight <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
             # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
             if val2 >= val1:
-                if self.state == 1:
+                if self.stat == -1:
+                    if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
+                        self.state = 1
+                        self.closePopupMessageSignal()
+
+                elif self.state == 1:
                     if not self._shouldBarcodeToBeScannToAddProduct and self.newProduct.get_productType() == "normal":
                         if ((value < self.newProduct.meanWeight + self.newProduct.tolerance) and (
                                 value >= self.newProduct.meanWeight - self.newProduct.tolerance)):
@@ -515,7 +530,7 @@ class ShopPage(QObject):
 
                 elif self.state == 12:
                     if abs(val2 - self._basketWeightShouldBe) > 50:
-                        self._basketWeightShouldBe = val1
+                        # self._basketWeightShouldBe = val1
                         self.turn_offGreenlight()
                         self.openPopupMessageSignal.emit("Cant add or remove product in this session.")
                         self.state = 13
@@ -534,7 +549,12 @@ class ShopPage(QObject):
             # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> REMOVE WEIGHT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
             # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
             if val2 < val1:
-                if self.state == 1:
+                if self.state == -1:
+                    if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
+                        self.state = 1
+                        self.closePopupMessageSignal()
+
+                elif self.state == 1:
                     self._removeList.validBarcodeSetForRemove(self._factorList.m_data, abs(value))
                     if not len(self._removeList.m_validBarcodeSetForDelete) == 0:
                         self.openPopupDeleteProductSignal.emit()
@@ -616,7 +636,7 @@ class ShopPage(QObject):
 
                 elif self.state == 12:
                     if abs(val2 - self._basketWeightShouldBe) > 50:
-                        self._basketWeightShouldBe = val1
+                        # self._basketWeightShouldBe = val1
                         self.openPopupMessageSignal.emit("Cant add or remove product in this session.")
                         self.turn_offGreenlight()
                         self.state = 13
@@ -890,7 +910,9 @@ class ShopPage(QObject):
 
     ###################################################################################################### Functions ###
     def print_states(self):
-        if self.state == 1:
+        if self.state == -1:
+            print("\nState " + str(self._states) + " : Start with weight in basket or out of calibrate.\n")
+        elif self.state == 1:
             print("\nState " + str(self._states) + " : Stable.\n")
         elif self.state == 2:
             print("\nState " + str(self._states) + " : A Barcode was read and waiting for Weight to add.\n")
