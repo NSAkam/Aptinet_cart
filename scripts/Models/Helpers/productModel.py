@@ -35,6 +35,7 @@ class ProductModel(QAbstractListModel):
     m_removedWeightMax: int = 0
 
     _priceToPay: float = 0
+    _offerCouponPercentage: float = 0
 
     def __init__(self):
         super().__init__()
@@ -63,7 +64,7 @@ class ProductModel(QAbstractListModel):
                 price = price + (i.price * i.productWeightInBasket/1000)
             else:
                 price = price + (i.price * i.countInBasket)
-        return round(price, 2)
+        return price
 
     priceNoDiscount = Property(int, get_pricenodiscount, notify=changed)
 
@@ -74,28 +75,29 @@ class ProductModel(QAbstractListModel):
                 finalprice = finalprice + (i.finalPrice * i.productWeightInBasket/1000)
             else:
                 finalprice = finalprice + (i.finalPrice * i.countInBasket)
-        return round(finalprice, 2)
+        return finalprice
 
     finalprice = Property(float, get_finalprice, notify=changed)
 
+    def get_tax(self):
+        tax: float = 0
+        for i in self.m_data:
+            if i._tax:
+                if i.isPlu:
+                    tax = tax + (i._taxPercentage * i.productWeightInBasket/1000 * i.finalPrice)
+                else:
+                    tax = tax + (i._taxPercentage * i.countInBasket * i.finalPrice)
+        return tax
+
+    tax = Property(float, get_tax, notify=changed)
+
     def get_priceToPay(self):
-        return self._priceToPay
+        return (self.finalprice + self.tax) * (100 - self._offerCouponPercentage) / 100
 
-    def set_priceToPay(self, v):
-        self._priceToPay = v
-        self.changed.emit()
-
-    priceToPay = Property(float, get_priceToPay,
-                          set_priceToPay, notify=changed)
+    priceToPay = Property(float, get_priceToPay, notify=changed)
 
     def getProfit(self):
-        price: float = 0
-        finalprice: float = 0
-
-        for i in self.m_data:
-            price = price + (i.price * i.countInBasket)
-            finalprice = finalprice + (i.finalPrice * i.countInBasket)
-        return price - finalprice
+        return self.priceNoDiscount - self.finalprice + ((self.finalprice + self.tax) * self._offerCouponPercentage / 100)
 
     profit = Property(int, getProfit, notify=changed)
 

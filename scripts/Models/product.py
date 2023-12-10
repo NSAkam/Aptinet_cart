@@ -200,24 +200,28 @@ class Product(QObject):
     def get_price(self):
         return self._price
 
-    def set_price(self, value):
-        if self._tax:
-            self._price = value * (1 + self._taxPercentage)
-        else:
-            self._price = value
+    def set_price(self, value):   # unit price
+        self._price = value
         self.changedSignal.emit()
+        # if self._tax:
+        #     self._price = value * (1 + self._taxPercentage)
+        # else:
+        #     self._price = value
+        # self.changedSignal.emit()
 
     price = Property(float, get_price, set_price, notify=changedSignal)
 
-    def get_finalPrice(self):
+    def get_finalPrice(self):   # unit final price (with discount)
         return self._finalPrice
 
     def set_finalPrice(self, value):
-        if self._tax:
-            self._finalPrice = value * (1 + self._taxPercentage)
-        else:
-            self._finalPrice = value
+        self._finalPrice = value
         self.changedSignal.emit()
+        # if self._tax:
+        #     self._finalPrice = value * (1 + self._taxPercentage)
+        # else:
+        #     self._finalPrice = value
+        # self.changedSignal.emit()
 
     finalPrice = Property(float, get_finalPrice,
                           set_finalPrice, notify=changedSignal)
@@ -335,37 +339,68 @@ class Product(QObject):
     countInBasket = Property(int, get_countInBasket,
                              set_countInBasket, notify=changedSignal)
 
-    def get_Qprice(self):
+    def get_finalPriceQML(self):   # unit price with discount
         if self.dataModelShow == 1:
             if self.quantifier == "kg":
-                return "$ " + "{:.2f}".format(self._finalPrice) + " /Kg"
+                return "$ " + "{:.2f}".format(self.finalPrice) + " /Kg"
             elif self.quantifier == "lb":
                 lb = self._productWeightInBasket / 453.59237
-                price = self._finalPrice / 1000 * 453.59237
+                price = self.finalPrice / 1000 * 453.59237
                 if lb < 1:
                     return "$ " + "{:.2f}".format(price / 16) + " /oz"
                 elif lb >= 1:
                     return "$ " + "{:.2f}".format(price) + " /lb"
         else:
-            return ""
+            return "$ " + "{:.2f}".format(self.finalPrice) + " /each"
 
-    Qprice = Property(str, get_Qprice, notify=changedSignal)
+    finalPriceQML = Property(str, get_finalPriceQML, notify=changedSignal)
 
-    def get_Qweigh(self):
+    def get_totalFinalPriceQML(self):   # total price with discount
+        if self.dataModelShow == 1:
+            return "$ " + "{:.2f}".format(self.finalPrice * self.productWeightInBasket)
+        else:
+            return "$ " + "{:.2f}".format(self.finalPrice * self.countInBasket)
+
+    totalFinalPriceQML = Property(str, get_totalFinalPriceQML, notify=changedSignal)
+
+    def get_mountQML(self):   # total mount of product
         if self.dataModelShow == 1:
             if self.quantifier == "kg":
-
-                return "{:.2f}".format(self.productWeightInBasket / 1000) + " Kg"
+                return "Wt: " + "{:.2f}".format(self.productWeightInBasket / 1000) + " Kg"
             elif self.quantifier == "lb":
                 lb = self.productWeightInBasket / 453.59237
                 if lb > 1:
-                    return "{:.2f}".format(lb) + " lb"
+                    return "Wt: " + "{:.2f}".format(lb) + " lb"
                 else:
-                    return "{:.2f}".format(lb * 16) + " oz"
+                    return "Wt: " + "{:.2f}".format(lb * 16) + " oz"
         else:
-            return ""
+            return "Qty: " + str(self.countInBasket)
 
-    Qweigh = Property(str, get_Qweigh, notify=changedSignal)
+    mountQML = Property(str, get_mountQML, notify=changedSignal)
+
+    def get_savingQML(self):   # saving of unit
+        if self.dataModelShow == 1:
+            if self.quantifier == "kg":
+                return "{:.2f}".format(self.price - self.finalPrice)
+            elif self.quantifier == "lb":
+                lb = self.productWeightInBasket / 453.59237
+                price = (self.price - self.finalPrice) / 1000 * 453.59237
+                if lb < 1:
+                    return "{:.2f}".format(price / 16)
+                elif lb >= 1:
+                    return "{:.2f}".format(price)
+        else:
+            return str(self.price - self.finalPrice)
+
+    savingQML = Property(str, get_savingQML, notify=changedSignal)
+
+    def get_totalSavingQML(self):   # saving of total mount
+        if self.dataModelShow == 1:
+            return "{:.2f}".format(self.productWeightInBasket * (self.price - self.finalPrice))
+        else:
+            return "{:.2f}".format(self.countInBasket * (self.price - self.finalPrice))
+
+    totalSavingQML = Property(str, get_totalSavingQML, notify=changedSignal)
 
     def get_quantifier(self):
         return self._quantifier
@@ -409,6 +444,8 @@ class Product(QObject):
         product.set_productType(self.productType)
         product._taxPercentage = self._taxPercentage
         product.set_quantifier(self._quantifier)
+        product.set_productWeightInBasket(self._productWeightInBasket)
+        product.set_countInBasket(self._countInBasket)
         return product
 
     def call_newWeightParameter(self, weight: int):
