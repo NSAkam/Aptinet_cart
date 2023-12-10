@@ -55,7 +55,7 @@ class BatteryHelper(QObject):
                     if self._batteryLevel < level:
                         canChange = False
                 if canChange:
-                    # self.stopChargingSignal.emit()
+                    self.stopChargingSignal.emit()
                     self.set_batteryLevel(self._batteryLevel - 1)
 
             elif newLevel > self._batteryLevel:
