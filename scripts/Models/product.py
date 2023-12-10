@@ -366,15 +366,15 @@ class Product(QObject):
     def get_mountQML(self):   # total mount of product
         if self.dataModelShow == 1:
             if self.quantifier == "kg":
-                return "Wt: " + "{:.2f}".format(self.productWeightInBasket / 1000) + " Kg"
+                return "{:.2f}".format(self.productWeightInBasket / 1000) + " Kg"
             elif self.quantifier == "lb":
                 lb = self.productWeightInBasket / 453.59237
                 if lb > 1:
-                    return "Wt: " + "{:.2f}".format(lb) + " lb"
+                    return "{:.2f}".format(lb) + " lb"
                 else:
-                    return "Wt: " + "{:.2f}".format(lb * 16) + " oz"
+                    return "{:.2f}".format(lb * 16) + " oz"
         else:
-            return "Qty: " + str(self.countInBasket)
+            return str(self.countInBasket)
 
     mountQML = Property(str, get_mountQML, notify=changedSignal)
 
