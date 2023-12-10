@@ -78,9 +78,42 @@ Popup {
 
         Rectangle{
             width: 758
-            height: 300
-
-
+            height: 400
+            
+            Rectangle{
+                id:rectEnterBarcode
+                y:10
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 417
+                height: 54
+                color: "#F1F1F1"
+                radius: 4
+                TextInput{
+                    id:txt_BarCodeInput
+                    anchors.fill: parent
+                    font.pixelSize: 18
+                    layer.enabled: true
+                    horizontalAlignment: TextInput.AlignHCenter
+                    verticalAlignment:  TextInput.AlignVCenter
+                    font.family: viewset.danaFuNumFont
+                    property string placeholderText: "Enter Barcode"
+    
+                    onFocusChanged: {
+                        numpad.inputtext = txt_BarCodeInput
+                        numpad.visible = true
+                    }
+                    Text {
+                        text: txt_BarCodeInput.placeholderText
+                        color: "#C6C5CE"
+                        visible: !txt_BarCodeInput.text
+                        font.pixelSize: 18
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        font.family: viewset.danaFuNumFont
+                    }
+                }
+            }
+            
 
             ListView {
                 id:slideshow
@@ -88,7 +121,8 @@ Popup {
                 height: 210
                 clip: true
                 spacing: 10
-                model: obj_logicRemoveProductList.shopPage.removeList
+                model: 10
+                y:60
                 orientation: ListView.vertical
                 delegate:Item{
                     width: 758
@@ -151,11 +185,20 @@ Popup {
                 height: 64
                 width: 726
                 anchors.horizontalCenter: parent.horizontalCenter
-                y:230
+                y:290
                 btn_color: viewset.secondaryColor
                 btn_borderWidth: 0
                 onClicked: {
                     obj_logicRemoveProductList.shopPage.product_removeConfirmClicked()
+                }
+            }
+            Numpad{
+                id:numpad
+                visible: false
+                anchors.left: rectEnterBarcode.right
+                onEnter: {
+                    numpad.visible = false
+                    
                 }
             }
         }
