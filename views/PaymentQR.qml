@@ -6,12 +6,14 @@ import QtQuick.Controls.Styles 1.4
 import "Components"
 import "Containers"
 import "Utiles" as Util
+import KAST.Logic 1.0
 
 
 Item {
 
     width: 1280
     height: 800
+    property Logic obj_LogicContainerPaymentQr
 
 
     Util.ViewSettings{
@@ -42,23 +44,23 @@ Item {
             stackview.pop()
         }
     }
-//    Rectangle{
-//        width: 50
-//        height: 50
-//        color: viewset.primaryColor
-//        x:530 + 390
-//        y:24
-//        radius: width /2
-//    }
-//    Text {
-//        text: "user Email"
-//        color: "#6D6D6D"
-//        width: 148
-//        height: 15
-//        font.pixelSize: 14
-//        x:586 + 390
-//        y:40.5
-//    }
+    //    Rectangle{
+    //        width: 50
+    //        height: 50
+    //        color: viewset.primaryColor
+    //        x:530 + 390
+    //        y:24
+    //        radius: width /2
+    //    }
+    //    Text {
+    //        text: "user Email"
+    //        color: "#6D6D6D"
+    //        width: 148
+    //        height: 15
+    //        font.pixelSize: 14
+    //        x:586 + 390
+    //        y:40.5
+    //    }
     Image {
         source: "../Assets/Help.png"
         width: 57
@@ -82,23 +84,23 @@ Item {
             height: parent.height
             x:0
             y:0
-//            Rectangle{
-//                width: 50
-//                height: 50
-//                color: viewset.primaryColor
-//                x:530 + 390
-//                y:24
-//                radius: width /2
-//            }
-//            Text {
-//                text: "user Email"
-//                color: "#6D6D6D"
-//                width: 148
-//                height: 15
-//                font.pixelSize: 14
-//                x:586 + 390
-//                y:40.5
-//            }
+            //            Rectangle{
+            //                width: 50
+            //                height: 50
+            //                color: viewset.primaryColor
+            //                x:530 + 390
+            //                y:24
+            //                radius: width /2
+            //            }
+            //            Text {
+            //                text: "user Email"
+            //                color: "#6D6D6D"
+            //                width: 148
+            //                height: 15
+            //                font.pixelSize: 14
+            //                x:586 + 390
+            //                y:40.5
+            //            }
             Image {
                 source: "../Assets/Help.png"
                 width: 57
@@ -123,6 +125,27 @@ Item {
         source: "../Assets/QR.png"
         x: 498
         y: 185 + topPanel.height
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                console.log("asdasd")
+               obj_LogicContainerPaymentQr.shopPage.payment_QRClicked()
+            }
+        }
+    }
+
+    Component{
+        id:afterpaymentPage
+        AfterPayment{
+            obj_LogicContainerAfterPayment: obj_LogicContainerPaymentQr
+        }
+    }
+
+    Connections{
+        target:obj_LogicContainerPaymentQr.shopPage
+        function onShowAfterPaymentSignal(){
+            stackview.push(afterpaymentPage)
+        }
     }
 
 }

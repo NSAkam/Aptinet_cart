@@ -14,6 +14,7 @@ Item {
     height: 800
 
     property Logic obj_LogicContainerCheckoutPage
+
     Image {
         source: "../../Assets/StackBackground.png"
         anchors.fill: parent
@@ -261,6 +262,7 @@ Item {
             btn_bordercolor: viewset.secondaryColor
 
             onClicked: {
+                obj_LogicContainerCheckoutPage.shopPage.payment_viaQRClicked()
                 stackview.push(paymentQRCode)
             }
 
@@ -309,7 +311,7 @@ Item {
     Component{
         id:paymentQRCode
         PaymentQR{
-
+            obj_LogicContainerPaymentQr: obj_LogicContainerCheckoutPage
         }
 
     }
