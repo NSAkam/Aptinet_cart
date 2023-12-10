@@ -9,7 +9,7 @@ import "PopUps"
 import KAST.Logic 1.0
 
 
-ApplicationWindow {
+Item {
 
     width: 1280
     height: 800
@@ -159,9 +159,9 @@ ApplicationWindow {
                 y: 314
                 font.weight: Font.DemiBold
             }
-        
+
         }
-        
+
         KButton{
             text: "Enter you Email to get a receipt"
             borderRadius: 5
@@ -171,8 +171,8 @@ ApplicationWindow {
                 popup_SetEmail.open()
             }
         }
-        
-        
+
+
         Text {
             text: "How would you rate your shopping experience?"
             font.pixelSize: 24
@@ -270,19 +270,19 @@ ApplicationWindow {
         }
 
     }
-    
-    
-    
+
+
+
     Popup {
         id: popup_SetEmail
         property QtObject setting_obj
 
-    
+
         width: 1280
         height: 800
         modal: true
         focus: true
-    
+
         closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
         background: Rectangle {
             implicitWidth: 725
@@ -300,7 +300,7 @@ ApplicationWindow {
                 anchors.horizontalCenter: parent.horizontalCenter
                 y:140
                 color: "white"
-    
+
                 Text {
                     text: "Enter your Email Address"
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -314,7 +314,7 @@ ApplicationWindow {
                     anchors.horizontalCenter: parent.horizontalCenter
                     y:65
                 }
-    
+
                 Text {
                     text: "Cancel"
                     y:64
@@ -349,7 +349,7 @@ ApplicationWindow {
                     color: "gray"
                     y:115
                 }
-    
+
                 Rectangle{
                     id:input_enterPassword
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -369,9 +369,9 @@ ApplicationWindow {
                         verticalAlignment:  TextInput.AlignVCenter
                         font.family: viewset.danaFuNumFont
                         property string placeholderText: "Email"
-    
+
                         onFocusChanged: {
-    
+
                         }
                         Text {
                             text: txt_password.placeholderText
@@ -396,5 +396,5 @@ ApplicationWindow {
             anchors.top: input_enterPassword.bottom
         }
     }
-    
+
 }
