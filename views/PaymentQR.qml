@@ -128,6 +128,7 @@ Item {
         MouseArea{
             anchors.fill: parent
             onClicked: {
+                console.log("asdasd")
                obj_LogicContainerPaymentQr.shopPage.payment_QRClicked()
             }
         }
