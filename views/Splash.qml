@@ -317,7 +317,6 @@ Item {
     Connections{
         target:obj_logic
         function onGoToShopPageSignal(){
-            popupInsertSMS.close()
             stackview.push(shoppage)
         }
 
@@ -330,7 +329,7 @@ Item {
             messageTimer.open()
         }
         function onValidPhoneNumberSignal(){
-            popupInsertSMS.open()
+
         }
 
         function onLanguageChangedSignal(){
