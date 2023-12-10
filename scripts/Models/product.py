@@ -355,7 +355,7 @@ class Product(QObject):
 
     def get_totalFinalPriceQML(self):   # total price with discount
         if self.dataModelShow == 1:
-            return "$ " + "{:.2f}".format(self.finalPrice * self.productWeightInBasket)
+            return "$ " + "{:.2f}".format(self.finalPrice * self.productWeightInBasket/1000)
         else:
             return "$ " + "{:.2f}".format(self.finalPrice * self.countInBasket)
 
@@ -394,7 +394,7 @@ class Product(QObject):
 
     def get_totalSavingQML(self):   # saving of total mount
         if self.dataModelShow == 1:
-            return "{:.2f}".format(self.productWeightInBasket * (self.price - self.finalPrice))
+            return "{:.2f}".format(self.productWeightInBasket / 1000 * (self.price - self.finalPrice))
         else:
             return "{:.2f}".format(self.countInBasket * (self.price - self.finalPrice))
 
