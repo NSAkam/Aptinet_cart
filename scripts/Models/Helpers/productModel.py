@@ -26,16 +26,20 @@ class ProductModel(QAbstractListModel):
     quantifierRole = Qt.UserRole + 15
     productWeightInBasketRole = Qt.UserRole + 16
     finalPriceQMLRole = Qt.UserRole + 17
-    totalFinalPriceQMLRole= Qt.UserRole + 18
-    mountQMLRole= Qt.UserRole + 19
-    savingQMLRole= Qt.UserRole + 20
-    totalSavingQMLRole= Qt.UserRole + 21
+    totalFinalPriceQMLRole = Qt.UserRole + 18
+    mountQMLRole = Qt.UserRole + 19
+    savingQMLRole = Qt.UserRole + 20
+    totalSavingQMLRole = Qt.UserRole + 21
 
     m_data = [Product]
     m_validBarcodeSetForDelete = []
     m_removedWeightMin: int = 0
     m_removedWeightMax: int = 0
 
+    _priceNoDiscount: float = 0
+    _finalprice: float = 0
+    _tax: float = 0
+    _profit: float = 0
     _priceToPay: float = 0
     _offerCouponPercentage: float = 0
 
@@ -63,18 +67,18 @@ class ProductModel(QAbstractListModel):
         price: float = 0
         for i in self.m_data:
             if i.isPlu:
-                price = price + (i.price * i.productWeightInBasket/1000)
+                price = price + (i.price * i.productWeightInBasket / 1000)
             else:
                 price = price + (i.price * i.countInBasket)
         return price
 
-    priceNoDiscount = Property(int, get_pricenodiscount, notify=changed)
+    priceNoDiscount = Property(float, get_pricenodiscount, notify=changed)
 
     def get_finalprice(self):
         finalprice: float = 0
         for i in self.m_data:
             if i.isPlu:
-                finalprice = finalprice + (i.finalPrice * i.productWeightInBasket/1000)
+                finalprice = finalprice + (i.finalPrice * i.productWeightInBasket / 1000)
             else:
                 finalprice = finalprice + (i.finalPrice * i.countInBasket)
         return finalprice
@@ -86,7 +90,7 @@ class ProductModel(QAbstractListModel):
         for i in self.m_data:
             if i._tax:
                 if i.isPlu:
-                    tax = tax + (i._taxPercentage * i.productWeightInBasket/1000 * i.finalPrice)
+                    tax = tax + (i._taxPercentage * i.productWeightInBasket / 1000 * i.finalPrice)
                 else:
                     tax = tax + (i._taxPercentage * i.countInBasket * i.finalPrice)
         return tax
@@ -99,9 +103,9 @@ class ProductModel(QAbstractListModel):
     priceToPay = Property(float, get_priceToPay, notify=changed)
 
     def getProfit(self):
-        return self.priceNoDiscount - self.finalprice + ((self.finalprice + self.tax) * self._offerCouponPercentage / 100)
+        return self.priceNoDiscount - self.finalprice  # + ((self.finalprice + self.tax) * self._offerCouponPercentage / 100)
 
-    profit = Property(int, getProfit, notify=changed)
+    profit = Property(float, getProfit, notify=changed)
 
     def getValidBarcodeSetForDelete(self):
         return self.m_validBarcodeSetForDelete
@@ -155,19 +159,19 @@ class ProductModel(QAbstractListModel):
             return prod.pic
         elif (role == self.ProductTypeRole):
             return prod.productType
-        elif(role == self.quantifierRole):
+        elif (role == self.quantifierRole):
             return prod.quantifier
-        elif(role == self.productWeightInBasketRole):
+        elif (role == self.productWeightInBasketRole):
             return prod.productWeightInBasket
-        elif(role == self.finalPriceQMLRole):
-             return prod.finalPriceQML
-        elif(role == self.totalFinalPriceQMLRole):
+        elif (role == self.finalPriceQMLRole):
+            return prod.finalPriceQML
+        elif (role == self.totalFinalPriceQMLRole):
             return prod.totalFinalPriceQML
-        elif(role == self.mountQMLRole):
+        elif (role == self.mountQMLRole):
             return prod.mountQML
-        elif(role == self.savingQMLRole):
+        elif (role == self.savingQMLRole):
             return prod.savingQML
-        elif(role == self.totalSavingQMLRole):
+        elif (role == self.totalSavingQMLRole):
             return prod.totalSavingQML
         else:
             return None
@@ -197,7 +201,6 @@ class ProductModel(QAbstractListModel):
         default[self.savingQMLRole] = QByteArray(b"savingQML")
         default[self.totalSavingQMLRole] = QByteArray(b"totalSavingQML")
         return default
-    
 
     # def data(self):
     #     return self.m_data
