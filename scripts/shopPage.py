@@ -940,7 +940,7 @@ class ShopPage(QObject):
         if self.state == 10:
             self.state = 8
             self.clear_stackView()
-            self.self.showCheckOutSignal.emit()
+            self.showCheckOutSignal.emit()
 
 
     @Slot(str)
