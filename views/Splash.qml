@@ -313,10 +313,6 @@ Item {
     FullMessageTimer{
         id:messageTimer
     }
-    InsertSMS{
-        id:popupInsertSMS
-        setting_obj: obj_logic
-    }
 
     Connections{
         target:obj_logic
