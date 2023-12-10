@@ -377,26 +377,32 @@ class Product(QObject):
     mountQML = Property(str, get_mountQML, notify=changedSignal)
 
     def get_savingQML(self):   # saving of unit
-        if self.dataModelShow == 1:
-            if self.quantifier == "kg":
-                return "$" + "{:.2f}".format(self.price - self.finalPrice)
-            elif self.quantifier == "lb":
-                lb = self.productWeightInBasket / 453.59237
-                price = (self.price - self.finalPrice) / 1000 * 453.59237
-                if lb < 1:
-                    return "$" + "{:.2f}".format(price / 16)
-                elif lb >= 1:
-                    return "$" + "{:.2f}".format(price)
+        if (self.price - self.finalPrice) == 0:
+            return ""
         else:
-            return "$" + "{:.2f}".format(self.price - self.finalPrice)
+            if self.dataModelShow == 1:
+                if self.quantifier == "kg":
+                    return "$ " + "{:.2f}".format(self.price - self.finalPrice)
+                elif self.quantifier == "lb":
+                    lb = self.productWeightInBasket / 453.59237
+                    price = (self.price - self.finalPrice) / 1000 * 453.59237
+                    if lb < 1:
+                        return "$ " + "{:.2f}".format(price / 16)
+                    elif lb >= 1:
+                        return "$ " + "{:.2f}".format(price)
+            else:
+                return "$ " + "{:.2f}".format(self.price - self.finalPrice)
 
     savingQML = Property(str, get_savingQML, notify=changedSignal)
 
     def get_totalSavingQML(self):   # saving of total mount
-        if self.dataModelShow == 1:
-            return "$" + "{:.2f}".format(self.productWeightInBasket / 1000 * (self.price - self.finalPrice))
+        if (self.price - self.finalPrice) == 0:
+            return ""
         else:
-            return "$" + "{:.2f}".format(self.countInBasket * (self.price - self.finalPrice))
+            if self.dataModelShow == 1:
+                return "$ " + "{:.2f}".format(self.productWeightInBasket / 1000 * (self.price - self.finalPrice))
+            else:
+                return "$ " + "{:.2f}".format(self.countInBasket * (self.price - self.finalPrice))
 
     totalSavingQML = Property(str, get_totalSavingQML, notify=changedSignal)
 
