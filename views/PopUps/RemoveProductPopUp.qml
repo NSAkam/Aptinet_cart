@@ -121,7 +121,7 @@ Popup {
                 height: 210
                 clip: true
                 spacing: 10
-                model: obj_logicRemoveProductList.shopPage.removeList
+                model: 10
                 y:60
                 orientation: ListView.vertical
                 delegate:Item{
@@ -159,21 +159,45 @@ Popup {
 
                         Text {
                             text: model.countInBasket
-                            x: 695
+                            x: 595
                             y: 45
                             font.pixelSize: 24
                             font.weight: Font.Bold
                             color: "#F08C5A"
                         }
-
-                        Text {
-                            text: model.finalPrice
-                            x: 615
-                            y: 102
-                            font.pixelSize: 24
-                            font.weight: Font.Bold
-                            color: viewset.primaryColor
+                        KButton{
+                            visible: model.productType === "counted" ? true:false
+                            width: 30
+                            height: 30
+                            text: "-"
+                            x: 625
+                            y: 45
+                            onClicked: {
+                                obj_logicRemoveProductList.shopPage.product_removeDecreaseClicked(index)
+                            }
                         }
+                        KButton{
+                            visible: model.productType === "counted" ? true:false
+                            text: "+"
+                            width: 30
+                            height: 30
+                            x: 665
+                            y: 45
+                            onClicked: {
+                                obj_logicRemoveProductList.shopPage.product_removeIncreaseClicked(index)
+                            }
+                        }
+
+//                        Text {
+//                            text: model.finalPrice
+//                            x: 615
+//                            y: 102
+//                            font.pixelSize: 24
+//                            font.weight: Font.Bold
+//                            color: viewset.primaryColor
+//                        }
+
+
                     }
                 }
             }
@@ -195,6 +219,7 @@ Popup {
                 visible: false
                 anchors.left: rectEnterBarcode.right
                 onEnter: {
+                    obj_logicRemoveProductList.shopPage.product_removeManualBarcodeEntered()
                     numpad.visible = false
 
                 }
