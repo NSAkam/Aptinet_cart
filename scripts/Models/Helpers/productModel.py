@@ -90,9 +90,9 @@ class ProductModel(QAbstractListModel):
         for i in self.m_data:
             if i._tax:
                 if i.isPlu:
-                    tax = tax + (i._taxPercentage * i.productWeightInBasket / 1000 * i.finalPrice)
+                    tax = tax + (i._taxPercentage / 100 * i.productWeightInBasket / 1000 * i.finalPrice)
                 else:
-                    tax = tax + (i._taxPercentage * i.countInBasket * i.finalPrice)
+                    tax = tax + (i._taxPercentage / 100 * i.countInBasket * i.finalPrice)
         return tax
 
     tax = Property(float, get_tax, notify=changed)
