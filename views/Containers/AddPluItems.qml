@@ -205,7 +205,7 @@ Item {
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
-                        obj_LogicContainerPLUListItems.shopPage.item_PLUClicked(model.barcode)
+                        obj_LogicContainerAddPluItems.shopPage.item_PLUClicked(model.barcode)
                     }
                 }
 
