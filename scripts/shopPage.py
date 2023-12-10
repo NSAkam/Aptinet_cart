@@ -379,7 +379,7 @@ class ShopPage(QObject):
                 if self.state == -1:
                     if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
                         self.state = 1
-                        self.closePopupMessageSignal()
+                        self.closePopupMessageSignal.emit()
 
                 elif self.state == 1:
                     if not self._shouldBarcodeToBeScannToAddProduct and self.newProduct.get_productType() == "normal":
@@ -552,7 +552,7 @@ class ShopPage(QObject):
                 if self.state == -1:
                     if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
                         self.state = 1
-                        self.closePopupMessageSignal()
+                        self.closePopupMessageSignal.emit()
 
                 elif self.state == 1:
                     self._removeList.validBarcodeSetForRemove(self._factorList.m_data, abs(value))
