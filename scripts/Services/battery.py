@@ -26,8 +26,8 @@ class BatteryWorker(QThread):
         self._i2cBus = smbus.SMBus(1)
         self._devAddress = 0x4d
 
-        self._elecNoiseReducBufferSize = 15
-        self._noiseReductionBufferSize = 15
+        self._elecNoiseReducBufferSize = 50
+        self._noiseReductionBufferSize = 50
 
         self._minElecNumber = 4096  # MCP3221 maximum electrical number
         self._maxElecNumber = 0  # MCP3221 minimum electrical number
@@ -93,7 +93,7 @@ class BatteryWorker(QThread):
 
                     self.set_level(int(((elecNumber - self._minElecNumber) / (self._maxElecNumber - self._minElecNumber)) * 100))
                     self.new_levelRead(self._level)
-                    time.sleep(0.1)
+                    # time.sleep(0.1)
         except:
             pass
 
