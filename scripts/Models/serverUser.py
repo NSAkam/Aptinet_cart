@@ -1,4 +1,5 @@
 from PySide2.QtCore import QObject, Signal, Property
+import os
 
 
 class ServerUser(QObject):
@@ -59,6 +60,14 @@ class ServerUser(QObject):
         self.changedSignal.emit()
             
     phone = Property(str, get_phone, set_phone, notify=changedSignal)
+
+    def get_pic(self):
+        if (os.path.isfile("/home/aptinet/pics/" + self.phone + ".png") == False):
+            return "file:///home/aptinet/pics/guest.png"
+        else:
+            return "file:///home/aptinet/pics/" + self.phone + ".png"
+
+    pic = Property(str, get_pic, notify=changedSignal)
 
     def get_offerPercentage(self):
         return self._offerPercentage
