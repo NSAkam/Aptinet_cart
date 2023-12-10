@@ -100,8 +100,8 @@ class ShopPage(QObject):
         #### WeightSensor #########################################
         self._weightSensor = WeightSensorWorker()
         self._weightSensor.basketweight_changed.connect(self.basketWeightChanged)
-        self._weightSensor.start()
         self._weightSensor.startWeightchanged.connect(self.read_startWeight)
+        self._weightSensor.start()
 
         #### Models ###############################################
         self._newProduct = Product()
@@ -359,7 +359,7 @@ class ShopPage(QObject):
                 self.openPopupMessageTimerSignal.emit("Can't add product at this session.")
 
     @Slot(int)
-    def startWeightchanged(self, startWeight: int):
+    def read_startWeight(self, startWeight: int):
         if abs(startWeight) > 20:
             self.state = -1
             self._basketWeightShouldBe = 0
