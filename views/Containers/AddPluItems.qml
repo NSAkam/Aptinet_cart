@@ -242,7 +242,7 @@ Item {
                     x: 16
                     y: 198
                     font.pixelSize: 10
-                    color: "#F08C5A"
+                    color: "#36EB00"
                     lineHeight: Font.Normal
                     font.bold: true
                 }
