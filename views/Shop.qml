@@ -795,6 +795,15 @@ Item {
         }
     }
 
+    Component{
+        id:paymentQRCode
+        PaymentQR{
+            obj_LogicContainerPaymentQr: obj_LogicContainerShop
+        }
+
+    }
+
+
     Connections{
         target: cameraProvider
         function onNewFrameReadSignal() {
@@ -964,8 +973,13 @@ Item {
             btn_lookupbyname.visible = false
         }
 
-        function onShowPaymentSignal(){
-            stackview.push(nfcpayment)
+        function onShowPaymentSignal(v){
+            if(v === 0){
+                stackview.push(nfcpayment)
+            }
+            else{
+                stackview.push(paymentQRCode)
+            }
         }
     }
 }
