@@ -2,22 +2,22 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtGraphicalEffects 1.12
+import QtQuick.Window 2.15
 import "../Components"
 import "../PopUps"
+import KAST.Logic 1.0
 
 
 
 
-Item {
+Window {
     id: root
     visible: true
     width: 1280
     height: 800
 
-    property bool havePopUp : false
-    property bool scannerPopUp : false
-    property bool weightsensorPopup : false
-
+    property Logic obj_LogicMenuTest  
+  
     Image {
         id: q
         source: "../../Assets/AuthenticationBackground.png"
@@ -44,10 +44,7 @@ Item {
 
             onClicked: {
                 weightsesnsorPopup.open()
-                s.z = root.z + 1
-                s.visible = true
-                s.opacity = 0.8
-                weightsensorPopup = true
+
 
             }
 
@@ -84,10 +81,6 @@ Item {
             }
             onClicked: {
                 sensorPopup.open()
-                w.z = root.z + 1
-                w.visible = true
-                w.opacity = 0.8
-                scannerPopUp = true
             }
 
             Image {
@@ -110,11 +103,7 @@ Item {
             width: 128
             height: 160
             onClicked: {
-                serverPopup.open()
-                b.z = root.z + 1
-                b.visible = true
-                b.opacity = 0.8
-                havePopUp = true
+
             }
 
             background: Rectangle {
@@ -169,9 +158,6 @@ Item {
         }
     }
 
-    LightsPopup {
-        id: serverPopup
-    }
 
     ScannerPopup {
         id: sensorPopup
@@ -179,40 +165,17 @@ Item {
 
     WeightsensorPopup {
         id: weightsesnsorPopup
+        obj_LogicWeightSensorPopUp: obj_LogicMenuTest
     }
 
     TopNav{
         backvisible: true
         onBackClicked: {
-            if(parent.havePopUp ===  true)
-            {
-                serverPopup.close()
-                b.visible = false
-            }
-            else{
                 stackview.pop()
-            }
-            if(parent.scannerPopUp === true)
-            {
-                sensorPopup.close()
-                w.visible = false
-            }
-            else{
-                stackview.pop()
-            }
-            if(parent.weightsensorPopup === true)
-            {
-                weightsensorPopup.close()
-                s.visible = false
-            }
-            else{
-                stackview.pop()
-            }
         }
     }
 }
 
-// }
 
 
 
