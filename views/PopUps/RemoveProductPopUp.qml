@@ -79,7 +79,7 @@ Popup {
         Rectangle{
             width: 758
             height: 400
-            
+
             Rectangle{
                 id:rectEnterBarcode
                 y:10
@@ -97,7 +97,7 @@ Popup {
                     verticalAlignment:  TextInput.AlignVCenter
                     font.family: viewset.danaFuNumFont
                     property string placeholderText: "Enter Barcode"
-    
+
                     onFocusChanged: {
                         numpad.inputtext = txt_BarCodeInput
                         numpad.visible = true
@@ -113,7 +113,7 @@ Popup {
                     }
                 }
             }
-            
+
 
             ListView {
                 id:slideshow
@@ -121,7 +121,7 @@ Popup {
                 height: 210
                 clip: true
                 spacing: 10
-                model: 10
+                model: obj_logicRemoveProductList.shopPage.removeList
                 y:60
                 orientation: ListView.vertical
                 delegate:Item{
@@ -174,8 +174,6 @@ Popup {
                             font.weight: Font.Bold
                             color: viewset.primaryColor
                         }
-
-
                     }
                 }
             }
@@ -198,7 +196,7 @@ Popup {
                 anchors.left: rectEnterBarcode.right
                 onEnter: {
                     numpad.visible = false
-                    
+
                 }
             }
         }
