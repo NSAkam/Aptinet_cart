@@ -28,7 +28,7 @@ Item {
         y: 94
         flow: GridView.FlowTopToBottom
         Text {
-            text: "PLU Items"
+            text: "Special Deals"
             color: "#6D6D6D"
             font.pixelSize: 24
             lineHeight: Font.Normal
@@ -80,9 +80,9 @@ Item {
                 }
                 Text {
                     x:164
-                    y:98
-                    text: "$ "+model.finalPriceQML
-                    font.pixelSize: 24
+                    y:90
+                    text:model.finalPriceQML
+                    font.pixelSize: 20
                     color:viewset.primaryColor
                     font.bold: true
                 }
