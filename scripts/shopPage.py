@@ -150,7 +150,7 @@ class ShopPage(QObject):
     showCountedPLUItemsSignal = Signal()  # show counted PLU view
     showTopBtnSignal = Signal()  # show manual barcode btn and PLU btn
     showCheckOutSignal = Signal()  # show check out view
-    showPaymentSignal = Signal()
+    showPaymentSignal = Signal(int)   # 0 for NFC payment, 1 for Qr paymeny
     showAfterPaymentSignal = Signal()
 
     #### Popup Signals ############################################
@@ -917,7 +917,7 @@ class ShopPage(QObject):
     @Slot()
     def payment_clicked(self):
         if self.state == 8:
-            self.showPaymentSignal.emit()
+            self.showPaymentSignal.emit(0)
             self.state = 10
             self._nfc = nfc()
             self._nfc.nfcReaderSignal.connect(self.nfc_read)
@@ -925,7 +925,7 @@ class ShopPage(QObject):
     @Slot()
     def payment_viaQRClicked(self):
         if self.state == 8:
-            self.showPaymentSignal.emit()
+            self.showPaymentSignal.emit(1)
             self.state = 10
 
     @Slot()
