@@ -64,7 +64,7 @@ Item {
                 y:25
                 radius: width /2
                 Image {
-                    source: "../Assets/guest1.png"
+                    source: obj_LogicContainerShop.shopPage.user.loggedInUser.pic
                     width: parent.width - 4
                     height: parent.height -4
                     anchors.horizontalCenter: parent.horizontalCenter

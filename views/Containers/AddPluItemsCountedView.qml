@@ -69,6 +69,16 @@ Item {
             color: "#F08C5A"
 
         }
+        Text {
+            id: unitpricetext1
+            text: obj_LogicContainerAddPluItemsView.shopPage.newProduct.savingQML
+            x: 248
+            y: 196
+            font.pixelSize: 20
+            font.weight: Font.DemiBold
+            color: "#F08C5A"
+
+        }
 
         Text{
             text: "Quantity"
