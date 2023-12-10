@@ -163,7 +163,7 @@ Item {
             font.pixelSize: 18
             layer.enabled: true
             x:50
-            horizontalAlignment: TextInput.AlignLeft
+            horizontalAlignment: TextInput.AlignHCenter
             verticalAlignment:  TextInput.AlignVCenter
             font.family: viewset.danaFuNumFont
             property string placeholderText: "Phone Number"
