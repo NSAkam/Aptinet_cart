@@ -939,8 +939,6 @@ class ShopPage(QObject):
     def payment_backClicked(self):
         if self.state == 10:
             self.state = 8
-            self.clear_stackView()
-            self.showCheckOutSignal.emit()
 
 
     @Slot(str)
