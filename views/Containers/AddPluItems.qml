@@ -8,16 +8,16 @@ Item {
     width: 890
     height: 708
     property Logic obj_LogicContainerAddPluItems
-
+    
     Image {
         source: "../../Assets/StackBackground.png"
         anchors.fill: parent
     }
-
-
+    
+    
     signal back()
     signal seeAll()
-
+    
     Text {
         text: "Search Results"
         x:32
@@ -38,7 +38,7 @@ Item {
                 obj_LogicContainerAddPluItems.shopPage.item_PLUClicked(obj_LogicContainerAddPluItems.shopPage.newProduct.barcode)
             }
         }
-
+        
         Image {
             source: obj_LogicContainerAddPluItems.shopPage.newProduct.pic
             x:32
@@ -68,7 +68,7 @@ Item {
             font.pixelSize: 24
             font.bold: true
             color: "#D9D9D9"
-            text: obj_LogicContainerAddPluItems.shopPage.newProduct.dataModelShow === 0 ? "$ "+ obj_LogicContainerAddPluItems.shopPage.newProduct.finalPrice+" each" : obj_LogicContainerAddPluItems.shopPage.newProduct.Qprice
+            text: obj_LogicContainerAddPluItems.shopPage.newProduct.finalPriceQML
         }
     }
     Rectangle{
@@ -169,14 +169,14 @@ Item {
             }
         }
     }
-
+    
     Text {
         text: "Recomended"
         x:462
         y:40
         font.pixelSize: 24
         color: "#6D6D6D"
-
+        
     }
     GridView {
         id: productsgridview
@@ -190,8 +190,8 @@ Item {
         flow: GridView.FlowTopToBottom
         clip: true
         interactive: false
-
-
+        
+        
         model: obj_LogicContainerAddPluItems.shopPage.pluTopFour
         delegate:
             Item {
@@ -207,7 +207,7 @@ Item {
                         obj_LogicContainerAddPluItems.shopPage.item_PLUClicked(model.barcode)
                     }
                 }
-
+                
                 Image {
                     id: productimage
                     source: model.pic
@@ -216,7 +216,7 @@ Item {
                     anchors.horizontalCenter: parent.horizontalCenter
                     y: 8
                 }
-
+                
                 Text {
                     text: "# "+model.barcode
                     x: 16
@@ -233,9 +233,17 @@ Item {
                     color: "#1D1D1D"
                     lineHeight: Font.Normal
                 }
-
                 Text {
-                    text: dataModelShow===1? model.Qprice:"$ " + model.finalPrice + " /each"
+                    text: model.savingQML
+                    x: 40
+                    y: 211
+                    font.pixelSize: 10
+                    color: "#F08C5A"
+                    lineHeight: Font.Normal
+                    font.bold: true
+                }
+                Text {
+                    text: model.finalPriceQML
                     x: 16
                     y: 211
                     font.pixelSize: 20
@@ -243,12 +251,12 @@ Item {
                     lineHeight: Font.Normal
                     font.bold: true
                 }
-
+                
             }
-
+            
         }
     }
-
+    
     KButton{
         x:700
         y:640
@@ -260,17 +268,17 @@ Item {
             root.seeAll()
         }
     }
-
+    
     KButton{
         x:32
         y:640
         width: 120
         text: "< Back"
         borderRadius: 5
-
+        
         onClicked: {
             obj_LogicContainerAddPluItems.shopPage.back_addPLUItemsClicked()
         }
-
+        
     }
 }

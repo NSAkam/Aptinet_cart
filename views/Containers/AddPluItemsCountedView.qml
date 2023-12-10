@@ -61,7 +61,7 @@ Item {
 
         Text {
             id: unitpricetext
-            text:"$ " + obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.finalPrice + " /each"
+            text:obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.finalPriceQML
             x: 248
             y: 149
             font.pixelSize: 24
@@ -96,7 +96,7 @@ Item {
             }
         }
         Text {
-            text:obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.countInBasket
+            text:obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.mountQML
             color: "black"
             x:186
             y:275
@@ -125,7 +125,7 @@ Item {
 
         Text {
             id: totalpricevalue
-            text: "$ " + (obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.countInBasket * obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.finalPrice).toFixed(2)
+            text: obj_LogicContainerAddPluItemsCountedView.shopPage.newProduct.totalFinalPriceQML
             x: 428
             y: 241
             font.pixelSize: 32

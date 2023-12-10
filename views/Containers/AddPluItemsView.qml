@@ -60,7 +60,7 @@ Item {
 
         Text {
             id: unitpricetext
-            text: obj_LogicContainerAddPluItemsView.shopPage.newProduct.Qprice
+            text: obj_LogicContainerAddPluItemsView.shopPage.newProduct.finalPriceQML
             x: 248
             y: 149
             font.pixelSize: 24
@@ -80,7 +80,7 @@ Item {
 
         Text {
             id: addtocarttext
-            text: obj_LogicContainerAddPluItemsView.shopPage.newProduct.Qweigh
+            text: obj_LogicContainerAddPluItemsView.shopPage.newProduct.mountQML
             font.pixelSize: 32
             x: 108
             y: 262
@@ -89,7 +89,7 @@ Item {
 
         Text {
             id: totalpricevalue
-            text: "$ " + ((obj_LogicContainerAddPluItemsView.shopPage.newProduct.productWeightInBasket /1000) * obj_LogicContainerAddPluItemsView.shopPage.newProduct.finalPrice).toFixed(2)
+            text: obj_LogicContainerAddPluItemsView.shopPage.newProduct.totalFinalPriceQML
             x: 412
             y: 241
             font.pixelSize: 32

@@ -23,11 +23,13 @@ class ProductModel(QAbstractListModel):
     DataModelShowRole = Qt.UserRole + 12
     PicRole = Qt.UserRole + 13
     ProductTypeRole = Qt.UserRole + 14
-    QpriceRole = Qt.UserRole + 15
-    QweighRole = Qt.UserRole + 16
-    quantifierRole = Qt.UserRole + 17
-    productWeightInBasketRole = Qt.UserRole + 18
-
+    quantifierRole = Qt.UserRole + 15
+    productWeightInBasketRole = Qt.UserRole + 16
+    finalPriceQMLRole = Qt.UserRole + 17
+    totalFinalPriceQMLRole= Qt.UserRole + 18
+    mountQMLRole= Qt.UserRole + 19
+    savingQMLRole= Qt.UserRole + 20
+    totalSavingQMLRole= Qt.UserRole + 21
 
     m_data = [Product]
     m_validBarcodeSetForDelete = []
@@ -153,14 +155,20 @@ class ProductModel(QAbstractListModel):
             return prod.pic
         elif (role == self.ProductTypeRole):
             return prod.productType
-        elif(role == self.QpriceRole):
-            return prod.Qprice
-        elif(role == self.QweighRole):
-            return prod.Qweigh
         elif(role == self.quantifierRole):
             return prod.quantifier
         elif(role == self.productWeightInBasketRole):
             return prod.productWeightInBasket
+        elif(role == self.finalPriceQMLRole):
+             return prod.finalPriceQML
+        elif(role == self.totalFinalPriceQMLRole):
+            return prod.totalFinalPriceQML
+        elif(role == self.mountQMLRole):
+            return prod.mountQML
+        elif(role == self.savingQMLRole):
+            return prod.savingQML
+        elif(role == self.totalSavingQMLRole):
+            return prod.totalSavingQML
         else:
             return None
 
@@ -180,13 +188,15 @@ class ProductModel(QAbstractListModel):
         default[self.DataModelShowRole] = QByteArray(b"dataModelShow")
         default[self.ProductTypeRole] = QByteArray(b"productType")
         default[self.PicRole] = QByteArray(b"pic")
-        default[self.QpriceRole] = QByteArray(b"Qprice")
-        default[self.QweighRole] = QByteArray(b"Qweigh")
         default[self.quantifierRole] = QByteArray(b"quantifier")
         default[self.productWeightInBasketRole] = QByteArray(b"productWeightInBasket")
 
+        default[self.finalPriceQMLRole] = QByteArray(b"finalPriceQML")
+        default[self.totalFinalPriceQMLRole] = QByteArray(b"totalFinalPriceQML")
+        default[self.mountQMLRole] = QByteArray(b"mountQML")
+        default[self.savingQMLRole] = QByteArray(b"savingQML")
+        default[self.totalSavingQMLRole] = QByteArray(b"totalSavingQML")
         return default
-    
     
 
     # def data(self):

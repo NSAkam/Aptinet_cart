@@ -81,7 +81,7 @@ Item {
                 Text {
                     x:164
                     y:98
-                    text: "$ "+model.finalPrice
+                    text: "$ "+model.finalPriceQML
                     font.pixelSize: 24
                     color:viewset.primaryColor
                     font.bold: true

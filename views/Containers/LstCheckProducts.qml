@@ -72,7 +72,7 @@ Item {
                 }
                 Text {
                     id: factorItemprice
-                    text: "$ " + modelData.finalPrice + " each"
+                    text: modelData.finalPriceQML
                     font.pixelSize: 18
                     anchors.left: factorItemPic.right
                     anchors.leftMargin: 57
@@ -80,7 +80,7 @@ Item {
                 }
                 Text {
                     id: factorItemQty
-                    text: "Qty:" + modelData.countInBasket
+                    text: "Qty:" + modelData.mountQML
                     font.pixelSize: 18
                     anchors.left: factorItemPic.right
                     anchors.leftMargin: 193
@@ -96,8 +96,15 @@ Item {
                     y:91
                 }
                 Text {
+                    text: modelData.totalSavingQML
+                    x:479
+                    y:86
+                    color: viewset.primaryColor
+                    font.pixelSize: 32
+                }
+                Text {
                     id: factorItemTotalPrice
-                    text: "$ " + modelData.countInBasket * modelData.finalPrice
+                    text: modelData.totalFinalPriceQML
                     x:679
                     y:86
                     color: viewset.primaryColor
@@ -152,7 +159,7 @@ Item {
                 }
                 Text {
                     id: factorItemprice
-                    text: modelData.Qprice
+                    text: modelData.finalPriceQML
                     font.pixelSize: 18
                     anchors.left: factorItemPic.right
                     anchors.leftMargin: 57
@@ -160,7 +167,7 @@ Item {
                 }
                 Text {
                     id: factorItemQty
-                    text: "Wt:" +modelData.Qweigh
+                    text: "Wt:" +modelData.mountQML
                     font.pixelSize: 18
                     anchors.left: factorItemPic.right
                     anchors.leftMargin: 193
@@ -176,8 +183,15 @@ Item {
                     y:91
                 }
                 Text {
+                    text: modelData.totalSavingQML
+                    x:579
+                    y:86
+                    color: viewset.primaryColor
+                    font.pixelSize: 32
+                }
+                Text {
                     id: factorItemTotalPrice
-                    text: "$ " + (modelData.finalPrice * (modelData.productWeightInBasket /1000)).toFixed(2)
+                    text: modelData.totalFinalPriceQML
                     x:679
                     y:86
                     color: viewset.primaryColor

@@ -90,7 +90,7 @@ Item {
 
         Text {
             id: cartsubtotalvalue
-            text: "$  " + (obj_LogicContainerCheckoutPage.shopPage.factorList.finalprice)
+            text: "$  " + (obj_LogicContainerCheckoutPage.shopPage.factorList.finalprice *1).toFixed(2)
             font.pixelSize: 24
             color: viewset.primaryColor
             x: 495
@@ -100,7 +100,7 @@ Item {
 
         Text {
             id: taxvalue
-            text: "$ 0.00"
+            text: "$  " + (obj_LogicContainerCheckoutPage.shopPage.factorList.tax * 1).toFixed(2)
             font.pixelSize: 24
             color: viewset.primaryColor
             x: 510
@@ -110,7 +110,7 @@ Item {
 
         Text {
             id: savingsvalue
-            text:"$  " + (obj_LogicContainerCheckoutPage.shopPage.factorList.priceNoDiscount - obj_LogicContainerCheckoutPage.shopPage.factorList.finalprice).toFixed(2)
+            text: "$  " + (obj_LogicContainerCheckoutPage.shopPage.factorList.profit * 1).toFixed(2)
             font.pixelSize: 24
             color: viewset.primaryColor
             x: 495
@@ -165,9 +165,7 @@ Item {
             btn_color: viewset.secondaryColor
             btn_bordercolor: viewset.secondaryColor
             onClicked: {
-                if(txt_OfferCodeInput.text === "2212"){
-                    totalvalue.text = "$  " + ((obj_LogicContainerCheckoutPage.shopPage.factorList.finalprice) - (obj_LogicContainerCheckoutPage.shopPage.factorList.finalprice *0.1)).toFixed(2)
-                }
+                obj_LogicContainerCheckoutPage.shopPage.apply_couponCode(txt_OfferCodeInput.text)
             }
         }
     }
@@ -203,7 +201,7 @@ Item {
 
         Text {
             id: totalvalue
-            text: "$  " + (obj_LogicContainerCheckoutPage.shopPage.factorList.finalprice)
+            text: "$  " + (obj_LogicContainerCheckoutPage.shopPage.factorList.priceToPay * 1).toFixed(2)
             font.pixelSize: 32
             color: viewset.secondaryColor
             x: 466

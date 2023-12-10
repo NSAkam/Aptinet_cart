@@ -128,14 +128,14 @@ Item {
             y:146
         }
         Text {
-            text: (obj_LogicContainerBarcodeScanned.shopPage.newProduct.finalPrice - obj_LogicContainerBarcodeScanned.shopPage.newProduct.price).toFixed(1)
+            text: obj_LogicContainerBarcodeScanned.shopPage.newProduct.savingQML
             x:639
             y:146
             font.pixelSize: 24
             color: "#F08C5A"
         }
         Text {
-            text: "$ " + obj_LogicContainerBarcodeScanned.shopPage.newProduct.finalPrice
+            text: "$ " + obj_LogicContainerBarcodeScanned.shopPage.newProduct.finalPriceQML
             x:699
             y:146
             font.pixelSize: 32

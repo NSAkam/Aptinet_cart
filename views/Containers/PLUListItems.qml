@@ -44,14 +44,14 @@ Item {
                 height: 249
                 color: "white"
                 radius: 4
-                
+
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
                         obj_LogicContainerPLUListItems.shopPage.item_PLUClicked(model.barcode)
                     }
                 }
-                
+
                 Image {
                     id: productimage
                     source: model.pic
@@ -79,7 +79,17 @@ Item {
                 }
 
                 Text {
-                    text: "$ "+model.finalPrice+"/kg"
+                    text: model.savingQML
+                    x: 40
+                    y: 211
+                    font.pixelSize: 10
+                    color: "#F08C5A"
+                    lineHeight: Font.Normal
+                    font.bold: true
+                }
+                
+                Text {
+                    text: model.finalPriceQML
                     x: 16
                     y: 211
                     font.pixelSize: 20
