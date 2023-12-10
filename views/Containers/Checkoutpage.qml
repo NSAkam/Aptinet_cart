@@ -14,6 +14,7 @@ Item {
     height: 800
 
     property Logic obj_LogicContainerCheckoutPage
+
     Image {
         source: "../../Assets/StackBackground.png"
         anchors.fill: parent
@@ -309,7 +310,7 @@ Item {
     Component{
         id:paymentQRCode
         PaymentQR{
-
+            obj_LogicContainerPaymentQr: obj_LogicContainerCheckoutPage
         }
 
     }
