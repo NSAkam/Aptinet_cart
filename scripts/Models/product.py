@@ -388,7 +388,7 @@ class Product(QObject):
                 elif lb >= 1:
                     return "{:.2f}".format(price)
         else:
-            return str(self.price - self.finalPrice)
+            return "{:.2f}".format(self.price - self.finalPrice)
 
     savingQML = Property(str, get_savingQML, notify=changedSignal)
 
