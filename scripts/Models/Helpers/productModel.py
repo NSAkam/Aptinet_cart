@@ -330,7 +330,11 @@ class ProductModel(QAbstractListModel):
         ix = self.index(index, 0)
 
         # self.beginResetModel()
-        self.m_data[index].set_countInBasket(self.m_data[index].get_countInBasket() + 1)
+        if self.m_data[index].isPlu:
+            if self.m_data[index].get_countInBasket() < 1:
+                self.m_data[index].set_countInBasket(self.m_data[index].get_countInBasket() + 1)
+        else:
+            self.m_data[index].set_countInBasket(self.m_data[index].get_countInBasket() + 1)
         # self.endResetModel()
         self.dataChanged.emit(ix, ix, self.roleNames())
 
