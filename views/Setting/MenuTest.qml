@@ -10,14 +10,14 @@ import KAST.Logic 1.0
 
 
 
-Window {
+Item {
     id: root
     visible: true
     width: 1280
     height: 800
 
-    property Logic obj_LogicMenuTest  
-  
+    property Logic obj_LogicMenuTest
+
     Image {
         id: q
         source: "../../Assets/AuthenticationBackground.png"
