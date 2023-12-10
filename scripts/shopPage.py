@@ -935,6 +935,14 @@ class ShopPage(QObject):
             self.showAfterPaymentSignal.emit()
             self.turn_onGreenLight()
 
+    @Slot()
+    def payment_backClicked(self):
+        if self.state == 10:
+            self.state = 8
+            self.clear_stackView()
+            self.self.showCheckOutSignal.emit()
+
+
     @Slot(str)
     def send_factorEmailClicked(self, emailAddress: str):
         # if emailAddress == "Please enter your email address !": send message = "Please enter your email address !"
