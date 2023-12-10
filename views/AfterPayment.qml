@@ -165,29 +165,39 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             width: 550
             Rectangle{
+                id:rect_emeiltxt
                 width: 350
                 height: 50
                 radius: 5
                 y:473
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        popup_SetEmail.open()
+                    }
+                }
+                
                 Text {
                     id:txt_email
                     
                     text: obj_LogicContainerAfterPayment.shopPage.user.email
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-                    onFocusChanged: {
-                        popup_SetEmail.open()
-                    }
+                    
+                    
+                    
                 }
-                KButton{
-                    borderRadius: 5
-                    anchors.left: parent.right
-                    text: "Send Email"
-                    width: 200
-                    height: 50
-                    onClicked: {
-                        obj_LogicContainerAfterPayment.shopPage.user.send_factorEmailClicked()                           
-                    }
+                
+            }
+            KButton{
+                borderRadius: 5
+                anchors.left: rect_emeiltxt.right
+                anchors.top: rect_emeiltxt.top
+                text: "Send Email"
+                width: 200
+                height: 50
+                onClicked: {
+                    obj_LogicContainerAfterPayment.shopPage.send_factorEmailClicked(txt_email.text)                           
                 }
             }
         }
