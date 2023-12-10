@@ -262,6 +262,7 @@ Item {
             btn_bordercolor: viewset.secondaryColor
 
             onClicked: {
+                obj_LogicContainerCheckoutPage.shopPage.payment_viaQRClicked()
                 stackview.push(paymentQRCode)
             }
 
