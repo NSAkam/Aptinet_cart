@@ -69,9 +69,9 @@ class CameraWorker(QThread):
         while self._canReadFrame:
             if self._readFromCamera1:
                 ret, frame1 = self._camera1.read()
+                tempframe = frame1[0:100, 0:500]
                 # if self._camera1.isOpened():
                 if frame1 is not None:
-                    tempframe = np.ascontiguousarray(frame1[0:600, 0:100])  # [0:600, 0:100]
                     # frame1 = cv2.cvtColor(frame1, cv2.COLOR_RGB2BGR)
                     image = QImage(tempframe, tempframe.shape[1], tempframe.shape[0],
                                    tempframe.strides[0], QImage.Format_BGR888)
