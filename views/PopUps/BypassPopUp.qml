@@ -36,17 +36,19 @@ Popup {
             opacity: 0.5
         }
         Image {
-            id: img_setting
-            source: "../../Assets/setting.png"
-            x:20
-            y:24
+            source: "../Assets/Notification.png"
+            width: 57
+            height: 57
+            x:1208
+            y:25
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-
+                    obj_logicByPassPopup.shopPage.call_forHelpClicked()
                 }
             }
         }
+        
     }
 
     contentItem: Item {

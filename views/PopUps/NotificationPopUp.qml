@@ -23,21 +23,20 @@ Popup {
         opacity: 0.5
     }
 
-    Rectangle {
-        x: 818 + 390
-        y: 32
-        radius: 4
-        color: "white"
-        width: 40
-        height: 40
-
-        Image {
-            source: "../../Assets/Bell.png"
-            width: 18
-            height: 20
-            anchors.centerIn: parent
+    Image {
+        source: "../Assets/Notification.png"
+        width: 57
+        height: 57
+        x:1208
+        y:25
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                obj_LogicContainerShop.shopPage.call_forHelpClicked()
+            }
         }
     }
+
 
 
     KButton {

@@ -63,11 +63,13 @@ Item {
     //        y:40.5
     //    }
     Image {
+        id:callforHelp
         source: "../Assets/Help.png"
         width: 57
         height: 57
         x:1156
         y:25
+       
     }
     Image {
         source: "../Assets/Notification.png"
@@ -75,7 +77,14 @@ Item {
         height: 57
         x:1208
         y:25
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                obj_LogicContainerShop.shopPage.call_forHelpClicked()
+            }
+        }
     }
+
     Item{
         id:topPanel
         width: 0
