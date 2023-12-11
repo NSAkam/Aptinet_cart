@@ -52,6 +52,30 @@ class ConfigRepositories():
             appversion = query.value(0)
         return appversion
     
+    def set_calibrationDate(self,date:str):
+        query = QSqlQuery()
+        appversion = -1
+        query.exec_("update Config set calibrationDate = '"+str(date)+"'")
+        while query.next():
+            appversion = query.value(0)
+        return appversion
+
+    def set_quatifire(self,value:str):
+        query = QSqlQuery()
+        appversion = -1
+        query.exec_("update Config set quatifire = '"+str(value)+"'")
+        while query.next():
+            appversion = query.value(0)
+        return appversion
+    
+    def set_taxPercentage(self,value:str):
+        query = QSqlQuery()
+        appversion = -1
+        query.exec_("update Config set taxPercentage = '"+str(value)+"'")
+        while query.next():
+            appversion = query.value(0)
+        return appversion
+    
     
     def get_Config(self):
         query = QSqlQuery()
