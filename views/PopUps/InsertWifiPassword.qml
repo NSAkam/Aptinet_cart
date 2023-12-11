@@ -4,11 +4,11 @@ import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import "../Utiles"
 import "../Components"
-import KAST.Logic 1.0
+//import KAST.Logic 1.0
 
 Popup {
     id: popup_SetPasssword
-    property Logic setting_obj
+    property QtObject setting_obj
     ViewSettings{
         id:viewset
     }
@@ -73,7 +73,7 @@ Popup {
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
-                        onClicked: setting_obj.settingPage.wifimodel.wifiConfig(txt_password.text)
+                        setting_obj.settingPage.wifimodel.wifiConfig(txt_password.text)
                         popup_SetPasssword.close()
                     }
                 }
