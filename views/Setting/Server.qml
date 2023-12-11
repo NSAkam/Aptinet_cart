@@ -109,7 +109,7 @@ Item {
                 borderRadius: 5
                 btn_borderWidth: 0
                 onClicked: {
-                    obj_LogicServer.settingPage.apiHandler.startDownloadFromServer()
+                    obj_LogicServer.settingPage.updateFiles.startDownload()
                 }
             }
         }
@@ -132,9 +132,18 @@ Item {
         target:obj_LogicServer.settingPage.apiHandler
         function onUpdateDownloadedFromServerValue(v){
             progressDownloadFromServer.update((v-1) * 25);
-            if(v === 5 ){
+            if(v ===5 ){
                 cameraProvider.stop()
             }
+        }
+    }
+    Connections{
+        target:obj_LogicServer.settingPage.updateFiles
+        function OnSetTotalProgressSignal(v){
+            progressDownloadpicFromServer.to = v
+        }
+        function OnSetCurrentProgressSignal(v){
+            progressDownloadpicFromServer.update(v)
         }
     }
 }

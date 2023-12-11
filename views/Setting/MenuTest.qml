@@ -155,6 +155,9 @@ Item {
                 font.pixelSize: 18
 
             }
+            onClicked: {
+                obj_LogicMenuTest.settingPage.sound_testClicked()
+            }
         }
     }
 
@@ -175,11 +178,3 @@ Item {
         }
     }
 }
-
-
-
-
-
-
-
-
