@@ -54,6 +54,15 @@ class SettingPage(QObject):
         self._scanner.readBarcodeSignal.connect(self.scanner_read)
         self._updateFiles = UpdateFiles()
 
+        lastCalibrationDate = datetime.fromtimestamp(float(self._configs.get_calibrationDate()))
+        days = (datetime.now() - lastCalibrationDate).days
+        if days >= self._calibrationPeriod:
+            self.set_lastCalibrationDate(str(lastCalibrationDate.date()))
+            self.expiredCalibrationSignal.emit(True)
+        else:
+            self.set_lastCalibrationDate(str(lastCalibrationDate.date()))
+            self.expiredCalibrationSignal.emit(False)
+
     ### Signals ########################################################################################################
     changedSignal = Signal()
     loginConfirmedSignal = Signal()
@@ -166,14 +175,7 @@ class SettingPage(QObject):
             self.updateAvailableSignal.emit()
             self.set_updateSoftware(UpdateSoftware())
 
-        lastCalibrationDate = datetime.fromtimestamp(float(self._configs.get_calibrationDate()))
-        days = (datetime.now() - lastCalibrationDate).days
-        if days >= self._calibrationPeriod:
-            self.set_lastCalibrationDate(str(lastCalibrationDate.date()))
-            self.expiredCalibrationSignal.emit(True)
-        else:
-            self.set_lastCalibrationDate(str(lastCalibrationDate.date()))
-            self.expiredCalibrationSignal.emit(False)
+
 
     @Slot()
     def gotoWifiSettings(self):
