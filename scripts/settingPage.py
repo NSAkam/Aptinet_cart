@@ -7,6 +7,7 @@ from API.apiHandler import Apihandler
 from updateSoftware import UpdateSoftware,UpdateFiles
 from Services.wifi import WirelessModel
 from Services.sound import *
+from Services.gpio import *
 from datetime import datetime
 import time
 from Services.weighsensorCalibration import WeighSensorCalibration
@@ -223,7 +224,20 @@ class SettingPage(QObject):
     def sound_testClicked(self):
         playSound("notif")
 
-
+    @Slot()
+    def light_testClicked(self):
+        self.turn_onGreenLight()
+        time.sleep(3)
+        self.turn_offGreenlight()
 
     ### Functions ######################################################################################################
 
+    def turn_onGreenLight(self):
+        self.greenLight = GreenLight(True)
+        self.greenLight.finished.connect(self.greenLight.deleteLater)
+        self.greenLight.start()
+
+    def turn_offGreenlight(self):
+        self.greenLight = GreenLight(False)
+        self.greenLight.finished.connect(self.greenLight.deleteLater)
+        self.greenLight.start()
