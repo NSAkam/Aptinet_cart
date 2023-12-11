@@ -69,17 +69,17 @@ class CameraWorker(QThread):
         while self._canReadFrame:
             if self._readFromCamera1:
                 ret, frame1 = self._camera1.read()
-                print(type(frame1))
+                # print(type(frame1))
                 # if self._camera1.isOpened():
                 if frame1 is not None:
                     tempframe = frame1[80:400, 100:500]
-                    print("---------------\ncropped image")
-                    print(type(tempframe))
-                    print("main image")
-                    print(type(frame1))
+                    # print("---------------\ncropped image")
+                    # print(type(tempframe))
+                    # print("main image")
+                    # print(type(frame1))
                     # frame1 = cv2.cvtColor(frame1, cv2.COLOR_RGB2BGR)
-                    image = QImage(frame1, frame1.shape[1], frame1.shape[0],
-                                   frame1.strides[0], QImage.Format_BGR888)
+                    image = QImage(tempframe, tempframe.shape[1], tempframe.shape[0],
+                                   tempframe.strides[0], QImage.Format_BGR888)
 
                     # frame1 = cv2.cvtColor(frame1, cv2.COLOR_RGB2BGR)
                     # image = QImage(frame1, frame1.shape[1], frame1.shape[0],
