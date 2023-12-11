@@ -120,5 +120,5 @@ class CameraWorker(QThread):
                 time.sleep(10)
             else:
                 self._readFromCamera1 = True
-                time.sleep(30)
+                time.sleep(3)
 
