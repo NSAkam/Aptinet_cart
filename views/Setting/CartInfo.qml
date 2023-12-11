@@ -384,6 +384,7 @@ Item{
             insertPopUp.close()
         }
         onEnter:function (text) {
+            console.log(text)
             insertPopUp.close()
             obj_LogicContainer.settingPage.change_tax(text)
         }
