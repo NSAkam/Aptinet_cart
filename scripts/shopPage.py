@@ -3,6 +3,7 @@ import sys
 import time
 from time import sleep
 from threading import Thread
+from email_validator import validate_email, EmailNotValidError
 
 from PySide2.QtCore import QObject, Signal, Property, Slot
 
@@ -946,8 +947,13 @@ class ShopPage(QObject):
 
     @Slot(str)
     def send_factorEmailClicked(self, emailAddress: str):
-        # if emailAddress == "Please enter your email address !": send message = "Please enter your email address !"
-        print(emailAddress)
+        try:
+            v = validate_email(emailAddress)
+            email = v["email"]
+            print(email)
+        except EmailNotValidError as e:
+            print(str(e))
+            self.openPopupMessageTimerSignal.emit(str(e))
 
     ###################################################################################################### Functions ###
     def print_states(self):
