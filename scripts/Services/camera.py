@@ -73,8 +73,10 @@ class CameraWorker(QThread):
                 # if self._camera1.isOpened():
                 if frame1 is not None:
                     tempframe = frame1[80:400, 100:500]
-                    print("cropped image" + type(tempframe))
-                    print("main image" + type(frame1))
+                    print("---------------\ncropped image")
+                    print(type(tempframe))
+                    print("main image")
+                    print(type(frame1))
                     # frame1 = cv2.cvtColor(frame1, cv2.COLOR_RGB2BGR)
                     image = QImage(frame1, frame1.shape[1], frame1.shape[0],
                                    frame1.strides[0], QImage.Format_BGR888)
