@@ -84,6 +84,35 @@ Item {
                 }
             }
         }
+        Rectangle{
+            width: 259
+            height: 364
+            color: "white"
+            KProgress{
+                id:progressDownloadpicFromServer
+                width: 176
+                height: 176
+                from: 0
+                to: 100
+                value: 0
+                anchors.horizontalCenter: parent.horizontalCenter
+                y:40
+            }
+
+            KButton{
+                y:280
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "Download Pictures"
+                width: 200
+                height: 44
+                btn_color: "#4696FA"
+                borderRadius: 5
+                btn_borderWidth: 0
+                onClicked: {
+                    obj_LogicServer.settingPage.apiHandler.startDownloadFromServer()
+                }
+            }
+        }
     }
 
     TopNav{
@@ -103,7 +132,7 @@ Item {
         target:obj_LogicServer.settingPage.apiHandler
         function onUpdateDownloadedFromServerValue(v){
             progressDownloadFromServer.update((v-1) * 25);
-            if(v ===5 ){
+            if(v === 5 ){
                 cameraProvider.stop()
             }
         }

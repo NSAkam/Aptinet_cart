@@ -460,6 +460,7 @@ Item {
         text: "Save"
         onClicked: {
             obj_LogicCalibrate.settingPage.weightsensor.saveCalibration();
+            obj_LogicCalibrate.settingPage.save_calibrationClicked()
         }
     }
     Label{

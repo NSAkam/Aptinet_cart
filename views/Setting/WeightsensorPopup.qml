@@ -10,24 +10,24 @@ import KAST.Logic 1.0
 
 Popup {
     id: weightsesnsorPopup
-    
-    property Logic obj_LogicWeightSensorPopUp 
-    
-    
+
+    property Logic obj_LogicWeightSensorPopUp
+
+
     topMargin: 0
     bottomMargin: 0
     x: 0
     focus: true
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
     background: Item {
-        
+
         Rectangle {
             width: 525
             height: 387
             color: "white"
             x: 378
             y: 200
-            
+
             Text {
                 text: "Please put the weight in cart"
                 width: 445
@@ -38,7 +38,7 @@ Popup {
                 font.pixelSize: 32
                 font.bold: true
             }
-            
+
             Image {
                 source: "../../Assets/bag1.png"
                 width: 49.97
@@ -47,7 +47,7 @@ Popup {
                 y: 122.24
                 z: 100
             }
-            
+
             Image {
                 source: "../../Assets/bag2.png"
                 width: 40.14
@@ -56,7 +56,7 @@ Popup {
                 y: 133.71
                 z: 0
             }
-            
+
             Rectangle {
                 width: 343
                 height: 56
@@ -68,17 +68,17 @@ Popup {
                     x:50
                     text: obj_LogicWeightSensorPopUp.settingPage.weightsensor.currentweight
                 }
-                
+
                 Rectangle {
                     width: 56
                     height: 56
                     x: 287
                     y: 0
                     color: "#D9D9D9"
-                    
+
                     Text {
                         text: "gr"
-                       
+
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
                         color: "#6D6D6D"
@@ -86,7 +86,7 @@ Popup {
                     }
                 }
             }
-            
+
             KButton {
                 width: 241
                 height: 72
@@ -98,7 +98,7 @@ Popup {
                     weightsesnsorPopup.close()
                 }
             }
-            
+
             Text {
                 text: "Calibration Date"
                 width: 152
@@ -109,9 +109,9 @@ Popup {
                 font.pixelSize: 20
                 font.family: "Archivo"
             }
-            
+
             Text {
-                text: "2023/02/03"
+                text: obj_LogicWeightSensorPopUp.settingPage.lastCalibrationDate
                 width: 107
                 height: 22
                 x: 281
@@ -120,7 +120,7 @@ Popup {
                 font.pixelSize: 20
                 font.family: "Archivo"
             }
-            
+
             Text {
                 text: "Expired"
                 width: 73
@@ -132,6 +132,6 @@ Popup {
                 font.family: "Archivo"
             }
         }
-        
+
     }
 }
