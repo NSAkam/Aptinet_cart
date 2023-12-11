@@ -13,13 +13,13 @@ Item{
     width: 1280
     height: 800
     property Logic obj_LogicContainer
-    
+
     Image {
         id: q
         source: "../../Assets/AuthenticationBackground.png"
         anchors.fill: parent
     }
-    
+
     Rectangle {
         width: 672
         height: 86
@@ -34,7 +34,7 @@ Item{
             samples: 16
             color: "#d3d3d3"
         }
-        
+
         Text {
             text: "Software Version"
             width: 160
@@ -45,7 +45,7 @@ Item{
             font.pixelSize: 20
             font.family: "Archivo"
         }
-        
+
         Text {
             text: obj_LogicContainer.settingPage.configs.appVersion
             width: 30
@@ -71,12 +71,12 @@ Item{
                 anchors.fill: parent
                 onClicked: {
                     stackview.push(updatePage)
-                    
+
                 }
             }
         }
     }
-    
+
     Rectangle {
         width: 672
         height: 0.1
@@ -84,7 +84,7 @@ Item{
         y: 358
         color: "#9D9D9D"
     }
-    
+
     Rectangle {
         width: 672
         height: 86
@@ -99,7 +99,7 @@ Item{
             samples: 16
             color: "#d3d3d3"
         }
-        
+
         Text {
             text: "Unit"
             width: 39
@@ -109,7 +109,7 @@ Item{
             color: "#1D1D1D"
             font.pixelSize: 20
         }
-        
+
         Text {
             text: obj_LogicContainer.settingPage.configs.quatifire
             width: 25
@@ -119,7 +119,7 @@ Item{
             color: "#6D6D6D"
             font.pixelSize: 20
         }
-        
+
         KBorderButton{
             width: 92
             height: 38
@@ -136,10 +136,10 @@ Item{
                 }
             }
         }
-        
-        
+
+
     }
-    
+
     Rectangle {
         width: 672
         height: 1
@@ -147,7 +147,7 @@ Item{
         y: 446
         color: "#9D9D9D"
     }
-    
+
     Rectangle {
         width: 672
         height: 86
@@ -162,7 +162,7 @@ Item{
             samples: 16
             color: "#d3d3d3"
         }
-        
+
         Text {
             text: "Tax Value"
             width: 152
@@ -172,7 +172,7 @@ Item{
             color: "#1D1D1D"
             font.pixelSize: 20
         }
-        
+
         Text {
             text: obj_LogicContainer.settingPage.configs.taxPercentage + " %"
             width: 107
@@ -198,7 +198,7 @@ Item{
                 }
             }
         }
-        
+
     }
     Rectangle {
         width: 672
@@ -207,7 +207,7 @@ Item{
         y: 446+86
         color: "#9D9D9D"
     }
-    
+
     Rectangle {
         width: 672
         height: 86
@@ -222,7 +222,7 @@ Item{
             samples: 16
             color: "#d3d3d3"
         }
-        
+
         Text {
             text: "Calibration Date"
             width: 152
@@ -232,7 +232,7 @@ Item{
             color: "#1D1D1D"
             font.pixelSize: 20
         }
-        
+
         Text {
             id:txt_last_calibrate
             text: obj_LogicContainer.settingPage.lastCalibrationDate
@@ -243,7 +243,7 @@ Item{
             color: "#6D6D6D"
             font.pixelSize: 20
         }
-        
+
         Text {
             id:txt_expired
             text: "Expired"
@@ -255,7 +255,7 @@ Item{
             font.pixelSize: 20
         }
     }
-    
+
     Rectangle {
         id: rectangle2
         radius: 2
@@ -273,7 +273,7 @@ Item{
             samples: 16
             color: "#d3d3d3"
         }
-        
+
         Text {
             text: "kg"
             font.pixelSize: 24
@@ -281,8 +281,14 @@ Item{
             x: 20
             y: 16
         }
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                obj_LogicContainer.settingPage.select_unit("kg")
+            }
+        }
     }
-    
+
     Rectangle {
         id: separator2
         width: 64
@@ -292,7 +298,7 @@ Item{
         color: "#9D9D9D"
         visible: false
     }
-    
+
     Rectangle {
         id: rectangle3
         radius: 2
@@ -310,7 +316,7 @@ Item{
             samples: 16
             color: "#d3d3d3"
         }
-        
+
         Text {
             text: "lb"
             font.pixelSize: 24
@@ -318,15 +324,21 @@ Item{
             x: 20
             y: 16
         }
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                obj_LogicContainer.settingPage.select_unit("lb")
+            }
+        }
     }
-    
+
     function toggleRectangles() {
         rectangle2.visible = !rectangle2.visible;
         separator2.visible = !separator2.visible;
         rectangle3.visible = !rectangle3.visible;
     }
-    
-    
+
+
     Rectangle {
         id: b
         color: "white"
@@ -336,22 +348,22 @@ Item{
         opacity: 0
         x: 0
         y: 92
-        
+
         FastBlur {
-            
+
             anchors.fill: b
             source: q
             radius: 70
         }
     }
-    
+
     Component {
         id: updatePage
         SoftwareVersion{
             obj_Logic: obj_LogicContainer
         }
     }
-    
+
     TopNav{
         backvisible: true
         onBackClicked: {
@@ -364,7 +376,7 @@ Item{
             btn_update.visible = true
         }
     }
-    
+
     InsertPupUp{
         id:insertPopUp
         title: "Insert Tax"
@@ -372,10 +384,12 @@ Item{
             insertPopUp.close()
         }
         onEnter:function (text) {
+            console.log(text)
             insertPopUp.close()
+            obj_LogicContainer.settingPage.change_tax(text)
         }
     }
-    
+
     Connections{
         target:obj_LogicContainer.settingPage
         function onExpiredCalibrationSignal(v){
@@ -383,11 +397,11 @@ Item{
             {
                 txt_expired.visible =true
                 txt_last_calibrate.x =433
-                
+
             }
             else{
                 txt_expired.visible = false
-                txt_last_calibrate.x =550 
+                txt_last_calibrate.x =550
             }
         }
     }
