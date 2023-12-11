@@ -35,6 +35,7 @@ class SettingPage(QObject):
     _uploader : Uploader
     _uploadedPercentage : int = 0
     _lastCalibrationDate: str = ""
+    _readBarcode: str = ""
 
 
     def __init__(self, dal: DAL, scanner: ScannerHelper):
@@ -49,7 +50,7 @@ class SettingPage(QObject):
         self._updateSoftware = None
         self._weightsensorval = WeighSensorCalibration()
         self._scanner = scanner
-        self._scanner.IDBarcodeReadSignal.connect(self.test)
+        self._scanner.readBarcodeSignal.connect(self.scanner_read)
         self._updateFiles = UpdateFiles()
 
     ### Signals ########################################################################################################
@@ -140,6 +141,15 @@ class SettingPage(QObject):
 
     lastCalibrationDate = Property(str, get_lastCalibrationDate, set_lastCalibrationDate, notify=changedSignal)
 
+    def get_readBarcode(self):
+        return self._readBarcode
+
+    def set_readBarcode(self, v: str):
+        self._readBarcode = v
+        self.changedSignal.emit()
+
+    readBarcode = Property(str,get_readBarcode, set_readBarcode, notify=changedSignal)
+
     ### Sluts ##########################################################################################################
     # @Slot(str, str)
     # def confirm_clicked(self, username: str, password: str):
@@ -177,8 +187,8 @@ class SettingPage(QObject):
         # print("backed")
 
     @Slot()
-    def test(self):
-        print("IDBarcodeSignal connected again successfully")
+    def scanner_read(self):
+        self.set_readBarcode(self._scanner._scannerWorker.get_readBytes()[1:-1].decode('latin1'))
 
     @Slot()
     def startUploadToServer(self):
@@ -212,6 +222,8 @@ class SettingPage(QObject):
     @Slot()
     def sound_testClicked(self):
         playSound("notif")
+
+
 
     ### Functions ######################################################################################################
 
