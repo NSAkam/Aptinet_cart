@@ -193,6 +193,7 @@ class SettingPage(QObject):
 
     @Slot(str)
     def change_tax(self, tax: str):
+        print(tax)
         self._configsRepository.set_taxPercentage(tax)
         self._configs.set_taxPercentage(tax)
 
