@@ -6,6 +6,7 @@ from Models.config import Config
 from API.apiHandler import Apihandler
 from updateSoftware import UpdateSoftware
 from Services.wifi import WirelessModel
+from datetime import datetime
 import time
 from Services.weighsensorCalibration import WeighSensorCalibration
 from Helpers.scannerHelper import ScannerHelper
@@ -14,7 +15,7 @@ from Services.uploader import Uploader
 
 class SettingPage(QObject):
     ### Settings #######################################################################################################
-
+    _calibrationPeriod: int = 15
     ### Models #########################################################################################################
     _configs: Config
 
@@ -29,9 +30,9 @@ class SettingPage(QObject):
     _wifimodel: WirelessModel
     _weightsensorval: WeighSensorCalibration
     _updateSoftware:UpdateSoftware
-    
     _uploader : Uploader
     _uploadedPercentage : int = 0
+    _lastCalibrationDate: str
 
 
     def __init__(self, dal: DAL, scanner: ScannerHelper):
@@ -39,22 +40,22 @@ class SettingPage(QObject):
         self._dal = dal
         self._adminRepository = AdminRepository(self._dal)
         self._configsRepository = ConfigRepositories(self._dal)
+        self._configs = Config()
+        self.set_configs(self._configsRepository.get_Config())
         self._apiHandler = Apihandler(self._dal)
         self._apiHandler.appVersionRecievedSignal.connect(self.set_lastSoftwareVersion)
         self._updateSoftware = None
         self._weightsensorval = WeighSensorCalibration()
-
         self._scanner = scanner
         self._scanner.IDBarcodeReadSignal.connect(self.test)
-        # self._scanner.IDBarcodeReadSignal.dissconnect()
 
     ### Signals ########################################################################################################
     changedSignal = Signal()
     loginConfirmedSignal = Signal()
     cartInfoClickedSignal = Signal()
     updateAvailableSignal = Signal()
-
     updateUploadToServerSignal = Signal(int)
+    expiredCalibrationSignal = Signal(bool)   # if expired True else False
 
     ### Properties #####################################################################################################
     def get_configs(self):
@@ -118,6 +119,15 @@ class SettingPage(QObject):
 
     uploadedPercentage = Property(int,get_uploadedPercentage,set_uploadedPercentage,notify=updateUploadToServerSignal)
 
+    def get_lastCalibrationDate(self):
+        return self._lastCalibrationDate   # datetime.fromtimestamp(self._configs.get_calibrationDate())
+
+    def set_lastCalibrationDate(self, v: str):
+        self._lastCalibrationDate = v
+        self.changedSignal.emit()
+
+    lastCalibrationDate = Property(str, get_lastCalibrationDate, set_lastCalibrationDate, notify=changedSignal)
+
     ### Sluts ##########################################################################################################
     # @Slot(str, str)
     # def confirm_clicked(self, username: str, password: str):
@@ -127,14 +137,20 @@ class SettingPage(QObject):
 
     @Slot()
     def cart_infoClicked(self):
-        print("cart_infoClicked")
-        self.set_configs(self._configsRepository.get_Config())
-        print(self._configs.get_appVersion())
         self.cartInfoClickedSignal.emit()
         self._apiHandler.get_appVersion()
         if self._configs.get_appVersion() != self._lastSoftwareVersion:
             self.updateAvailableSignal.emit()
             self.set_updateSoftware(UpdateSoftware())
+
+        lastCalibrationDate = datetime.fromtimestamp(float(self._configs.get_calibrationDate()))
+        days = (datetime.now() - lastCalibrationDate).days
+        if days >= self._calibrationPeriod:
+            self.set_lastCalibrationDate(str(lastCalibrationDate.date()))
+            self.expiredCalibrationSignal.emit(True)
+        else:
+            self.set_lastCalibrationDate(str(lastCalibrationDate.date()))
+            self.expiredCalibrationSignal.emit(False)
 
     @Slot()
     def gotoWifiSettings(self):
@@ -163,6 +179,9 @@ class SettingPage(QObject):
     @Slot()
     def uploadFinished(self):
         pass
-    
+
+    @Slot()
+    def save_calibrationClicked(self):
+        self._configsRepository.set_calibrationDate(str(datetime.now().timestamp()))
     ### Functions ######################################################################################################
 
