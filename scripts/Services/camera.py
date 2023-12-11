@@ -72,7 +72,7 @@ class CameraWorker(QThread):
                 # print(type(frame1))
                 # if self._camera1.isOpened():
                 if frame1 is not None:
-                    tempframe = frame1[80:400, 100:500, :]
+                    tempframe = frame1[100:500, 80:400]
                     # print("---------------\ncropped image")
                     # print(type(tempframe))
                     # print("main image")
