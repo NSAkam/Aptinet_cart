@@ -62,10 +62,10 @@ class ServerUser(QObject):
     phone = Property(str, get_phone, set_phone, notify=changedSignal)
 
     def get_pic(self):
-        if (os.path.isfile("/home/aptinet/pics/" + self.phone + ".png") == False):
-            return "file:///home/aptinet/pics/guest.png"
+        if (os.path.isfile("/home/aptinet/files/" + self.phone + ".png") == False):
+            return "file:///home/aptinet/files/guest.png"
         else:
-            return "file:///home/aptinet/pics/" + self.phone + ".png"
+            return "file:///home/aptinet/files/" + self.phone + ".png"
 
     pic = Property(str, get_pic, notify=changedSignal)
 
