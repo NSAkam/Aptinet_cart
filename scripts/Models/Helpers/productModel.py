@@ -223,8 +223,10 @@ class ProductModel(QAbstractListModel):
         for index, value in enumerate(self.m_data):
             if (value.barcode == prod.barcode):
                 ix = self.index(index, 0)
-                self.m_data[index].set_countInBasket(
-                    self.m_data[index].countInBasket + count)
+                if prod.get_productType() == "weighted":
+                    self.m_data[index].set_productWeightInBasket(self.m_data[index].get_productWeightInBasket() + prod.get_productWeightInBasket())
+                else:
+                    self.m_data[index].set_countInBasket(self.m_data[index].countInBasket + count)
                 self.dataChanged.emit(ix, ix, self.roleNames())
                 temp = True
         if temp == False:
