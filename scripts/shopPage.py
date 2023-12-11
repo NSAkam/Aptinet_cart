@@ -694,6 +694,10 @@ class ShopPage(QObject):
 
     ####################################################################################################### UI Sluts ###
     @Slot()
+    def call_forHelpClicked(self):
+        pass
+
+    @Slot()
     def cancel_newProductClicked(self):
         self.clear_stackView()
         self.countDownTimer = 0
@@ -939,7 +943,6 @@ class ShopPage(QObject):
     def payment_backClicked(self):
         if self.state == 10:
             self.state = 8
-
 
     @Slot(str)
     def send_factorEmailClicked(self, emailAddress: str):
