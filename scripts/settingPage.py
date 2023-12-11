@@ -144,7 +144,6 @@ class SettingPage(QObject):
             self.set_updateSoftware(UpdateSoftware())
 
         lastCalibrationDate = datetime.fromtimestamp(float(self._configs.get_calibrationDate()))
-        print(str(lastCalibrationDate.date()))
         days = (datetime.now() - lastCalibrationDate).days
         if days >= self._calibrationPeriod:
             self.set_lastCalibrationDate(str(lastCalibrationDate.date()))
@@ -183,6 +182,19 @@ class SettingPage(QObject):
 
     @Slot()
     def save_calibrationClicked(self):
-        self._configsRepository.set_calibrationDate(str(datetime.now().timestamp()))
+        date = str(datetime.now().timestamp())
+        self._configsRepository.set_calibrationDate(date)
+        self._configs.set_calibrationDate(date)
+
+    @Slot(str)
+    def select_unit(self, unit: str):
+        self._configsRepository.set_quatifire(unit)
+        self._configs.set_quatifire(unit)
+
+    @Slot(str)
+    def change_tax(self, tax: str):
+        self._configsRepository.set_taxPercentage(tax)
+        self._configs.set_taxPercentage(tax)
+
     ### Functions ######################################################################################################
 
