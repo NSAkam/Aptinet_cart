@@ -56,7 +56,7 @@ class ConfigRepositories():
     def get_Config(self):
         query = QSqlQuery()
         c = Config()
-        query.exec_("select storeId,quatifire,currency,appVersion,dbVersion,imagesVersion,basketName,taxPercentage from Config LIMIT 1")
+        query.exec_("select storeId,quatifire,currency,appVersion,dbVersion,imagesVersion,basketName,taxPercentage,calibrationDate from Config LIMIT 1")
         while query.next():
             c.storeId = query.value(0)
             c.quatifire = query.value(1)
@@ -66,4 +66,5 @@ class ConfigRepositories():
             c.imagesVersion = query.value(5)
             c.basketName = query.value(6)
             c.taxPercentage = query.value(7)
+            c.calibrationDate = query.value(8)
         return c

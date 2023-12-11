@@ -10,6 +10,7 @@ class Config(QObject):
     _imagesVersion: str = ""
     _basketName: str = ""
     _taxPercentage:int = 0
+    _calibrationDate:str = ""
 
     @Signal
     def changedSignal(self):
@@ -89,3 +90,12 @@ class Config(QObject):
         self.changedSignal.emit()
 
     taxPercentage = Property(int, get_taxPercentage, set_taxPercentage, notify=changedSignal)
+
+    def get_calibrationDate(self):
+        return self._calibrationDate
+
+    def set_calibrationDate(self, value):
+        self._calibrationDate = value
+        self.changedSignal.emit()
+
+    calibrationDate = Property(str, get_calibrationDate, set_calibrationDate, notify=changedSignal)
