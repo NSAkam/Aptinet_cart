@@ -69,6 +69,7 @@ class CameraWorker(QThread):
         while self._canReadFrame:
             if self._readFromCamera1:
                 ret, frame1 = self._camera1.read()
+                frame1 = frame1[80:400, 100:500]
                 # if self._camera1.isOpened():
                 if frame1 is not None:
                     # frame1 = cv2.cvtColor(frame1, cv2.COLOR_RGB2BGR)
