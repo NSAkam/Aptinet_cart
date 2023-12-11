@@ -35,7 +35,7 @@ class Config(QObject):
         self._quatifire = value
         self.changedSignal.emit()
 
-    quatifire = Property(bool, get_quatifire, set_quatifire, notify=changedSignal)
+    quatifire = Property(str, get_quatifire, set_quatifire, notify=changedSignal)
 
     def get_currency(self):
         return self._currency
