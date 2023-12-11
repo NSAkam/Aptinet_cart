@@ -4,7 +4,7 @@ from Services.dal import DAL
 from Repositories.configRepository import ConfigRepositories
 from Models.config import Config
 from API.apiHandler import Apihandler
-from updateSoftware import UpdateSoftware
+from updateSoftware import UpdateSoftware,UpdateFiles
 from Services.wifi import WirelessModel
 from Services.sound import *
 from datetime import datetime
@@ -31,6 +31,7 @@ class SettingPage(QObject):
     _wifimodel: WirelessModel
     _weightsensorval: WeighSensorCalibration
     _updateSoftware:UpdateSoftware
+    _updateFiles:UpdateFiles
     _uploader : Uploader
     _uploadedPercentage : int = 0
     _lastCalibrationDate: str = ""
@@ -49,6 +50,7 @@ class SettingPage(QObject):
         self._weightsensorval = WeighSensorCalibration()
         self._scanner = scanner
         self._scanner.IDBarcodeReadSignal.connect(self.test)
+        self._updateFiles = UpdateFiles()
 
     ### Signals ########################################################################################################
     changedSignal = Signal()
@@ -95,6 +97,15 @@ class SettingPage(QObject):
         self.changedSignal.emit()
 
     updateSoftware = Property(UpdateSoftware, get_updateSoftware, set_updateSoftware, notify=changedSignal)
+
+    def get_updateFiles(self):
+        return self._updateFiles
+
+    def set_updateFiles(self, val: UpdateSoftware):
+        self._updateFiles = val
+        self.changedSignal.emit()
+
+    updateFiles = Property(UpdateFiles, get_updateFiles, set_updateFiles, notify=changedSignal)
 
     def getwifiModel(self):
         return self._wifimodel

@@ -8,7 +8,8 @@ class Downloader(QThread):
     setCurrentProgressSignal = Signal(int,arguments=["v"])
     succeededSignal = Signal()
 
-    def __init__(self):
+    def __init__(self,url):
+        self.url = url
         super().__init__()
 
     @Slot(int,int)
@@ -22,7 +23,7 @@ class Downloader(QThread):
     @Slot(QNetworkReply)
     def downloadFinished(self,reply: QNetworkReply):
         print("start save file")
-        dfile = QFile("/home/aptinet/Aptinet.zip")
+        dfile = QFile("/home/aptinet/AptinetFiles.zip")
         if dfile.open(QIODevice.WriteOnly):
             dfile.write(reply.readAll())
 
@@ -31,11 +32,11 @@ class Downloader(QThread):
         self.loop.quit()
 
     def run(self):
-        url = "https://aptinet.irannk.com/api/APP/download"
+        # url = "https://aptinet.irannk.com/api/APP/download"
         self.loop = QEventLoop()
         manager = QtNetwork.QNetworkAccessManager()
         manager.finished.connect(self.downloadFinished)
-        req = QNetworkRequest(url)
+        req = QNetworkRequest(self.url)
         
         rep = manager.get(req)
         rep.downloadProgress.connect(self.progressbar)
