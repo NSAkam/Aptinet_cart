@@ -49,14 +49,15 @@ class Logic(QObject):
     def __init__(self) -> None:
         super().__init__()
 
-        path = "/home/aptinet/languages/"
+        path = "/home/aptinet/files/"
         self._langList = LangModel()
-        lList = []
-        for lang in [".".join(f.split(".")[:-1]) for f in os.listdir(path)]:
-            l = Lang()
-            l.set_name(lang)
-            lList.append(l)
-        self._langList.insert_languageList(lList)
+        temp_langList = []
+        for f in os.listdir(path):
+            if f.split(".")[-1] == "json":
+                lang = Lang()
+                lang.set_name(".".join(f.split(".")[:-1]))
+                temp_langList.append(lang)
+        self._langList.insert_languageList(temp_langList)
 
         self.turnoff_greenLight()
         self._fan = Fan()
