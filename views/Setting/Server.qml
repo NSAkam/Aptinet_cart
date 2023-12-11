@@ -139,10 +139,10 @@ Item {
     }
     Connections{
         target:obj_LogicServer.settingPage.updateFiles
-        function OnSetTotalProgressSignal(v){
+        function onSetTotalProgressSignal(v){
             progressDownloadpicFromServer.to = v
         }
-        function OnSetCurrentProgressSignal(v){
+        function onSetCurrentProgressSignal(v){
             progressDownloadpicFromServer.update(v)
         }
     }
