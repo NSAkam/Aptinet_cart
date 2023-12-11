@@ -197,7 +197,7 @@ Item {
                 width: 200
                 height: 50
                 onClicked: {
-                    obj_LogicContainerAfterPayment.shopPage.send_factorEmailClicked(txt_email.text)                           
+                    obj_LogicContainerAfterPayment.shopPage.send_factorEmailClicked(txt_email.text)
                 }
             }
         }
@@ -402,7 +402,7 @@ Item {
                         property string placeholderText: "Email"
                         
                         onFocusChanged: {
-                            
+                            keyboard.visible = true
                         }
                         Text {
                             text: txt_password.placeholderText
@@ -419,6 +419,7 @@ Item {
             }
         }
         KKeyboard{
+            id:keyboard
             inputtext:txt_password
             leftpad:-50
             toppad:-500

@@ -68,20 +68,12 @@ class CameraWorker(QThread):
 
         while self._canReadFrame:
             if self._readFromCamera1:
-                ret, tempframe = self._camera1.read()
-                # print(type(frame1))
+                ret, frame1 = self._camera1.read()
                 # if self._camera1.isOpened():
-                print(tempframe)
-                if tempframe is not None:
-                    # tempframe = np.ascontiguousarray(frame1) # [0:600, 0:100]
-
-                    # print("---------------\ncropped image")
-                    # print(type(tempframe))
-                    # print("main image")
-                    # print(type(frame1))
+                if frame1 is not None:
                     # frame1 = cv2.cvtColor(frame1, cv2.COLOR_RGB2BGR)
-                    image = QImage(tempframe, tempframe.shape[1], tempframe.shape[0],
-                                   tempframe.strides[0], QImage.Format_BGR888)
+                    image = QImage(frame1, frame1.shape[1], frame1.shape[0],
+                                   frame1.strides[0], QImage.Format_BGR888)
 
                     # frame1 = cv2.cvtColor(frame1, cv2.COLOR_RGB2BGR)
                     # image = QImage(frame1, frame1.shape[1], frame1.shape[0],
@@ -124,8 +116,9 @@ class CameraWorker(QThread):
 
     def timerSlot(self):
         while self._canTimerTick:
+            # time.sleep(self._switchTime)
             if self._readFromCamera1:
-                self._readFromCamera1 = False   # original value is false
+                self._readFromCamera1 = False
                 time.sleep(10)
             else:
                 self._readFromCamera1 = True
