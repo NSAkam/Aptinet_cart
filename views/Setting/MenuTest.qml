@@ -127,6 +127,12 @@ Item {
                 color: "#6D6D6D"
                 font.pixelSize: 18
             }
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    obj_LogicMenuTest.settingPage.light_testClicked()
+                }
+            }
         }
 
         Button {
@@ -164,6 +170,7 @@ Item {
 
     ScannerPopup {
         id: sensorPopup
+        obj_LogicScannerPopUp: obj_LogicMenuTest
     }
 
     WeightsensorPopup {
@@ -178,3 +185,11 @@ Item {
         }
     }
 }
+
+
+
+
+
+
+
+

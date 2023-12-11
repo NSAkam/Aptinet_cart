@@ -4,11 +4,16 @@ import QtQuick.Layouts 1.15
 import QtGraphicalEffects 1.12
 import QtQuick.Window 2.14
 import "../Components"
+import KAST.Logic 1.0
+
 
 
 Popup {
     id: sensorPopup
-    
+
+    property Logic obj_LogicScannerPopUp
+
+
     topMargin: 0
     bottomMargin: 0
     x: 0
@@ -19,7 +24,7 @@ Popup {
         height: 450
         x: 453
         y: 166
-        
+
         Rectangle {
             anchors.fill: parent
             color: "white"
@@ -31,8 +36,8 @@ Popup {
                 samples: 16
                 color: "#d3d3d3"
             }
-            
-            
+
+
             Text {
                 Layout.fillWidth: true
                 text: "Please scan the \nitem barcode"
@@ -42,24 +47,24 @@ Popup {
                 y: 40
                 font.bold: true
             }
-            
+
             Image {
                 source: "../../Assets/testBarcode.png"
                 x:40
                 y:176
             }
-            
+
             Rectangle{
                 width: 306
                 x:40
                 y:306
                 height: 56
                 color: "#F7F7F7"
-                
+
                 Text {
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
-                    text: "text"
+                    text: obj_LogicScannerPopUp.settingPage.readBarcode
                 }
             }
             KButton{
