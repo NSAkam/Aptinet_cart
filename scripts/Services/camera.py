@@ -75,7 +75,8 @@ class CameraWorker(QThread):
                 print(frame1)
                 print("--------------------------------------------------------------------------")
                 print("temp frame")
-                tempframe = np.ascontiguousarray(frame1[0:100, 0:100, :, :])
+                # tempframe = np.ascontiguousarray(frame1[0:100, 0:100, :, :])
+                tempframe = frame1[0:100, 0:100, :, :]
                 print(tempframe.shape)
                 print(tempframe)
                 print("###########################################################################")
