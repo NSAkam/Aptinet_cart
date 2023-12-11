@@ -955,6 +955,7 @@ class ShopPage(QObject):
             print(str(e))
             self.openPopupMessageTimerSignal.emit(str(e))
 
+
     ###################################################################################################### Functions ###
     def print_states(self):
         if self.state == -1:
