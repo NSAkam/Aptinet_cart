@@ -695,7 +695,7 @@ class ShopPage(QObject):
     ####################################################################################################### UI Sluts ###
     @Slot()
     def call_forHelpClicked(self):
-        pass
+        playSound("notif")
 
     @Slot()
     def cancel_newProductClicked(self):
