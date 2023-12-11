@@ -186,7 +186,7 @@ Item {
         }
     }
     KBattery{
-        battery_level: obj_logic.battery.batteryLevel
+//        battery_level: obj_logic.battery.batteryLevel
         x:32
         y:32
 
