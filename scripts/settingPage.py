@@ -6,6 +6,7 @@ from Models.config import Config
 from API.apiHandler import Apihandler
 from updateSoftware import UpdateSoftware
 from Services.wifi import WirelessModel
+from Services.sound import *
 from datetime import datetime
 import time
 from Services.weighsensorCalibration import WeighSensorCalibration
@@ -32,7 +33,7 @@ class SettingPage(QObject):
     _updateSoftware:UpdateSoftware
     _uploader : Uploader
     _uploadedPercentage : int = 0
-    _lastCalibrationDate: str
+    _lastCalibrationDate: str = ""
 
 
     def __init__(self, dal: DAL, scanner: ScannerHelper):
@@ -193,9 +194,13 @@ class SettingPage(QObject):
 
     @Slot(str)
     def change_tax(self, tax: str):
-        print(tax)
-        self._configsRepository.set_taxPercentage(tax)
-        self._configs.set_taxPercentage(int(float(tax)))
+        if int(float(tax)) < 100:
+            self._configsRepository.set_taxPercentage(tax)
+            self._configs.set_taxPercentage(int(float(tax)))
+
+    @Slot()
+    def sound_test(self):
+        playSound("notif")
 
     ### Functions ######################################################################################################
 
