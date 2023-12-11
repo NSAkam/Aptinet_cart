@@ -199,7 +199,7 @@ class SettingPage(QObject):
             self._configs.set_taxPercentage(int(float(tax)))
 
     @Slot()
-    def sound_test(self):
+    def sound_testClicked(self):
         playSound("notif")
 
     ### Functions ######################################################################################################
