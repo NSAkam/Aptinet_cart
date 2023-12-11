@@ -144,6 +144,7 @@ class SettingPage(QObject):
             self.set_updateSoftware(UpdateSoftware())
 
         lastCalibrationDate = datetime.fromtimestamp(float(self._configs.get_calibrationDate()))
+        print(str(lastCalibrationDate.date()))
         days = (datetime.now() - lastCalibrationDate).days
         if days >= self._calibrationPeriod:
             self.set_lastCalibrationDate(str(lastCalibrationDate.date()))
