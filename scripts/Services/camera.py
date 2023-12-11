@@ -125,7 +125,7 @@ class CameraWorker(QThread):
     def timerSlot(self):
         while self._canTimerTick:
             if self._readFromCamera1:
-                self._readFromCamera1 = True   # original value is false
+                self._readFromCamera1 = False   # original value is false
                 time.sleep(10)
             else:
                 self._readFromCamera1 = True
