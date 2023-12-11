@@ -50,6 +50,7 @@ class SettingPage(QObject):
         self._weightsensorval = WeighSensorCalibration()
         self._scanner = scanner
         self._scanner.IDBarcodeReadSignal.connect(self.test)
+        self._updateFiles = UpdateFiles()
 
     ### Signals ########################################################################################################
     changedSignal = Signal()
