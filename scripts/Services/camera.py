@@ -71,6 +71,7 @@ class CameraWorker(QThread):
                 ret, tempframe = self._camera1.read()
                 # print(type(frame1))
                 # if self._camera1.isOpened():
+                print(tempframe)
                 if tempframe is not None:
                     # tempframe = np.ascontiguousarray(frame1) # [0:600, 0:100]
 
