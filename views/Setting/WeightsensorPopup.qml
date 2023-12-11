@@ -130,6 +130,7 @@ Popup {
                 color: "#F08C5A"
                 font.pixelSize: 20
                 font.family: "Archivo"
+                visible: false
             }
         }
 
