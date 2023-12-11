@@ -191,5 +191,10 @@ class SettingPage(QObject):
         self._configsRepository.set_quatifire(unit)
         self._configs.set_quatifire(unit)
 
+    @Slot(str)
+    def change_tax(self, tax: str):
+        self._configsRepository.set_taxPercentage(tax)
+        self._configs.set_taxPercentage(tax)
+
     ### Functions ######################################################################################################
 
