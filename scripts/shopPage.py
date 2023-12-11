@@ -950,7 +950,7 @@ class ShopPage(QObject):
         try:
             v = validate_email(emailAddress)
             email = v["email"]
-            print(email)
+            self.openPopupMessageTimerSignal.emit("Your factor will be send to" + email)
         except EmailNotValidError as e:
             print(str(e))
             self.openPopupMessageTimerSignal.emit(str(e))
