@@ -68,11 +68,11 @@ class CameraWorker(QThread):
 
         while self._canReadFrame:
             if self._readFromCamera1:
-                ret, frame1 = self._camera1.read()
+                ret, tempframe = self._camera1.read()
                 # print(type(frame1))
                 # if self._camera1.isOpened():
-                if frame1 is not None:
-                    tempframe = np.ascontiguousarray(frame1) # [0:600, 0:100]
+                if tempframe is not None:
+                    # tempframe = np.ascontiguousarray(frame1) # [0:600, 0:100]
 
                     # print("---------------\ncropped image")
                     # print(type(tempframe))
