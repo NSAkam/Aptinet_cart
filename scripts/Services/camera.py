@@ -69,19 +69,19 @@ class CameraWorker(QThread):
         while self._canReadFrame:
             if self._readFromCamera1:
                 ret, frame1 = self._camera1.read()
-                print("--------------------------------------------------------------------------")
-                print("frame")
-                print(frame1.shape)
-                print(type(frame1))
-                print(frame1)
-                print("--------------------------------------------------------------------------")
-                print("temp frame")
-                tempframe = np.ascontiguousarray(frame1[0:400, 0:400])
-                # tempframe = frame1[0:100, 0:100, :]
-                print(tempframe.shape)
-                print(type(tempframe))
-                print(tempframe)
-                print("###########################################################################")
+                # print("--------------------------------------------------------------------------")
+                # print("frame")
+                # print(frame1.shape)
+                # print(type(frame1))
+                # print(frame1)
+                # print("--------------------------------------------------------------------------")
+                # print("temp frame")
+                tempframe = np.ascontiguousarray(frame1[80:400, 140:500])
+                # # tempframe = frame1[0:100, 0:100, :]
+                # print(tempframe.shape)
+                # print(type(tempframe))
+                # print(tempframe)
+                # print("###########################################################################")
                 # if self._camera1.isOpened():
                 if frame1 is not None:
                     # frame1 = cv2.cvtColor(frame1, cv2.COLOR_RGB2BGR)
