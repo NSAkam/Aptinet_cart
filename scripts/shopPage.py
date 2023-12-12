@@ -36,6 +36,7 @@ class ShopPage(QObject):
     _lightestWeightForHeavyProduct: int = 25  # grams
     _lightestWeightForLightWeightProduct: int = 8
     _basketWeightTolerance: int = 50  # better fit: 25
+    _pluCodeLength: int = 4
 
     ######################################################################################################### Models ###
     _factorList: ProductModel
@@ -343,12 +344,11 @@ class ShopPage(QObject):
                         self.openPopupMessageTimerSignal.emit("Not valid Product !")
 
             elif self.state == 5:
-                isAcceptablebarcodeForRemove, self._canRemoveProductClick, removeSuccessfullyBefore = self._removeList.updateValidBarcodeSetForRemove(
-                    product)
+                isAcceptablebarcodeForRemove, self._canRemoveProductClick, removeSuccessfullyBefore = self._removeList.updateValidBarcodeSetForRemove(product)
 
                 if not isAcceptablebarcodeForRemove:
                     if removeSuccessfullyBefore:
-                        self.openPopupMessageTimerSignal.emit("Please scan other product that removed from basket !")
+                        self.openPopupMessageTimerSignal.emit("Please scan OTHER product that removed from basket !")
                     else:
                         self.openPopupMessageTimerSignal.emit("ONLY scan product that removed from basket, please.")
 
@@ -720,7 +720,7 @@ class ShopPage(QObject):
 
     @Slot()
     def manual_barcodeClicked(self):
-        if self.state == 1 or self.state == 5:
+        if self.state == 1:
             self.showManualBarcodeSignal.emit()
             self.hideTopBtnSignal.emit()
 
@@ -728,8 +728,6 @@ class ShopPage(QObject):
     def cancel_manualBarcodeClicked(self):
         if self.state == 1:
             self.clear_stackView()
-        elif self.state == 5:
-            self.closeTopStackViewSignal.emit()
 
     @Slot(str)
     def confirm_manualBarcodeClicked(self, barcode: str):
@@ -742,14 +740,6 @@ class ShopPage(QObject):
                     self.barcodeRead()
                 else:
                     self.openPopupMessageTimerSignal.emit("Please check entered barcode !")
-            else:
-                self.openPopupMessageTimerSignal.emit(
-                    "please enter " + str(self._scanner.get_productBarcodeLength()) + " digits barcode !")
-        elif self.state == 5:
-            if len(barcode) == self._scanner.get_productBarcodeLength():
-                self.closeTopStackViewSignal.emit()
-                self._scanner.barcode = barcode
-                self.barcodeRead()
             else:
                 self.openPopupMessageTimerSignal.emit(
                     "please enter " + str(self._scanner.get_productBarcodeLength()) + " digits barcode !")
@@ -855,21 +845,29 @@ class ShopPage(QObject):
 
     @Slot(str)
     def product_removeManualBarcodeEntered(self, barcode: str):
-        pass
+        if self.state == 5:
+            if len(barcode) == self._scanner.get_productBarcodeLength() or len(barcode) == self._pluCodeLength:
+                self._scanner.barcode = barcode
+                self.barcodeRead()
+            else:
+                self.openPopupMessageTimerSignal.emit("Please recheck entered code !")
 
     @Slot(int)
     def product_removeIncreaseClicked(self, index: int):
-        pass
+        self._scanner.barcode = self.removeList.m_data[index].barcode
+        self.barcodeRead()
 
     @Slot(int)
     def product_removeDecreaseClicked(self, index: int):
-        pass
+        self.removeList.m_validBarcodeSetForDelete.append(self.removeList.m_data[index].barcode)
+        self.removeList.decreaseClicked(index)
 
     @Slot()
     def accept_byPassClicked(self):
         if self._weightSensor.isstable:
             self._factorList.clearData()
             self._factorList.insert_productList(self._bypassList.m_data)
+            self._removeList.clearData()
             self.state = 1
             self.clear_stackView()
             self._inByPass = False
@@ -953,7 +951,7 @@ class ShopPage(QObject):
             self.openPopupMessageTimerSignal.emit("Your factor will be send to" + email)
         except EmailNotValidError as e:
             print(str(e))
-            self.openPopupMessageTimerSignal.emit(str(e))
+            self.openPopupMessageTimerSignal.emit("Please check your email address:\n" + str(e))
 
 
     ###################################################################################################### Functions ###

@@ -292,7 +292,13 @@ class ProductModel(QAbstractListModel):
     def validBarcodeSetForRemove(self, data: [Product], RemovedWight):
         lst_1 = []
         for item in data:
-            if item.meanWeight <= RemovedWight + item.tolerance + 8:
+            if item.productType == "weighted":
+                if item.productWeightInBasket <= RemovedWight + 8:
+                    lst_1.append(item.barcode)
+            elif item.productType == "counted":
+                for i in range(item.countInBasket):
+                    lst_1.append(item.barcode)
+            elif item.meanWeight <= RemovedWight + item.tolerance + 8:
                 for i in range(item.countInBasket):
                     lst_1.append(item.barcode)
         self.setValidBarcodeSetForDelete(lst_1)
@@ -303,8 +309,17 @@ class ProductModel(QAbstractListModel):
         removeAllProduct = False
         acceptableBarcode = False
         removeSuccessfullyBefor = False
-        avgWeight = product.meanWeight
-        tolerance = product.tolerance
+        avgWeight = 0
+        tolerance = 0
+        if product.productType == "weighted":
+            avgWeight = product.productWeightInBasket
+            tolerance = 8
+        elif product.productType == "counted":
+            avgWeight = 0   # product.meanWeight
+            tolerance = 8
+        else:
+            avgWeight = product.meanWeight
+            tolerance = product.tolerance
         if product.barcode in self.m_validBarcodeSetForDelete:
             if (self.m_removedWeightMax - avgWeight + (tolerance + 8)) >= 0:
                 acceptableBarcode = True
@@ -332,7 +347,7 @@ class ProductModel(QAbstractListModel):
         ix = self.index(index, 0)
 
         # self.beginResetModel()
-        if self.m_data[index].isPlu:
+        if self.m_data[index].productType == "weighted":
             if self.m_data[index].get_countInBasket() < 1:
                 self.m_data[index].set_countInBasket(self.m_data[index].get_countInBasket() + 1)
         else:
