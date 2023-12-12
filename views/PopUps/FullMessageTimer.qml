@@ -43,13 +43,14 @@ Popup {
         color: "white"
         width: 40
         height: 40
+        visible: false
 
         Image {
             source: "../../Assets/Bell.png"
             width: 18
             height: 20
             anchors.centerIn: parent
-            visible: false
+            
         }
     }
 
