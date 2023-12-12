@@ -266,7 +266,7 @@ Item {
         x:700
         y:640
         width: 150
-        text: obj_LogicContainerAddPluItems.lang.btn_See +" >"
+        text: obj_LogicContainerAddPluItems.lang.btn_See_All +" >"
         font.pixelSize: 24
         borderRadius: 5
         onClicked: {

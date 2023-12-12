@@ -19,9 +19,9 @@ Item {
     Util.ViewSettings{
         id:viewset
     }
-    
+
     property Logic obj_LogicContainerGuidTips
-    
+
 
     property int state: 0
 
@@ -222,7 +222,7 @@ Item {
     Component{
         id:g1
         GuideTips1{
-
+            obj_LogicContainerGuidTips1: obj_LogicContainerGuidTips
         }
     }
 

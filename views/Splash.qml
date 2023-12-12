@@ -286,7 +286,7 @@ Item {
     Component{
         id:guidpage
         GuideTips{
-
+            obj_LogicContainerGuidTips: obj_logic
         }
     }
     Component{
