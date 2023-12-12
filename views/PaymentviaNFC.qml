@@ -53,6 +53,7 @@ Item {
         height: 57
         x:1156
         y:25
+        visible: false
     }
     Image {
         source: "../Assets/Notification.png"

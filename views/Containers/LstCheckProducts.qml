@@ -97,7 +97,7 @@ Item {
                 }
                 Text {
                     text: modelData.totalSavingQML
-                    x:479
+                    x:430
                     y:86
                     color: viewset.primaryColor
                     font.pixelSize: 24

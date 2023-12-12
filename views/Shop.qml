@@ -119,7 +119,12 @@ Item {
                 height: 57
                 x:1156
                 y:25
-
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        stackview.push(guid)
+                    }
+                }
             }
             Image {
                 source: "../Assets/Notification.png"
@@ -810,6 +815,12 @@ Item {
             obj_LogicContainerPaymentQr: obj_LogicContainerShop
         }
 
+    }
+    Component{
+        id:guid
+        GuideTips{
+            obj_LogicContainerGuidTips: obj_LogicContainerShop
+        }
     }
 
 
