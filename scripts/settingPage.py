@@ -54,16 +54,7 @@ class SettingPage(QObject):
         self._scanner.readBarcodeSignal.connect(self.scanner_read)
         self._updateFiles = UpdateFiles()
 
-        lastCalibrationDate = datetime.fromtimestamp(float(self._configs.get_calibrationDate()))
-        days = (datetime.now() - lastCalibrationDate).days
-        if days >= self._calibrationPeriod:
-            self.set_lastCalibrationDate(str(lastCalibrationDate.date()))
-            self.expiredCalibrationSignal.emit(True)
-            print("expired")
-        else:
-            self.set_lastCalibrationDate(str(lastCalibrationDate.date()))
-            self.expiredCalibrationSignal.emit(False)
-            print("not expired")
+
 
     ### Signals ########################################################################################################
     changedSignal = Signal()
@@ -176,6 +167,17 @@ class SettingPage(QObject):
         if self._configs.get_appVersion() != self._lastSoftwareVersion:
             self.updateAvailableSignal.emit()
             self.set_updateSoftware(UpdateSoftware())
+
+        lastCalibrationDate = datetime.fromtimestamp(float(self._configs.get_calibrationDate()))
+        days = (datetime.now() - lastCalibrationDate).days
+        if days >= self._calibrationPeriod:
+            self.set_lastCalibrationDate(str(lastCalibrationDate.date()))
+            self.expiredCalibrationSignal.emit(True)
+            print("expired")
+        else:
+            self.set_lastCalibrationDate(str(lastCalibrationDate.date()))
+            self.expiredCalibrationSignal.emit(False)
+            print("not expired")
 
 
 
