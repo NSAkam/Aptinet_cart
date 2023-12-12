@@ -70,6 +70,7 @@ Item {
                 //                width: 57
                 //                height: 57
             }
+            visible: false
         }
 
 

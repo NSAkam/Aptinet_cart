@@ -129,14 +129,14 @@ Item {
         }
         Text {
             text: obj_LogicContainerBarcodeScanned.shopPage.newProduct.savingQML
-            x:539 - 40
+            x:539 - 100
             y:146
             font.pixelSize: 24
             color: "#36EB00"
         }
         Text {
             text: obj_LogicContainerBarcodeScanned.shopPage.newProduct.finalPriceQML
-            x:599 - 40
+            x:599 - 60
             y:146
             font.pixelSize: 32
             color: "#F05A28"

@@ -49,6 +49,7 @@ Popup {
             width: 18
             height: 20
             anchors.centerIn: parent
+            visible: false
         }
     }
 
