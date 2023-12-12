@@ -150,7 +150,7 @@ Popup {
 
                         Text {
                             text: "Qty:"
-                            x: 647
+                            x: 545
                             y: 48
                             font.pixelSize: 20
                             //              font.weight: Font.DemiBold
