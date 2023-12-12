@@ -198,7 +198,7 @@ class Logic(QObject):
     @Slot()
     def go_toSettingClicked(self):
         self._scanner.IDBarcodeReadSignal.disconnect()
-        self.set_settingPage(SettingPage(self._dal, self._scanner))
+        self.set_settingPage(SettingPage(self._dal, self._scanner, self._lang))
         self._scanner.go_outOfLogic()
         if self._adminRepository.Login(self._scanner.get_IDBarcode()):
             self.goToSettingPageSignal.emit()

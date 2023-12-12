@@ -8,6 +8,7 @@ from updateSoftware import UpdateSoftware,UpdateFiles
 from Services.wifi import WirelessModel
 from Services.sound import *
 from Services.gpio import *
+from Services.lang import languageReader
 from datetime import datetime
 import time
 from Services.weighsensorCalibration import WeighSensorCalibration
@@ -26,6 +27,7 @@ class SettingPage(QObject):
 
     ### Private ########################################################################################################
     _dal: DAL
+    _lang: languageReader
     _configsRepository: ConfigRepositories
     _apiHandler: Apihandler
     _lastSoftwareVersion: str
@@ -39,9 +41,10 @@ class SettingPage(QObject):
     _readBarcode: str = ""
 
 
-    def __init__(self, dal: DAL, scanner: ScannerHelper):
+    def __init__(self, dal: DAL, scanner: ScannerHelper, language: languageReader):
         super().__init__()
         self._dal = dal
+        self._lang = language
         self._adminRepository = AdminRepository(self._dal)
         self._configsRepository = ConfigRepositories(self._dal)
         self._configs = Config()
@@ -226,8 +229,7 @@ class SettingPage(QObject):
 
     @Slot()
     def sound_testClicked(self):
-
-        playSound("notif")
+        playSound(self._lang.lst["sound_test_device"])
 
     @Slot()
     def light_testClicked(self):
