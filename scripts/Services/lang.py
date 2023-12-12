@@ -412,6 +412,9 @@ class languageReader(QObject):
     def get_txt_Qty(self):
         return str(self.lst["txt_Qty"])
 
+    def get_txt_Wt(self):
+        return str(self.lst["txt_Wt"])
+
     def get_sign_currency(self):
         return str(self.lst["sign_currency"])
 
@@ -542,5 +545,6 @@ class languageReader(QObject):
     txt_Please_enter_the_item_barcode = Property(str,get_txt_Please_enter_the_item_barcode)
     txt_each = Property(str,get_txt_each)
     txt_Qty = Property(str,get_txt_Qty)
+    txt_Wt = Property(str,get_txt_Wt)
     sign_currency = Property(str,get_sign_currency)
 

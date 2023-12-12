@@ -18,6 +18,7 @@ from Services.gpio import GreenLight
 from Services.weightsensor import WeightSensorWorker
 from Services.nfc import nfc
 from Services.lang import languageReader
+from Services.logStash import LogStash
 
 from Helpers.scannerHelper import ScannerHelper
 # from Helpers.weightSensorHelper import WeightSensorHelper
@@ -56,9 +57,10 @@ class ShopPage(QObject):
 
     ######################################################################################################## Objects ###
     _user: User
-    _lang: languageReader
     _loggedInUser: ServerUser
     _newProduct: Product
+    _lang: languageReader
+    _logger: LogStash
 
     ######################################################################################################## Private ###
     _state: int = 1
@@ -91,6 +93,8 @@ class ShopPage(QObject):
         #### Private ##############################################
         self._dal = dal
         self._lang = language
+        self._user = user
+        self._logger = LogStash(self._dal)
 
         #### Repositories #########################################
         self._userRepository = UserRepository(self._dal)
@@ -128,9 +132,6 @@ class ShopPage(QObject):
         self._bypassList = ProductModel()
         self._removeList = ProductModel()
 
-        #### User #################################################
-        self._user = user
-
         #### Insert Timer Thread ##################################
         self._canTimerTick = True
         self._timerThread = Thread(target=self.timerSlot)
@@ -155,7 +156,7 @@ class ShopPage(QObject):
     showCountedPLUItemsSignal = Signal()  # show counted PLU view
     showTopBtnSignal = Signal()  # show manual barcode btn and PLU btn
     showCheckOutSignal = Signal()  # show check out view
-    showPaymentSignal = Signal(int)   # 0 for NFC payment, 1 for Qr paymeny
+    showPaymentSignal = Signal(int)   # 0 for NFC payment, 1 for Qr payment
     showAfterPaymentSignal = Signal()
 
     #### Popup Signals ############################################
@@ -289,6 +290,7 @@ class ShopPage(QObject):
     def barcodeRead(self):
         self.closePopUpMessageTimer.emit()
         if not self._inByPass:
+            self._logger.insertLog("read product code", self._scanner.get_barcode(), self._user.get_id())
             product = self._productRepository.get_product(self._scanner.get_barcode())
             if product.price == 0:
                 validProduct = False
@@ -378,6 +380,7 @@ class ShopPage(QObject):
 
     @Slot(int)
     def read_startWeight(self, startWeight: int):
+        self._logger.insertLog("start weight", str(startWeight), self._user.get_id())
         if abs(startWeight) > 20:
             self.state = -1
             self._basketWeightShouldBe = 0
@@ -389,6 +392,7 @@ class ShopPage(QObject):
     @Slot(int, int)
     def basketWeightChanged(self, val2: int, val1: int):
         if not self._inByPass:
+            self._logger.insertLog("weight change", str(val2 - val1), self._user.get_id())
             value: int = val2 - val1
 
             # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -718,6 +722,7 @@ class ShopPage(QObject):
 
     @Slot()
     def IDBarcode_read(self):
+        self._logger.insertLog("ID cart scanned", self._scanner.get_IDBarcode(), self._user.get_id())
         if not self._inByPass:
             self._inByPass = True
             self.clear_stackView()
@@ -727,6 +732,7 @@ class ShopPage(QObject):
     @Slot()
     def nfc_read(self):
         if self.state == 10:
+            self._logger.insertLog("nfc read", "", self._user.get_id())
             self.state = 12
             self.showAfterPaymentSignal.emit()
             self.turn_onGreenLight()
@@ -734,6 +740,7 @@ class ShopPage(QObject):
     ####################################################################################################### UI Sluts ###
     @Slot()
     def call_forHelpClicked(self):
+        self._logger.insertLog("call for help clicked", "", self._user.get_id())
         playSound(self._lang.lst["sound_call_for_help"])
 
     @Slot()
@@ -800,6 +807,7 @@ class ShopPage(QObject):
     @Slot(str)
     def item_PLUClicked(self, pluCode: str):
         self.newProduct = self._productRepository.get_product(pluCode)
+        self._logger.insertLog("lookup by name", pluCode, self._user.get_id())
         if self.newProduct.get_productType() == "weighted":
             self.state = 14
             self.showWeightedPLUItemsSignal.emit()
@@ -828,6 +836,7 @@ class ShopPage(QObject):
     def confirm_PLUItemClicked(self):
         if self.state == 14:
             if self._weightSensor.isstable:
+                self._logger.insertLog("add weighted product", str(self._newProduct.productWeightInBasket),self._user.get_id())
                 self._factorList.insertProduct(self.newProduct, 1)
                 self._bypassList.insertProduct(self.newProduct.copy_product(), 1)
                 self.state = 1
@@ -841,6 +850,7 @@ class ShopPage(QObject):
                 playSound(self._lang.lst["sound_Please_wait"])
         elif self.state == 15:
             if self._weightSensor.isstable:
+                self._logger.insertLog("add counted product", str(self._newProduct.countInBasket), self._user.get_id())
                 self._factorList.insertProduct(self.newProduct, self.newProduct.countInBasket)
                 self._bypassList.insertProduct(self.newProduct.copy_product(), self.newProduct.countInBasket)
                 self.state = 1
@@ -871,6 +881,7 @@ class ShopPage(QObject):
     @Slot()
     def product_removeConfirmClicked(self):
         if self._trustUser:
+            self._logger.insertLog("remove product on trust user", str(len(self._removeList.m_data)), self._user.get_id())
             # deleteSound()
             playSound(self._lang.lst["sound_remove"])
             self._canRemoveProductClick = False
@@ -889,6 +900,7 @@ class ShopPage(QObject):
                 playSound(self._lang.lst["sound_Please_scann_all_product_that_remove_from_basket"])
                 self._trustUser = True
             else:
+                self._logger.insertLog("normal remove product", str(len(self._removeList.m_data)), self._user.get_id())
                 # deleteSound()
                 playSound(self._lang.lst["sound_remove"])
                 self._canRemoveProductClick = False
@@ -924,6 +936,7 @@ class ShopPage(QObject):
     @Slot()
     def accept_byPassClicked(self):
         if self._weightSensor.isstable:
+            self._logger.insertLog("operator confirmed cart", "", self._user.get_id())
             self._factorList.clearData()
             self._factorList.insert_productList(self._bypassList.m_data)
             self._removeList.clearData()
@@ -959,6 +972,7 @@ class ShopPage(QObject):
     def checkout_clicked(self):
         if self.state == 1:
             if len(self._factorList.m_data) > 0:
+                self._logger.insertLog("check out", str(len(self._factorList.m_data)), self._user.get_id())
                 self.state = 8
                 self.showCheckOutSignal.emit()
             else:
@@ -968,12 +982,14 @@ class ShopPage(QObject):
     @Slot()
     def checkout_backClicked(self):
         if self.state == 8:
+            self._logger.insertLog("back from check out", "", self._user.get_id())
             self.state = 1
             self.clear_stackView()
 
     @Slot(str)
     def apply_couponCode(self, code):
         if code == "2212":
+            self._logger.insertLog("apply coupon", str(code), self._user.get_id())
             self.factorList.set_offerCouponPercentage(10.0)
         else:
             self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Invalid_code_please_check_the_code"])
@@ -982,6 +998,7 @@ class ShopPage(QObject):
     @Slot()
     def payment_clicked(self):
         if self.state == 8:
+            self._logger.insertLog("choose nfc for payment", "", self._user.get_id())
             self.showPaymentSignal.emit(0)
             self.state = 10
             self._nfc = nfc()
@@ -990,6 +1007,7 @@ class ShopPage(QObject):
     @Slot()
     def payment_viaQRClicked(self):
         if self.state == 8:
+            self._logger.insertLog("choose Qr for payment", "", self._user.get_id())
             self.showPaymentSignal.emit(1)
             self.state = 10
 
@@ -1012,10 +1030,15 @@ class ShopPage(QObject):
             email = v["email"]
             self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Your_factor_will_be_send_to"] + email)
             playSound(self._lang.lst["sound_Your_factor_will_be_send_to"])
+            self._logger.insertLog("request for send factor", emailAddress, self._user.get_id())
         except EmailNotValidError as e:
             print(str(e))
             self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Please_check_your_email_address"] + str(e))
             playSound(self._lang.lst["sound_Please_check_your_email_address"])
+
+    @Slot(int)
+    def rate_cart(self, rate: int):
+        self._logger.insertLog("rate", str(rate), self._user.get_id())
 
 
     ###################################################################################################### Functions ###
@@ -1068,6 +1091,7 @@ class ShopPage(QObject):
     def cal_basketLoad(self, weight: int):
         load = int((weight - self._startWeight) / self._basketWeightLimit * 100)
         load = min(max(load, 0), 100)
+        self._logger.insertLog("basket load", str(load), self._user.get_id())
         self.set_basketLoad(load)
         self.set_basketIsFull(True) if load == 100 else self.set_basketIsFull(False)
 
