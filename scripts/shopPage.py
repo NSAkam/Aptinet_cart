@@ -416,7 +416,6 @@ class ShopPage(QObject):
                         self.openPopupNoBarcodeScannedSignal.emit()
                         if abs(value) > 20:
                             notifSound()
-                            pass
                         self._basketWeightShouldBe = val1
                         self.state = 4
 
