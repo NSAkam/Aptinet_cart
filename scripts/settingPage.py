@@ -59,9 +59,11 @@ class SettingPage(QObject):
         if days >= self._calibrationPeriod:
             self.set_lastCalibrationDate(str(lastCalibrationDate.date()))
             self.expiredCalibrationSignal.emit(True)
+            print("expired")
         else:
             self.set_lastCalibrationDate(str(lastCalibrationDate.date()))
             self.expiredCalibrationSignal.emit(False)
+            print("not expired")
 
     ### Signals ########################################################################################################
     changedSignal = Signal()
