@@ -546,6 +546,10 @@ class ShopPage(QObject):
                 elif self.state == 14:
                     self.newProduct.set_productWeightInBasket(val2 - self._pluStartWeight)
 
+                elif self.state == 15:
+                    self.newProduct.set_productWeightInBasket(val2 - self._pluStartWeight)
+
+
             # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
             # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> REMOVE WEIGHT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
             # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -650,6 +654,9 @@ class ShopPage(QObject):
                         self.turn_onGreenLight()
 
                 elif self.state == 14:
+                    self.newProduct.set_productWeightInBasket(val2 - self._pluStartWeight)
+
+                elif self.state == 15:
                     self.newProduct.set_productWeightInBasket(val2 - self._pluStartWeight)
 
     @Slot()
@@ -770,9 +777,17 @@ class ShopPage(QObject):
                     self._pluStartWeight = self._weightSensor._BasketWeight2
                     taring = False
             self.closePopupMessageSignal.emit()
+
         elif self.newProduct.get_productType() == "counted":
             self.state = 15
             self.showCountedPLUItemsSignal.emit()
+            self.openPopupMessageSignal.emit("Taring ! Please don't move basket.")
+            taring = True
+            while taring:
+                if self._weightSensor._canread:
+                    self._pluStartWeight = self._weightSensor._BasketWeight2
+                    taring = False
+            self.closePopupMessageSignal.emit()
 
     @Slot()
     def confirm_PLUItemClicked(self):
