@@ -845,9 +845,11 @@ class ShopPage(QObject):
 
     @Slot(str)
     def product_removeManualBarcodeEntered(self, barcode: str):
+        print(barcode)
         if self.state == 5:
             if len(barcode) == self._scanner.get_productBarcodeLength() or len(barcode) == self._pluCodeLength:
                 self._scanner.barcode = barcode
+                print(self._scanner.barcode)
                 self.barcodeRead()
             else:
                 self.openPopupMessageTimerSignal.emit("Please recheck entered code !")
