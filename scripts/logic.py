@@ -143,14 +143,15 @@ class Logic(QObject):
             # self.validPhoneNumberSignal.emit()
             self.continue_clicked()
         else:
-            self.showPopupMessageTimerSignal.emit("not valid phone number")
+            self.showPopupMessageTimerSignal.emit(self._lang.lst["mess_not_valid_phone_number"])
+
 
     @Slot(str)
     def enter_sentCode(self, sentCode: str):
         if sentCode == "2212":
             self.continue_clicked()
         else:
-            self.showPopupMessageTimerSignal.emit("not valid code")
+            self.showPopupMessageTimerSignal.emit(self._lang.lst["mess_not_valid_code"])
 
     @Slot()
     def login_loyaltyCartClicked(self):
@@ -166,7 +167,7 @@ class Logic(QObject):
             self._user.set_loggedInUser(serverUser)
             self.continue_clicked()
         else:
-            self.showPopupMessageTimerSignal.emit("not valid loyalty card")
+            self.showPopupMessageTimerSignal.emit(self._lang.lst["mess_not_valid_loyalty_card"])
 
     @Slot(str)
     def login_loyaltyCode(self, loyaltyCode: str):
@@ -176,7 +177,7 @@ class Logic(QObject):
             self._user.set_loggedInUser(serverUser)
             self.continue_clicked()
         else:
-            self.showPopupMessageTimerSignal.emit("not valid loyalty code")
+            self.showPopupMessageTimerSignal.emit(self._lang.lst["mess_not_valid_loyalty_code"])
 
     @Slot()
     def login_loyaltyCartBackClicked(self):
@@ -185,7 +186,7 @@ class Logic(QObject):
     @Slot()
     def continue_clicked(self):
         self._scanner.IDBarcodeReadSignal.disconnect()
-        self.set_shopPage(ShopPage(self._dal, self._user, self._scanner))
+        self.set_shopPage(ShopPage(self._dal, self._user, self._scanner, self._lang))
         self.goToShopPageSignal.emit()
 
     # @Slot()
@@ -202,7 +203,8 @@ class Logic(QObject):
         if self._adminRepository.Login(self._scanner.get_IDBarcode()):
             self.goToSettingPageSignal.emit()
         else:
-            print("Not Authorized !!!")
+            self.showPopupMessageTimerSignal.emit(self._lang.lst["mess_Not_Authorized"])
+
 
     @Slot(str)
     def language_Changed(self, v):

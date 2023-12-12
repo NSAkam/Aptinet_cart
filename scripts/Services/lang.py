@@ -10,7 +10,7 @@ class languageReader(QObject):
     
 
     def __init__(self,namefile):
-        print(namefile)
+        # print(namefile)
         f = open( "/home/aptinet/files/"+ str(namefile)+".json", "r")
         s= f.read()
         self.lst = json.loads(s)
@@ -405,24 +405,17 @@ class languageReader(QObject):
     
     def get_txt_Lookup_Items(self):
         return str(self.lst["txt_Lookup_Items"])
-    
 
+    def get_txt_each(self):
+        return str(self.lst["txt_each"])
 
+    def get_txt_Qty(self):
+        return str(self.lst["txt_Qty"])
 
-
-
-
-
-
-
-
-
-
-
-
+    def get_sign_currency(self):
+        return str(self.lst["sign_currency"])
 
     btn_Enter_Phone_Number = Property(str,get_btn_Enter_Phone_Number)
-
     btn_Scan_MemberShop_Cart = Property(str,get_btn_Scan_MemberShop_Cart)
     btn_Help = Property(str,get_btn_Help)
     btn_Continue = Property(str,get_btn_Continue)
@@ -547,4 +540,7 @@ class languageReader(QObject):
     txt_Subtotal = Property(str,get_txt_Subtotal)
     btn_Checkout = Property(str,get_btn_Checkout)
     txt_Please_enter_the_item_barcode = Property(str,get_txt_Please_enter_the_item_barcode)
-    txt_Please_enter_the_item_barcode = Property(str,get_txt_Please_enter_the_item_barcode)
+    txt_each = Property(str,get_txt_each)
+    txt_Qty = Property(str,get_txt_Qty)
+    sign_currency = Property(str,get_sign_currency)
+

@@ -18,5 +18,8 @@ def notifSound2():
 
 
 def playSound(fileName: str):
-    path = "/home/aptinet/files/" + fileName + ".wav"
-    QSound.play(path)
+    try:
+        path = "/home/aptinet/files/" + fileName + ".wav"
+        QSound.play(path)
+    except:
+        pass

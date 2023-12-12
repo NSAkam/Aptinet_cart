@@ -226,6 +226,7 @@ class SettingPage(QObject):
 
     @Slot()
     def sound_testClicked(self):
+
         playSound("notif")
 
     @Slot()

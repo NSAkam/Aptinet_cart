@@ -17,6 +17,7 @@ from Services.sound import *
 from Services.gpio import GreenLight
 from Services.weightsensor import WeightSensorWorker
 from Services.nfc import nfc
+from Services.lang import languageReader
 
 from Helpers.scannerHelper import ScannerHelper
 # from Helpers.weightSensorHelper import WeightSensorHelper
@@ -55,6 +56,7 @@ class ShopPage(QObject):
 
     ######################################################################################################## Objects ###
     _user: User
+    _lang: languageReader
     _loggedInUser: ServerUser
     _newProduct: Product
 
@@ -83,11 +85,12 @@ class ShopPage(QObject):
     _weightSensor: WeightSensorWorker
     _nfc: nfc
 
-    def __init__(self, dal: DAL, user: User, scanner: ScannerHelper):
+    def __init__(self, dal: DAL, user: User, scanner: ScannerHelper, language: languageReader):
         super().__init__()
 
         #### Private ##############################################
         self._dal = dal
+        self._lang = language
 
         #### Repositories #########################################
         self._userRepository = UserRepository(self._dal)
@@ -313,9 +316,11 @@ class ShopPage(QObject):
                         self.hideTopBtnSignal.emit()
                         self._shouldBarcodeToBeScannToAddProduct = True
                     else:
-                        self.openPopupMessageTimerSignal.emit("Not valid Product !")
+                        self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Not_valid_Product"])
+                        playSound(self._lang.lst["sound_Not_valid_Product"])
                 else:
-                    self.openPopupMessageTimerSignal.emit("Basket is full !")
+                    self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Basket_is_full"])
+                    playSound(self._lang.lst["sound_Not_valid_Product"])
 
             elif self.state == 2:
                 if self.newProduct.barcode == self._scanner.get_barcode():
@@ -341,7 +346,8 @@ class ShopPage(QObject):
                         self.showNewProductScannedSignal.emit()
                         self.hideTopBtnSignal.emit()
                     else:
-                        self.openPopupMessageTimerSignal.emit("Not valid Product !")
+                        self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Not_valid_Product"])
+                        playSound(self._lang.lst["sound_Not_valid_Product"])
 
             elif self.state == 5:
                 if product.productType != "normal":
@@ -356,23 +362,27 @@ class ShopPage(QObject):
 
                 if not isAcceptablebarcodeForRemove:
                     if removeSuccessfullyBefore:
-                        self.openPopupMessageTimerSignal.emit("Please scan OTHER product that removed from basket !")
+                        self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Please_scan_OTHER_product_that_removed_from_basket"])
+                        playSound(self._lang.lst["sound_Please_scan_OTHER_product_that_removed_from_basket"])
                     else:
-                        self.openPopupMessageTimerSignal.emit("ONLY scan product that removed from basket, please.")
+                        self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_ONLY_scan_product_that_removed_from_basket_please"])
+                        playSound(self._lang.lst["sound_ONLY_scan_product_that_removed_from_basket_please"])
 
                 self._trustUser = False
                 if len(self._removeList.m_data) == 1:
                     self.openPopupDeleteProductSignal.emit()
 
             elif self.state == 8:
-                self.openPopupMessageTimerSignal.emit("Can't add product at this session.")
+                self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Cant_add_product_at_this_session"])
+                playSound(self._lang.lst["sound_Cant_add_product_at_this_session"])
 
     @Slot(int)
     def read_startWeight(self, startWeight: int):
         if abs(startWeight) > 20:
             self.state = -1
             self._basketWeightShouldBe = 0
-            self.openPopupMessageSignal.emit("Please clear the cart !")
+            self.openPopupMessageSignal.emit(self._lang.lst["mess_Please_clear_the_cart"])
+            playSound(self._lang.lst["sound_Please_clear_the_cart"])
         else:
             self._basketWeightShouldBe = 0
 
@@ -394,7 +404,8 @@ class ShopPage(QObject):
                     if not self._shouldBarcodeToBeScannToAddProduct and self.newProduct.get_productType() == "normal":
                         if ((value < self.newProduct.meanWeight + self.newProduct.tolerance) and (
                                 value >= self.newProduct.meanWeight - self.newProduct.tolerance)):
-                            insertSound()
+                            # insertSound()
+                            playSound(self._lang.lst["sound_insert"])
                             self._factorList.insertProduct(self.newProduct, 1)
                             self._bypassList.insertProduct(self.newProduct.copy_product(), 1)
                             self.cal_basketLoad(val2)
@@ -407,21 +418,23 @@ class ShopPage(QObject):
                             self._shouldBarcodeToBeScannToAddProduct = True
                             self.openPopupNoBarcodeScannedSignal.emit()
                             if abs(value) > 20:
-                                notifSound()
-                                pass
+                                # notifSound()
+                                playSound(self._lang.lst["sound_notif"])
                             self._basketWeightShouldBe = val1
                             self.state = 4
 
                     else:
                         self.openPopupNoBarcodeScannedSignal.emit()
                         if abs(value) > 20:
-                            notifSound()
+                            # notifSound()
+                            playSound(self._lang.lst["sound_notif"])
                         self._basketWeightShouldBe = val1
                         self.state = 4
 
                 elif self.state == 2:
                     if self.newProduct.insertedWeight < self._validInsertedWeightForCalTol:
-                        insertSound()
+                        # insertSound()
+                        playSound(self._lang.lst["sound_insert"])
                         self._productRepository.updateProduductWeight(self.newProduct, val2 - val1)
                         self._factorList.insertProduct(self.newProduct, 1)
                         self._bypassList.insertProduct(self.newProduct.copy_product(), 1)
@@ -436,7 +449,8 @@ class ShopPage(QObject):
                     else:
                         if (value < self.newProduct.meanWeight + self.newProduct.tolerance) and (
                                 value >= self.newProduct.meanWeight - self.newProduct.tolerance):
-                            insertSound()
+                            # insertSound()
+                            playSound(self._lang.lst["sound_insert"])
                             self._productRepository.updateProduductWeight(self.newProduct, val2 - val1)
                             self._factorList.insertProduct(self._newProduct, 1)
                             self._bypassList.insertProduct(self._newProduct, 1)
@@ -449,7 +463,8 @@ class ShopPage(QObject):
                             self._shouldBarcodeToBeScannToAddProduct = False
                         else:
                             self.openPopupWeightNotMatchWithBarcodeSignal.emit()
-                            notifSound()
+                            # notifSound()
+                            playSound(self._lang.lst["sound_notif"])
                             self._basketWeightShouldBe = val1
                             self.state = 3
 
@@ -460,8 +475,9 @@ class ShopPage(QObject):
                         self.closePopupWeightNotMatchWithBarcodeSignal.emit()
                         self.clear_stackView()
                     else:
-                        self.openPopupMessageTimerSignal.emit("please remove not scanned product !")
-                        notifSound()
+                        self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_please_remove_not_scanned_product"])
+                        playSound(self._lang.lst["sound_please_remove_not_scanned_product"])
+                        # notifSound()
 
                 elif self.state == 4:
                     if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
@@ -470,9 +486,9 @@ class ShopPage(QObject):
                         self.state = 1
                         self.clear_stackView()
                     elif self._basketWeightShouldBe + self._basketWeightTolerance <= val2:
-                        self.openPopupMessageTimerSignal.emit(
-                            "please remove not scanned products and then insert them one by one !")
-                        notifSound()
+                        self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_please_remove_not_scanned_products_and_then_insert_them_one_by_one"])
+                        playSound(self._lang.lst["sound_please_remove_not_scanned_products_and_then_insert_them_one_by_one"])
+                        # notifSound()
 
                 elif self.state == 5:
                     if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
@@ -483,9 +499,9 @@ class ShopPage(QObject):
                         self._removeList.clearData()
                         self._trustUser = False
                     else:
-                        self.openPopupMessageSignal.emit(
-                            "please remove inserted product from basket and first complete remove process and then insert product!")
-                        notifSound()
+                        self.openPopupMessageSignal.emit(self._lang.lst["mess_please_remove_inserted_product_from_basket_and_first_complete_remove_process_and_then_insert_product"])
+                        playSound(self._lang.lst["sound_please_remove_inserted_product_from_basket_and_first_complete_remove_process_and_then_insert_product"])
+                        # notifSound()
                         self.state = 6
                         self._basketWeightRemoveProcess = val1
 
@@ -515,10 +531,11 @@ class ShopPage(QObject):
                         self._trustUser = False
 
                 elif self.state == 8:
-                    self.openPopupMessageSignal.emit("Cant add or remove product in this session.")
+                    self.openPopupMessageSignal.emit(self._lang.lst["mess_Cant_add_or_remove_product_in_this_session"])
+                    playSound(self._lang.lst["sound_Cant_add_or_remove_product_in_this_session"])
                     self._basketWeightShouldBe = val1
                     self.state = 9
-                    notifSound
+                    # notifSound
 
                 elif self.state == 9:
                     if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
@@ -526,10 +543,11 @@ class ShopPage(QObject):
                         self.closePopupMessageSignal.emit()
 
                 elif self.state == 10:
-                    self.openPopupMessageSignal.emit("Cant add or remove product in this session.")
+                    self.openPopupMessageSignal.emit(self._lang.lst["mess_Cant_add_or_remove_product_in_this_session"])
+                    playSound(self._lang.lst["sound_Cant_add_or_remove_product_in_this_session"])
                     self._basketWeightShouldBe = val1
                     self.state = 11
-                    notifSound()
+                    # notifSound()
 
                 elif self.state == 11:
                     if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
@@ -540,7 +558,8 @@ class ShopPage(QObject):
                     if abs(val2 - self._basketWeightShouldBe) > 50:
                         # self._basketWeightShouldBe = val1
                         self.turn_offGreenlight()
-                        self.openPopupMessageSignal.emit("Cant add or remove product in this session.")
+                        self.openPopupMessageSignal.emit(self._lang.lst["mess_Cant_add_or_remove_product_in_this_session"])
+                        playSound(self._lang.lst["sound_Cant_add_or_remove_product_in_this_session"])
                         self.state = 13
 
                 elif self.state == 13:
@@ -570,7 +589,8 @@ class ShopPage(QObject):
                     self._removeList.validBarcodeSetForRemove(self._factorList.m_data, abs(value))
                     if not len(self._removeList.m_validBarcodeSetForDelete) == 0:
                         self.openPopupDeleteProductSignal.emit()
-                        notifSound2()
+                        # notifSound2()
+                        playSound(self._lang.lst["sound_notif2"])
                         self._basketWeightShouldBe = val1
                         self.state = 5
 
@@ -578,7 +598,8 @@ class ShopPage(QObject):
                     self._removeList.validBarcodeSetForRemove(self._factorList.m_data, abs(value))
                     self.clear_stackView()
                     self.openPopupDeleteProductSignal.emit()
-                    notifSound2()
+                    # notifSound2()
+                    playSound(self._lang.lst["sound_notif2"])
                     self._basketWeightShouldBe = val1
                     self.countDownTimer = -20
                     self.state = 5
@@ -598,9 +619,9 @@ class ShopPage(QObject):
                         self.state = 1
 
                 elif self.state == 5:
-                    self.openPopupMessageSignal.emit(
-                        "Please replace product that removed from basket and after complete current remove process, remove another product !")
-                    notifSound()
+                    self.openPopupMessageSignal.emit(self._lang.lst["mess_Please_replace_product_that_removed_from_basket_and_after_complete_current_remove_process_remove_another_product"])
+                    playSound(self._lang.lst["sound_Please_replace_product_that_removed_from_basket_and_after_complete_current_remove_process_remove_another_product"])
+                    # notifSound()
                     self.state = 7
                     self._basketWeightRemoveProcess = val1
 
@@ -625,10 +646,11 @@ class ShopPage(QObject):
                         self._trustUser = False
 
                 elif self.state == 8:
-                    self.openPopupMessageSignal.emit("Cant add or remove product in this session.")
+                    self.openPopupMessageSignal.emit(self._lang.lst["mess_Cant_add_or_remove_product_in_this_session"])
+                    playSound(self._lang.lst["sound_Cant_add_or_remove_product_in_this_session"])
                     self._basketWeightShouldBe = val1
                     self.state = 9
-                    notifSound()
+                    # notifSound()
 
                 elif self.state == 9:
                     if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
@@ -636,10 +658,11 @@ class ShopPage(QObject):
                         self.closePopupMessageSignal.emit()
 
                 elif self.state == 10:
-                    self.openPopupMessageSignal.emit("Cant add or remove product in this session.")
+                    self.openPopupMessageSignal.emit(self._lang.lst["mess_Cant_add_or_remove_product_in_this_session"])
+                    playSound(self._lang.lst["sound_Cant_add_or_remove_product_in_this_session"])
                     self._basketWeightShouldBe = val1
                     self.state = 11
-                    notifSound()
+                    # notifSound()
 
                 elif self.state == 11:
                     if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
@@ -649,7 +672,8 @@ class ShopPage(QObject):
                 elif self.state == 12:
                     if abs(val2 - self._basketWeightShouldBe) > 50:
                         # self._basketWeightShouldBe = val1
-                        self.openPopupMessageSignal.emit("Cant add or remove product in this session.")
+                        self.openPopupMessageSignal.emit(self._lang.lst["mess_Cant_add_or_remove_product_in_this_session"])
+                        playSound(self._lang.lst["sound_Cant_add_or_remove_product_in_this_session"])
                         self.turn_offGreenlight()
                         self.state = 13
 
@@ -710,7 +734,7 @@ class ShopPage(QObject):
     ####################################################################################################### UI Sluts ###
     @Slot()
     def call_forHelpClicked(self):
-        playSound("notif")
+        playSound(self._lang.lst["sound_call_for_help"])
 
     @Slot()
     def cancel_newProductClicked(self):
@@ -753,10 +777,12 @@ class ShopPage(QObject):
                     self._scanner._barcode = barcode
                     self.barcodeRead()
                 else:
-                    self.openPopupMessageTimerSignal.emit("Please check entered barcode !")
+                    self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Please_check_entered_barcode"])
+                    playSound(self._lang.lst["sound_Please_check_entered_barcode"])
             else:
                 self.openPopupMessageTimerSignal.emit(
-                    "please enter " + str(self._scanner.get_productBarcodeLength()) + " digits barcode !")
+                    self._lang.lst["mess_please_enter"] + str(self._scanner.get_productBarcodeLength()) + self._lang.lst["mess_digits_barcode"])
+            playSound(self._lang.lst["sound_please_enter_correct_digits_barcode"])
 
     @Slot()
     def show_addPLUItemsClicked(self):  # not in state 5
@@ -777,7 +803,8 @@ class ShopPage(QObject):
         if self.newProduct.get_productType() == "weighted":
             self.state = 14
             self.showWeightedPLUItemsSignal.emit()
-            self.openPopupMessageSignal.emit("Taring ! Please don't move basket.")
+            self.openPopupMessageSignal.emit(self._lang.lst["mess_Taring_Please_dont_move_basket"])
+            playSound(self._lang.lst["sound_Taring_Please_dont_move_basket"])
             taring = True
             while taring:
                 if self._weightSensor._canread:
@@ -788,7 +815,8 @@ class ShopPage(QObject):
         elif self.newProduct.get_productType() == "counted":
             self.state = 15
             self.showCountedPLUItemsSignal.emit()
-            self.openPopupMessageSignal.emit("Taring ! Please don't move basket.")
+            self.openPopupMessageSignal.emit(self._lang.lst["mess_Taring_Please_dont_move_basket"])
+            playSound(self._lang.lst["sound_Taring_Please_dont_move_basket"])
             taring = True
             while taring:
                 if self._weightSensor._canread:
@@ -806,9 +834,11 @@ class ShopPage(QObject):
                 self.clear_stackView()
                 self._basketWeightShouldBe = self._pluStartWeight + self.newProduct.productWeightInBasket
                 self.cal_basketLoad(self._basketWeightShouldBe)
-                insertSound()
+                # insertSound()
+                playSound(self._lang.lst["sound_insert"])
             else:
-                self.openPopupMessageTimerSignal.emit("Please wait !")
+                self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Please_wait"])
+                playSound(self._lang.lst["sound_Please_wait"])
         elif self.state == 15:
             if self._weightSensor.isstable:
                 self._factorList.insertProduct(self.newProduct, self.newProduct.countInBasket)
@@ -817,9 +847,11 @@ class ShopPage(QObject):
                 self.clear_stackView()
                 self._basketWeightShouldBe = self._weightSensor.readbasketweight()
                 self.cal_basketLoad(self._basketWeightShouldBe)
-                insertSound()
+                # insertSound()
+                playSound(self._lang.lst["sound_insert"])
             else:
-                self.openPopupMessageTimerSignal.emit("Please wait !")
+                self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Please_wait"])
+                playSound(self._lang.lst["sound_Please_wait"])
 
     @Slot(str)
     def search_PLUItem(self, PLUCode: str):
@@ -839,7 +871,8 @@ class ShopPage(QObject):
     @Slot()
     def product_removeConfirmClicked(self):
         if self._trustUser:
-            deleteSound()
+            # deleteSound()
+            playSound(self._lang.lst["sound_remove"])
             self._canRemoveProductClick = False
             self._factorList.removeProducts(self._removeList.m_data)
             self._bypassList.removeProductsUpdateBypass(self._removeList.m_data)
@@ -851,11 +884,13 @@ class ShopPage(QObject):
 
         else:
             if not self._canRemoveProductClick:
-                notifSound2()
-                self.openPopupMessageTimerSignal.emit("Please scann all product that remove from basket !")
+                # notifSound2()
+                self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Please_scann_all_product_that_remove_from_basket"])
+                playSound(self._lang.lst["sound_Please_scann_all_product_that_remove_from_basket"])
                 self._trustUser = True
             else:
-                deleteSound()
+                # deleteSound()
+                playSound(self._lang.lst["sound_remove"])
                 self._canRemoveProductClick = False
                 self._factorList.removeProducts(self._removeList.m_data)
                 self._bypassList.removeProductsUpdateBypass(self._removeList.m_data)
@@ -873,7 +908,8 @@ class ShopPage(QObject):
                 self._scanner._barcode = barcode
                 self.barcodeRead()
             else:
-                self.openPopupMessageTimerSignal.emit("Please recheck entered code !")
+                self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Please_recheck_entered_code"])
+                playSound(self._lang.lst["sound_Please_recheck_entered_code"])
 
     @Slot(int)
     def product_removeIncreaseClicked(self, index: int):
@@ -908,7 +944,8 @@ class ShopPage(QObject):
             self._pluStartWeight = 0
 
         else:
-            self.openPopupMessageTimerSignal.emit("Please Wait !")
+            self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Please_wait"])
+            playSound(self._lang.lst["sound_Please_wait"])
 
     @Slot(int)
     def bypass_increaseClicked(self, index: int):
@@ -925,7 +962,8 @@ class ShopPage(QObject):
                 self.state = 8
                 self.showCheckOutSignal.emit()
             else:
-                self.openPopupMessageTimerSignal.emit("Yor factor is empty !")
+                self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Yor_factor_is_empty"])
+                playSound(self._lang.lst["sound_Yor_factor_is_empty"])
 
     @Slot()
     def checkout_backClicked(self):
@@ -938,7 +976,8 @@ class ShopPage(QObject):
         if code == "2212":
             self.factorList.set_offerCouponPercentage(10.0)
         else:
-            self.openPopupMessageTimerSignal.emit("Invalid code, please check the code !")
+            self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Invalid_code_please_check_the_code"])
+            playSound(self._lang.lst["sound_Invalid_code_please_check_the_code"])
 
     @Slot()
     def payment_clicked(self):
@@ -971,10 +1010,12 @@ class ShopPage(QObject):
         try:
             v = validate_email(emailAddress)
             email = v["email"]
-            self.openPopupMessageTimerSignal.emit("Your factor will be send to" + email)
+            self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Your_factor_will_be_send_to"] + email)
+            playSound(self._lang.lst["sound_Your_factor_will_be_send_to"])
         except EmailNotValidError as e:
             print(str(e))
-            self.openPopupMessageTimerSignal.emit("Please check your email address:\n" + str(e))
+            self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Please_check_your_email_address"] + str(e))
+            playSound(self._lang.lst["sound_Please_check_your_email_address"])
 
 
     ###################################################################################################### Functions ###
@@ -1014,7 +1055,8 @@ class ShopPage(QObject):
             print("\nState " + str(self._states) + " : counted PLU product selected.\n")
 
     def add_productToFactor(self, p: Product, c: int, u: bool, w2: int, w1: int):
-        insertSound()
+        # insertSound()
+        playSound(self._lang.lst["sound_insert"])
         self._factorList.insertProduct(p, c)
         self._bypassList.insertProduct(p.copy_product(), c)
         if u:
