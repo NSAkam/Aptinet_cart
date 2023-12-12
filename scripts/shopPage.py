@@ -292,7 +292,7 @@ class ShopPage(QObject):
             else:
                 validProduct = True
 
-            if validProduct:
+            if validProduct and product.productType == "normal":
                 self._bypassList.insertProduct(product.copy_product(), 0)
 
             if self.state == 1:
@@ -344,6 +344,12 @@ class ShopPage(QObject):
                         self.openPopupMessageTimerSignal.emit("Not valid Product !")
 
             elif self.state == 5:
+                if product.productType != "normal":
+                    for prod in self._factorList.m_data:
+                        if prod._barcode == product._barcode:
+                            product.productWeightInBasket = prod.productWeightInBasket
+                            break
+
                 isAcceptablebarcodeForRemove, self._canRemoveProductClick, removeSuccessfullyBefore = self._removeList.updateValidBarcodeSetForRemove(product)
 
                 if not isAcceptablebarcodeForRemove:
