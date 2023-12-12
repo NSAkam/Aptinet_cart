@@ -348,6 +348,8 @@ class ShopPage(QObject):
                     for prod in self._factorList.m_data:
                         if prod._barcode == product._barcode:
                             product.productWeightInBasket = prod.productWeightInBasket
+                            if product.productType == "counted":
+                                product.countInBasket = prod.countInBasket
                             break
 
                 isAcceptablebarcodeForRemove, self._canRemoveProductClick, removeSuccessfullyBefore = self._removeList.updateValidBarcodeSetForRemove(product)
