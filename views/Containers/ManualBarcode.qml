@@ -40,7 +40,7 @@ Item {
         radius: 4
         color: "#F05A28"
         Label{
-            text: "Please enter the item barcode"
+            text: obj_LogicContainerManualBarcode.lang.txt_Please_enter_the_item_barcode
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
             font.bold: true
@@ -108,7 +108,7 @@ Item {
         KButton{
             ishover: false
             btn_color: viewset.secondaryColor
-            text: "Confirm"
+            text: obj_LogicContainerManualBarcode.lang.btn_Confirm
             x:24
             y:192
             width: 295
@@ -130,7 +130,7 @@ Item {
         KButton{
             ishover: false
             btn_color: viewset.primaryColor
-            text: "Cancel"
+            text: obj_LogicContainerManualBarcode.lang.txt_Cancel
             x:24
             y:272
             width: 295

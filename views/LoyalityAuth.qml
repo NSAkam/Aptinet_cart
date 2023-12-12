@@ -38,7 +38,7 @@ Item {
 
     Text {
         id:message
-        text: "Please scan the Loyalty card or Enter Loyalty Code"
+        text: obj_LogicContainerLoyalityAuth.lang.txt_Please_scan_the_Loyalty_card_or_Enter_Loyalty_Code
         anchors.horizontalCenter: parent.horizontalCenter
         y:156
         font.pixelSize: 24
@@ -70,7 +70,7 @@ Item {
 
     KButton{
         id:btn_Enter
-        text: "Enter Loyalty Card  >"
+        text: obj_LogicContainerLoyalityAuth.lang.btn_Enter_Loyalty_Card + "  >"
         anchors.horizontalCenter: parent.horizontalCenter
         width: 260
         y:645
@@ -94,7 +94,7 @@ Item {
 
     Text{
         id:txt_Enterloyality
-        text: "Please enter your loyalty code"
+        text: obj_LogicContainerLoyalityAuth.lang.txt_Please_enter_your_loyalty_code
         font.pixelSize: 20
         anchors.horizontalCenter: parent.horizontalCenter
         y:172
@@ -143,7 +143,7 @@ Item {
             //horizontalAlignment: TextInput.AlignHCenter
             verticalAlignment:  TextInput.AlignVCenter
             font.family: viewset.danaFuNumFont
-            property string placeholderText: "Loyalty Code"
+            property string placeholderText: obj_LogicContainerLoyalityAuth.lang.txt_Loyalty_Code
 
             onFocusChanged: {
 

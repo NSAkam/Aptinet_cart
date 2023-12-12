@@ -36,7 +36,7 @@ Item{
         }
 
         Text {
-            text: "Software Version"
+            text: obj_LogicContainer.lang.txt_Software_Version
             width: 160
             height: 22
             x: 24
@@ -62,7 +62,7 @@ Item{
             height: 38
             x: 556
             y: 24
-            text: "Update"
+            text: obj_LogicContainer.lang.txt_Update
             pixelSize: 20
             textColor: "#4696FA"
             bordercolor: "#4696FA"
@@ -101,7 +101,7 @@ Item{
         }
 
         Text {
-            text: "Unit"
+            text: obj_LogicContainer.lang.txt_unit
             width: 39
             height: 22
             x: 24
@@ -125,7 +125,7 @@ Item{
             height: 38
             x: 556
             y: 24
-            text: "Change"
+            text: obj_LogicContainer.lang.btn_Change
             pixelSize: 20
             textColor: "#4696FA"
             bordercolor: "#4696FA"
@@ -164,7 +164,7 @@ Item{
         }
 
         Text {
-            text: "Tax Value"
+            text: obj_LogicContainer.lang.txt_Tax_Value
             width: 152
             height: 22
             x: 24
@@ -187,7 +187,7 @@ Item{
             height: 38
             x: 556
             y: 24
-            text: "Change"
+            text: obj_LogicContainer.lang.btn_Change
             pixelSize: 20
             textColor: "#4696FA"
             bordercolor: "#4696FA"
@@ -224,7 +224,7 @@ Item{
         }
 
         Text {
-            text: "Calibration Date"
+            text: obj_LogicContainer.lang.txt_Calibration_Date
             width: 152
             height: 22
             x: 24
@@ -246,7 +246,7 @@ Item{
 
         Text {
             id:txt_expired
-            text: "Expired"
+            text: obj_LogicContainer.lang.txt_Expired
             width: 73
             height: 22
             x: 567
@@ -379,7 +379,7 @@ Item{
 
     InsertPupUp{
         id:insertPopUp
-        title: "Insert Tax"
+        title: obj_LogicContainer.lang.txt_Insert_Tax
         onClosePup: {
             insertPopUp.close()
         }

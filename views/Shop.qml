@@ -88,7 +88,7 @@ Item {
                 borderRadius: 5
                 width: 200
                 height: 40
-                text: "Lookup By Name"
+                text: obj_LogicContainerShop.lang.btn_Lookup_By_Name
                 btn_borderWidth:0
                 fontsize: 16
                 ishover: false
@@ -104,7 +104,7 @@ Item {
                 borderRadius: 5
                 width: 200
                 height: 40
-                text: "+ Lookup By Number"
+                text: "+ " +obj_LogicContainerShop.lang.btn_Lookup_By_Number
                 btn_borderWidth:0
                 fontsize: 16
                 ishover: false
@@ -119,7 +119,7 @@ Item {
                 height: 57
                 x:1156
                 y:25
-                
+
             }
             Image {
                 source: "../Assets/Notification.png"
@@ -142,7 +142,7 @@ Item {
         id:main_Panel
         Text {
             id:toaddItem
-            text: "To add an item,\n scan its barcode or\n tap the Lookup By Number."
+            text: obj_LogicContainerShop.lang.txt_To_add_an_item_scan_its_barcode_or_tap_the_Lookup_By_Number
             width: 369
             height: 144
             x:261+ 390
@@ -168,7 +168,7 @@ Item {
                 height: 220
             }
             Text {
-                text: "Loading"
+                text: obj_LogicContainerShop.lang.txt_Loading
                 color: "white"
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
@@ -272,7 +272,7 @@ Item {
             }
         }
         Text {
-            text: "ENTER PLU CODE"
+            text: obj_LogicContainerShop.lang.txt_ENTER_Lookup_CODE
             font.pixelSize: 24
             font.bold: true
             x:32
@@ -325,6 +325,7 @@ Item {
         }
         Numpad{
             id:numpad
+            inputtext: txt_PLUBarcodeInput
             anchors.top: rectEnterPLU.bottom
             anchors.topMargin: 0
             x:32
@@ -446,7 +447,7 @@ Item {
             y:309
         }
         Text {
-            text: "Special Deals"
+            text: obj_LogicContainerShop.lang.txt_Special_Deals
             font.pixelSize: 24
             color: "white"
             x:32
@@ -454,7 +455,7 @@ Item {
             font.bold: true
         }
         KButton {
-            text: "more >"
+            text: obj_LogicContainerShop.lang.btn_more + " >"
             x:270
             y:520
             width: 100
@@ -571,7 +572,7 @@ Item {
         }
 
         Text {
-            text: "My Cart"
+            text: obj_LogicContainerShop.lang.txt_My_Cart
             font.pixelSize: 24
             color: "gray"
             x:32
@@ -779,16 +780,16 @@ Item {
 
     NotificationPopUp{
         id:popUp_MessageNotBarcodedProduct
-        message: "Please put the product you scanned into the cart!"
+        message: obj_LogicContainerShop.lang.mess_Please_put_the_product_you_scanned_into_the_cart
 
     }
     NotificationPopUp{
         id:popUp_MessageNoBarcodeScanned
-        message: "First, take the barcode of the product in front of the barcode scanner, then put it in the cart!"
+        message: obj_LogicContainerShop.lang.mess_First_take_the_barcode_of_the_product_in_front_of_the_barcode_scanner_then_put_it_in_the_cart
     }
     NotificationPopUp{
         id:popUpMessageNotAllowedChangeWeight
-        message: "You cannot add or subtract products to the cart during checkout!"
+        message: obj_LogicContainerShop.lang.mess_You_cannot_add_or_subtract_products_to_the_cart_during_checkout
     }
     ////////////////////////////////////////////////////
 

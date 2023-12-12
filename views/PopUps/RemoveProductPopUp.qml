@@ -67,7 +67,7 @@ Popup {
 
             Text {
                 anchors.fill: notifrect
-                text: "Are you sure to remove the products?"
+                text: obj_logicRemoveProductList.lang.txt_Are_you_sure_to_remove_the_products
                 font.bold: true
                 font.pixelSize: 24
                 horizontalAlignment: Text.AlignHCenter
@@ -202,7 +202,7 @@ Popup {
                 }
             }
             KButton{
-                text: "Confirm"
+                text: obj_logicRemoveProductList.lang.btn_Confirm
                 borderRadius: 4
                 height: 64
                 width: 726
@@ -219,7 +219,7 @@ Popup {
                 visible: false
                 anchors.left: rectEnterBarcode.right
                 onEnter: {
-                    obj_logicRemoveProductList.shopPage.product_removeManualBarcodeEntered()
+                    obj_logicRemoveProductList.shopPage.product_removeManualBarcodeEntered(txt_BarCodeInput.text)
                     numpad.visible = false
 
                 }

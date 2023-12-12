@@ -28,7 +28,7 @@ Item {
         y: 94
         flow: GridView.FlowTopToBottom
         Text {
-            text: "Special Deals"
+            text: obj_LogicContainerLstSpecialDeals.lang.txt_Special_Deals
             color: "#6D6D6D"
             font.pixelSize: 24
             lineHeight: Font.Normal
@@ -103,7 +103,7 @@ Item {
         x:32
         y:640
         Text {
-            text: "< Back"
+            text: "< " + obj_LogicContainerLstSpecialDeals.lang.btn_Back
             font.pixelSize: 24
 
             MouseArea{

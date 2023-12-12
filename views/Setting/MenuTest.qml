@@ -59,7 +59,7 @@ Item {
 
 
             Text {
-                text: "Weight\nSensor"
+                text: obj_LogicMenuTest.lang.btn_Weight_Sensor
                 anchors.horizontalCenter: parent.horizontalCenter
                 y: 110
                 font.family: "Archivo"
@@ -91,7 +91,7 @@ Item {
             }
 
             Text {
-                text: "Scanner"
+                text: obj_LogicMenuTest.lang.btn_Scanner
                 anchors.horizontalCenter: parent.horizontalCenter
                 y: 124
                 color: "#6D6D6D"
@@ -121,7 +121,7 @@ Item {
             }
 
             Text {
-                text: "Lights"
+                text: obj_LogicMenuTest.lang.btn_Lights
                 anchors.horizontalCenter: parent.horizontalCenter
                 y: 124
                 color: "#6D6D6D"
@@ -154,7 +154,7 @@ Item {
             }
 
             Text {
-                text: "Sound"
+                text: obj_LogicMenuTest.lang.btn_Sound
                 anchors.horizontalCenter: parent.horizontalCenter
                 y: 124
                 color: "#6D6D6D"

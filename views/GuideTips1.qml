@@ -8,6 +8,7 @@ import "Components"
 import "Containers"
 import "Utiles" as Util
 import "PopUps"
+import KAST.Logic 1.0
 
 
 Item {
@@ -18,6 +19,9 @@ Item {
     Util.ViewSettings{
         id:viewset
     }
+    
+    property Logic obj_LogicContainerGuidTips1
+    
 
     property int state: 0
 
@@ -65,7 +69,7 @@ Item {
         color: viewset.secondaryColor
 
         Text {
-            text: "Guide to add product to cart"
+            text: obj_LogicContainerGuidTips1.lang.txt_Guide_to_add_product_to_cart
             color: "white"
             font.family: "Archivo"
             anchors.horizontalCenter: parent.horizontalCenter
@@ -106,7 +110,7 @@ Item {
         }
         Text {
             id: txt_1
-            text: "scan its barcode of the selected product."
+            text: obj_LogicContainerGuidTips1.lang.txt_scan_its_barcode_of_the_selected_product
             anchors.verticalCenter: rect1.verticalCenter
             anchors.horizontalCenter: rect1.horizontalCenter
             font.pixelSize: 32
@@ -147,7 +151,7 @@ Item {
         }
         Text {
             id: txt_2
-            text: "You have 7sec to view product information and put in the cart."
+            text: obj_LogicContainerGuidTips1.lang.txt_You_have_sec_to_view_product_information_and_put_in_the_cart
             anchors.verticalCenter: rect2.verticalCenter
             anchors.horizontalCenter: rect2.horizontalCenter
             font.pixelSize: 32
@@ -186,7 +190,7 @@ Item {
         }
         Text {
             id: txt_3
-            text: "Continue after you hear the notification sound."
+            text: obj_LogicContainerGuidTips1.lang.txt_Continue_after_you_hear_the_notification_sound
             anchors.verticalCenter: rect3.verticalCenter
             anchors.horizontalCenter: rect3.horizontalCenter
             font.pixelSize: 32
@@ -199,7 +203,7 @@ Item {
 
     KButton {
         id: nextbutton
-        text: "I got it >"
+        text: obj_LogicContainerGuidTips1.lang.btn_I_got_it +" >"
         //color: viewset.secondaryColor
         width: 150
         borderRadius: 5

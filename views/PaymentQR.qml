@@ -69,7 +69,7 @@ Item {
         height: 57
         x:1156
         y:25
-       
+
     }
     Image {
         source: "../Assets/Notification.png"
@@ -80,7 +80,7 @@ Item {
         MouseArea{
             anchors.fill: parent
             onClicked: {
-                obj_LogicContainerShop.shopPage.call_forHelpClicked()
+                obj_LogicContainerPaymentQr.shopPage.call_forHelpClicked()
             }
         }
     }

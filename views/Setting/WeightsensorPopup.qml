@@ -29,7 +29,7 @@ Popup {
             y: 200
 
             Text {
-                text: "Please put the weight in cart"
+                text: obj_LogicWeightSensorPopUp.lang.txt_Please_put_the_weight_in_cart
                 width: 445
                 height: 44
                 x: 40
@@ -90,7 +90,7 @@ Popup {
             KButton {
                 width: 241
                 height: 72
-                text:"Confirm"
+                text:obj_LogicWeightSensorPopUp.lang.btn_Confirm
                 anchors.horizontalCenter: parent.horizontalCenter
                 y: 217
                 borderRadius: 5
@@ -100,7 +100,7 @@ Popup {
             }
 
             Text {
-                text: "Calibration Date"
+                text: obj_LogicWeightSensorPopUp.lang.txt_Calibration_Date
                 width: 152
                 height: 22
                 x: 40
@@ -122,7 +122,7 @@ Popup {
             }
 
             Text {
-                text: "Expired"
+                text: obj_logic.lang.txt_Expired
                 width: 73
                 height: 22
                 x: 412

@@ -40,7 +40,7 @@ Popup {
 
             Text {
                 Layout.fillWidth: true
-                text: "Please scan the \nitem barcode"
+                text: obj_LogicScannerPopUp.lang.txt_Please_scan_the_item_barcode
                 font.pixelSize: 32
                 color: "black"
                 x: 40

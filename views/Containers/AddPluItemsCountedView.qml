@@ -81,7 +81,7 @@ Item {
         }
 
         Text{
-            text: "Quantity"
+            text: obj_LogicContainerAddPluItemsCountedView.lang.txt_Quantity
             x:44
             y:275
         }
@@ -119,7 +119,7 @@ Item {
             x:217
             y:281
             Text {
-                text: qsTr("+")
+                text: "+"
                 color: "white"
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -145,7 +145,7 @@ Item {
 
         Text {
             id: totalpricetext
-            text: "Total Price"
+            text: obj_LogicContainerAddPluItemsCountedView.lang.txt_Total_Price
             x: 406
             y: 288
             font.pixelSize: 24
@@ -153,7 +153,7 @@ Item {
         }
 
         KButton{
-            text: "Cancel"
+            text: obj_LogicContainerAddPluItemsCountedView.lang.txt_Cancel
             x: 32
             y: 354
             borderRadius: 4
@@ -166,7 +166,7 @@ Item {
         }
 
         KButton {
-            text: "Confirm"
+            text: obj_LogicContainerAddPluItemsCountedView.lang.btn_Confirm
             x: 273
             y: 354
             width: 267

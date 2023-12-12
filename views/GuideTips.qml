@@ -8,6 +8,7 @@ import "Components"
 import "Containers"
 import "Utiles" as Util
 import "PopUps"
+import KAST.Logic 1.0
 
 
 Item {
@@ -18,6 +19,9 @@ Item {
     Util.ViewSettings{
         id:viewset
     }
+    
+    property Logic obj_LogicContainerGuidTips
+    
 
     property int state: 0
 
@@ -65,7 +69,7 @@ Item {
         color: "#F05A28"
 
         Text {
-            text: "Required Tips"
+            text: obj_LogicContainerGuidTips.lang.txt_Required_Tips
             color: "white"
             font.family: "Archivo"
             font.pixelSize: 32
@@ -104,7 +108,7 @@ Item {
         }
         Text {
             id: txt_1
-            text: "Make sure the cart is empty."
+            text: obj_LogicContainerGuidTips.lang.txt_Make_sure_the_cart_is_empty
             anchors.verticalCenter: rect1.verticalCenter
             anchors.horizontalCenter: rect1.horizontalCenter
             font.pixelSize: 32
@@ -145,7 +149,7 @@ Item {
         }
         Text {
             id: txt_2
-            text: "Don’t move the cart when add or remove products."
+            text: obj_LogicContainerGuidTips.lang.txt_Dont_move_the_cart_when_add_or_remove_products
             anchors.verticalCenter: rect2.verticalCenter
             anchors.horizontalCenter: rect2.horizontalCenter
             font.pixelSize: 32
@@ -184,7 +188,7 @@ Item {
         }
         Text {
             id: txt_3
-            text: "Add or remove products one by one."
+            text: obj_LogicContainerGuidTips.lang.txt_Add_or_remove_products_one_by_one
             anchors.verticalCenter: rect3.verticalCenter
             anchors.horizontalCenter: rect3.horizontalCenter
             font.pixelSize: 32
@@ -197,7 +201,7 @@ Item {
 
     KButton {
         id: nextbutton
-        text: "I got it >"
+        text: obj_LogicContainerGuidTips.lang.btn_I_got_it +" >"
         //color: viewset.secondaryColor
         width: 150
         borderRadius: 5

@@ -44,7 +44,7 @@ Item {
             KButton{
                 y:280
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: "Upload"
+                text: obj_LogicServer.lang.btn_Upload
                 width: 179
                 height: 44
                 btn_color: "#4696FA"
@@ -73,7 +73,7 @@ Item {
             KButton{
                 y:280
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: "Download"
+                text: obj_LogicServer.lang.btn_Download
                 width: 179
                 height: 44
                 btn_color: "#4696FA"
@@ -102,7 +102,7 @@ Item {
             KButton{
                 y:280
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: "Download Pictures"
+                text: obj_LogicServer.lang.btn_Download_Pictures
                 width: 200
                 height: 44
                 btn_color: "#4696FA"

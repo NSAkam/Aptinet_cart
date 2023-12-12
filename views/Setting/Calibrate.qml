@@ -33,56 +33,56 @@ Item {
     }
 
     Text {
-        text: qsTr("Poor")
+        text: obj_LogicCalibrate.lang.txt_Poor
         x:270
         y:132
         font.pixelSize: 16
         color: "gray"
     }
     Text {
-        text: qsTr("Infficient")
+        text: obj_LogicCalibrate.lang.txt_Infficient
         x:352
         y:132
         font.pixelSize: 16
         color: "gray"
     }
     Text {
-        text: qsTr("Adequate")
+        text: obj_LogicCalibrate.lang.txt_Adequate
         x:454
         y:132
         font.pixelSize: 16
         color: "gray"
     }
     Text {
-        text: qsTr("Good")
+        text: obj_LogicCalibrate.lang.txt_Good
         x:597
         y:132
         font.pixelSize: 16
         color: "gray"
     }
     Text {
-        text: qsTr("Great")
+        text: obj_LogicCalibrate.lang.txt_Great
         x:707
         y:132
         font.pixelSize: 16
         color: "gray"
     }
     Text {
-        text: qsTr("Excellent")
+        text: obj_LogicCalibrate.lang.txt_Excellent
         x:791
         y:132
         font.pixelSize: 16
         color: "gray"
     }
     Text {
-        text: qsTr("Perfect")
+        text: obj_LogicCalibrate.lang.txt_Perfect
         x:917
         y:132
         font.pixelSize: 16
         color: "gray"
     }
     Text {
-        text: qsTr("Fantastic !")
+        text: obj_LogicCalibrate.lang.txt_Fantastic
         x:1005
         y:132
         font.pixelSize: 16
@@ -140,7 +140,7 @@ Item {
             }
         }
         Text {
-            text: qsTr("Change Unit")
+            text: obj_LogicCalibrate.lang.txt_Change_Unit
             x:160
             anchors.verticalCenter: parent.verticalCenter
             font.pixelSize: 20
@@ -177,7 +177,7 @@ Item {
                 x:50
                 verticalAlignment:  TextInput.AlignVCenter
                 font.family: viewset.danaFuNumFont
-                property string placeholderText: "weight"
+                property string placeholderText: obj_LogicCalibrate.lang.txt_weight
 
                 Text {
                     text: txt_weight.placeholderText
@@ -192,7 +192,7 @@ Item {
             }
         }
         Text {
-            text: qsTr("Enter Weight")
+            text: obj_LogicCalibrate.lang.txt_Enter_Weight
             x:160
             anchors.verticalCenter: parent.verticalCenter
             font.pixelSize: 20
@@ -233,7 +233,7 @@ Item {
         }
 
         Text {
-            text: "How to Calibrating"
+            text: obj_LogicCalibrate.lang.txt_How_to_Calibrating
             width: 226
             height: 26
             anchors.horizontalCenter: parent.horizontalCenter
@@ -257,7 +257,7 @@ Item {
             y: 116
 
             Text {
-                text: "Select"
+                text: obj_LogicCalibrate.lang.txt_Select
                 width: 50
                 height: 44
                 x: 41
@@ -267,7 +267,7 @@ Item {
             }
 
             Text {
-                text: "unit"
+                text: obj_LogicCalibrate.lang.txt_unit
                 width: 50
                 height: 44
                 x: 50
@@ -290,7 +290,7 @@ Item {
             y: 116
 
             Text {
-                text: "Select"
+                text: obj_LogicCalibrate.lang.txt_Select
                 width: 50
                 height: 44
                 x: 140
@@ -300,7 +300,7 @@ Item {
             }
 
             Text {
-                text: "weight"
+                text: obj_LogicCalibrate.lang.txt_weight
                 width: 50
                 height: 44
                 x: 140
@@ -323,7 +323,7 @@ Item {
             y: 116
 
             Text {
-                text: "put weight"
+                text: obj_LogicCalibrate.lang.txt_put_weight
                 width: 50
                 height: 44
                 x: 242
@@ -333,7 +333,7 @@ Item {
             }
 
             Text {
-                text: "in the cart"
+                text: obj_LogicCalibrate.lang.txt_in_the_cart
                 width: 50
                 height: 44
                 x: 242
@@ -356,7 +356,7 @@ Item {
             y: 116
 
             Text {
-                text: "Hold to"
+                text: obj_LogicCalibrate.lang.txt_Hold_to
                 width: 50
                 height: 44
                 x: 374
@@ -366,7 +366,7 @@ Item {
             }
 
             Text {
-                text: "realize"
+                text: obj_LogicCalibrate.lang.txt_realize
                 width: 50
                 height: 44
                 x: 374
@@ -391,7 +391,7 @@ Item {
             opacity: 1
         }
         Text {
-            text: "Hold to Realize"
+            text: obj_LogicCalibrate.lang.btn_Hold_to_Realize
             font.pixelSize: 24
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
@@ -457,7 +457,7 @@ Item {
         x:612
         y:566
         borderRadius: 6
-        text: "Save"
+        text: obj_LogicCalibrate.lang.btn_Save
         onClicked: {
             obj_LogicCalibrate.settingPage.weightsensor.saveCalibration();
             obj_LogicCalibrate.settingPage.save_calibrationClicked()

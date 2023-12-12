@@ -5,7 +5,7 @@ import QtGraphicalEffects 1.12
 import QtQuick.Window 2.14
 import "../Components"
 import "../PopUps"
-import KAST.Logic 1.0
+//import KAST.Logic 1.0
 
 
 
@@ -17,7 +17,7 @@ Item {
     width: 1280
     height: 800
 
-    property Logic setting_objWifi
+    property QtObject setting_objWifi
 
 
     Image {
