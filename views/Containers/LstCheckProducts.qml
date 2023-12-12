@@ -24,7 +24,7 @@ Item {
         width: 890
         height: 103
         Text {
-            text: "My Cart"
+            text: obj_LogicContainerLstCheckProducts.lang.txt_My_Cart
             font.pixelSize: 36
             anchors.verticalCenter: parent.verticalCenter
             color: "#6D6D6D"
@@ -253,7 +253,7 @@ Item {
 
         }
         Text {
-            text: "Items"
+            text: obj_LogicContainerLstCheckProducts.lang.txt_Items
             color: "#6D6D6D"
             font.pixelSize: 16
             x:253
@@ -269,7 +269,7 @@ Item {
             font.bold: false
         }
         Text {
-            text: "Saving"
+            text: obj_LogicContainerLstCheckProducts.lang.txt_Saving
             color: "#6D6D6D"
             font.pixelSize: 16
             x:353
@@ -285,7 +285,7 @@ Item {
             font.bold: true
         }
         Text {
-            text: "Subtotal"
+            text: obj_LogicContainerLstCheckProducts.lang.txt_Subtotal
             color: "#6D6D6D"
             font.pixelSize: 16
             x:489
@@ -301,7 +301,7 @@ Item {
         }
         KButton{
             id:btn_Checkout
-            text: "Checkout"
+            text: obj_LogicContainerLstCheckProducts.lang.btn_Checkout
             btn_color: viewset.secondaryColor
             borderRadius: 4
             ishover: false

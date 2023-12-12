@@ -46,23 +46,7 @@ Item {
             stackview.pop()
         }
     }
-    Rectangle{
-        width: 50
-        height: 50
-        color: viewset.primaryColor
-        x:530 + 390
-        y:24
-        radius: width /2
-    }
-    Text {
-        text: "user Email"
-        color: "#6D6D6D"
-        width: 148
-        height: 15
-        font.pixelSize: 14
-        x:586 + 390
-        y:40.5
-    }
+
     Image {
         source: "../Assets/Help.png"
         width: 57
@@ -116,6 +100,12 @@ Item {
                 height: 57
                 x:1208
                 y:25
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        obj_LogicContainerPaymentNFC.shopPage.call_forHelpClicked()
+                    }
+                }
             }
 
         }
@@ -130,7 +120,7 @@ Item {
     }
 
     Text {
-        text: "<font color='#1D1D1D'>Please hold your phone</font><font color='" + viewset.primaryColor + "'> near the display<br></font><font color='#1D1D1D'>until you see a check mark</font>"
+        text: "<font color='#1D1D1D'>"+obj_LogicContainerPaymentNFC.lang.txt_Please_hold_your_phone+"</font><font color='" + viewset.primaryColor + "'> "+obj_LogicContainerPaymentNFC.lang.txt_near_the_display+"<br></font><font color='#1D1D1D'> "+obj_LogicContainerPaymentNFC.lang.txt_until_you_see_a_check_mark+"</font>"
         font.pixelSize: 32
         y: 348 + topPanel.height
         x: 314
@@ -157,7 +147,7 @@ Item {
     }
 
     Text {
-        text: "What are NFC payments? NFC technology powers contactless payments via mobile wallets\n\n like Apple Pay and Google Pay, as well as contactless cards."
+        text: obj_LogicContainerPaymentNFC.lang.txt_What_are_NFC_payments_NFC_technology_powers_contactless_payments_via_mobile_wallets_like_Apple_Pay_and_Google_Pay_as_well_as_contactless_cards
         x: 292
         y: 612 + topPanel.height
         font.pixelSize: 16

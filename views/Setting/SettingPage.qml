@@ -49,7 +49,7 @@ Item {
             }
 
             Text {
-                text: "Server"
+                text: obj_LogicSetting.lang.btn_Server
                 anchors.horizontalCenter: parent.horizontalCenter
                 y: 124
                 font.family: "Archivo"
@@ -89,7 +89,7 @@ Item {
             }
 
             Text {
-                text: "Wi-Fi"
+                text: obj_LogicSetting.lang.btn_Wi_Fi
                 anchors.horizontalCenter: parent.horizontalCenter
                 y: 124
                 color: "gray"
@@ -122,7 +122,7 @@ Item {
             }
 
             Text {
-                text: "Calibrate"
+                text: obj_LogicSetting.lang.btn_Calibrate
                 anchors.horizontalCenter: parent.horizontalCenter
                 y: 124
                 color: "gray"
@@ -154,7 +154,7 @@ Item {
             }
 
             Text {
-                text: "Device Test"
+                text: obj_LogicSetting.lang.btn_Device_Test
                 anchors.horizontalCenter: parent.horizontalCenter
                 y: 124
                 font.family: "Archivo"
@@ -185,7 +185,7 @@ Item {
             }
 
             Text {
-                text: "Cart Info"
+                text: obj_LogicSetting.lang.btn_Cart_Info
                 anchors.horizontalCenter: parent.horizontalCenter
                 y: 124
                 color: "gray"
@@ -237,7 +237,7 @@ Item {
         }
 
         Text {
-            text: "Restart Device"
+            text: obj_LogicSetting.lang.btn_Restart_Device
             width: 109
             height: 17
             color: "#6D6D6D"

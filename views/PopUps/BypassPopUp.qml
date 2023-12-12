@@ -48,7 +48,7 @@ Popup {
                 }
             }
         }
-        
+
     }
 
     contentItem: Item {
@@ -187,7 +187,7 @@ Popup {
             KButton{
                 anchors.top: lst_prd.bottom
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: "Confirm"
+                text: obj_logicByPassPopup.lang.btn_Confirm
                 anchors.topMargin: 10
                 width: 300
                 height: 51

@@ -26,7 +26,7 @@ Item {
         y: 94
         flow: GridView.FlowTopToBottom
         Text {
-            text: "PLU Items"
+            text: obj_LogicContainerPLUListItems.lang.txt_Lookup_Items
             color: "#6D6D6D"
             font.pixelSize: 24
             lineHeight: Font.Normal
@@ -110,7 +110,7 @@ Item {
     KButton{
         x:32
         y:640
-        text: "< Back"
+        text: "< " + obj_LogicContainerPLUListItems.lang.btn_Back
         width: 120
         borderRadius: 5
         onClicked: {

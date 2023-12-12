@@ -31,7 +31,7 @@ Item {
 
         Text {
             id: cart_subtotal_text
-            text: "Cart Subtotal"
+            text: obj_LogicContainerCheckoutPage.lang.txt_Cart_Subtotal
             font.pixelSize: 20
             color: "#6D6D6D"
             x: 48
@@ -51,7 +51,7 @@ Item {
 
         Text {
             id: taxtext
-            text: "Tax"
+            text: obj_LogicContainerCheckoutPage.lang.txt_Tax
             font.pixelSize: 20
             color: "#6D6D6D"
             x: 48
@@ -71,7 +71,7 @@ Item {
 
         Text {
             id: savingstext
-            text: "Savings"
+            text: obj_LogicContainerCheckoutPage.lang.txt_Savings
             font.pixelSize: 20
             color: "#6D6D6D"
             x: 48
@@ -135,7 +135,7 @@ Item {
                 horizontalAlignment: TextInput.AlignHCenter
                 verticalAlignment:  TextInput.AlignVCenter
                 font.family: viewset.danaFuNumFont
-                property string placeholderText: "Enter Discount Code"
+                property string placeholderText: obj_LogicContainerCheckoutPage.lang.txt_Enter_Discount_Code
 
                 onFocusChanged: {
                     numpad.inputtext = txt_OfferCodeInput
@@ -157,7 +157,7 @@ Item {
 
 
         KButton {
-            text: "Apply"
+            text: obj_LogicContainerCheckoutPage.lang.btn_Apply
             x: 465
             y: 214
             width: 119
@@ -182,7 +182,7 @@ Item {
 
         Text {
             id: totaltext
-            text: "Total"
+            text: obj_LogicContainerCheckoutPage.lang.txt_Total
             font.pixelSize: 20
             color: "#6D6D6D"
             x: 48
@@ -211,7 +211,7 @@ Item {
         }
 
         KButton {
-            text: "Back"
+            text: obj_LogicContainerCheckoutPage.lang.btn_Back
             fontsize: 24
             x: 43
             y: 91
@@ -224,7 +224,7 @@ Item {
         }
 
         KButton {
-            text: "Payment"
+            text: obj_LogicContainerCheckoutPage.lang.txt_Payment
             fontsize: 24
             x: 274
             y: 91
@@ -251,7 +251,7 @@ Item {
         }
 
         KButton {
-            text: "Payment Via QR"
+            text: obj_LogicContainerCheckoutPage.lang.txt_Payment_Via_QR
             fontsize: 24
             x: 43
             y: 160
@@ -274,7 +274,7 @@ Item {
     }
 
     Text {
-        text: "<font color='#6D6D6D'>You can’t </font><font color='" + viewset.primaryColor + "'>add</font><font color='#6D6D6D'> or </font><font color='" + viewset.primaryColor + "'>remove</font><font color='#6D6D6D'> items from your cart </font><font color='" + viewset.primaryColor + "'>during</font><font color='#6D6D6D'> the payment process.</font>"
+        text: obj_LogicContainerCheckoutPage.lang.txt_You_cant
         font.pixelSize: 16
         y: 590.5 + 25 - 3
         x: 553 - 390
@@ -287,7 +287,7 @@ Item {
     }
 
     Text {
-        text: "<font color='#6D6D6D'>Please, </font><font color='" + viewset.primaryColor + "'>check</font><font color='#6D6D6D'> all the items of your list in the cart before payment.</font>"
+        text: obj_LogicContainerCheckoutPage.lang.txt_Please
         font.pixelSize: 16
         y: 634.5 + 25 - 2
         x: 553 - 390

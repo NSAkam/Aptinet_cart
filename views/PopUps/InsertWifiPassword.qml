@@ -4,11 +4,11 @@ import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import "../Utiles"
 import "../Components"
-//import KAST.Logic 1.0
+import KAST.Logic 1.0
 
 Popup {
     id: popup_SetPasssword
-    property QtObject setting_obj
+    property Logic setting_obj
     ViewSettings{
         id:viewset
     }
@@ -37,13 +37,13 @@ Popup {
             color: "white"
 
             Text {
-                text: "Enter the Password for “ WifiName ”"
+                text: setting_obj.lang.txt_Enter_the_Password
                 anchors.horizontalCenter: parent.horizontalCenter
                 y:24
                 font.pixelSize: 16
             }
             Text {
-                text: "enter Password"
+                text: setting_obj.lang.txt_enter_Password
                 font.pixelSize: 24
                 font.bold: true
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -51,7 +51,7 @@ Popup {
             }
 
             Text {
-                text: "Cancel"
+                text: setting_obj.lang.txt_Cancel
                 y:64
                 x:32
                 font.pixelSize: 24
@@ -64,7 +64,7 @@ Popup {
                 }
             }
             Text {
-                text: "Join"
+                text: setting_obj.lang.txt_join
                 color: viewset.secondaryColor
                 font.pixelSize: 24
                 x:641
@@ -103,7 +103,7 @@ Popup {
                     //horizontalAlignment: TextInput.AlignHCenter
                     verticalAlignment:  TextInput.AlignVCenter
                     font.family: viewset.danaFuNumFont
-                    property string placeholderText: "Password"
+                    property string placeholderText: setting_obj.lang.txt_enter_Password
 
                     onFocusChanged: {
 

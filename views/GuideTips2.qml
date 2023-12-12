@@ -8,6 +8,8 @@ import "Components"
 import "Containers"
 import "Utiles" as Util
 import "PopUps"
+import KAST.Logic 1.0
+
 
 
 Item {
@@ -15,6 +17,9 @@ Item {
     width: 1280
     height: 800
 
+    property Logic obj_LogicContainerGuidTips2
+    
+    
     Util.ViewSettings{
         id:viewset
     }
@@ -65,7 +70,7 @@ Item {
         color: "#F05A28"
 
         Text {
-            text: "Required Tips"
+            text: obj_LogicContainerGuidTips2.lang.txt_Required_Tips
             color: "white"
             font.family: "Archivo"
             font.pixelSize: 32
@@ -104,7 +109,7 @@ Item {
         }
         Text {
             id: txt_1
-            text: "Stop and remove the product from the cart."
+            text: obj_LogicContainerGuidTips2.lang.txt_Stop_and_remove_the_product_from_the_cart
             anchors.verticalCenter: rect1.verticalCenter
             anchors.horizontalCenter: rect1.horizontalCenter
             font.pixelSize: 32
@@ -142,7 +147,7 @@ Item {
         }
         Text {
             id: txt_2
-            text: "After see the window, scan its barcode of the selected product to remove."
+            text: obj_LogicContainerGuidTips2.lang.txt_After_see_the_window_scan_its_barcode_of_the_selected_product_to_remove
             anchors.verticalCenter: rect2.verticalCenter
             anchors.horizontalCenter: rect2.horizontalCenter
             font.pixelSize: 32
@@ -184,7 +189,7 @@ Item {
         }
         Text {
             id: txt_3
-            text: "If you are sure to remove the product, press the confirmation button."
+            text: obj_LogicContainerGuidTips2.lang.txt_If_you_are_sure_to_remove_the_product_press_the_confirmation_button
             anchors.verticalCenter: rect3.verticalCenter
             anchors.horizontalCenter: rect3.horizontalCenter
             width: 700
@@ -199,7 +204,7 @@ Item {
 
     KButton {
         id: nextbutton
-        text: "I got it >"
+        text: obj_LogicContainerGuidTips2.lang.btn_I_got_it + " >"
         //color: viewset.secondaryColor
         width: 150
         borderRadius: 5

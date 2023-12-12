@@ -86,7 +86,7 @@ Item {
 
             y:522
             fontsize: 22
-            text:  qsTr("Enter Phone Number")
+            text:  obj_logic.lang.btn_Enter_Phone_Number
             borderRadius: 5
             ishover: false
             shadow: false
@@ -107,7 +107,7 @@ Item {
 
             y:522
             fontsize: 22
-            text:  qsTr("Scan MemberShop Cart")
+            text:  obj_logic.lang.btn_Scan_MemberShop_Cart
             borderRadius: 5
             ishover: false
             shadow: false
@@ -128,7 +128,7 @@ Item {
 
             y:522
             fontsize: 22
-            text:  qsTr("Help")
+            text:  obj_logic.lang.btn_Help
             borderRadius: 5
             ishover: false
             shadow: false
@@ -148,7 +148,7 @@ Item {
 
             y:522
             fontsize: 22
-            text:  qsTr("Continue")
+            text:  obj_logic.lang.btn_Continue
             borderRadius: 5
             ishover: false
             shadow: false

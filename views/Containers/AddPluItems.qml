@@ -78,7 +78,7 @@ Item {
         y:359
         radius: 4
         Text {
-            text: "How to add Lookup"
+            text: obj_LogicContainerAddPluItems.lang.txt_How_to_add_Lookup
             anchors.horizontalCenter:  parent.horizontalCenter
             y:35
             font.pixelSize: 24
@@ -105,7 +105,7 @@ Item {
                 }
             }
             Text {
-                text: "Enter \n product code"
+                text: obj_LogicContainerAddPluItems.logic.txt_Enter_product_code
                 horizontalAlignment:  TextInput.AlignHCenter
                 y:44
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -133,7 +133,7 @@ Item {
                 }
             }
             Text {
-                text: "Add \n to Cart"
+                text: obj_LogicContainerAddPluItems.lang.txt_Add_to_Cart
                 horizontalAlignment:  TextInput.AlignHCenter
                 y:44
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -161,7 +161,7 @@ Item {
                 }
             }
             Text {
-                text: "Confirm \n Wt or Qty"
+                text: obj_LogicContainerAddPluItems.lang.txt_Confirm_Wt_or_Qty
                 horizontalAlignment:  TextInput.AlignHCenter
                 y:44
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -171,7 +171,7 @@ Item {
     }
 
     Text {
-        text: "Recomended"
+        text: obj_LogicContainerAddPluItems.lang.txt_Recomended
         x:462
         y:40
         font.pixelSize: 24
@@ -266,7 +266,7 @@ Item {
         x:700
         y:640
         width: 150
-        text: "See All >"
+        text: obj_LogicContainerAddPluItems.lang.btn_See +" >"
         font.pixelSize: 24
         borderRadius: 5
         onClicked: {
@@ -278,7 +278,7 @@ Item {
         x:32
         y:640
         width: 120
-        text: "< Back"
+        text: "< " + obj_LogicContainerAddPluItems.lang.btn_Back
         borderRadius: 5
 
         onClicked: {

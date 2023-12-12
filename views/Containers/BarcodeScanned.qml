@@ -34,7 +34,7 @@ Item {
         radius: 4
         visible: true
         Text {
-            text: "Place selected item in cart"
+            text: obj_LogicContainerBarcodeScanned.lang.txt_Place_selected_item_in_cart
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
             color: "white"
@@ -53,7 +53,7 @@ Item {
         radius: 4
         visible: false
         Text {
-            text: "Please don’t move !"
+            text: obj_LogicContainerBarcodeScanned.lang.txt_Please_dont_move
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
             color: "white"
@@ -154,7 +154,7 @@ Item {
         }
     }
     Text {
-        text: "You have 7 seconds to put the item in the cart.."
+        text: obj_LogicContainerBarcodeScanned.lang.txt_You_have_seconds_to_put_the_item_in_the_cart
         x:216
         y:481
         font.pixelSize: 20
@@ -176,7 +176,7 @@ Item {
         }
 
         Text {
-            text: "Cancel"
+            text: obj_LogicContainerBarcodeScanned.lang.txt_Cancel
             font.pixelSize: 20
             lineHeight: Font.Normal
             font.letterSpacing: 1.28

@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.15
 import QtGraphicalEffects 1.12
 import QtQuick.Window 2.14
 import "../Components"
-import KAST.Logic 1.0
+//import KAST.Logic 1.0
 
 
 Item{
@@ -13,7 +13,7 @@ Item{
     width: 1280
     height: 800
 
-    property Logic obj_Logic
+    property QtObject obj_Logic
 
 
     Image {
@@ -42,7 +42,7 @@ Item{
         }
 
         Text {
-            text: "Software Version"
+            text: obj_Logic.lang.txt_Software_Version
             font.pixelSize: 20
             color: "black"
             x: 24
@@ -51,7 +51,7 @@ Item{
 
         Text {
             id:txt_newversionid
-            text: obj_Logic.settingPage.lastSoftwareVersion + " is available"
+            text: obj_Logic.settingPage.lastSoftwareVersion + obj_Logic.lang.txt_is_available
             font.pixelSize: 20
             color: "#9D9D9D"
             x: 24
@@ -68,7 +68,7 @@ Item{
             pixelSize: 20
             textColor: "#4696FA"
             bordercolor: "#4696FA"
-            text: "Download and install"
+            text: obj_Logic.lang.btn_Download_and_install
             MouseArea{
                 anchors.fill: parent
                 onClicked: {

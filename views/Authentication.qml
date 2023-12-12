@@ -91,7 +91,7 @@ Item {
     //    }
     Text {
         id:txt_start
-        text: "Get Started "
+        text: obj_LogicContainer.lang.txt_Get_Started
         x:523
         y:459
         font.pixelSize: 40
@@ -100,7 +100,7 @@ Item {
     }
     Text {
         id:txt_enterPhone
-        text: "Please enter your Phone Number"
+        text: obj_LogicContainer.lang.txt_Please_enter_your_Phone_Number
         x : 480
         y:519
         font.pixelSize: 20
@@ -166,7 +166,7 @@ Item {
             horizontalAlignment: TextInput.AlignHCenter
             verticalAlignment:  TextInput.AlignVCenter
             font.family: viewset.danaFuNumFont
-            property string placeholderText: "Phone Number"
+            property string placeholderText: obj_LogicContainer.lang.txt_Phone_Number
 
             onFocusChanged: {
                 numpad.inputtext = txt_phone
