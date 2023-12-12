@@ -290,7 +290,6 @@ class ProductModel(QAbstractListModel):
         return True
 
     def validBarcodeSetForRemove(self, data: [Product], RemovedWight):
-        print("removed Weight", RemovedWight)
         lst_1 = []
         for item in data:
             if item.productType == "weighted":
@@ -315,7 +314,6 @@ class ProductModel(QAbstractListModel):
         if product.productType == "weighted":
             avgWeight = product.productWeightInBasket
             tolerance = 25
-            print("weight in basket" , avgWeight)
         elif product.productType == "counted":
             avgWeight = product.productWeightInBasket/product.countInBasket   # product.meanWeight
             tolerance = 25
