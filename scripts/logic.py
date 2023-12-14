@@ -61,7 +61,8 @@ class Logic(QObject):
 
         self.turnoff_greenLight()
         self._fan = Fan()
-        self._fan.turn_onFan()
+        self._fan.finished.connect(self._fan.deleteLater)
+        self._fan.start()
         self._dal = DAL()
 
         self._scanner = ScannerHelper()
