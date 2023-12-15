@@ -114,6 +114,9 @@ class languageReader(QObject):
     
     def get_txt_Guide_to_add_product_to_cart(self):
         return str(self.lst["txt_Guide_to_add_product_to_cart"])
+
+    def get_txt_Guide_to_remove_product_from_cart(self):
+        return str(self.lst["txt_Guide_to_remove_product_from_cart"])
     
     def get_txt_scan_its_barcode_of_the_selected_product(self):
         return str(self.lst["txt_scan_its_barcode_of_the_selected_product"])
@@ -447,6 +450,7 @@ class languageReader(QObject):
     txt_If_you_are_sure_to_remove_the_product_press_the_confirmation_button = Property(str,get_txt_If_you_are_sure_to_remove_the_product_press_the_confirmation_button)
     btn_I_got_it = Property(str,get_btn_I_got_it)
     txt_Guide_to_add_product_to_cart = Property(str,get_txt_Guide_to_add_product_to_cart)
+    txt_Guide_to_remove_product_from_cart = Property(str,get_txt_Guide_to_remove_product_from_cart)
     txt_scan_its_barcode_of_the_selected_product = Property(str,get_txt_scan_its_barcode_of_the_selected_product)
     txt_You_have_sec_to_view_product_information_and_put_in_the_cart = Property(str,get_txt_You_have_sec_to_view_product_information_and_put_in_the_cart)
     txt_Continue_after_you_hear_the_notification_sound = Property(str,get_txt_Continue_after_you_hear_the_notification_sound)

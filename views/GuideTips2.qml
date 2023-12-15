@@ -70,7 +70,7 @@ Item {
         color: "#F05A28"
 
         Text {
-            text: obj_LogicContainerGuidTips2.lang.txt_Required_Tips
+            text: obj_LogicContainerGuidTips2.lang.txt_Guide_to_remove_product_from_cart
             color: "white"
             font.family: "Archivo"
             font.pixelSize: 32
