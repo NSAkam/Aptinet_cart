@@ -296,6 +296,27 @@ Item {
 
         }
 
+        KButton{
+            id:btn_reset
+            anchors.horizontalCenter: parent.horizontalCenter
+            y:700
+            text:"Start New Shopping"
+            height: 70
+            borderRadius: 5
+            visible: false
+            onClicked: {
+                cameraProvider.stop()
+            }
+        }
+        Timer{
+            running: true
+            repeat: false
+            interval: 10000
+            onTriggered: {
+                btn_reset.visible = true
+            }
+        }
+
     }
 
 
