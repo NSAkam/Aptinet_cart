@@ -197,7 +197,7 @@ class ShopPage(QObject):
         else:
             if state != 2:
                 self.countDownTimer = -20
-        time.sleep(0.2)
+        time.sleep(0.1)
 
 
     state = Property(int, get_state, set_state, notify=changedSignal)
@@ -344,6 +344,7 @@ class ShopPage(QObject):
                             self._weightSensor.lightest_weight = self._lightestWeightForLightWeightProduct
                         else:
                             self._weightSensor.lightest_weight = self._lightestWeightForHeavyProduct
+                        time.sleep(0.1)
                         self.clear_stackView()
                         self.newProduct = product
                         self.countDownTimer = self._insertProductTime + self._timerOffset
