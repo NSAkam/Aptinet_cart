@@ -444,9 +444,9 @@ class ShopPage(QObject):
                         self._bypassList.insertProduct(self.newProduct.copy_product(), 1)
                         if self.newProduct.meanWeight > self._lightestWeightForHeavyProduct + self._weightSensor.acceptable_tolerance:
                             self._weightSensor.lightest_weight = self._lightestWeightForHeavyProduct
+                        self.clear_stackView()
                         self.state = 1
                         self._basketWeightShouldBe = val2
-                        self.clear_stackView()
                         self.countDownTimer = -11
                         self._shouldBarcodeToBeScannToAddProduct = True
 
@@ -460,9 +460,9 @@ class ShopPage(QObject):
                             self._bypassList.insertProduct(self._newProduct, 1)
                             if self.newProduct.meanWeight > self._lightestWeightForHeavyProduct + self._weightSensor.acceptable_tolerance:
                                 self._weightSensor.lightest_weight = self._lightestWeightForHeavyProduct
+                            self.clear_stackView()
                             self.state = 1
                             self._basketWeightShouldBe = val2
-                            self.clear_stackView()
                             self.countDownTimer = -1
                             self._shouldBarcodeToBeScannToAddProduct = False
                         else:
@@ -1125,4 +1125,5 @@ class ShopPage(QObject):
         self._inOfferList = False
         if len(self._factorList.m_data) > 0:
             self.showFactorListSignal.emit()
+
 
