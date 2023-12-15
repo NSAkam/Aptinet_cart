@@ -20,6 +20,10 @@ Popup {
     Component.onCompleted: {
         txt_BarCodeInput.text = ""
     }
+    
+    onOpened: {
+        txt_BarCodeInput.text = ""
+    }
 
     background:
         Rectangle {
