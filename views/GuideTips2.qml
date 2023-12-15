@@ -73,6 +73,7 @@ Item {
             text: obj_LogicContainerGuidTips2.lang.txt_Guide_to_remove_product_from_cart
             color: "white"
             font.family: "Archivo"
+            anchors.horizontalCenter: parent.horizontalCenter
             font.pixelSize: 32
             font.bold: true
             x: 526
