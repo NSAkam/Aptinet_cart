@@ -20,6 +20,8 @@ from Services.lang import languageReader
 
 class Logic(QObject):
     ### Settings #######################################################################################################
+    _batteryLevelForStop: int = 25
+    _batteryLevelForRestart: int = 30
 
     ### Models #########################################################################################################
 
@@ -37,6 +39,7 @@ class Logic(QObject):
     _dal: DAL
     _user: User
     _phoneNumber: str = ""
+    _batteryPopup: bool = False
 
     ### Modules ########################################################################################################
     _scanner: ScannerHelper
@@ -71,6 +74,7 @@ class Logic(QObject):
         self._scanner.start()
 
         self._battery = BatteryHelper()
+        self._battery.batteryLevelChangedSignal.connect()
         self._battery.start()
 
         self._configRepository = ConfigRepositories(self._dal)
@@ -90,6 +94,9 @@ class Logic(QObject):
     validPhoneNumberSignal = Signal()
     showPopupMessageTimerSignal = Signal(str)
     languageChangedSignal = Signal()
+
+    openPopupMessageBattery = Signal()
+    closePopupMessageBattery = Signal()
 
     ### Properties #####################################################################################################
     def get_lang(self):
@@ -226,3 +233,13 @@ class Logic(QObject):
         self._greenLightWorkerThread.finished.connect(
             self._greenLightWorkerThread.deleteLater)
         self._greenLightWorkerThread.start()
+
+    def check_batteryLevel(self, newLevel: int):
+        if self._batteryPopup:
+            if newLevel > self._batteryLevelForRestart:
+                self.closePopupMessageBattery.emit()
+                self._batteryPopup = False
+        else:
+            if newLevel < self._batteryLevelForStop:
+                self.openPopupMessageBattery.emit()
+                self._batteryPopup = True

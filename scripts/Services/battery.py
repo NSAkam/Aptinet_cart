@@ -17,7 +17,7 @@ class BatteryWorker(QThread):
     _maxElecNumber: int
     _i2cBus: smbus
     _devAddress: int
-    _canReadBarcode: bool
+    _canReadLevel: bool
     _initialElecNoiseReduceBuffer: int = 0
     _initialNoiseReduceBuffer: int = 0
 
@@ -26,8 +26,8 @@ class BatteryWorker(QThread):
         self._i2cBus = smbus.SMBus(1)
         self._devAddress = 0x4d
 
-        self._elecNoiseReducBufferSize = 50
-        self._noiseReductionBufferSize = 50
+        self._elecNoiseReducBufferSize = 100
+        self._noiseReductionBufferSize = 100
 
         self._minElecNumber = 4096  # MCP3221 maximum electrical number
         self._maxElecNumber = 0  # MCP3221 minimum electrical number
@@ -41,7 +41,7 @@ class BatteryWorker(QThread):
             if maximum > self._maxElecNumber:
                 self._maxElecNumber = maximum
 
-        self._canReadBarcode = True
+        self._canReadLevel = True
 
     newLevelSignal = Signal(int)
     stopChargingSignal = Signal()
@@ -73,7 +73,7 @@ class BatteryWorker(QThread):
     def run(self):
         try:
             self._initialElecNoiseReduceBuffer: int = 0
-            while self._canReadBarcode:
+            while self._canReadLevel:
                 if self._initialElecNoiseReduceBuffer < self._elecNoiseReducBufferSize:
                     readBytes = self._i2cBus.read_i2c_block_data(self._devAddress, 0x00, 2)
                     res = (readBytes[0] << 8) + readBytes[1]
@@ -159,7 +159,7 @@ class BatteryWorker(QThread):
         return int(sum(resultList) / len(resultList)) if len(resultList) > 0 else 0
 
     def stop(self):
-        self._canReadBarcode = False
+        self._canReadLevel = False
 
 
 # class BatteryWorker2(QThread):
