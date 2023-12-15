@@ -5,7 +5,7 @@ import QtQuick.Window 2.0
 import "../Components"
 import "../Containers"
 import "../Utiles"
-import KAST.Logic 1.0
+//import KAST.Logic 1.0
 
 
 Popup {
@@ -15,15 +15,15 @@ Popup {
     modal: true
     focus: true
 
-    property Logic obj_logicRemoveProductList
+    property QtObject obj_logicRemoveProductList
 
     Component.onCompleted: {
         txt_BarCodeInput.text = ""
     }
-    
     onOpened: {
         txt_BarCodeInput.text = ""
     }
+
 
     background:
         Rectangle {
@@ -174,8 +174,8 @@ Popup {
                         }
                         KButton{
                             visible: model.productType === "counted" ? true:false
-                            width: 30
-                            height: 30
+                            width: 35
+                            height: 35
                             text: "-"
                             x: 625
                             y: 45
@@ -186,8 +186,8 @@ Popup {
                         KButton{
                             visible: model.productType === "counted" ? true:false
                             text: "+"
-                            width: 30
-                            height: 30
+                            width: 35
+                            height: 35
                             x: 665
                             y: 45
                             onClicked: {
