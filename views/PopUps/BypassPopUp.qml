@@ -101,8 +101,8 @@ Popup {
                         Image {
                             id: btnDownCount
                             source: "../../Assets/up.png"
-                            width: 24
-                            height: 24
+                            width: 30
+                            height: 30
                             x:108
                             anchors.verticalCenter: parent.verticalCenter
 
@@ -138,8 +138,8 @@ Popup {
                         Image {
                             id: btnUpCount
                             source: "../../Assets/up.png"
-                            width: 24
-                            height: 24
+                            width: 30
+                            height: 30
                             anchors.verticalCenter: parent.verticalCenter
                             x:24
                             transformOrigin: Item.Center

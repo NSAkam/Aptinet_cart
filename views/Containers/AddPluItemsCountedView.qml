@@ -86,8 +86,8 @@ Item {
             y:275
         }
         Rectangle{
-            width: 24
-            height: 24
+            width: 30
+            height: 30
             color: "#4696FA"
             x:146
             y:281
@@ -113,8 +113,8 @@ Item {
             font.pixelSize: 24
         }
         Rectangle{
-            width: 24
-            height: 24
+            width: 30
+            height: 30
             color: "#4696FA"
             x:217
             y:281
