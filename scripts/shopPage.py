@@ -197,6 +197,8 @@ class ShopPage(QObject):
         else:
             if state != 2:
                 self.countDownTimer = -20
+        time.sleep(0.2)
+
 
     state = Property(int, get_state, set_state, notify=changedSignal)
 
