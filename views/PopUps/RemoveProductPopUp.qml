@@ -17,6 +17,9 @@ Popup {
 
     property Logic obj_logicRemoveProductList
 
+    Component.onCompleted: {
+        txt_BarCodeInput.text = ""
+    }
 
     background:
         Rectangle {
@@ -217,7 +220,8 @@ Popup {
             Numpad{
                 id:numpad
                 visible: false
-                anchors.left: rectEnterBarcode.right
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: rectEnterBarcode.bottom
                 onEnter: {
                     obj_logicRemoveProductList.shopPage.product_removeManualBarcodeEntered(txt_BarCodeInput.text)
                     numpad.visible = false
