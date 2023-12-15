@@ -32,7 +32,6 @@ class Downloader(QThread):
         self.loop.quit()
 
     def run(self):
-        # url = "https://aptinet.irannk.com/api/APP/download"
         self.loop = QEventLoop()
         manager = QtNetwork.QNetworkAccessManager()
         manager.finished.connect(self.downloadFinished)
