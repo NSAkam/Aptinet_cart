@@ -21,8 +21,7 @@ class UpdateSoftware(QObject):
 
     @Slot()
     def startDownload(self):     
-        # self._downloader = Downloader("http://irannk.com/FASKET.zip","../FASKET.zip")
-        self._downloader = Downloader("https://aptinet.irannk.com/api/APP/download")
+        self._downloader = Downloader("http://app.aptinet.com/api/APP/download")
         self._downloader.setTotalProgressSignal.connect(self.setTotalProgressSignal)
         self._downloader.setCurrentProgressSignal.connect(self.setCurrentProgressSignal)
         print("started Download")
@@ -69,8 +68,7 @@ class UpdateFiles(QObject):
 
     @Slot()
     def startDownload(self):     
-        # self._downloader = Downloader("http://irannk.com/FASKET.zip","../FASKET.zip")
-        self._downloader = Downloader("https://aptinet.irannk.com/api/APP/downloadProdpics")
+        self._downloader = Downloader("http://app.aptinet.com/api/APP/downloadProdpics")
         self._downloader.setTotalProgressSignal.connect(self.setTotalProgressSignal)
         self._downloader.setCurrentProgressSignal.connect(self.setCurrentProgressSignal)
         print("started Download")
