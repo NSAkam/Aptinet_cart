@@ -547,4 +547,3 @@ class languageReader(QObject):
     txt_Qty = Property(str,get_txt_Qty)
     txt_Wt = Property(str,get_txt_Wt)
     sign_currency = Property(str,get_sign_currency)
-
