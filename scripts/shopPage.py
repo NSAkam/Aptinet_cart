@@ -288,6 +288,7 @@ class ShopPage(QObject):
     ########################################################################################################## Sluts ###
     @Slot()
     def barcodeRead(self):
+        print("barcode:", self._scanner.get_barcode())
         self.closePopUpMessageTimer.emit()
         if not self._inByPass:
             self._logger.insertLog("read product code", self._scanner.get_barcode(), self._user.get_id())
