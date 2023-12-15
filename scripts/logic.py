@@ -234,13 +234,13 @@ class Logic(QObject):
             self._greenLightWorkerThread.deleteLater)
         self._greenLightWorkerThread.start()
 
-    @Slot(int)
-    def check_batteryLevel(self, newLevel: int):
+    @Slot()
+    def check_batteryLevel(self):
         if self._batteryPopup:
-            if newLevel > self._batteryLevelForRestart:
+            if self._battery.batteryLevel > self._batteryLevelForRestart:
                 self.closePopupMessageBattery.emit()
                 self._batteryPopup = False
         else:
-            if newLevel < self._batteryLevelForStop:
+            if self._battery.batteryLevel < self._batteryLevelForStop:
                 self.openPopupMessageBattery.emit()
                 self._batteryPopup = True
