@@ -74,7 +74,7 @@ class Logic(QObject):
         self._scanner.start()
 
         self._battery = BatteryHelper()
-        self._battery.batteryLevelChangedSignal.connect()
+        self._battery.batteryLevelChangedSignal.connect(self.check_batteryLevel)
         self._battery.start()
 
         self._configRepository = ConfigRepositories(self._dal)
@@ -234,6 +234,7 @@ class Logic(QObject):
             self._greenLightWorkerThread.deleteLater)
         self._greenLightWorkerThread.start()
 
+    @Slot(int)
     def check_batteryLevel(self, newLevel: int):
         if self._batteryPopup:
             if newLevel > self._batteryLevelForRestart:
