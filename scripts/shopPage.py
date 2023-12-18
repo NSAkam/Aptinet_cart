@@ -84,6 +84,7 @@ class ShopPage(QObject):
     _shouldBarcodeToBeScannToAddProduct: bool = True
     _lightWeightProductExistInBasket: bool = False
     _inOfferList: bool = False
+    _canCreatePLUCheckThread: bool = True
 
     ######################################################################################################## Modules ###
     _weightSensor: WeightSensorWorker
@@ -140,10 +141,6 @@ class ShopPage(QObject):
         self._canTimerTick = True
         self._timerThread = Thread(target=self.timerSlot)
         self._timerThread.start()
-
-        #### Insert PLU Item Thread ###############################
-        self._canCreatePLUCheckThread = True
-
 
         ########################################################### end of __init__
 
@@ -843,26 +840,15 @@ class ShopPage(QObject):
                 self._PLUThread = Thread(target=self.taringPLU)
                 self._PLUThread.start()
 
-            # taring = True
-            # while taring:
-            #     if self._weightSensor._canread:
-            #         self._pluStartWeight = self._weightSensor._BasketWeight2
-            #         self._basketWeightShouldBe = self._pluStartWeight
-            #         taring = False
-            # self.closePopupMessageSignal.emit()
-
         elif self.newProduct.get_productType() == "counted":
             self.state = 15
             self.showCountedPLUItemsSignal.emit()
             self.openPopupMessageSignal.emit(self._lang.lst["mess_Taring_Please_dont_move_basket"])
             playSound(self._lang.lst["sound_Taring_Please_dont_move_basket"])
-            taring = True
-            while taring:
-                if self._weightSensor._canread:
-                    self._pluStartWeight = self._weightSensor._BasketWeight2
-                    self._basketWeightShouldBe = self._pluStartWeight
-                    taring = False
-            self.closePopupMessageSignal.emit()
+            if self._canCreatePLUCheckThread:
+                print("start thread")
+                self._PLUThread = Thread(target=self.taringPLU)
+                self._PLUThread.start()
 
     @Slot()
     def confirm_PLUItemClicked(self):
