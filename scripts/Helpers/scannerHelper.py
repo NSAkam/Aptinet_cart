@@ -14,6 +14,7 @@ class ScannerHelper(QObject):
     _productBarcodeLength: int = 13
     _IDBarcodeLength: int = 20
     _LoyaltyCardBarcodeLength: int = 16
+    _couponBarcodeLength: int = 6
 
     def __init__(self):
         super().__init__()
@@ -29,6 +30,7 @@ class ScannerHelper(QObject):
     loyaltyCardBarcodeReadSignal = Signal()
     goToSettingSignal = Signal()
     readBarcodeSignal = Signal()
+    couponReadSignal = Signal(str)
 
     def get_barcode(self):
         return self._barcode
@@ -56,6 +58,7 @@ class ScannerHelper(QObject):
         productBarcodeLength = self._productBarcodeLength + self._scannerWorker.get_extraCharacter()
         IDBarcodeLength = self._IDBarcodeLength + self._scannerWorker.get_extraCharacter()
         LoyaltyCardBarcodeLength = self._LoyaltyCardBarcodeLength + self._scannerWorker.get_extraCharacter()
+        couponLength = self._couponLength + self._scannerWorker.get_extraCharacter()
         self.readBarcodeSignal.emit()
 
         if len(self._scannerWorker.get_readBytes()) == productBarcodeLength:
@@ -72,6 +75,8 @@ class ScannerHelper(QObject):
             self._loyaltyCardBarcode = self._scannerWorker.get_readBytes()[1:-1].decode('latin1')
             self.loyaltyCardBarcodeReadSignal.emit()
 
+        elif len(self._scannerWorker.get_readBytes()) == couponLength:
+            self.couponReadSignal.emit(self._scannerWorker.get_readBytes()[1:-1].decode('latin1'))
 
 
         # elif len(self._scannerWorker.readed_bytes) > 3:

@@ -4,6 +4,7 @@ import time
 from time import sleep
 from threading import Thread
 from email_validator import validate_email, EmailNotValidError
+import uuid
 
 from PySide2.QtCore import QObject, Signal, Property, Slot
 
@@ -106,6 +107,7 @@ class ShopPage(QObject):
         self._scanner = scanner
         self._scanner.EAN13ReadSignal.connect(self.barcodeRead)
         self._scanner.IDBarcodeReadSignal.connect(self.IDBarcode_read)
+        self._scanner.couponReadSignal.connect(self.apply_couponCode)
 
         #### WeightSensor #########################################
         self._weightSensor = WeightSensorWorker()
@@ -1013,12 +1015,13 @@ class ShopPage(QObject):
 
     @Slot(str)
     def apply_couponCode(self, code):
-        if code == "2212":
-            self._logger.insertLog("apply coupon", str(code), self._user.get_id())
-            self.factorList.set_offerCouponPercentage(10.0)
-        else:
-            self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Invalid_code_please_check_the_code"])
-            playSound(self._lang.lst["sound_Invalid_code_please_check_the_code"])
+        if self.state == 8:
+            if code == "221222":
+                self._logger.insertLog("apply coupon", str(code), self._user.get_id())
+                self.factorList.set_offerCouponPercentage(10.0)
+            else:
+                self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Invalid_code_please_check_the_code"])
+                playSound(self._lang.lst["sound_Invalid_code_please_check_the_code"])
 
     @Slot()
     def payment_clicked(self):
@@ -1050,6 +1053,14 @@ class ShopPage(QObject):
 
     @Slot(str)
     def send_factorEmailClicked(self, emailAddress: str):
+        # factor = {}
+        # factor["emailAddress"] = emailAddress
+        # if self._user.get_loggedInUser().get_id() != "":
+        #     factor["userId"] = self._user.get_loggedInUser().get_id()
+        # else:
+        #     factor["userId"] = uuid.uuid4()
+
+
         try:
             v = validate_email(emailAddress)
             email = v["email"]
