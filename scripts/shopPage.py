@@ -1130,4 +1130,3 @@ class ShopPage(QObject):
         if len(self._factorList.m_data) > 0:
             self.showFactorListSignal.emit()
 
-
