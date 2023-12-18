@@ -358,6 +358,7 @@ class Product(QObject):
             return "$ " + "{:.2f}".format(self.finalPrice * self.productWeightInBasket/1000)
         else:
             print("-----------------> tax:")
+
             print("$ " + "{:.2f}".format(self.countInBasket * self.finalPrice * self._taxPercentage / 100))
             return "$ " + "{:.2f}".format(self.finalPrice * self.countInBasket)
 
