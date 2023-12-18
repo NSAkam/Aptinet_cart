@@ -817,7 +817,13 @@ class ShopPage(QObject):
     def back_addPLUItemsClicked(self):
         self.clear_stackView()
         if self.state == 14 or self.state == 15:
-            self.state = 1
+            if self._basketWeightShouldBe - self._basketWeightTolerance <= self._weightSensor.basketweight <= self._basketWeightShouldBe + self._basketWeightTolerance:
+                self.state = 1
+            else:
+                self._shouldBarcodeToBeScannToAddProduct = True
+                self.openPopupNoBarcodeScannedSignal.emit()
+                playSound(self._lang.lst["sound_notif"])
+                self.state = 4
 
     @Slot(str)
     def item_PLUClicked(self, pluCode: str):
@@ -832,6 +838,7 @@ class ShopPage(QObject):
             while taring:
                 if self._weightSensor._canread:
                     self._pluStartWeight = self._weightSensor._BasketWeight2
+                    self._basketWeightShouldBe = self._pluStartWeight
                     taring = False
             self.closePopupMessageSignal.emit()
 
@@ -844,6 +851,7 @@ class ShopPage(QObject):
             while taring:
                 if self._weightSensor._canread:
                     self._pluStartWeight = self._weightSensor._BasketWeight2
+                    self._basketWeightShouldBe = self._pluStartWeight
                     taring = False
             self.closePopupMessageSignal.emit()
 
