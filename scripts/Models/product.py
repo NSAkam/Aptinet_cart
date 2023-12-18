@@ -406,6 +406,17 @@ class Product(QObject):
 
     totalSavingQML = Property(str, get_totalSavingQML, notify=changedSignal)
 
+    def get_totalTaxQML(self):
+        if self._tax:
+            if self.dataModelShow == 1:
+                return "$ " + "{:.2f}".format(self.productWeightInBasket / 1000 * self.finalPrice * self._taxPercentage / 100)
+            else:
+                return "$ " + "{:.2f}".format(self.countInBasket * self.finalPrice * self._taxPercentage / 100)
+        else:
+            return ""
+
+    totalTaxQML = Property(str, get_totalTaxQML, notify=changedSignal)
+
     def get_quantifier(self):
         return self._quantifier
 
