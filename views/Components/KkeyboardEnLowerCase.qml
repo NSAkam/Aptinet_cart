@@ -420,7 +420,7 @@ Rectangle{
                 height: 70
                 text: ".com"
                 onClicked: {
-                    parent.parent.parent.input(" ")
+                    parent.parent.parent.input(".com")
                 }
             }
             KKeyboardButton{

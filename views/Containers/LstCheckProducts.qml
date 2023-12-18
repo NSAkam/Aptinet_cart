@@ -96,28 +96,30 @@ Item {
                     y:91
                 }
                 Text {
-                    text: modelData.totalSavingQML
+                    text: "tax $"
                     x:430
                     y:86
-                    color: viewset.primaryColor
+
                     font.pixelSize: 24
                 }
                 Text {
-                    text: "tax $"
+                    text: modelData.totalFinalPriceQML
+
                     anchors.bottom: factorItemTotalPrice.top
                     anchors.left: factorItemTotalPrice.left
                     anchors.bottomMargin: 10
-                    
+
                     color: viewset.primaryColor
                     font.pixelSize: 24
                 }
                 Text {
                     id: factorItemTotalPrice
-                    text: modelData.totalFinalPriceQML
+                    text: modelData.totalSavingQML
                     x:630
                     y:86
-                    color: viewset.primaryColor
+                    color: "#36EB00"
                     font.pixelSize: 32
+
                 }
                 Rectangle{
                     anchors.bottom: parent.bottom
@@ -192,28 +194,28 @@ Item {
                     y:91
                 }
                 Text {
-                    text: modelData.totalSavingQML
+                    text: "tax $"
                     x:479
                     y:86
                     color: viewset.primaryColor
                     font.pixelSize: 24
                 }
                 Text {
-                    text: "tax $"
+                    text: modelData.totalFinalPriceQML
                     anchors.bottom: factorItemTotalPrice.top
                     anchors.left: factorItemTotalPrice.left
                     anchors.bottomMargin: 10
-                    
+
                     color: viewset.primaryColor
                     font.pixelSize: 24
                 }
                 Text {
                     id: factorItemTotalPrice
-                    text: modelData.totalFinalPriceQML
+                    text: modelData.totalSavingQML
                     x:630
                     y:86
-                    color: viewset.primaryColor
                     font.pixelSize: 32
+                    color: "#36EB00"
                 }
                 Rectangle{
                     anchors.bottom: parent.bottom

@@ -40,6 +40,9 @@ Item {
                     obj.visible=false
                     //obj.destroy()
                 }
+                onEnter: function(){
+                    obj.visible=false
+                }
             }
         }
         Component {
@@ -52,6 +55,9 @@ Item {
                 onClose: function (){
                     obj.visible=false
                     //obj.destroy()
+                }
+                onEnter: function(){
+                    obj.visible=false
                 }
             }
         }
