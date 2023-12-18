@@ -361,7 +361,7 @@ class ShopPage(QObject):
                         print("session 4")
                         self._suggestedList = self._productRepository.get_suggesstionProducts(product.barcode)
                         print("session 5")
-                        self.showNewProductScannedSignal.emit()
+                        # self.showNewProductScannedSignal.emit()
                         print("session 6")
                         self.hideTopBtnSignal.emit()
                         print("session 7")
