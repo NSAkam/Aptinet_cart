@@ -199,7 +199,6 @@ class ShopPage(QObject):
         else:
             if state != 2:
                 self.countDownTimer = -20
-        time.sleep(0.1)
 
 
     state = Property(int, get_state, set_state, notify=changedSignal)
@@ -351,19 +350,12 @@ class ShopPage(QObject):
                             self._weightSensor.lightest_weight = self._lightestWeightForLightWeightProduct
                         else:
                             self._weightSensor.lightest_weight = self._lightestWeightForHeavyProduct
-                        print("session 1")
                         self.clear_stackView()
-                        print("session 2")
                         self.newProduct = product
-                        print("session 3")
                         self.countDownTimer = self._insertProductTime + self._timerOffset
-                        print("session 4")
                         self._suggestedList.initialize_productList(self._productRepository.get_suggesstionProducts(product.barcode))
-                        print("session 5")
                         self.showNewProductScannedSignal.emit()
-                        print("session 6")
                         self.hideTopBtnSignal.emit()
-                        print("session 7")
                     else:
                         self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Not_valid_Product"])
                         playSound(self._lang.lst["sound_Not_valid_Product"])
@@ -1154,7 +1146,6 @@ class ShopPage(QObject):
     def clear_stackView(self):
         self.showTopBtnSignal.emit()
         self.clearStackViewSignal.emit()
-        time.sleep(0.1)
         self._inOfferList = False
         if len(self._factorList.m_data) > 0:
             self.showFactorListSignal.emit()
