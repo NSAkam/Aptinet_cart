@@ -99,7 +99,7 @@ Item {
                     text: modelData.totalTaxQML
                     x:430
                     y:86
-
+                    
                     font.pixelSize: 24
                 }
                 Text {
