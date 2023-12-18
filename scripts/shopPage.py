@@ -143,7 +143,7 @@ class ShopPage(QObject):
 
         #### Insert PLU Item Thread ###############################
         self._canCreatePLUCheckThread = True
-        self._PLUThread = Thread(target=self.taringPLU)
+
 
         ########################################################### end of __init__
 
@@ -840,6 +840,7 @@ class ShopPage(QObject):
             playSound(self._lang.lst["sound_Taring_Please_dont_move_basket"])
             if self._canCreatePLUCheckThread:
                 print("start thread")
+                self._PLUThread = Thread(target=self.taringPLU)
                 self._PLUThread.start()
             # taring = True
             # while taring:
