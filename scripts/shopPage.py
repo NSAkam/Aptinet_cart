@@ -33,7 +33,7 @@ class ShopPage(QObject):
     ####################################################################################################### Settings ###
     _insertProductTime: int = 8  # actual time = n -1
     _timerOffset: int = 3
-    _validInsertedWeightForCalTol: int = 3  # Accept inserted product without checking weight under this limit
+    _validInsertedWeightForCalTol: int = 5  # Accept inserted product without checking weight under this limit
     _basketWeightLimit: int = 20000  # grams
     _lightestProductWeight: int = 11  # grams
     _lightestWeightForHeavyProduct: int = 25  # grams
@@ -140,6 +140,10 @@ class ShopPage(QObject):
         self._canTimerTick = True
         self._timerThread = Thread(target=self.timerSlot)
         self._timerThread.start()
+
+        #### Insert PLU Item Thread ###############################
+        self._canCreatePLUCheckThread = True
+        self._PLUThread = Thread(target=self.taringPLU)
 
         ########################################################### end of __init__
 
@@ -834,13 +838,15 @@ class ShopPage(QObject):
             self.showWeightedPLUItemsSignal.emit()
             self.openPopupMessageSignal.emit(self._lang.lst["mess_Taring_Please_dont_move_basket"])
             playSound(self._lang.lst["sound_Taring_Please_dont_move_basket"])
-            taring = True
-            while taring:
-                if self._weightSensor._canread:
-                    self._pluStartWeight = self._weightSensor._BasketWeight2
-                    self._basketWeightShouldBe = self._pluStartWeight
-                    taring = False
-            self.closePopupMessageSignal.emit()
+            if self._canCreatePLUCheckThread:
+                self._PLUThread.start()
+            # taring = True
+            # while taring:
+            #     if self._weightSensor._canread:
+            #         self._pluStartWeight = self._weightSensor._BasketWeight2
+            #         self._basketWeightShouldBe = self._pluStartWeight
+            #         taring = False
+            # self.closePopupMessageSignal.emit()
 
         elif self.newProduct.get_productType() == "counted":
             self.state = 15
@@ -1016,7 +1022,7 @@ class ShopPage(QObject):
     @Slot(str)
     def apply_couponCode(self, code):
         if self.state == 8:
-            print(code)
+            # print(code)
             if code == "221222":
                 self._logger.insertLog("apply coupon", str(code), self._user.get_id())
                 self.factorList.set_offerCouponPercentage(10.0)
@@ -1161,4 +1167,15 @@ class ShopPage(QObject):
         self._inOfferList = False
         if len(self._factorList.m_data) > 0:
             self.showFactorListSignal.emit()
+
+    def taringPLU(self):
+        self._canCreatePLUCheckThread = False
+        taring = True
+        while taring:
+            if self._weightSensor._canread:
+                self._pluStartWeight = self._weightSensor._BasketWeight2
+                taring = False
+        self._basketWeightShouldBe = self._pluStartWeight
+        self.closePopupMessageSignal.emit()
+        self._canCreatePLUCheckThread = True
 
