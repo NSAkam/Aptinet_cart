@@ -135,7 +135,7 @@ Popup {
                     height: 210
                     clip: true
                     spacing: 10
-                    model: 10
+                    model: obj_logicRemoveProductList.shopPage.removeList
                     y:60
                     orientation: ListView.vertical
                     delegate:Item{
