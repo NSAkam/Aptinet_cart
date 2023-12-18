@@ -36,6 +36,19 @@ Popup {
             opacity: 0.5
         }
         Image {
+            source: "../../Assets/restart.png"
+            width: 76
+            height: 76
+            x: 20
+            y: 607
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    cameraProvider.stop()
+                }
+            }
+        }
+        Image {
             source: "../Assets/Notification.png"
             width: 57
             height: 57
