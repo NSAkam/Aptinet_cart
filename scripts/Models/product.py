@@ -48,7 +48,7 @@ class Product(QObject):
     _countInBasket: int = 0
 
     _quantifier: str = ""
-    _taxPercentage: bool = 0
+    _taxPercentage: int = 0
 
     def __init__(self):
         super().__init__()
