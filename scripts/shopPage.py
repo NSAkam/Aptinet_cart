@@ -839,6 +839,7 @@ class ShopPage(QObject):
             self.openPopupMessageSignal.emit(self._lang.lst["mess_Taring_Please_dont_move_basket"])
             playSound(self._lang.lst["sound_Taring_Please_dont_move_basket"])
             if self._canCreatePLUCheckThread:
+                print("start thread")
                 self._PLUThread.start()
             # taring = True
             # while taring:
