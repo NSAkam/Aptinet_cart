@@ -842,6 +842,7 @@ class ShopPage(QObject):
                 print("start thread")
                 self._PLUThread = Thread(target=self.taringPLU)
                 self._PLUThread.start()
+
             # taring = True
             # while taring:
             #     if self._weightSensor._canread:
