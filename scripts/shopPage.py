@@ -351,22 +351,19 @@ class ShopPage(QObject):
                             self._weightSensor.lightest_weight = self._lightestWeightForLightWeightProduct
                         else:
                             self._weightSensor.lightest_weight = self._lightestWeightForHeavyProduct
-                        # time.sleep(0.1)
                         print("session 1")
-                        # self.clear_stackView()
+                        self.clear_stackView()
                         print("session 2")
                         self.newProduct = product
                         print("session 3")
                         self.countDownTimer = self._insertProductTime + self._timerOffset
                         print("session 4")
-                        self._suggestedList = self._productRepository.get_suggesstionProducts(product.barcode)
+                        self._suggestedList.initialize_productList(self._productRepository.get_suggesstionProducts(product.barcode))
                         print("session 5")
-                        # time.sleep(3)
+                        self.showNewProductScannedSignal.emit()
                         print("session 6")
-                        # self.showNewProductScannedSignal.emit()
+                        self.hideTopBtnSignal.emit()
                         print("session 7")
-                        # self.hideTopBtnSignal.emit()
-                        print("session 8")
                     else:
                         self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Not_valid_Product"])
                         playSound(self._lang.lst["sound_Not_valid_Product"])
