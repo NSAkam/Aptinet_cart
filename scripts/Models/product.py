@@ -426,6 +426,7 @@ class Product(QObject):
         self._quantifier = val
         self.changedSignal.emit()
 
+
     quantifier = Property(str, get_quantifier, set_quantifier, notify=changedSignal)
 
     def copy_product(self):
