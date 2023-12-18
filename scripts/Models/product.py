@@ -409,8 +409,10 @@ class Product(QObject):
     def get_totalTaxQML(self):
         if self._tax:
             if self.dataModelShow == 1:
+                print("$ " + "{:.2f}".format(self.productWeightInBasket / 1000 * self.finalPrice * self._taxPercentage / 100))
                 return "$ " + "{:.2f}".format(self.productWeightInBasket / 1000 * self.finalPrice * self._taxPercentage / 100)
             else:
+                print("$ " + "{:.2f}".format(self.countInBasket * self.finalPrice * self._taxPercentage / 100))
                 return "$ " + "{:.2f}".format(self.countInBasket * self.finalPrice * self._taxPercentage / 100)
         else:
             return ""
@@ -423,6 +425,7 @@ class Product(QObject):
     def set_quantifier(self, val: str):
         self._quantifier = val
         self.changedSignal.emit()
+
 
     quantifier = Property(str, get_quantifier, set_quantifier, notify=changedSignal)
 
