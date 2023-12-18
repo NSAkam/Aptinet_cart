@@ -30,6 +30,7 @@ class ProductModel(QAbstractListModel):
     mountQMLRole = Qt.UserRole + 19
     savingQMLRole = Qt.UserRole + 20
     totalSavingQMLRole = Qt.UserRole + 21
+    totalTaxQMLRole =Qt.UserRole +22
 
     m_data = [Product]
     m_validBarcodeSetForDelete = []
@@ -173,6 +174,8 @@ class ProductModel(QAbstractListModel):
             return prod.savingQML
         elif (role == self.totalSavingQMLRole):
             return prod.totalSavingQML
+        elif(role == self.totalTaxQMLRole):
+            return prod.totalTaxQML
         else:
             return None
 
@@ -200,6 +203,7 @@ class ProductModel(QAbstractListModel):
         default[self.mountQMLRole] = QByteArray(b"mountQML")
         default[self.savingQMLRole] = QByteArray(b"savingQML")
         default[self.totalSavingQMLRole] = QByteArray(b"totalSavingQML")
+        default[self.totalTaxQMLRole] = QByteArray(b"totalTaxQML") 
         return default
 
     # def data(self):
