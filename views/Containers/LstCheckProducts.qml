@@ -96,7 +96,7 @@ Item {
                     y:91
                 }
                 Text {
-                    text: "tax $"
+                    text: modelData.totalTaxQML
                     x:430
                     y:86
 
@@ -194,7 +194,7 @@ Item {
                     y:91
                 }
                 Text {
-                    text: "tax $"
+                    text: modelData.totalTaxQML
                     x:479
                     y:86
                     color: viewset.primaryColor
