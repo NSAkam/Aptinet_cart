@@ -913,7 +913,7 @@ class ShopPage(QObject):
                 # notifSound2()
                 self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Please_scann_all_product_that_remove_from_basket"])
                 playSound(self._lang.lst["sound_Please_scann_all_product_that_remove_from_basket"])
-                self._trustUser = True
+                # self._trustUser = True
             else:
                 self._logger.insertLog("normal remove product", str(len(self._removeList.m_data)), self._user.get_id())
                 # deleteSound()
