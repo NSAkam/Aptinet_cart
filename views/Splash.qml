@@ -27,7 +27,7 @@ Item {
 
     Image {
         id: background
-        source: "../Assets/SplashBackground.png"
+        source: "/home/aptinet/files/SplashBackground.png"
         anchors.fill: parent
         Rectangle{
             id:backgroundOpacity
@@ -50,7 +50,7 @@ Item {
 
     Image {
         id: aptinetIcon
-        source: "../Assets/AptinetIcon1.png"
+        source: "/home/aptinet/files/AptinetIcon1.png"
         y:124
         width: 208
         height: 154

@@ -18,8 +18,8 @@ Item {
     height: 800
 
     property Logic obj_LogicContainerGuidTips2
-    
-    
+
+
     Util.ViewSettings{
         id:viewset
     }
@@ -27,7 +27,7 @@ Item {
     property int state: 0
 
     Image {
-        source: "../Assets/AuthenticationBackground.png"
+        source: "/home/aptinet/files/AuthenticationBackground.png"
         anchors.fill: parent
     }
 
@@ -70,10 +70,9 @@ Item {
         color: "#F05A28"
 
         Text {
-            text: obj_LogicContainerGuidTips2.lang.txt_Guide_to_remove_product_from_cart
+            text: obj_LogicContainerGuidTips2.lang.txt_Required_Tips
             color: "white"
             font.family: "Archivo"
-            anchors.horizontalCenter: parent.horizontalCenter
             font.pixelSize: 32
             font.bold: true
             x: 526

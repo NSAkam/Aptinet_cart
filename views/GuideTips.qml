@@ -26,7 +26,7 @@ Item {
     property int state: 0
 
     Image {
-        source: "../Assets/AuthenticationBackground.png"
+        source: "/home/aptinet/files/AuthenticationBackground.png"
         anchors.fill: parent
     }
 

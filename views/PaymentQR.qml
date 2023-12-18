@@ -22,7 +22,7 @@ Item {
 
 
     Image {
-        source: "../Assets/AuthenticationBackground.png"
+        source: "/home/aptinet/files/AuthenticationBackground.png"
         anchors.fill: parent
     }
 

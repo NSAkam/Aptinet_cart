@@ -13,7 +13,7 @@ Item {
         anchors.fill: parent
         color: "white"
         Image {
-            source: "../../Assets/AptinetLogo.png"
+            source: "/home/aptinet/files/AptinetLogo.png"
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
         }

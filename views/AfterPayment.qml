@@ -10,33 +10,33 @@ import KAST.Logic 1.0
 
 
 Item {
-    
+
     width: 1280
     height: 800
-    
+
     property Logic obj_LogicContainerAfterPayment
-    
+
     Util.ViewSettings{
         id:viewset
     }
-    
+
     Image {
         id: bg
-        source: "../Assets/AuthenticationBackground.png"
+        source: "/home/aptinet/files/AuthenticationBackground.png"
         anchors.fill: parent
     }
-    
+
     Rectangle {
         color: "#1745E8"
         anchors.fill: bg
         opacity: 0.4
     }
-    
+
     Item{
         id:topPanel
         width: parent.width
         height: 92
-        
+
         Rectangle {
             id: questionmarkrect
             width: 40
@@ -45,7 +45,7 @@ Item {
             color: "white"
             x:1156
             y:32
-            
+
             Image {
                 source: "../Assets/questionmark.png"
                 anchors.centerIn: parent
@@ -53,8 +53,8 @@ Item {
                 //                height: 57
             }
         }
-        
-        
+
+
         Rectangle {
             id: alarmrect
             width: 40
@@ -63,7 +63,7 @@ Item {
             color: "white"
             x:1208
             y:32
-            
+
             Image {
                 source: "../Assets/alarm.png"
                 anchors.centerIn: parent
@@ -72,28 +72,28 @@ Item {
             }
             visible: false
         }
-        
-        
-        
+
+
+
     }
-    
+
     Item{
         id:leftPanel
         width: 390
         height: parent.height
-        
+
         Image {
             source: "../Assets/AptinetText1.png"
             x:32
             y:32
         }
     }
-    
+
     Item {
         id: mainPanel
         width: 1280
         height: 800
-        
+
         Rectangle {
             width: 502
             height: 72
@@ -102,13 +102,13 @@ Item {
             radius: 12
             color: Qt.hsla(0, 0, 100, 0.2)
         }
-        
+
         Canvas {
             x: 401
             y: 63
             width: 478
             height: 1
-            
+
             onPaint: {
                 var ctx = getContext("2d");
                 ctx.strokeStyle = "#9D9D9D";
@@ -120,7 +120,7 @@ Item {
                 ctx.stroke();
             }
         }
-        
+
         Rectangle {
             width: 502
             height: 379
@@ -128,7 +128,7 @@ Item {
             y: 63
             radius: 12
             color: Qt.hsla(0, 0, 100, 0.2)
-            
+
             Rectangle {
                 width: 167.9
                 height: 167.9
@@ -136,13 +136,13 @@ Item {
                 color: "#36EB00"
                 x: 167
                 y: 47.2
-                
+
                 AnimatedImage {
                     source: "../Assets/5601968.gif"
                     anchors.fill: parent
                 }
             }
-            
+
             Text {
                 text: obj_LogicContainerAfterPayment.lang.txt_You_good_to_go
                 font.pixelSize: 40
@@ -151,7 +151,7 @@ Item {
                 y: 246
                 font.bold: true
             }
-            
+
             Text {
                 text: obj_LogicContainerAfterPayment.lang.txt_Thanks_for_shopping_with_us
                 font.pixelSize: 30
@@ -160,7 +160,7 @@ Item {
                 y: 314
                 font.weight: Font.DemiBold
             }
-            
+
         }
         Item{
             anchors.horizontalCenter: parent.horizontalCenter
@@ -177,10 +177,10 @@ Item {
                         popup_SetEmail.open()
                     }
                 }
-                
+
                 Text {
                     id:txt_email
-                    
+
                     text: obj_LogicContainerAfterPayment.shopPage.user.email
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -198,8 +198,8 @@ Item {
                 }
             }
         }
-        
-        
+
+
         Text {
             text: obj_LogicContainerAfterPayment.lang.txt_How_would_you_rate_your_shopping_experience
             font.pixelSize: 24
@@ -208,13 +208,13 @@ Item {
             y: 530
             color: "#1D1D1D"
         }
-        
+
         Row {
             spacing: 32
             y: 610
             anchors.horizontalCenter: parent.horizontalCenter
-            
-            
+
+
             Rectangle {
                 width: 70
                 height: 70
@@ -223,8 +223,8 @@ Item {
                     anchors.fill: parent
                     btn_color: "#92dc7c"
                     btn_bordercolor: "#92dc7c"
-                    
-                    
+
+
                     Image {
                         source: "../Assets/badrate.png"
                         anchors.centerIn: parent
@@ -234,21 +234,21 @@ Item {
                         obj_LogicContainerAfterPayment.shopPage.rate_cart(1)
                     }
                 }
-                
+
             }
-            
-            
-            
+
+
+
             Rectangle {
                 width: 70
                 height: 70
                 radius: 70
-                
+
                 KButton {
                     anchors.fill: parent
                     btn_color: "#7ad35f"
                     btn_bordercolor: "#7ad35f"
-                    
+
                     Image {
                         source: "../Assets/goodrate.png"
                         anchors.centerIn: parent
@@ -258,20 +258,20 @@ Item {
                         obj_LogicContainerAfterPayment.shopPage.rate_cart(2)
                     }
                 }
-                
+
             }
-            
-            
+
+
             Rectangle {
                 width: 70
                 height: 70
                 radius: 70
-                
+
                 KButton {
                     anchors.fill: parent
                     btn_color: "#67db45"
                     btn_bordercolor: "#67db45"
-                    
+
                     Image {
                         source: "../Assets/verygoodrate.png"
                         anchors.centerIn: parent
@@ -281,21 +281,21 @@ Item {
                         obj_LogicContainerAfterPayment.shopPage.rate_cart(3)
                     }
                 }
-                
+
             }
-            
-            
+
+
             Rectangle {
                 width: 70
                 height: 70
                 radius: 70
                 color: "#4ce51f"
-                
+
                 KButton {
                     anchors.fill: parent
                     btn_color: "#4ce51f"
                     btn_bordercolor: "#4ce51f"
-                    
+
                     Image {
                         source: "../Assets/excellentrate.png"
                         anchors.centerIn: parent
@@ -304,13 +304,13 @@ Item {
                     onClicked: {
                         obj_LogicContainerAfterPayment.shopPage.rate_cart(4)
                     }
-                    
-                    
+
+
                 }
             }
-            
+
         }
-        
+
         KButton{
             id:btn_reset
             anchors.horizontalCenter: parent.horizontalCenter
@@ -331,21 +331,21 @@ Item {
                 btn_reset.visible = true
             }
         }
-        
+
     }
-    
-    
-    
+
+
+
     Popup {
         id: popup_SetEmail
         property QtObject setting_obj
-        
-        
+
+
         width: 1280
         height: 800
         modal: true
         focus: true
-        
+
         closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
         background: Rectangle {
             implicitWidth: 725
@@ -363,7 +363,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 y:140
                 color: "white"
-                
+
                 Text {
                     text: obj_LogicContainerAfterPayment.lang.txt_Enter_your_Email_Address
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -377,7 +377,7 @@ Item {
                     anchors.horizontalCenter: parent.horizontalCenter
                     y:65
                 }
-                
+
                 Text {
                     text: obj_LogicContainerAfterPayment.lang.txt_Cancel
                     y:64
@@ -413,7 +413,7 @@ Item {
                     color: "gray"
                     y:115
                 }
-                
+
                 Rectangle{
                     id:input_enterPassword
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -433,7 +433,7 @@ Item {
                         verticalAlignment:  TextInput.AlignVCenter
                         font.family: viewset.danaFuNumFont
                         property string placeholderText: obj_LogicContainerAfterPayment.lang.txt_Email
-                        
+
                         onFocusChanged: {
                             keyboard.visible = true
                         }
@@ -461,5 +461,5 @@ Item {
             anchors.top: input_enterPassword.bottom
         }
     }
-    
+
 }
