@@ -103,7 +103,7 @@ Item {
         x:32
         y:640
         width: 120
-        text: "< " + obj_LogicContainerAddPluItems.lang.btn_Back
+        text: "< " + obj_LogicContainerLstSpecialDeals.lang.btn_Back
         borderRadius: 5
         onClicked: {
             root.back()

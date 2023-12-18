@@ -103,6 +103,15 @@ Item {
                     font.pixelSize: 24
                 }
                 Text {
+                    text: "tax $"
+                    anchors.bottom: factorItemTotalPrice.top
+                    anchors.left: factorItemTotalPrice.left
+                    anchors.bottomMargin: 10
+                    
+                    color: viewset.primaryColor
+                    font.pixelSize: 24
+                }
+                Text {
                     id: factorItemTotalPrice
                     text: modelData.totalFinalPriceQML
                     x:630
@@ -186,6 +195,15 @@ Item {
                     text: modelData.totalSavingQML
                     x:479
                     y:86
+                    color: viewset.primaryColor
+                    font.pixelSize: 24
+                }
+                Text {
+                    text: "tax $"
+                    anchors.bottom: factorItemTotalPrice.top
+                    anchors.left: factorItemTotalPrice.left
+                    anchors.bottomMargin: 10
+                    
                     color: viewset.primaryColor
                     font.pixelSize: 24
                 }
