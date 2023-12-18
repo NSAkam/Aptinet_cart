@@ -1016,6 +1016,7 @@ class ShopPage(QObject):
     @Slot(str)
     def apply_couponCode(self, code):
         if self.state == 8:
+            print(code)
             if code == "221222":
                 self._logger.insertLog("apply coupon", str(code), self._user.get_id())
                 self.factorList.set_offerCouponPercentage(10.0)

@@ -76,6 +76,7 @@ class ScannerHelper(QObject):
             self.loyaltyCardBarcodeReadSignal.emit()
 
         elif len(self._scannerWorker.get_readBytes()) == couponLength:
+            print(self._scannerWorker.get_readBytes()[1:-1].decode('latin1'))
             self.couponReadSignal.emit(self._scannerWorker.get_readBytes()[1:-1].decode('latin1'))
 
 
