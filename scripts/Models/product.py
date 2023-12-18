@@ -418,6 +418,7 @@ class Product(QObject):
         else:
             return ""
 
+
     totalTaxQML = Property(str, get_totalTaxQML, notify=changedSignal)
 
     def get_quantifier(self):
