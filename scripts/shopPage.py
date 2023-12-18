@@ -49,6 +49,7 @@ class ShopPage(QObject):
     _pluTopFour: ProductModel
     _bypassList: ProductModel
     _removeList: ProductModel
+    _removeLookupList: ProductModel
 
     ################################################################################################### Repositories ###
     _userRepository: UserRepository
@@ -131,6 +132,7 @@ class ShopPage(QObject):
 
         self._bypassList = ProductModel()
         self._removeList = ProductModel()
+        self._removeLookupList = ProductModel()
 
         #### Insert Timer Thread ##################################
         self._canTimerTick = True
@@ -250,6 +252,11 @@ class ShopPage(QObject):
         return self._removeList
 
     removeList = Property(QObject, get_removeList, constant=True)
+
+    def get_removeLookupList(self):
+        return self._removeLookupList
+
+    removeLookupList = Property(QObject, get_removeLookupList, constant=True)
 
     def get_countDownTimer(self):
         return self._countDownTimer
@@ -596,6 +603,10 @@ class ShopPage(QObject):
                 elif self.state == 1:
                     self._removeList.validBarcodeSetForRemove(self._factorList.m_data, abs(value))
                     if not len(self._removeList.m_validBarcodeSetForDelete) == 0:
+                        self._removeLookupList.clearData()
+                        for prod in self._factorList.m_data:
+                            if prod._productType != "normal":
+                                self._removeLookupList.insertProduct(prod, prod.countInBasket)
                         self.openPopupDeleteProductSignal.emit()
                         # notifSound2()
                         playSound(self._lang.lst["sound_notif2"])
@@ -926,6 +937,10 @@ class ShopPage(QObject):
             else:
                 self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Please_recheck_entered_code"])
                 playSound(self._lang.lst["sound_Please_recheck_entered_code"])
+
+    @Slot(str)
+    def product_removeLookupSelected(self, plu: str):
+        self.product_removeManualBarcodeEntered(plu)
 
     @Slot(int)
     def product_removeIncreaseClicked(self, index: int):
