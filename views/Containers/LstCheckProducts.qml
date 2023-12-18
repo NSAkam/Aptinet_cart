@@ -118,7 +118,7 @@ Item {
                     x:630
                     y:86
                     color: "#36EB00"
-                    font.pixelSize: 32
+                    font.pixelSize: 24
 
                 }
                 Rectangle{
@@ -214,7 +214,7 @@ Item {
                     text: modelData.totalSavingQML
                     x:630
                     y:86
-                    font.pixelSize: 32
+                    font.pixelSize: 24
                     color: "#36EB00"
                 }
                 Rectangle{
