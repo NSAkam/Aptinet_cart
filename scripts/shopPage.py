@@ -1063,11 +1063,11 @@ class ShopPage(QObject):
             factor["userId"] = self._user.get_id()
 
         factor["totalCount"] = str(self._factorList.get_totalCount())
-        factor["totalPrice"] = str(self._factorList.get_pricenodiscount())
-        factor["totalFinalPrice"] = str(self._factorList.get_finalprice())
-        factor["totalTax"] = str(self._factorList.get_tax())
-        factor["totalSaving"] = str(self._factorList.getProfit())
-        factor["priceToPay"] = str(self._factorList.get_priceToPay())
+        factor["totalPrice"] = "{:.2f}".format(self._factorList.get_pricenodiscount())
+        factor["totalFinalPrice"] = "{:.2f}".format(self._factorList.get_finalprice())
+        factor["totalTax"] = "{:.2f}".format(self._factorList.get_tax())
+        factor["totalSaving"] = "{:.2f}".format(self._factorList.getProfit())
+        factor["priceToPay"] = "{:.2f}".format(self._factorList.get_priceToPay())
         if self._factorList.get_offerCouponPercentage() != 0:
             factor["coupon"] = ""
         else:
