@@ -337,6 +337,26 @@ class Product(QObject):
     countInBasket = Property(int, get_countInBasket,
                              set_countInBasket, notify=changedSignal)
 
+    def get_priceQML(self):
+        if self.dataModelShow == 1:
+            if self.quantifier == "kg":
+                return "$ " + "{:.2f}".format(self.price) + " /Kg"
+            elif self.quantifier == "lb":
+                lb = self._productWeightInBasket / 453.59237
+                price = self.price / 1000 * 453.59237
+                if lb < 1:
+                    return "$ " + "{:.2f}".format(price / 16) + " /oz"
+                elif lb >= 1:
+                    return "$ " + "{:.2f}".format(price) + " /lb"
+        else:
+            return "$ " + "{:.2f}".format(self.price) + " /each"
+
+    def get_totalPriceQML(self):
+        if self.productType == "weighted":
+            return "$ " + "{:.2f}".format(self.price * self.productWeightInBasket / 1000)
+        else:
+            return "$ " + "{:.2f}".format(self.price * self.countInBasket)
+
     def get_finalPriceQML(self):   # unit price with discount
         if self.dataModelShow == 1:
             if self.quantifier == "kg":

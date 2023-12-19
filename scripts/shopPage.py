@@ -1,9 +1,11 @@
+import json
 import os
 import sys
 import time
 from time import sleep
 from threading import Thread
 from email_validator import validate_email, EmailNotValidError
+from datetime import datetime
 import uuid
 
 from PySide2.QtCore import QObject, Signal, Property, Slot
@@ -1049,13 +1051,45 @@ class ShopPage(QObject):
 
     @Slot(str)
     def send_factorEmailClicked(self, emailAddress: str):
-        # factor = {}
-        # factor["emailAddress"] = emailAddress
-        # if self._user.get_loggedInUser().get_id() != "":
-        #     factor["userId"] = self._user.get_loggedInUser().get_id()
-        # else:
-        #     factor["userId"] = uuid.uuid4()
+        factor = {}
+        factor["emailAddress"] = emailAddress
+        factor["paymentTime"] = str(datetime.now())
+        with open("/home/aptinet/basketName.txt", 'r') as f:
+            factor["basketName"] = f.readline()
 
+        if self._user.get_loggedInUser().get_id() != "":
+            factor["userId"] = self._user.get_loggedInUser().get_id()
+        else:
+            factor["userId"] = self._user.get_id()
+
+        factor["totalCount"] = str(self._factorList.get_totalCount())
+        factor["totalPrice"] = str(self._factorList.get_pricenodiscount())
+        factor["totalFinalPrice"] = str(self._factorList.get_finalprice())
+        factor["totalTax"] = str(self._factorList.get_tax())
+        factor["totalSaving"] = str(self._factorList.getProfit())
+        factor["priceToPay"] = str(self._factorList.get_priceToPay())
+        if self._factorList.get_offerCouponPercentage() != 0:
+            factor["coupon"] = ""
+        else:
+            factor["coupon"] = "221222"
+
+        factor["products"] = []
+        for p in self._factorList.m_data:
+            prod = {}
+            prod["barcode"] = p.get_barcode()
+            prod["name"] = p.get_name()
+            prod["count"] = str(p.get_countInBasket())
+            prod["weight"] = str(p.get_productWeightInBasket())
+            prod["productPrice"] = p.get_priceQML()
+            prod["productTotalPrice"] = p.get_totalPriceQML()
+            prod["productFinalPrice"] = p.get_finalPriceQML()
+            prod["productTotalFinalPrice"] = p.get_totalFinalPriceQML()
+            prod["productSaving"] = p.get_totalSavingQML()
+            prod["productTax"] = p.get_totalTaxQML()
+            factor["products"].append(prod)
+        jsonFactorString = json.dumps(factor)
+        with open("/home/aptinet/factor.json", 'w', encoding='utf-8') as f:
+            f.write(jsonFactorString)
 
         try:
             v = validate_email(emailAddress)
