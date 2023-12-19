@@ -6,64 +6,16 @@ from Models.product import Product
 
 
 class UserFactoreRepository:
-    
+
     dal: DAL
-    
+
     def __init__(self, dataAccessLayer: DAL) -> None:
         self.dal = dataAccessLayer
         self.dal.Connect()
-        
-    def get_factoreByPhone(self, phone):
+
+    def insertFactor(self, userid: str, Productbarcode: str, Count: str, Weight: str, Price: str, FinalPrice: str, tax: str, saving: str):
         query = QSqlQuery()
-        query.exec_(
-            "SELECT count, price, finalPrice, tax"
-            "FROM userFactor"
-            "JOIN ServerUser ON userFactore.uid  = ServerUser.id"
-            "WHERE ServerUser.phone = '"+phone+"'"
-        )
-        
-        factore = UserFactoreModel()
-        while query.next():
-            factore.set_count(query.value(0))
-            factore.set_price(query.value(1))
-            factore.set_finalPrice(query.value(2))
-            factore.set_tax(query.value(3))
-        return factore
-            
-        
-    def get_factoreByEmail(self, email):
-        query = QSqlQuery()
-        
-        query.exec_(
-            "SELECT count, price, finalPrice, tax"
-            "FROM userFactor"
-            "JOIN ServerUser ON userFactore.uid  = ServerUser.id"
-            "WHERE ServerUser.email = '"+email+"'"
-        )
-        factore = UserFactoreModel()
-        while query.next():
-            factore.set_count(query.value(0))
-            factore.set_price(query.value(1))
-            factore.set_finalPrice(query.value(2))
-            factore.set_tax(query.value(3))
-        return factore
-            
-        
-    def get_factoreById(self, id):
-        query = QSqlQuery()
-        query.exec_(
-            "SELECT p.name, uf.count, uf.price, uf.finalPrice, uf.tax"
-            "FROM userFactor as uf"
-            "JOIN product AS p ON uf.productBarcode = p.barcode"
-            "WHERE uf.id = '"+id+"'"
-        )
-        p = Product()
-        factore = UserFactoreModel()
-        while query.next():
-            factore.set_count(query.value(0))
-            factore.set_price(query.value(1))
-            factore.set_finalPrice(query.value(2))
-            factore.set_tax(query.value(3))
-            p.set_name(query.value(4))
-        return factore, p
-            
+        if (query.exec_("insert into userFactor (UserId,Productbarcode,Count,Weight,Price,FinalPrice,tax,saving) VALUES ('"+str(userid)+"','"+Productbarcode+"','"+Count+"','"+Weight+"','"+Price+"','"+FinalPrice+"','"+tax+"','"+saving+"')")):
+            return True
+        else:
+            return False

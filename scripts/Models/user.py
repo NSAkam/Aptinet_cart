@@ -3,7 +3,7 @@ from Models.serverUser import ServerUser
 
 
 class User(QObject):
-    _id: int
+    _id: str
     _usId: str
     _regTime: str = 0
     _rate: int = 0
@@ -29,7 +29,7 @@ class User(QObject):
         self._id = value
         self.changedSignal.emit()
 
-    id = Property(int, get_id, set_id, notify=changedSignal)
+    id = Property(str, get_id, set_id, notify=changedSignal)
 
     def get_usId(self):
         return self._usId
