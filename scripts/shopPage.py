@@ -22,6 +22,7 @@ from Services.weightsensor import WeightSensorWorker
 from Services.nfc import nfc
 from Services.lang import languageReader
 from Services.logStash import LogStash
+from Services.restapi import restAPI
 
 from Helpers.scannerHelper import ScannerHelper
 # from Helpers.weightSensorHelper import WeightSensorHelper
@@ -42,6 +43,8 @@ class ShopPage(QObject):
     _lightestWeightForLightWeightProduct: int = 8
     _basketWeightTolerance: int = 50  # better fit: 25
     _pluCodeLength: int = 4
+    _mailServiceURL = "https://aptinet.irannk.com/api/APP/sendMail"
+
 
     ######################################################################################################### Models ###
     _factorList: ProductModel
@@ -65,6 +68,7 @@ class ShopPage(QObject):
     _newProduct: Product
     _lang: languageReader
     _logger: LogStash
+    _restAPI: restAPI
 
     ######################################################################################################## Private ###
     _state: int = 1
@@ -100,6 +104,7 @@ class ShopPage(QObject):
         self._lang = language
         self._user = user
         self._logger = LogStash(self._dal)
+        self._restAPI = restAPI()
 
         #### Repositories #########################################
         self._userRepository = UserRepository(self._dal)
@@ -1051,54 +1056,56 @@ class ShopPage(QObject):
 
     @Slot(str)
     def send_factorEmailClicked(self, emailAddress: str):
-        factor = {}
-        factor["emailAddress"] = emailAddress
-        factor["paymentTime"] = str(datetime.now())
-        with open("/home/aptinet/basketName.txt", 'r') as f:
-            factor["basketName"] = f.readline()
-
-        if self._user.get_loggedInUser().get_id() != "":
-            factor["userId"] = self._user.get_loggedInUser().get_id()
-        else:
-            factor["userId"] = self._user.get_id()
-
-        factor["totalCount"] = str(self._factorList.get_totalCount())
-        factor["totalPrice"] = "{:.2f}".format(self._factorList.get_pricenodiscount())
-        factor["totalFinalPrice"] = "{:.2f}".format(self._factorList.get_finalprice())
-        factor["totalTax"] = "{:.2f}".format(self._factorList.get_tax())
-        factor["totalSaving"] = "{:.2f}".format(self._factorList.getProfit())
-        factor["priceToPay"] = "{:.2f}".format(self._factorList.get_priceToPay())
-        if self._factorList.get_offerCouponPercentage() != 0:
-            factor["coupon"] = ""
-        else:
-            factor["coupon"] = "221222"
-
-        factor["products"] = []
-        for p in self._factorList.m_data:
-            prod = {}
-            prod["barcode"] = p.get_barcode()
-            prod["name"] = p.get_name()
-            if p.get_productType == "weighted":
-                prod["count"] = "1"
-                prod["weight"] = str(p.get_productWeightInBasket())
-            else:
-                prod["count"] = str(p.get_countInBasket())
-                prod["weight"] = ""
-
-            prod["productPrice"] = p.get_priceQML()
-            prod["productTotalPrice"] = p.get_totalPriceQML()
-            prod["productFinalPrice"] = p.get_finalPriceQML()
-            prod["productTotalFinalPrice"] = p.get_totalFinalPriceQML()
-            prod["productSaving"] = p.get_totalSavingQML()
-            prod["productTax"] = p.get_totalTaxQML()
-            factor["products"].append(prod)
-        jsonFactorString = json.dumps(factor)
-        with open("/home/aptinet/factor.json", 'w', encoding='utf-8') as f:
-            f.write(jsonFactorString)
-
         try:
             v = validate_email(emailAddress)
             email = v["email"]
+            factor = {}
+            factor["emailAddress"] = emailAddress
+            factor["paymentTime"] = str(datetime.now())
+            with open("/home/aptinet/basketName.txt", 'r') as f:
+                factor["basketName"] = f.readline()
+
+            if self._user.get_loggedInUser().get_id() != "":
+                factor["userId"] = self._user.get_loggedInUser().get_id()
+            else:
+                factor["userId"] = self._user.get_id()
+
+            factor["totalCount"] = str(self._factorList.get_totalCount())
+            factor["totalPrice"] = "{:.2f}".format(self._factorList.get_pricenodiscount())
+            factor["totalFinalPrice"] = "{:.2f}".format(self._factorList.get_finalprice())
+            factor["totalTax"] = "{:.2f}".format(self._factorList.get_tax())
+            factor["totalSaving"] = "{:.2f}".format(self._factorList.getProfit())
+            factor["priceToPay"] = "{:.2f}".format(self._factorList.get_priceToPay())
+            if self._factorList.get_offerCouponPercentage() != 0:
+                factor["coupon"] = ""
+            else:
+                factor["coupon"] = "221222"
+
+            factor["products"] = []
+            for p in self._factorList.m_data:
+                prod = {}
+                prod["barcode"] = p.get_barcode()
+                prod["name"] = p.get_name()
+                if p.get_productType == "weighted":
+                    prod["count"] = "1"
+                    prod["weight"] = str(p.get_productWeightInBasket())
+                else:
+                    prod["count"] = str(p.get_countInBasket())
+                    prod["weight"] = ""
+
+                prod["productPrice"] = p.get_priceQML()
+                prod["productTotalPrice"] = p.get_totalPriceQML()
+                prod["productFinalPrice"] = p.get_finalPriceQML()
+                prod["productTotalFinalPrice"] = p.get_totalFinalPriceQML()
+                prod["productSaving"] = p.get_totalSavingQML()
+                prod["productTax"] = p.get_totalTaxQML()
+                factor["products"].append(prod)
+            jsonFactorString = json.dumps(factor)
+            # with open("/home/aptinet/factor.json", 'w', encoding='utf-8') as f:
+            #     f.write(jsonFactorString)
+
+            self._restAPI.Post(self._mailServiceURL, jsonFactorString)
+
             self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Your_factor_will_be_send_to"] + email)
             playSound(self._lang.lst["sound_Your_factor_will_be_send_to"])
             self._logger.insertLog("request for send factor", emailAddress, self._user.get_id())
