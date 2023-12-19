@@ -1078,8 +1078,13 @@ class ShopPage(QObject):
             prod = {}
             prod["barcode"] = p.get_barcode()
             prod["name"] = p.get_name()
-            prod["count"] = str(p.get_countInBasket())
-            prod["weight"] = str(p.get_productWeightInBasket())
+            if p.get_productType == "weighted":
+                prod["count"] = "1"
+                prod["weight"] = str(p.get_productWeightInBasket())
+            else:
+                prod["count"] = str(p.get_countInBasket())
+                prod["weight"] = ""
+
             prod["productPrice"] = p.get_priceQML()
             prod["productTotalPrice"] = p.get_totalPriceQML()
             prod["productFinalPrice"] = p.get_finalPriceQML()
