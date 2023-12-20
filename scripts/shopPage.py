@@ -169,7 +169,10 @@ class ShopPage(QObject):
     showTopBtnSignal = Signal()  # show manual barcode btn and PLU btn
     showCheckOutSignal = Signal()  # show check out view
     showPaymentSignal = Signal(int)   # 0 for NFC payment, 1 for Qr payment
+    showPaymentPinSignal = Signal()
     showAfterPaymentSignal = Signal()
+
+    basketLoadChangedSignal = Signal(int)
 
     #### Popup Signals ############################################
     closeAllPopUpSignal = Signal()
@@ -290,6 +293,7 @@ class ShopPage(QObject):
 
     def set_basketLoad(self, v: int):
         self._basketLoad = v
+        self.basketLoadChangedSignal.emit(self._basketLoad)
         self.changedSignal.emit()
 
     basketLoad = Property(int, get_basketLoad, set_basketLoad, notify=changedSignal)
@@ -440,6 +444,7 @@ class ShopPage(QObject):
                         else:
                             self._shouldBarcodeToBeScannToAddProduct = True
                             self.openPopupNoBarcodeScannedSignal.emit()
+                            playSound(self._lang.lst["sound_First_take_the_barcode_of_the_product_in_front_of_the_barcode_scanner_then_put_it_in_the_cart"])
                             if abs(value) > 20:
                                 # notifSound()
                                 playSound(self._lang.lst["sound_notif"])
@@ -448,13 +453,13 @@ class ShopPage(QObject):
 
                     else:
                         self.openPopupNoBarcodeScannedSignal.emit()
+                        playSound(self._lang.lst["sound_First_take_the_barcode_of_the_product_in_front_of_the_barcode_scanner_then_put_it_in_the_cart"])
                         if abs(value) > 20:
                             # notifSound()
                             playSound(self._lang.lst["sound_notif"])
                         self._basketWeightShouldBe = val1
                         self.state = 4
                         self._shouldBarcodeToBeScannToAddProduct = True
-
 
                 elif self.state == 2:
                     if self.newProduct.insertedWeight < self._validInsertedWeightForCalTol:
@@ -463,6 +468,7 @@ class ShopPage(QObject):
                         self._productRepository.updateProduductWeight(self.newProduct, val2 - val1)
                         self._factorList.insertProduct(self.newProduct, 1)
                         self._bypassList.insertProduct(self.newProduct.copy_product(), 1)
+                        self.cal_basketLoad(val2)
                         if self.newProduct.meanWeight > self._lightestWeightForHeavyProduct + self._weightSensor.acceptable_tolerance:
                             self._weightSensor.lightest_weight = self._lightestWeightForHeavyProduct
                         self.clear_stackView()
@@ -479,6 +485,7 @@ class ShopPage(QObject):
                             self._productRepository.updateProduductWeight(self.newProduct, val2 - val1)
                             self._factorList.insertProduct(self._newProduct, 1)
                             self._bypassList.insertProduct(self._newProduct, 1)
+                            self.cal_basketLoad(val2)
                             if self.newProduct.meanWeight > self._lightestWeightForHeavyProduct + self._weightSensor.acceptable_tolerance:
                                 self._weightSensor.lightest_weight = self._lightestWeightForHeavyProduct
                             self.clear_stackView()
@@ -488,12 +495,10 @@ class ShopPage(QObject):
                             self._shouldBarcodeToBeScannToAddProduct = False
                         else:
                             self.openPopupWeightNotMatchWithBarcodeSignal.emit()
-                            # notifSound()
-                            playSound(self._lang.lst["sound_notif"])
+                            playSound(self._lang.lst["sound_Please_put_the_product_you_scanned_into_the_cart"])
                             self._basketWeightShouldBe = val1
                             self.state = 3
                             self._shouldBarcodeToBeScannToAddProduct = True
-
 
                 elif self.state == 3:
                     if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
@@ -762,9 +767,8 @@ class ShopPage(QObject):
     def nfc_read(self):
         if self.state == 10:
             self._logger.insertLog("nfc read", "", self._user.get_id())
-            self.state = 12
-            self.showAfterPaymentSignal.emit()
-            self.turn_onGreenLight()
+            self.showPaymentPinSignal.emit()
+
 
     ####################################################################################################### UI Sluts ###
     @Slot()
@@ -835,7 +839,7 @@ class ShopPage(QObject):
             else:
                 self._shouldBarcodeToBeScannToAddProduct = True
                 self.openPopupNoBarcodeScannedSignal.emit()
-                playSound(self._lang.lst["sound_notif"])
+                playSound(self._lang.lst["sound_First_take_the_barcode_of_the_product_in_front_of_the_barcode_scanner_then_put_it_in_the_cart"])
                 self.state = 4
 
     @Slot(str)
@@ -1056,6 +1060,18 @@ class ShopPage(QObject):
             self.state = 8
 
     @Slot(str)
+    def enter_pinPayment(self, pin: str):
+        print(pin)
+        if self.state == 10:
+            if pin == "2212":
+                self.state = 12
+                self.showAfterPaymentSignal.emit()
+                self.turn_onGreenLight()
+            else:
+                self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Invalid_pin_code_entered_Please_try_again"])
+                playSound(self._lang.lst["sound_Invalid_pin_code_entered_Please_try_again"])
+
+    @Slot(str)
     def send_factorEmailClicked(self, emailAddress: str):
         self._enteredEmail = emailAddress
         self.openPopupMessageSignal.emit(self._lang.lst["mess_Your_factor_will_be_send_to"] + self._enteredEmail)
@@ -1064,7 +1080,6 @@ class ShopPage(QObject):
 
         self._emailThread = Thread(target=self.send_emailFactorThread)
         self._emailThread.start()
-
 
     @Slot(int)
     def rate_cart(self, rate: int):
