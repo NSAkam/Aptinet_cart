@@ -1112,6 +1112,9 @@ class ShopPage(QObject):
             self._logger.insertLog("rate", str(rate), self._user.get_id())
             print(rate)
             self._userRepository.updateRate(self._user.get_id(), str(rate))
+            self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Tanks_for_yor_rating"])
+            playSound(self._lang.lst["sound_Tanks_for_yor_rating"])
+
 
     ###################################################################################################### Functions ###
     def print_states(self):
