@@ -95,6 +95,8 @@ class Logic(QObject):
     showPopupMessageTimerSignal = Signal(str)
     languageChangedSignal = Signal()
 
+    openLoginPopupMessageSignal = Signal(str)
+    closeLogicPopupMessageSignal = Signal()
     openPopupMessageBattery = Signal()
     closePopupMessageBattery = Signal()
 
@@ -241,9 +243,11 @@ class Logic(QObject):
     def check_batteryLevel(self):
         if self._batteryPopup:
             if self._battery.batteryLevel > self._batteryLevelForRestart:
-                self.closePopupMessageBattery.emit()
+                # self.closePopupMessageBattery.emit()
+                self.closeLogicPopupMessageSignal.emit()
                 self._batteryPopup = False
         else:
             if self._battery.batteryLevel < self._batteryLevelForStop:
-                self.openPopupMessageBattery.emit()
+                # self.openPopupMessageBattery.emit()
+                self.openLoginPopupMessageSignal.emit(self._lang.lst["mess_Please_connect_to_charger"])
                 self._batteryPopup = True
