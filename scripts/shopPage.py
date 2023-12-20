@@ -96,6 +96,7 @@ class ShopPage(QObject):
     _requestForSendingEmail: bool = False
     _enteredEmail: str = ""
     _emailException: str = ""
+    _couponCode: str = ""
 
     ######################################################################################################## Modules ###
     _weightSensor: WeightSensorWorker
@@ -1040,6 +1041,7 @@ class ShopPage(QObject):
     def apply_couponCode(self, code):
         if self.state == 8:
             if code == "221222":
+                self._couponCode = "221222"
                 self._logger.insertLog("apply coupon", str(code), self._user.get_id())
                 self.factorList.set_offerCouponPercentage(10.0)
             else:
@@ -1267,6 +1269,7 @@ class ShopPage(QObject):
 
     def save_factorLocal(self):
         try:
+            self._userRepository.updateFactorprices(self._user.get_id(), self._factorList.get_pricenodiscount(), self._factorList.get_finalprice(), self._couponCode)
             for prod in self._factorList.m_data:
                 count = ""
                 weight = ""
