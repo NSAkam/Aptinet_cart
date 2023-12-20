@@ -379,6 +379,7 @@ Item{
 
     InsertPupUp{
         id:insertPopUp
+        obj_settingLogicInsertPopUp: obj_LogicContainer
         title: obj_LogicContainer.lang.txt_Insert_Tax
         onClosePup: {
             insertPopUp.close()

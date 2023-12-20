@@ -10,7 +10,8 @@ Item {
     id:lstFactor
     property Logic obj_LogicContainerLstCheckProducts
     signal gocheckout()
-
+    width: 1280
+    height: 800
 
     anchors.fill: parent
     Rectangle{
@@ -99,7 +100,7 @@ Item {
                     text: modelData.totalTaxQML
                     x:430
                     y:86
-                    
+
                     font.pixelSize: 24
                 }
                 Text {
@@ -312,12 +313,13 @@ Item {
             y:83
         }
         Image {
-            source: "../../Assets/fullBasket.png"
+            id:img_loadbasket
+            source: "../../Assets/emptyBasket.png"
             width: 84
             height: 84
             x:32
             y:28
-            visible: false
+            visible: true
         }
         KButton{
             id:btn_Checkout
@@ -332,6 +334,24 @@ Item {
             btn_borderWidth: 0
             onClicked: {
                 obj_LogicContainerLstCheckProducts.shopPage.checkout_clicked()
+            }
+        }
+    }
+
+    Connections{
+        target:obj_LogicContainerLstCheckProducts.shopPage
+        function onBasketLoadChangedSignal(v){
+            if(v <= 10 ){
+                img_loadbasket.source = "../../Assets/emptyBasket.png"
+            }
+            else if(v > 10 && v <= 50){
+                img_loadbasket.source = "../../Assets/firstBasket.png"
+            }
+            else if(v > 50 && v !== 100){
+                img_loadbasket.source = "../../Assets/secondBasket.png"
+            }
+            else if(v === 100 ){
+                img_loadbasket.source = "../../Assets/fullBasket.png"
             }
         }
     }

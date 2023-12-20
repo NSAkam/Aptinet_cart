@@ -4,13 +4,18 @@ import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import "../Utiles"
 import "../Components"
+import KAST.Logic 1.0
+
 
 Popup {
     id: popup_insert
 
+    property Logic obj_settingLogicInsertPopUp
+
     ViewSettings{
         id:viewset
     }
+
     signal closePup()
 
     signal enter(key:string)
@@ -55,7 +60,7 @@ Popup {
             }
 
             Text {
-                text: "Close"
+                text: obj_settingLogicInsertPopUp.lang.btn_close
                 y:64
                 x:32
                 font.pixelSize: 24
@@ -68,7 +73,7 @@ Popup {
                 }
             }
             Text {
-                text: "Enter"
+                text: obj_settingLogicInsertPopUp.lang.txt_Enter
                 color: viewset.secondaryColor
                 font.pixelSize: 24
                 x:641
