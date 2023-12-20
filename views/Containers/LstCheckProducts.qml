@@ -314,7 +314,20 @@ Item {
         }
         Image {
             id:img_loadbasket
-            source: "../../Assets/emptyBasket.png"
+            source: {
+                if(obj_LogicContainerLstCheckProducts.shopPage.basketLoad <= 10 ){
+                    return "../../Assets/emptyBasket.png"
+                }
+                else if(obj_LogicContainerLstCheckProducts.shopPage.basketLoad > 10 && obj_LogicContainerLstCheckProducts.shopPage.basketLoad <= 50){
+                    return "../../Assets/firstBasket.png"
+                }
+                else if(obj_LogicContainerLstCheckProducts.shopPage.basketLoad > 50 && obj_LogicContainerLstCheckProducts.shopPage.basketLoad !== 100){
+                    return "../../Assets/secondBasket.png"
+                }
+                else if(obj_LogicContainerLstCheckProducts.shopPage.basketLoad === 100 ){
+                    return "../../Assets/fullBasket.png"
+                }
+            }
             width: 84
             height: 84
             x:32
@@ -338,23 +351,23 @@ Item {
         }
     }
 
-    Connections{
-        target:obj_LogicContainerLstCheckProducts.shopPage
-        function onBasketLoadChangedSignal(v){
-            if(v <= 10 ){
-                img_loadbasket.source = "../../Assets/emptyBasket.png"
-            }
-            else if(v > 10 && v <= 50){
-                img_loadbasket.source = "../../Assets/firstBasket.png"
-            }
-            else if(v > 50 && v !== 100){
-                img_loadbasket.source = "../../Assets/secondBasket.png"
-            }
-            else if(v === 100 ){
-                img_loadbasket.source = "../../Assets/fullBasket.png"
-            }
-        }
-    }
+//    Connections{
+//        target:obj_LogicContainerLstCheckProducts.shopPage
+//        function onBasketLoadChangedSignal(v){
+//            if(v <= 10 ){
+//                img_loadbasket.source = "../../Assets/emptyBasket.png"
+//            }
+//            else if(v > 10 && v <= 50){
+//                img_loadbasket.source = "../../Assets/firstBasket.png"
+//            }
+//            else if(v > 50 && v !== 100){
+//                img_loadbasket.source = "../../Assets/secondBasket.png"
+//            }
+//            else if(v === 100 ){
+//                img_loadbasket.source = "../../Assets/fullBasket.png"
+//            }
+//        }
+//    }
 
 }
 
