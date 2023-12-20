@@ -306,11 +306,11 @@ class ShopPage(QObject):
     ########################################################################################################## Sluts ###
     @Slot()
     def barcodeRead(self):
-        print("barcode:", self._scanner.get_barcode())
         self.closePopUpMessageTimer.emit()
         if not self._inByPass:
             self._logger.insertLog("read product code", self._scanner.get_barcode(), self._user.get_id())
             product = self._productRepository.get_product(self._scanner.get_barcode())
+            self._shouldBarcodeToBeScannToAddProduct = True
             if product.price == 0:
                 validProduct = False
             else:
@@ -453,6 +453,8 @@ class ShopPage(QObject):
                             playSound(self._lang.lst["sound_notif"])
                         self._basketWeightShouldBe = val1
                         self.state = 4
+                        self._shouldBarcodeToBeScannToAddProduct = True
+
 
                 elif self.state == 2:
                     if self.newProduct.insertedWeight < self._validInsertedWeightForCalTol:
@@ -490,6 +492,8 @@ class ShopPage(QObject):
                             playSound(self._lang.lst["sound_notif"])
                             self._basketWeightShouldBe = val1
                             self.state = 3
+                            self._shouldBarcodeToBeScannToAddProduct = True
+
 
                 elif self.state == 3:
                     if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
@@ -609,6 +613,7 @@ class ShopPage(QObject):
                         self.closePopupMessageSignal.emit()
 
                 elif self.state == 1:
+                    self._shouldBarcodeToBeScannToAddProduct = True
                     self._removeList.validBarcodeSetForRemove(self._factorList.m_data, abs(value))
                     if not len(self._removeList.m_validBarcodeSetForDelete) == 0:
                         self._removeLookupList.clearData()
@@ -622,6 +627,7 @@ class ShopPage(QObject):
                         self.state = 5
 
                 elif self.state == 2:
+                    self._shouldBarcodeToBeScannToAddProduct = True
                     self._removeList.validBarcodeSetForRemove(self._factorList.m_data, abs(value))
                     self.clear_stackView()
                     self.openPopupDeleteProductSignal.emit()
@@ -799,7 +805,6 @@ class ShopPage(QObject):
 
     @Slot(str)
     def confirm_manualBarcodeClicked(self, barcode: str):
-        print(barcode)
         if self.state == 1:
             if len(barcode) == self._scanner.get_productBarcodeLength():
                 if self._productRepository.get_product(barcode).price != 0:
@@ -843,7 +848,6 @@ class ShopPage(QObject):
             self.openPopupMessageSignal.emit(self._lang.lst["mess_Taring_Please_dont_move_basket"])
             playSound(self._lang.lst["sound_Taring_Please_dont_move_basket"])
             if self._canCreatePLUCheckThread:
-                print("start thread")
                 self._PLUThread = Thread(target=self.taringPLU)
                 self._PLUThread.start()
 
@@ -853,7 +857,6 @@ class ShopPage(QObject):
             self.openPopupMessageSignal.emit(self._lang.lst["mess_Taring_Please_dont_move_basket"])
             playSound(self._lang.lst["sound_Taring_Please_dont_move_basket"])
             if self._canCreatePLUCheckThread:
-                print("start thread")
                 self._PLUThread = Thread(target=self.taringPLU)
                 self._PLUThread.start()
 
@@ -939,7 +942,6 @@ class ShopPage(QObject):
 
     @Slot(str)
     def product_removeManualBarcodeEntered(self, barcode: str):
-        print(barcode)
         if self.state == 5:
             if len(barcode) == self._scanner.get_productBarcodeLength() or len(barcode) == self._pluCodeLength:
                 self._scanner._barcode = barcode
@@ -1018,7 +1020,6 @@ class ShopPage(QObject):
     @Slot(str)
     def apply_couponCode(self, code):
         if self.state == 8:
-            # print(code)
             if code == "221222":
                 self._logger.insertLog("apply coupon", str(code), self._user.get_id())
                 self.factorList.set_offerCouponPercentage(10.0)
@@ -1112,8 +1113,8 @@ class ShopPage(QObject):
         self._factorList.insertProduct(p, c)
         self._bypassList.insertProduct(p.copy_product(), c)
         if u:
+            pass
             # self._factorList.updateWeight(p, w2 - w1)
-            print("------------------------->update ?")
         self._basketWeightShouldBe = w2
         self.cal_basketLoad(w2)
 
