@@ -157,6 +157,8 @@ class ShopPage(QObject):
     ######################################################################################################## Signals ###
     changedSignal = Signal()
 
+    tempSignal = Signal()
+
     #### Stack view Signals #######################################
     clearStackViewSignal = Signal()  # clear stack view
     closeTopStackViewSignal = Signal()  # close top stack view. maybe used for several purpose like close new product scanned stack view
@@ -1248,9 +1250,9 @@ class ShopPage(QObject):
             self._badEmail = True
             self.closePopupMessageSignal.emit()
             print(str(e))
-            tempSignal = Signal()
-            tempSignal.connect(self.tempSlot)
-            tempSignal.emit()
+
+            self.tempSignal.connect(self.tempSlot)
+            self.tempSignal.emit()
             # self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Please_check_your_email_address"] + str(e))
             # playSound(self._lang.lst["sound_Please_check_your_email_address"])
             # self._requestForSendingEmail = False
