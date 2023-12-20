@@ -45,7 +45,7 @@ class ShopPage(QObject):
     _basketWeightTolerance: int = 20  # better fit: 25
     _pluCodeLength: int = 4
     _mailServiceURL = "https://aptinet.irannk.com/api/APP/sendMail"
-    _saveFactorURL = ""
+    _saveFactorURL = "https://aptinet.irannk.com/api/APP/saveFactor"
 
 
     ######################################################################################################### Models ###
