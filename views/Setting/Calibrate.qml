@@ -452,6 +452,7 @@ Item {
 
 
     KButton{
+        id:btn_save
         width: 471
         height: 80
         x:612
@@ -461,6 +462,8 @@ Item {
         onClicked: {
             obj_LogicCalibrate.settingPage.weightsensor.saveCalibration();
             obj_LogicCalibrate.settingPage.save_calibrationClicked()
+            btn_save.btn_color = "#4696FA"
+            stackview.pop()
         }
     }
     Label{
