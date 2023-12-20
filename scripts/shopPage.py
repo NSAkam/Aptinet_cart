@@ -41,7 +41,7 @@ class ShopPage(QObject):
     _lightestProductWeight: int = 11  # grams
     _lightestWeightForHeavyProduct: int = 25  # grams
     _lightestWeightForLightWeightProduct: int = 8
-    _basketWeightTolerance: int = 50  # better fit: 25
+    _basketWeightTolerance: int = 20  # better fit: 25
     _pluCodeLength: int = 4
     _mailServiceURL = "https://aptinet.irannk.com/api/APP/sendMail"
 
