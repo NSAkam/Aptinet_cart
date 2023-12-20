@@ -45,6 +45,7 @@ class ShopPage(QObject):
     _basketWeightTolerance: int = 20  # better fit: 25
     _pluCodeLength: int = 4
     _mailServiceURL = "https://aptinet.irannk.com/api/APP/sendMail"
+    _saveFactorURL = ""
 
 
     ######################################################################################################### Models ###
@@ -1268,6 +1269,7 @@ class ShopPage(QObject):
     def save_factorLocal(self):
         try:
             self._userRepository.updateFactorprices(self._user.get_id(), str(self._factorList.get_pricenodiscount()), str(self._factorList.get_finalprice()), self._couponCode)
+            self.send_factorToServer()
             for prod in self._factorList.m_data:
                 count = ""
                 weight = ""
@@ -1282,4 +1284,49 @@ class ShopPage(QObject):
                                                     str(prod._taxPercentage), prod.savingQML)
         except:
             print("cant save factor locally")
+
+    def send_factorToServer(self):
+        factor = {}
+        factor["paymentTime"] = str(datetime.now())
+        with open("/home/aptinet/basketName.txt", 'r') as f:
+            factor["basketName"] = f.readline()
+
+        if self._user.get_loggedInUser().get_id() != "":
+            factor["userId"] = self._user.get_loggedInUser().get_id()
+        else:
+            factor["userId"] = self._user.get_id()
+
+        factor["totalCount"] = str(self._factorList.get_totalCount())
+        factor["totalPrice"] = "{:.2f}".format(self._factorList.get_pricenodiscount())
+        factor["totalFinalPrice"] = "{:.2f}".format(self._factorList.get_finalprice())
+        factor["totalTax"] = "{:.2f}".format(self._factorList.get_tax())
+        factor["totalSaving"] = "{:.2f}".format(self._factorList.getProfit())
+        factor["priceToPay"] = "{:.2f}".format(self._factorList.get_priceToPay())
+        if self._factorList.get_offerCouponPercentage() != 0:
+            factor["coupon"] = ""
+        else:
+            factor["coupon"] = "221222"
+
+        factor["products"] = []
+        for p in self._factorList.m_data:
+            prod = {}
+            prod["barcode"] = p.get_barcode()
+            prod["name"] = p.get_name()
+            if p.get_productType == "weighted":
+                prod["count"] = "1"
+                prod["weight"] = str(p.get_productWeightInBasket())
+            else:
+                prod["count"] = str(p.get_countInBasket())
+                prod["weight"] = ""
+
+            prod["productPrice"] = p.get_priceQML()
+            prod["productTotalPrice"] = p.get_totalPriceQML()
+            prod["productFinalPrice"] = p.get_finalPriceQML()
+            prod["productTotalFinalPrice"] = p.get_totalFinalPriceQML()
+            prod["productSaving"] = p.get_totalSavingQML()
+            prod["productTax"] = p.get_totalTaxQML()
+            factor["products"].append(prod)
+        jsonFactorString = json.dumps(factor)
+        self._restAPI.Post(self._saveFactorURL, jsonFactorString)
+
 
