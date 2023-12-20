@@ -415,6 +415,7 @@ class ShopPage(QObject):
     @Slot(int, int)
     def basketWeightChanged(self, val2: int, val1: int):
         if not self._inByPass:
+            self.cal_basketLoad(val2)
             self._logger.insertLog("weight change", str(val2 - val1), self._user.get_id())
             value: int = val2 - val1
 
@@ -435,7 +436,7 @@ class ShopPage(QObject):
                             playSound(self._lang.lst["sound_insert"])
                             self._factorList.insertProduct(self.newProduct, 1)
                             self._bypassList.insertProduct(self.newProduct.copy_product(), 1)
-                            self.cal_basketLoad(val2)
+                            # self.cal_basketLoad(val2)
                             self._basketWeightShouldBe = val2
                             self.countDownTimer = -1
 
@@ -468,7 +469,7 @@ class ShopPage(QObject):
                         self._productRepository.updateProduductWeight(self.newProduct, val2 - val1)
                         self._factorList.insertProduct(self.newProduct, 1)
                         self._bypassList.insertProduct(self.newProduct.copy_product(), 1)
-                        self.cal_basketLoad(val2)
+                        # self.cal_basketLoad(val2)
                         if self.newProduct.meanWeight > self._lightestWeightForHeavyProduct + self._weightSensor.acceptable_tolerance:
                             self._weightSensor.lightest_weight = self._lightestWeightForHeavyProduct
                         self.clear_stackView()
@@ -485,7 +486,7 @@ class ShopPage(QObject):
                             self._productRepository.updateProduductWeight(self.newProduct, val2 - val1)
                             self._factorList.insertProduct(self._newProduct, 1)
                             self._bypassList.insertProduct(self._newProduct, 1)
-                            self.cal_basketLoad(val2)
+                            # self.cal_basketLoad(val2)
                             if self.newProduct.meanWeight > self._lightestWeightForHeavyProduct + self._weightSensor.acceptable_tolerance:
                                 self._weightSensor.lightest_weight = self._lightestWeightForHeavyProduct
                             self.clear_stackView()
