@@ -901,15 +901,21 @@ class ShopPage(QObject):
                 playSound(self._lang.lst["sound_Please_wait"])
         elif self.state == 15:
             if self._weightSensor.isstable:
-                self._logger.insertLog("add counted product", str(self._newProduct.countInBasket), self._user.get_id())
-                self._factorList.insertProduct(self.newProduct, self.newProduct.countInBasket)
-                self._bypassList.insertProduct(self.newProduct.copy_product(), self.newProduct.countInBasket)
-                self.state = 1
-                self.clear_stackView()
-                self._basketWeightShouldBe = self._weightSensor.readbasketweight()
-                self.cal_basketLoad(self._basketWeightShouldBe)
-                # insertSound()
-                playSound(self._lang.lst["sound_insert"])
+                if self.newProduct.countInBasket != 0:
+                    self._logger.insertLog("add counted product", str(self._newProduct.countInBasket),
+                                           self._user.get_id())
+                    self._factorList.insertProduct(self.newProduct, self.newProduct.countInBasket)
+                    self._bypassList.insertProduct(self.newProduct.copy_product(), self.newProduct.countInBasket)
+                    self.state = 1
+                    self.clear_stackView()
+                    self._basketWeightShouldBe = self._weightSensor.readbasketweight()
+                    self.cal_basketLoad(self._basketWeightShouldBe)
+                    # insertSound()
+                    playSound(self._lang.lst["sound_insert"])
+                else:
+                    self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_You_select_zero_count"])
+                    playSound(self._lang.lst["sound_You_select_zero_count"])
+
             else:
                 self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Please_wait"])
                 playSound(self._lang.lst["sound_Please_wait"])
