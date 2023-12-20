@@ -38,7 +38,7 @@ class ShopPage(QObject):
     _insertProductTime: int = 8  # actual time = n -1
     _timerOffset: int = 3
     _validInsertedWeightForCalTol: int = 5  # Accept inserted product without checking weight under this limit
-    _basketWeightLimit: int = 10000  # grams
+    _basketWeightLimit: int = 35000  # grams
     _lightestProductWeight: int = 11  # grams
     _lightestWeightForHeavyProduct: int = 25  # grams
     _lightestWeightForLightWeightProduct: int = 8
@@ -887,15 +887,23 @@ class ShopPage(QObject):
     def confirm_PLUItemClicked(self):
         if self.state == 14:
             if self._weightSensor.isstable:
-                self._logger.insertLog("add weighted product", str(self._newProduct.productWeightInBasket),self._user.get_id())
-                self._factorList.insertProduct(self.newProduct, 1)
-                self._bypassList.insertProduct(self.newProduct.copy_product(), 1)
-                self.state = 1
-                self.clear_stackView()
-                self._basketWeightShouldBe = self._pluStartWeight + self.newProduct.productWeightInBasket
-                self.cal_basketLoad(self._basketWeightShouldBe)
-                # insertSound()
-                playSound(self._lang.lst["sound_insert"])
+                if self.newProduct.productWeightInBasket != 0:
+                    self._logger.insertLog("add weighted product", str(self._newProduct.productWeightInBasket),
+                                           self._user.get_id())
+                    self._factorList.insertProduct(self.newProduct, 1)
+                    self._bypassList.insertProduct(self.newProduct.copy_product(), 1)
+                    self.state = 1
+                    self.clear_stackView()
+                    self._basketWeightShouldBe = self._pluStartWeight + self.newProduct.productWeightInBasket
+                    self.cal_basketLoad(self._basketWeightShouldBe)
+                    # insertSound()
+                    playSound(self._lang.lst["sound_insert"])
+                else:
+                    self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_You_select_zero_weight"])
+                    playSound(self._lang.lst["sound_You_select_zero_weight"])
+
+
+
             else:
                 self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Please_wait"])
                 playSound(self._lang.lst["sound_Please_wait"])
