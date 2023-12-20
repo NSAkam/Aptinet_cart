@@ -84,6 +84,7 @@ class UpdateFiles(QObject):
         print("download Compeleted")
         try:
             print("unzipping")
+            os.system("rm -i /home/aptinet/files/*")
             os.system("unzip -o /home/aptinet/AptinetFiles.zip -d /home/aptinet/files")
             # zipfile.ZipFile.extractall("/home/kast/FinalFASKET/FASKET.zip")
             os.remove("/home/aptinet/AptinetFiles.zip")
