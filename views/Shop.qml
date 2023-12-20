@@ -807,7 +807,7 @@ Item {
         }
         onEnter:function (text) {
             insertPopUp.close()
-            obj_LogicContainerShop.settingPage.enter_pinPayment(text)
+            obj_LogicContainerShop.shopPage.enter_pinPayment(text)
         }
     }
     ////////////////////////////////////////////////////
