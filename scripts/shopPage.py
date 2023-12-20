@@ -1056,20 +1056,14 @@ class ShopPage(QObject):
 
     @Slot(str)
     def send_factorEmailClicked(self, emailAddress: str):
-        try:
-            v = validate_email(emailAddress)
-            self._enteredEmailStandard = v["email"]
-            self.openPopupMessageSignal.emit(self._lang.lst["mess_Your_factor_will_be_send_to"] + self._enteredEmailStandard)
-            self._logger.insertLog("request for send factor", emailAddress, self._user.get_id())
-            playSound(self._lang.lst["sound_Your_factor_will_be_send_to"])
+        self._enteredEmail = emailAddress
+        self.openPopupMessageSignal.emit(self._lang.lst["mess_Your_factor_will_be_send_to"] + self._enteredEmail)
+        self._logger.insertLog("request for send factor", emailAddress, self._user.get_id())
+        playSound(self._lang.lst["sound_Your_factor_will_be_send_to"])
 
-            self._emailThread = Thread(target=self.send_emailFactorThread)
-            self._emailThread.start()
+        self._emailThread = Thread(target=self.send_emailFactorThread)
+        self._emailThread.start()
 
-        except EmailNotValidError as e:
-            print(str(e))
-            self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Please_check_your_email_address"] + str(e))
-            playSound(self._lang.lst["sound_Please_check_your_email_address"])
 
     @Slot(int)
     def rate_cart(self, rate: int):
@@ -1172,51 +1166,63 @@ class ShopPage(QObject):
         self._canCreatePLUCheckThread = True
 
     def send_emailFactorThread(self):
-        factor = {}
-        factor["emailAddress"] = self._enteredEmailStandard
-        factor["paymentTime"] = str(datetime.now())
-        with open("/home/aptinet/basketName.txt", 'r') as f:
-            factor["basketName"] = f.readline()
+        try:
+            v = validate_email(self._enteredEmail)
+            standardEmail = v["email"]
 
-        if self._user.get_loggedInUser().get_id() != "":
-            factor["userId"] = self._user.get_loggedInUser().get_id()
-        else:
-            factor["userId"] = self._user.get_id()
+            factor = {}
+            factor["emailAddress"] = standardEmail
+            factor["paymentTime"] = str(datetime.now())
+            with open("/home/aptinet/basketName.txt", 'r') as f:
+                factor["basketName"] = f.readline()
 
-        factor["totalCount"] = str(self._factorList.get_totalCount())
-        factor["totalPrice"] = "{:.2f}".format(self._factorList.get_pricenodiscount())
-        factor["totalFinalPrice"] = "{:.2f}".format(self._factorList.get_finalprice())
-        factor["totalTax"] = "{:.2f}".format(self._factorList.get_tax())
-        factor["totalSaving"] = "{:.2f}".format(self._factorList.getProfit())
-        factor["priceToPay"] = "{:.2f}".format(self._factorList.get_priceToPay())
-        if self._factorList.get_offerCouponPercentage() != 0:
-            factor["coupon"] = ""
-        else:
-            factor["coupon"] = "221222"
-
-        factor["products"] = []
-        for p in self._factorList.m_data:
-            prod = {}
-            prod["barcode"] = p.get_barcode()
-            prod["name"] = p.get_name()
-            if p.get_productType == "weighted":
-                prod["count"] = "1"
-                prod["weight"] = str(p.get_productWeightInBasket())
+            if self._user.get_loggedInUser().get_id() != "":
+                factor["userId"] = self._user.get_loggedInUser().get_id()
             else:
-                prod["count"] = str(p.get_countInBasket())
-                prod["weight"] = ""
+                factor["userId"] = self._user.get_id()
 
-            prod["productPrice"] = p.get_priceQML()
-            prod["productTotalPrice"] = p.get_totalPriceQML()
-            prod["productFinalPrice"] = p.get_finalPriceQML()
-            prod["productTotalFinalPrice"] = p.get_totalFinalPriceQML()
-            prod["productSaving"] = p.get_totalSavingQML()
-            prod["productTax"] = p.get_totalTaxQML()
-            factor["products"].append(prod)
-        jsonFactorString = json.dumps(factor)
-        # with open("/home/aptinet/factor.json", 'w', encoding='utf-8') as f:
-        #     f.write(jsonFactorString)
+            factor["totalCount"] = str(self._factorList.get_totalCount())
+            factor["totalPrice"] = "{:.2f}".format(self._factorList.get_pricenodiscount())
+            factor["totalFinalPrice"] = "{:.2f}".format(self._factorList.get_finalprice())
+            factor["totalTax"] = "{:.2f}".format(self._factorList.get_tax())
+            factor["totalSaving"] = "{:.2f}".format(self._factorList.getProfit())
+            factor["priceToPay"] = "{:.2f}".format(self._factorList.get_priceToPay())
+            if self._factorList.get_offerCouponPercentage() != 0:
+                factor["coupon"] = ""
+            else:
+                factor["coupon"] = "221222"
 
-        self._restAPI.Post(self._mailServiceURL, jsonFactorString)
-        self.closePopupMessageSignal.emit()
+            factor["products"] = []
+            for p in self._factorList.m_data:
+                prod = {}
+                prod["barcode"] = p.get_barcode()
+                prod["name"] = p.get_name()
+                if p.get_productType == "weighted":
+                    prod["count"] = "1"
+                    prod["weight"] = str(p.get_productWeightInBasket())
+                else:
+                    prod["count"] = str(p.get_countInBasket())
+                    prod["weight"] = ""
+
+                prod["productPrice"] = p.get_priceQML()
+                prod["productTotalPrice"] = p.get_totalPriceQML()
+                prod["productFinalPrice"] = p.get_finalPriceQML()
+                prod["productTotalFinalPrice"] = p.get_totalFinalPriceQML()
+                prod["productSaving"] = p.get_totalSavingQML()
+                prod["productTax"] = p.get_totalTaxQML()
+                factor["products"].append(prod)
+            jsonFactorString = json.dumps(factor)
+            # with open("/home/aptinet/factor.json", 'w', encoding='utf-8') as f:
+            #     f.write(jsonFactorString)
+
+            self._restAPI.Post(self._mailServiceURL, jsonFactorString)
+            self.closePopupMessageSignal.emit()
+
+        except EmailNotValidError as e:
+            self.closePopupMessageSignal.emit()
+            print(str(e))
+            self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Please_check_your_email_address"] + str(e))
+            playSound(self._lang.lst["sound_Please_check_your_email_address"])
+
+
 
