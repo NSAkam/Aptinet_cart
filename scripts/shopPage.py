@@ -91,6 +91,8 @@ class ShopPage(QObject):
     _lightWeightProductExistInBasket: bool = False
     _inOfferList: bool = False
     _canCreatePLUCheckThread: bool = True
+    _requestForSendingEmail: bool = False
+    _enteredEmail: str = ""
 
     ######################################################################################################## Modules ###
     _weightSensor: WeightSensorWorker
@@ -1076,13 +1078,15 @@ class ShopPage(QObject):
 
     @Slot(str)
     def send_factorEmailClicked(self, emailAddress: str):
-        self._enteredEmail = emailAddress
-        self.openPopupMessageSignal.emit(self._lang.lst["mess_Your_factor_will_be_send_to"] + self._enteredEmail)
-        self._logger.insertLog("request for send factor", emailAddress, self._user.get_id())
-        playSound(self._lang.lst["sound_Your_factor_will_be_send_to"])
+        if not self._requestForSendingEmail:
+            self._requestForSendingEmail = True
+            self._enteredEmail = emailAddress
+            self.openPopupMessageSignal.emit(self._lang.lst["mess_Your_factor_will_be_send_to"] + self._enteredEmail)
+            self._logger.insertLog("request for send factor", emailAddress, self._user.get_id())
+            playSound(self._lang.lst["sound_Your_factor_will_be_send_to"])
 
-        self._emailThread = Thread(target=self.send_emailFactorThread)
-        self._emailThread.start()
+            self._emailThread = Thread(target=self.send_emailFactorThread)
+            self._emailThread.start()
 
     @Slot(int)
     def rate_cart(self, rate: int):
@@ -1237,12 +1241,14 @@ class ShopPage(QObject):
 
             self._restAPI.Post(self._mailServiceURL, jsonFactorString)
             self.closePopupMessageSignal.emit()
+            self._requestForSendingEmail = False
 
         except EmailNotValidError as e:
             self.closePopupMessageSignal.emit()
             print(str(e))
             self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Please_check_your_email_address"] + str(e))
             playSound(self._lang.lst["sound_Please_check_your_email_address"])
+            self._requestForSendingEmail = False
 
 
 
