@@ -2,6 +2,8 @@ from PySide2.QtCore import QUrl,QObject, Signal,Property, Slot
 from Services.downloader import Downloader
 import zipfile
 import os,sys
+import glob
+
 
 class UpdateSoftware(QObject):
 
@@ -84,7 +86,9 @@ class UpdateFiles(QObject):
         print("download Compeleted")
         try:
             print("unzipping")
-            os.system("rm -i -y /home/aptinet/files/*")
+            files = glob.glob('/home/aptinet/files/*')
+            for f in files:
+                os.remove(f)
             os.system("unzip -o /home/aptinet/AptinetFiles.zip -d /home/aptinet/files")
             # zipfile.ZipFile.extractall("/home/kast/FinalFASKET/FASKET.zip")
             os.remove("/home/aptinet/AptinetFiles.zip")
