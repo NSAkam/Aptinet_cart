@@ -10,11 +10,13 @@ import KAST.Logic 1.0
 
 
 Item {
-
+    id:root
     width: 1280
     height: 800
 
     property Logic obj_LogicContainerAfterPayment
+
+    property bool canrate: true
 
     Util.ViewSettings{
         id:viewset
@@ -45,6 +47,7 @@ Item {
             color: "white"
             x:1156
             y:32
+            visible: false
 
             Image {
                 source: "../Assets/questionmark.png"
@@ -231,7 +234,11 @@ Item {
                     }
                     ishover: false
                     onClicked: {
-                        obj_LogicContainerAfterPayment.shopPage.rate_cart(1)
+                        if(root.canrate === true){
+                            obj_LogicContainerAfterPayment.shopPage.rate_cart(1)
+                            parent.color = viewset.primaryColor
+                            root.canrate = false
+                        }
                     }
                 }
 
@@ -255,7 +262,11 @@ Item {
                     }
                     ishover: false
                     onClicked: {
-                        obj_LogicContainerAfterPayment.shopPage.rate_cart(2)
+                        if(root.canrate === true){
+                            obj_LogicContainerAfterPayment.shopPage.rate_cart(2)
+                            parent.color = viewset.primaryColor
+                            root.canrate = false
+                        }
                     }
                 }
 
@@ -278,7 +289,11 @@ Item {
                     }
                     ishover: false
                     onClicked: {
-                        obj_LogicContainerAfterPayment.shopPage.rate_cart(3)
+                        if(root.canrate === true){
+                            obj_LogicContainerAfterPayment.shopPage.rate_cart(3)
+                            parent.color = viewset.primaryColor
+                            root.canrate = false
+                        }
                     }
                 }
 
@@ -302,7 +317,11 @@ Item {
                     }
                     ishover: false
                     onClicked: {
-                        obj_LogicContainerAfterPayment.shopPage.rate_cart(4)
+                        if(root.canrate === true){
+                            obj_LogicContainerAfterPayment.shopPage.rate_cart(4)
+                            parent.color = viewset.primaryColor
+                            root.canrate = false
+                        }
                     }
 
 
