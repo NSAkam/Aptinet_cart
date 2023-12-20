@@ -337,11 +337,25 @@ Item {
         }
 
     }
+    NotificationPopUp{
+        id:popUp_message
+    }
 
     Connections{
         target:obj_logic.battery
         function onShowBatterySignal(){
             batteryr.visible = true
+        }
+    }
+    Connections{
+        target:obj_logic
+        function onOpenLoginPopupMessageSignal(text){
+            popUp_message.message = text
+            popUp_message.open()
+        }
+
+        function onCloseLogicPopupMessageSignal(){
+            popUp_message.close()
         }
     }
 }
