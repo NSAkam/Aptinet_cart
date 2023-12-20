@@ -10,29 +10,29 @@ import KAST.Logic 1.0
 
 
 Item {
-
+    
     width: 1280
     height: 800
-
+    
     property Logic obj_LogicContainerPaymentNFC
-
-
+    
+    
     Util.ViewSettings{
         id:viewset
     }
-
-
+    
+    
     Image {
         source: "/home/aptinet/files/AuthenticationBackground.png"
         anchors.fill: parent
     }
-
+    
     Rectangle {
         color: "#A37A544D"
         anchors.fill: parent
         opacity: 0.3
     }
-
+    
     Rectangle{
         width: parent.width
         height: 92
@@ -46,7 +46,7 @@ Item {
             stackview.pop()
         }
     }
-
+    
     Image {
         source: "../Assets/Help.png"
         width: 57
@@ -71,23 +71,23 @@ Item {
             height: parent.height
             x:0
             y:0
-//            Rectangle{
-//                width: 50
-//                height: 50
-//                color: viewset.primaryColor
-//                x:530 + 390
-//                y:24
-//                radius: width /2
-//            }
-//            Text {
-//                text: "user Email"
-//                color: "#6D6D6D"
-//                width: 148
-//                height: 15
-//                font.pixelSize: 14
-//                x:586 + 390
-//                y:40.5
-//            }
+            //            Rectangle{
+            //                width: 50
+            //                height: 50
+            //                color: viewset.primaryColor
+            //                x:530 + 390
+            //                y:24
+            //                radius: width /2
+            //            }
+            //            Text {
+            //                text: "user Email"
+            //                color: "#6D6D6D"
+            //                width: 148
+            //                height: 15
+            //                font.pixelSize: 14
+            //                x:586 + 390
+            //                y:40.5
+            //            }
             Image {
                 source: "../Assets/Help.png"
                 width: 57
@@ -108,18 +108,20 @@ Item {
                     }
                 }
             }
-
+            
         }
     }
-
-
-
-    Image {
-        source: "../Assets/payment_animation.png"
+    
+    
+    
+    AnimatedImage {
+        source: "../Assets/Payment.gif"
         x: 498
         y: 185 + topPanel.height
+        width: 283
+        height: 123
     }
-
+    
     Text {
         text: "<font color='#1D1D1D'>"+obj_LogicContainerPaymentNFC.lang.txt_Please_hold_your_phone+"</font><font color='" + viewset.primaryColor + "'> "+obj_LogicContainerPaymentNFC.lang.txt_near_the_display+"<br></font><font color='#1D1D1D'> "+obj_LogicContainerPaymentNFC.lang.txt_until_you_see_a_check_mark+"</font>"
         font.pixelSize: 32
@@ -128,13 +130,13 @@ Item {
         font.bold: true
         horizontalAlignment: Text.AlignHCenter
     }
-
+    
     Image {
         source: "../Assets/ApplePay.png"
         x: 522
         y: 550 + topPanel.height
     }
-
+    
     Image {
         source: "../Assets/GooglePay.png"
         x: 672
@@ -142,11 +144,11 @@ Item {
         MouseArea{
             anchors.fill: parent
             onClicked: {
-
+                
             }
         }
     }
-
+    
     Text {
         text: obj_LogicContainerPaymentNFC.lang.txt_What_are_NFC_payments_NFC_technology_powers_contactless_payments_via_mobile_wallets_like_Apple_Pay_and_Google_Pay_as_well_as_contactless_cards
         x: 292
@@ -155,20 +157,20 @@ Item {
         color: "#6D6D6D"
         horizontalAlignment: Text.AlignHCenter
     }
-
+    
     Component{
         id:afterpaymentPage
         AfterPayment{
             obj_LogicContainerAfterPayment: obj_LogicContainerPaymentNFC
         }
     }
-
+    
     Connections{
         target:obj_LogicContainerPaymentNFC.shopPage
         function onShowAfterPaymentSignal(){
             stackview.push(afterpaymentPage)
         }
     }
-
-
+    
+    
 }
