@@ -415,6 +415,7 @@ class ShopPage(QObject):
     @Slot(int, int)
     def basketWeightChanged(self, val2: int, val1: int):
         if not self._inByPass:
+            print("--------------> val 2:", val2)
             self.cal_basketLoad(val2)
             self._logger.insertLog("weight change", str(val2 - val1), self._user.get_id())
             value: int = val2 - val1
