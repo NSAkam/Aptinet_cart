@@ -93,6 +93,7 @@ class ShopPage(QObject):
     _canCreatePLUCheckThread: bool = True
     _requestForSendingEmail: bool = False
     _enteredEmail: str = ""
+    _badEmail: bool = False
 
     ######################################################################################################## Modules ###
     _weightSensor: WeightSensorWorker
@@ -1244,11 +1245,19 @@ class ShopPage(QObject):
             self._requestForSendingEmail = False
 
         except EmailNotValidError as e:
+            self._badEmail = True
             self.closePopupMessageSignal.emit()
             print(str(e))
-            self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Please_check_your_email_address"] + str(e))
-            playSound(self._lang.lst["sound_Please_check_your_email_address"])
-            self._requestForSendingEmail = False
+            tempSignal = Signal()
+            tempSignal.connect(self.tempSlot)
+            tempSignal.emit()
+            # self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Please_check_your_email_address"] + str(e))
+            # playSound(self._lang.lst["sound_Please_check_your_email_address"])
+            # self._requestForSendingEmail = False
 
 
-
+    @Slot()
+    def tempSlot(self):
+        self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Please_check_your_email_address"] + str(e))
+        playSound(self._lang.lst["sound_Please_check_your_email_address"])
+        self._requestForSendingEmail = False
