@@ -86,7 +86,7 @@ Popup {
         Rectangle{
             width:1000
             height: 400
-            color: "transparent"
+            color: "white"
 
             Rectangle{
                 width: 758
