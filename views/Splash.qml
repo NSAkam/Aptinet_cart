@@ -41,7 +41,6 @@ Item {
     }
 
     FastBlur {
-
         anchors.fill: background
         source: background
         radius: 32
@@ -186,10 +185,11 @@ Item {
         }
     }
     KBattery{
+        id:batteryr
         battery_level: obj_logic.battery.batteryLevel
         x:32
         y:32
-
+        visible: false
     }
     Rectangle{
         id:rect_Clock
@@ -334,6 +334,14 @@ Item {
 
         function onLanguageChangedSignal(){
             cameraProvider.stop()
+        }
+
+    }
+
+    Connections{
+        target:obj_logic.battery
+        function onShowBatterySignal(){
+            batteryr.visible = true
         }
     }
 }
