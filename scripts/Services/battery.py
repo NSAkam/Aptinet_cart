@@ -46,6 +46,7 @@ class BatteryWorker(QThread):
     newLevelSignal = Signal(int)
     stopChargingSignal = Signal()
     chargingSignal = Signal()
+    showBatterySignal = Signal()
 
 
     def get_level(self):
@@ -63,8 +64,8 @@ class BatteryWorker(QThread):
         return self._batteryLevel
 
     def set_batteryLevel(self, v: int):
-        if v < 0:
-            self._batteryLevel = 0
+        if v < 1:
+            self._batteryLevel = 1
         elif v > 100:
             self._batteryLevel = 100
         else:
@@ -91,7 +92,8 @@ class BatteryWorker(QThread):
                     if elecNumber > self._maxElecNumber:
                         self.save_maxElecNumber(elecNumber)
 
-                    self.set_level(int(((elecNumber - self._minElecNumber) / (self._maxElecNumber - self._minElecNumber)) * 100))
+                    x = int(((elecNumber - self._minElecNumber) / (self._maxElecNumber - self._minElecNumber)) * 100)
+                    self.set_level(int((x - 30) / 65))
                     self.new_levelRead(self._level)
                     time.sleep(0.01)
         except:
@@ -108,6 +110,7 @@ class BatteryWorker(QThread):
             self._noiseReductionBuffer.append(level)
             self.set_batteryLevel(int(self.outlierRemover(self._noiseReductionBuffer)))
             self.newLevelSignal.emit(self._batteryLevel)
+            self.showBatterySignal.emit()
             self._initialNoiseReduceBuffer += 1
 
         else:
