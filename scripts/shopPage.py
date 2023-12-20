@@ -1066,6 +1066,7 @@ class ShopPage(QObject):
             if pin == "2212":
                 self.state = 12
                 self.showAfterPaymentSignal.emit()
+                print("after payment signal emitted")
                 self.turn_onGreenLight()
             else:
                 self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Invalid_pin_code_entered_Please_try_again"])
