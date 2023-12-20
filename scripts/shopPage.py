@@ -64,7 +64,6 @@ class ShopPage(QObject):
     _productRepository: ProductRepository
     _factorRepository: UserFactoreRepository
 
-
     ######################################################################################################## Objects ###
     _user: User
     _loggedInUser: ServerUser
@@ -1208,6 +1207,8 @@ class ShopPage(QObject):
         try:
             v = validate_email(self._enteredEmail)
             standardEmail = v["email"]
+
+            self._userRepository.updateEmail(self._user.get_id(), self._enteredEmail)
 
             factor = {}
             factor["emailAddress"] = standardEmail
