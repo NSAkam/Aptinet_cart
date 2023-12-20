@@ -30,6 +30,7 @@ from Helpers.scannerHelper import ScannerHelper
 from Repositories.userRepository import UserRepository
 from Repositories.userServerRepository import UserServerRepository
 from Repositories.productRepository import ProductRepository
+from Repositories.factoreRepository import UserFactoreRepository
 
 
 class ShopPage(QObject):
@@ -44,6 +45,7 @@ class ShopPage(QObject):
     _basketWeightTolerance: int = 20  # better fit: 25
     _pluCodeLength: int = 4
     _mailServiceURL = "https://aptinet.irannk.com/api/APP/sendMail"
+    _saveFactorURL = ""
 
 
     ######################################################################################################### Models ###
@@ -61,6 +63,7 @@ class ShopPage(QObject):
     _userRepository: UserRepository
     _userServerRepository: UserServerRepository
     _productRepository: ProductRepository
+    _factorRepository: UserFactoreRepository
 
     ######################################################################################################## Objects ###
     _user: User
@@ -94,7 +97,7 @@ class ShopPage(QObject):
     _requestForSendingEmail: bool = False
     _enteredEmail: str = ""
     _emailException: str = ""
-    _badEmail: bool = False
+    _couponCode: str = ""
 
     ######################################################################################################## Modules ###
     _weightSensor: WeightSensorWorker
@@ -114,6 +117,7 @@ class ShopPage(QObject):
         self._userRepository = UserRepository(self._dal)
         self._userServerRepository = UserServerRepository(self._dal)
         self._productRepository = ProductRepository(self._dal)
+        self._factorRepository = UserFactoreRepository(self._dal)
 
         #### Barcode Scanner ######################################
         self._scanner = scanner
@@ -777,6 +781,11 @@ class ShopPage(QObject):
             self._logger.insertLog("nfc read", "", self._user.get_id())
             self.showPaymentPinSignal.emit()
 
+    @Slot()
+    def tempSlot(self):
+        self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Please_check_your_email_address"] + self._emailException)
+        playSound(self._lang.lst["sound_Please_check_your_email_address"])
+        self._requestForSendingEmail = False
 
     ####################################################################################################### UI Sluts ###
     @Slot()
@@ -1033,6 +1042,7 @@ class ShopPage(QObject):
     def apply_couponCode(self, code):
         if self.state == 8:
             if code == "221222":
+                self._couponCode = "221222"
                 self._logger.insertLog("apply coupon", str(code), self._user.get_id())
                 self.factorList.set_offerCouponPercentage(10.0)
             else:
@@ -1060,6 +1070,7 @@ class ShopPage(QObject):
         if self.state == 10:
             self.state = 12
             self.showAfterPaymentSignal.emit()
+            self.save_factorLocal()
             self.turn_onGreenLight()
 
     @Slot()
@@ -1074,7 +1085,7 @@ class ShopPage(QObject):
             if pin == "2212":
                 self.state = 12
                 self.showAfterPaymentSignal.emit()
-                print("after payment signal emited")
+                self.save_factorLocal()
                 self.turn_onGreenLight()
             else:
                 self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Invalid_pin_code_entered_Please_try_again"])
@@ -1198,6 +1209,8 @@ class ShopPage(QObject):
             v = validate_email(self._enteredEmail)
             standardEmail = v["email"]
 
+            self._userRepository.updateEmail(self._user.get_id(), self._enteredEmail)
+
             factor = {}
             factor["emailAddress"] = standardEmail
             factor["paymentTime"] = str(datetime.now())
@@ -1248,20 +1261,72 @@ class ShopPage(QObject):
             self._requestForSendingEmail = False
 
         except EmailNotValidError as e:
-            self._badEmail = True
             self.closePopupMessageSignal.emit()
-            # print(str(e))
             self._emailException = str(e)
-
             self.tempSignal.connect(self.tempSlot)
             self.tempSignal.emit()
-            # self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Please_check_your_email_address"] + str(e))
-            # playSound(self._lang.lst["sound_Please_check_your_email_address"])
-            # self._requestForSendingEmail = False
+
+    def save_factorLocal(self):
+        try:
+            self._userRepository.updateFactorprices(self._user.get_id(), str(self._factorList.get_pricenodiscount()), str(self._factorList.get_finalprice()), self._couponCode)
+            # self.send_factorToServer()
+            for prod in self._factorList.m_data:
+                count = ""
+                weight = ""
+                if prod.productType == "weighted":
+                    count = "1"
+                    weight = prod.mountQML
+                else:
+                    count = prod.mountQML
+                    weight = ""
+                self._factorRepository.insertFactor(self._user.get_id(), prod.barcode, count, weight,
+                                                    prod.get_priceQML(), prod.get_finalPriceQML(),
+                                                    str(prod._taxPercentage), prod.savingQML)
+        except:
+            print("cant save factor locally")
+
+    def send_factorToServer(self):
+        factor = {}
+        factor["paymentTime"] = str(datetime.now())
+        with open("/home/aptinet/basketName.txt", 'r') as f:
+            factor["basketName"] = f.readline()
+
+        if self._user.get_loggedInUser().get_id() != "":
+            factor["userId"] = self._user.get_loggedInUser().get_id()
+        else:
+            factor["userId"] = self._user.get_id()
+
+        factor["totalCount"] = str(self._factorList.get_totalCount())
+        factor["totalPrice"] = "{:.2f}".format(self._factorList.get_pricenodiscount())
+        factor["totalFinalPrice"] = "{:.2f}".format(self._factorList.get_finalprice())
+        factor["totalTax"] = "{:.2f}".format(self._factorList.get_tax())
+        factor["totalSaving"] = "{:.2f}".format(self._factorList.getProfit())
+        factor["priceToPay"] = "{:.2f}".format(self._factorList.get_priceToPay())
+        if self._factorList.get_offerCouponPercentage() != 0:
+            factor["coupon"] = ""
+        else:
+            factor["coupon"] = "221222"
+
+        factor["products"] = []
+        for p in self._factorList.m_data:
+            prod = {}
+            prod["barcode"] = p.get_barcode()
+            prod["name"] = p.get_name()
+            if p.get_productType == "weighted":
+                prod["count"] = "1"
+                prod["weight"] = str(p.get_productWeightInBasket())
+            else:
+                prod["count"] = str(p.get_countInBasket())
+                prod["weight"] = ""
+
+            prod["productPrice"] = p.get_priceQML()
+            prod["productTotalPrice"] = p.get_totalPriceQML()
+            prod["productFinalPrice"] = p.get_finalPriceQML()
+            prod["productTotalFinalPrice"] = p.get_totalFinalPriceQML()
+            prod["productSaving"] = p.get_totalSavingQML()
+            prod["productTax"] = p.get_totalTaxQML()
+            factor["products"].append(prod)
+        jsonFactorString = json.dumps(factor)
+        self._restAPI.Post(self._saveFactorURL, jsonFactorString)
 
 
-    @Slot()
-    def tempSlot(self):
-        self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Please_check_your_email_address"] + self._emailException)
-        playSound(self._lang.lst["sound_Please_check_your_email_address"])
-        self._requestForSendingEmail = False

@@ -13,11 +13,13 @@ class BatteryHelper(QObject):
         self._batteryWorker.newLevelSignal.connect(self.new_levelRead)
         self._batteryWorker.chargingSignal.connect(self.charging)
         self._batteryWorker.stopChargingSignal.connect(self.stop_charging)
+        self._batteryWorker.showBatterySignal.connect(self.Show_battery)
         self.set_batteryLevel(50)
 
     batteryLevelChangedSignal = Signal()
     stopChargingSignal = Signal()
     chargingSignal = Signal()
+    showBatterySignal = Signal()
 
     def get_batteryLevel(self):
         return self._batteryLevel
@@ -44,6 +46,10 @@ class BatteryHelper(QObject):
     @Slot()
     def stop_charging(self):
         self.stopChargingSignal.emit()
+
+    @Slot()
+    def Show_battery(self):
+        self.showBatterySignal.emit()
 
     def start(self):
         self._batteryWorker.start()
