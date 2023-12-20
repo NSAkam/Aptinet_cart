@@ -136,6 +136,9 @@ Popup {
         y:input_enterPassword.y + 140 + 58
         anchors.top: input_enterPassword.bottom
         anchors.horizontalCenter: parent.horizontalCenter
+        onEnter: {
+            popup_insert.enter(txt_password.text)
+        }
     }
 }
 
