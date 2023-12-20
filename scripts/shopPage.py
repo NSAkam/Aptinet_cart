@@ -30,6 +30,7 @@ from Helpers.scannerHelper import ScannerHelper
 from Repositories.userRepository import UserRepository
 from Repositories.userServerRepository import UserServerRepository
 from Repositories.productRepository import ProductRepository
+from Repositories.factoreRepository import UserFactoreRepository
 
 
 class ShopPage(QObject):
@@ -61,6 +62,8 @@ class ShopPage(QObject):
     _userRepository: UserRepository
     _userServerRepository: UserServerRepository
     _productRepository: ProductRepository
+    _factorRepository: UserFactoreRepository
+
 
     ######################################################################################################## Objects ###
     _user: User
@@ -94,7 +97,6 @@ class ShopPage(QObject):
     _requestForSendingEmail: bool = False
     _enteredEmail: str = ""
     _emailException: str = ""
-    _badEmail: bool = False
 
     ######################################################################################################## Modules ###
     _weightSensor: WeightSensorWorker
@@ -114,6 +116,7 @@ class ShopPage(QObject):
         self._userRepository = UserRepository(self._dal)
         self._userServerRepository = UserServerRepository(self._dal)
         self._productRepository = ProductRepository(self._dal)
+        self._factorRepository = UserFactoreRepository(self._dal)
 
         #### Barcode Scanner ######################################
         self._scanner = scanner
@@ -777,6 +780,11 @@ class ShopPage(QObject):
             self._logger.insertLog("nfc read", "", self._user.get_id())
             self.showPaymentPinSignal.emit()
 
+    @Slot()
+    def tempSlot(self):
+        self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Please_check_your_email_address"] + self._emailException)
+        playSound(self._lang.lst["sound_Please_check_your_email_address"])
+        self._requestForSendingEmail = False
 
     ####################################################################################################### UI Sluts ###
     @Slot()
@@ -1060,6 +1068,8 @@ class ShopPage(QObject):
         if self.state == 10:
             self.state = 12
             self.showAfterPaymentSignal.emit()
+            self.saveFactorLocalThread = Thread(target=self.save_factorLocal)
+            self.saveFactorLocalThread.start()
             self.turn_onGreenLight()
 
     @Slot()
@@ -1074,7 +1084,8 @@ class ShopPage(QObject):
             if pin == "2212":
                 self.state = 12
                 self.showAfterPaymentSignal.emit()
-                print("after payment signal emited")
+                self.saveFactorLocalThread = Thread(target=self.save_factorLocal)
+                self.saveFactorLocalThread.start()
                 self.turn_onGreenLight()
             else:
                 self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Invalid_pin_code_entered_Please_try_again"])
@@ -1248,20 +1259,25 @@ class ShopPage(QObject):
             self._requestForSendingEmail = False
 
         except EmailNotValidError as e:
-            self._badEmail = True
             self.closePopupMessageSignal.emit()
-            # print(str(e))
             self._emailException = str(e)
-
             self.tempSignal.connect(self.tempSlot)
             self.tempSignal.emit()
-            # self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Please_check_your_email_address"] + str(e))
-            # playSound(self._lang.lst["sound_Please_check_your_email_address"])
-            # self._requestForSendingEmail = False
 
+    def save_factorLocal(self):
+        try:
+            for prod in self._factorList.m_data:
+                count = ""
+                weight = ""
+                if prod.productType == "weighted":
+                    count = "1"
+                    weight = prod.mountQML
+                else:
+                    count = prod.mountQML
+                    weight = ""
+                self._factorRepository.insertFactor(self._user.get_id(), prod.barcode, count, weight,
+                                                    prod.get_priceQML(), prod.get_finalPriceQML(),
+                                                    str(prod._taxPercentage), prod.savingQML)
+        except:
+            print("cant save factor locally")
 
-    @Slot()
-    def tempSlot(self):
-        self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Please_check_your_email_address"] + self._emailException)
-        playSound(self._lang.lst["sound_Please_check_your_email_address"])
-        self._requestForSendingEmail = False

@@ -1,8 +1,6 @@
 from PySide2.QtSql import QSqlQuery
 
 from Services.dal import DAL
-from Models.userFactore import UserFactoreModel
-from Models.product import Product
 
 
 class UserFactoreRepository:
