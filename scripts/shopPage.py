@@ -37,7 +37,7 @@ class ShopPage(QObject):
     _insertProductTime: int = 8  # actual time = n -1
     _timerOffset: int = 3
     _validInsertedWeightForCalTol: int = 5  # Accept inserted product without checking weight under this limit
-    _basketWeightLimit: int = 20000  # grams
+    _basketWeightLimit: int = 10000  # grams
     _lightestProductWeight: int = 11  # grams
     _lightestWeightForHeavyProduct: int = 25  # grams
     _lightestWeightForLightWeightProduct: int = 8
@@ -1066,7 +1066,7 @@ class ShopPage(QObject):
             if pin == "2212":
                 self.state = 12
                 self.showAfterPaymentSignal.emit()
-                print("after payment signal emitted")
+                print("after payment signal emited")
                 self.turn_onGreenLight()
             else:
                 self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Invalid_pin_code_entered_Please_try_again"])
