@@ -1140,6 +1140,7 @@ class ShopPage(QObject):
         load = int((weight - self._startWeight) / self._basketWeightLimit * 100)
         load = min(max(load, 0), 100)
         self._logger.insertLog("basket load", str(load), self._user.get_id())
+        print("------------------ load :" , load)
         self.set_basketLoad(load)
         self.set_basketIsFull(True) if load == 100 else self.set_basketIsFull(False)
 
