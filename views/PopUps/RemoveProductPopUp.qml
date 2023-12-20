@@ -48,6 +48,13 @@ Popup {
             width: 18
             height: 20
             anchors.centerIn: parent
+
+        }
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                obj_logicRemoveProductList.shopPage.call_forHelpClicked()
+            }
         }
     }
 
@@ -327,7 +334,6 @@ Popup {
                             }
 
                         }
-
                     }
                 }
             }
