@@ -796,6 +796,20 @@ Item {
         id:popUpMessageNotAllowedChangeWeight
         message: obj_LogicContainerShop.lang.mess_You_cannot_add_or_subtract_products_to_the_cart_during_checkout
     }
+
+    InsertPupUp{
+        id:insertPopUp
+        obj_settingLogicInsertPopUp: obj_LogicContainerShop
+        //title: obj_LogicContainerShop.lang.txt_Insert_Tax
+        title: ""
+        onClosePup: {
+            insertPopUp.close()
+        }
+        onEnter:function (text) {
+            insertPopUp.close()
+            obj_LogicContainerShop.settingPage.enter_pinPayment(text)
+        }
+    }
     ////////////////////////////////////////////////////
 
 
@@ -1000,6 +1014,10 @@ Item {
             else{
                 stackview.push(paymentQRCode)
             }
+        }
+
+        function onShowPaymentPinSignal(){
+            insertPopUp.open()
         }
     }
 }
