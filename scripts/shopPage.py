@@ -1069,8 +1069,7 @@ class ShopPage(QObject):
         if self.state == 10:
             self.state = 12
             self.showAfterPaymentSignal.emit()
-            self.saveFactorLocalThread = Thread(target=self.save_factorLocal)
-            self.saveFactorLocalThread.start()
+            self.save_factorLocal()
             self.turn_onGreenLight()
 
     @Slot()
@@ -1085,8 +1084,7 @@ class ShopPage(QObject):
             if pin == "2212":
                 self.state = 12
                 self.showAfterPaymentSignal.emit()
-                self.saveFactorLocalThread = Thread(target=self.save_factorLocal)
-                self.saveFactorLocalThread.start()
+                self.save_factorLocal()
                 self.turn_onGreenLight()
             else:
                 self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Invalid_pin_code_entered_Please_try_again"])
