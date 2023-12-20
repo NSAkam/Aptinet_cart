@@ -1106,7 +1106,8 @@ class ShopPage(QObject):
     @Slot(int)
     def rate_cart(self, rate: int):
         self._logger.insertLog("rate", str(rate), self._user.get_id())
-
+        print(rate)
+        self._userRepository.updateRate(self._user.get_id(), str(rate))
 
     ###################################################################################################### Functions ###
     def print_states(self):
