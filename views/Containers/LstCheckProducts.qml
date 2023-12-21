@@ -100,15 +100,15 @@ Item {
                     text: modelData.totalTaxQML
                     x:430
                     y:86
-
+                    visible: false
                     font.pixelSize: 24
                 }
                 Text {
                     text: modelData.totalFinalPriceQML
 
                     anchors.bottom: factorItemTotalPrice.top
-                    anchors.left: factorItemTotalPrice.left
-                    anchors.bottomMargin: 10
+                    anchors.right: factorItemTotalPrice.right
+                    anchors.bottomMargin: 20
 
                     color: viewset.primaryColor
                     font.pixelSize: 24
@@ -119,7 +119,7 @@ Item {
                     x:630
                     y:86
                     color: "#36EB00"
-                    font.pixelSize: 24
+                    font.pixelSize: 20
 
                 }
                 Rectangle{
@@ -200,12 +200,13 @@ Item {
                     y:86
                     color: viewset.primaryColor
                     font.pixelSize: 24
+                    visible: false
                 }
                 Text {
                     text: modelData.totalFinalPriceQML
                     anchors.bottom: factorItemTotalPrice.top
                     anchors.left: factorItemTotalPrice.left
-                    anchors.bottomMargin: 10
+                    anchors.bottomMargin: 20
 
                     color: viewset.primaryColor
                     font.pixelSize: 24
@@ -215,7 +216,7 @@ Item {
                     text: modelData.totalSavingQML
                     x:630
                     y:86
-                    font.pixelSize: 24
+                    font.pixelSize: 20
                     color: "#36EB00"
                 }
                 Rectangle{
