@@ -1291,7 +1291,7 @@ class ShopPage(QObject):
     def save_factorLocal(self):
         try:
             self._userRepository.updateFactorprices(self._user.get_id(), str(self._factorList.get_pricenodiscount()), str(self._factorList.get_finalprice()), self._couponCode)
-            # self.send_factorToServer()
+            self.send_factorToServer()
             for prod in self._factorList.m_data:
                 count = ""
                 weight = ""
