@@ -445,7 +445,7 @@ Item {
         }
         Image {
             id: ads_Image
-            source: "../Assets/Ads.png"
+            source: "/home/aptinet/files/Ads.png"
             width: 326
             height: 184
             x:32
@@ -584,22 +584,22 @@ Item {
             y:326
             font.bold: true
         }
-        Rectangle{
-            width: 40
-            height: 40
-            radius: width / 2
-            x:142
-            y:321
-            color: viewset.secondaryColor
-            Text {
-                text: "2"
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                color: "white"
-                font.pixelSize: 24
-                font.bold: true
-            }
-        }
+//        Rectangle{
+//            width: 40
+//            height: 40
+//            radius: width / 2
+//            x:142
+//            y:321
+//            color: viewset.secondaryColor
+//            Text {
+//                text: "2"
+//                anchors.horizontalCenter: parent.horizontalCenter
+//                anchors.verticalCenter: parent.verticalCenter
+//                color: "white"
+//                font.pixelSize: 24
+//                font.bold: true
+//            }
+//        }
 
 
         ListView {

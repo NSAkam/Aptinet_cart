@@ -146,7 +146,7 @@ Item {
             property string placeholderText: obj_LogicContainerLoyalityAuth.lang.txt_Loyalty_Code
 
             onFocusChanged: {
-
+                keyboard.visible = true
             }
             Text {
                 text: txt_loyal.placeholderText
