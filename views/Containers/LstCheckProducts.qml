@@ -91,7 +91,7 @@ Item {
                     id: splitterQuantityPrice
                     anchors.left: factorItemPic.right
                     color: "#C9C9C9"
-                    anchors.leftMargin: 172
+                    anchors.leftMargin: 175
                     width: 1
                     height: 20
                     y:91
@@ -205,7 +205,7 @@ Item {
                 Text {
                     text: modelData.totalFinalPriceQML
                     anchors.bottom: factorItemTotalPrice.top
-                    anchors.left: factorItemTotalPrice.left
+                    anchors.right: factorItemTotalPrice.right
                     anchors.bottomMargin: 20
 
                     color: viewset.primaryColor
@@ -214,6 +214,7 @@ Item {
                 Text {
                     id: factorItemTotalPrice
                     text: modelData.totalSavingQML
+                    width: 100
                     x:630
                     y:86
                     font.pixelSize: 20
