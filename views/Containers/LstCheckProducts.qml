@@ -217,7 +217,6 @@ Item {
                 Text {
                     id: factorItemTotalPrice
                     text: modelData.totalSavingQML
-                    width: 100
                     anchors.right: parent.right
                     anchors.rightMargin:  100
                     y:86
