@@ -14,7 +14,7 @@ Popup {
     }
     onOpened: {
         kkey.visible = true
-        input_enterPassword.text = ""
+        txt_password.text = ""
     }
 
     width: 1280
