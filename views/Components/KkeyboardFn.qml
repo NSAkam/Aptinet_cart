@@ -300,8 +300,11 @@ Rectangle{
             KKeyboardButton{
                 width: 70
                 height: 70
-                text: "ddd"
-                opacity: 0
+                text: "/"
+                opacity: 1
+                onClicked: {
+                    parent.parent.parent.input(this.text)
+                }
             }
             KKeyboardButton{
                 width: 70
