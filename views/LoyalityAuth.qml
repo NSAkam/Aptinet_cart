@@ -187,6 +187,9 @@ Item {
         y:parent.height - 0
         x:0
         visible: true
+        onEnter: {
+            obj_LogicContainerLoyalityAuth.login_loyaltyCode(txt_loyal.text)
+        }
 
         Behavior on y{
             NumberAnimation{duration: 500}

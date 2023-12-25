@@ -301,7 +301,7 @@ Item {
         y:290
         onEnter: {
             numpad.visible = false
-
+            obj_LogicContainerCheckoutPage.shopPage.apply_couponCode(txt_OfferCodeInput.text)
         }
     }
 

@@ -40,7 +40,6 @@ class UpdateSoftware(QObject):
         try:
             print("unzipping")
             os.system("unzip -o /home/aptinet/Aptinet.zip -d /home/aptinet/test")
-            # zipfile.ZipFile.extractall("/home/kast/FinalFASKET/FASKET.zip")
             # os.remove("/home/Aptinet/Aptinet.zip")
             # os.system("sudo reboot")
         except:
@@ -95,7 +94,7 @@ class UpdateFiles(QObject):
             # os.system("sudo reboot")
         except:
             try:
-                os.remove("/home/aptinet/Aptinet.zip")
+                os.remove("/home/aptinet/AptinetFiles.zip")
             except:
                 pass
         del self._downloader

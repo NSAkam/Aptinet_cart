@@ -4,9 +4,10 @@ import QtQuick.Controls 2.15
 
 
 Item {
-
     width: 1280
     height: 462
+
+    signal enter()
 
     MouseArea{
         anchors.fill: parent
@@ -41,7 +42,9 @@ Item {
                     //obj.destroy()
                 }
                 onEnter: function(){
+                    obj.enter()
                     obj.visible=false
+
                 }
             }
         }

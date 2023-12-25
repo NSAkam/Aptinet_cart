@@ -252,6 +252,9 @@ Item {
             NumberAnimation{duration: 1000}
         }
         visible: false
+        onEnter: {
+            obj_LogicContainer.login_phoneNumber(txt_phone.text)
+        }
     }
 
     TopNav{

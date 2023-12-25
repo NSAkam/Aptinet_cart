@@ -478,6 +478,11 @@ Item {
             x:-12
             y:input_enterPassword.y + 140 + 58
             anchors.top: input_enterPassword.bottom
+            onEnter: {
+                txt_email.text=txt_password.text
+                //onClicked: setting_obj.settingPage.wifimodel.wifiConfig(txt_password.text)
+                popup_SetEmail.close()
+            }
         }
     }
 
