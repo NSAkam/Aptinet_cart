@@ -12,6 +12,10 @@ Popup {
     ViewSettings{
         id:viewset
     }
+    onOpened: {
+        kkey.visible = true
+        input_enterPassword.text = ""
+    }
 
     width: 1280
     height: 800
@@ -123,6 +127,7 @@ Popup {
         }
     }
     KKeyboard{
+        id:kkey
         inputtext:txt_password
         leftpad:-50
         toppad:-500
