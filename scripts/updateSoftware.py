@@ -39,9 +39,9 @@ class UpdateSoftware(QObject):
         print("download Compeleted")
         try:
             print("unzipping")
-            os.system("unzip -o /home/aptinet/Aptinet.zip -d /home/aptinet/test")
+            os.system("unzip -o /home/aptinet/Aptinet.zip -d /home/aptinet/Aptinet_cart")
             # os.remove("/home/Aptinet/Aptinet.zip")
-            # os.system("sudo reboot")
+            os.system("sudo reboot")
         except:
             try:
                 os.remove("/home/Aptinet/Aptinet.zip")
