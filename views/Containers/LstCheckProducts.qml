@@ -107,7 +107,8 @@ Item {
                     text: modelData.totalFinalPriceQML
 
                     anchors.bottom: factorItemTotalPrice.top
-                    anchors.right: factorItemTotalPrice.right
+                    anchors.right: parent.right
+                    anchors.rightMargin:  100
                     anchors.bottomMargin: 20
 
                     color: viewset.primaryColor
@@ -116,7 +117,8 @@ Item {
                 Text {
                     id: factorItemTotalPrice
                     text: modelData.totalSavingQML
-                    x:630
+                    anchors.right: parent.right
+                    anchors.rightMargin:  100
                     y:86
                     color: "#36EB00"
                     font.pixelSize: 20
@@ -205,7 +207,8 @@ Item {
                 Text {
                     text: modelData.totalFinalPriceQML
                     anchors.bottom: factorItemTotalPrice.top
-                    anchors.right: factorItemTotalPrice.right
+                    anchors.right: parent.right
+                    anchors.rightMargin:  100
                     anchors.bottomMargin: 20
 
                     color: viewset.primaryColor
@@ -215,7 +218,8 @@ Item {
                     id: factorItemTotalPrice
                     text: modelData.totalSavingQML
                     width: 100
-                    x:630
+                    anchors.right: parent.right
+                    anchors.rightMargin:  100
                     y:86
                     font.pixelSize: 20
                     color: "#36EB00"
