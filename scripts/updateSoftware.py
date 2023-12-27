@@ -81,9 +81,9 @@ class UpdateFiles(QObject):
     def downloadSucceeded(self):
         self.succeededSignal.emit()
         print("successFull Download")
-        files = glob.glob('/home/aptinet/files/*')
-        for f in files:
-            os.remove(f)
+        # files = glob.glob('/home/aptinet/files/*')
+        # for f in files:
+        #     os.remove(f)
     def downloadFinished(self):
         print("download Compeleted")
         try:
