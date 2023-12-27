@@ -206,6 +206,12 @@ Item {
             height: 76
             x: 684
             y: 607
+             MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    obj_LogicSetting.turnoff()
+                }
+            }
         }
 
         Text {
@@ -234,6 +240,12 @@ Item {
             height: 76
             x: 520.5
             y: 607
+             MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                     cameraProvider.stop()
+                }
+            }
         }
 
         Text {
