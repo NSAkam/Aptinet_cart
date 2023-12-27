@@ -81,13 +81,14 @@ class UpdateFiles(QObject):
     def downloadSucceeded(self):
         self.succeededSignal.emit()
         print("successFull Download")
+        files = glob.glob('/home/aptinet/files/*')
+        for f in files:
+            os.remove(f)
     def downloadFinished(self):
         print("download Compeleted")
         try:
             print("unzipping")
-            files = glob.glob('/home/aptinet/files/*')
-            for f in files:
-                os.remove(f)
+
             os.system("unzip -o /home/aptinet/AptinetFiles.zip -d /home/aptinet/files")
             # zipfile.ZipFile.extractall("/home/kast/FinalFASKET/FASKET.zip")
             os.remove("/home/aptinet/AptinetFiles.zip")
