@@ -84,6 +84,7 @@ class Apihandler(QObject):
 
     @Slot(str)
     def all_productsRecived(self, v: str):
+        print("all_productsRecived")
         lst = json.loads(v)
         self.set_tedadToDownload(len(lst))
         QtGui.QGuiApplication.processEvents()
@@ -128,6 +129,7 @@ class Apihandler(QObject):
 
     @Slot(str)
     def all_suggesstionsRecived(self, v: str):
+        print("all_suggesstionsRecived")
         lst = json.loads(v)
         self.set_tedadToDownload(len(lst))
         QtGui.QGuiApplication.processEvents()
@@ -149,6 +151,7 @@ class Apihandler(QObject):
 
     @Slot(str)
     def all_adminsRecived(self, v: str):
+        print("all_adminsRecived")
         lst = json.loads(v)
         self.set_tedadToDownload(len(lst))
         QtGui.QGuiApplication.processEvents()
@@ -170,6 +173,8 @@ class Apihandler(QObject):
 
     @Slot(str)
     def all_userServerRecived(self, v: str):
+        print("all_userServerRecived")
+
         lst = json.loads(v)
         self.set_tedadToDownload(len(lst))
         QtGui.QGuiApplication.processEvents()
