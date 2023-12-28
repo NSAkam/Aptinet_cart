@@ -9,6 +9,8 @@ import KAST.Logic 1.0
 Popup {
     id: popup_SetPasssword
     property Logic setting_obj
+
+    property string ssidName: ""
     ViewSettings{
         id:viewset
     }
@@ -47,7 +49,8 @@ Popup {
                 font.pixelSize: 16
             }
             Text {
-                text: setting_obj.lang.txt_enter_Password
+                //text: setting_obj.lang.txt_enter_Password
+                text: popup_SetPasssword.ssidName
                 font.pixelSize: 24
                 font.bold: true
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -110,7 +113,7 @@ Popup {
                     property string placeholderText: setting_obj.lang.txt_enter_Password
 
                     onFocusChanged: {
-
+                        kkey.visible = true
                     }
                     Text {
                         text: txt_password.placeholderText

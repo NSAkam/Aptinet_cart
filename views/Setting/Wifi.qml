@@ -5,7 +5,7 @@ import QtGraphicalEffects 1.12
 import QtQuick.Window 2.14
 import "../Components"
 import "../PopUps"
-//import KAST.Logic 1.0
+import KAST.Logic 1.0
 
 
 
@@ -17,7 +17,7 @@ Item {
     width: 1280
     height: 800
 
-    property QtObject setting_objWifi
+    property Logic setting_objWifi
 
 
     Image {
@@ -84,6 +84,7 @@ Item {
                         anchors.fill: parent
                         onClicked: {
                             setting_objWifi.settingPage.wifimodel.selectedWifi(index);
+                            popup_SetPasssword.ssidName = model.ESSID
                             popup_SetPasssword.open();
                         }
                     }
