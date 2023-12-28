@@ -23,17 +23,20 @@ class UpdateSoftware(QObject):
 
     @Slot()
     def startDownload(self):
-        self._downloader = Downloader(
-            "http://app.aptinet.com/api/APP/download")
-        self._downloader.setTotalProgressSignal.connect(
-            self.setTotalProgressSignal)
-        self._downloader.setCurrentProgressSignal.connect(
-            self.setCurrentProgressSignal)
-        print("started Download")
+        os.system("git pull")
+        os.system("sudo reboot")
 
-        self._downloader.succeededSignal.connect(self.downloadSucceeded)
-        self._downloader.finished.connect(self.downloadFinished)
-        self._downloader.start()
+        # self._downloader = Downloader(
+        #     "http://app.aptinet.com/api/APP/download")
+        # self._downloader.setTotalProgressSignal.connect(
+        #     self.setTotalProgressSignal)
+        # self._downloader.setCurrentProgressSignal.connect(
+        #     self.setCurrentProgressSignal)
+        # print("started Download")
+
+        # self._downloader.succeededSignal.connect(self.downloadSucceeded)
+        # self._downloader.finished.connect(self.downloadFinished)
+        # self._downloader.start()
 
     def downloadSucceeded(self):
         self.succeededSignal.emit()
