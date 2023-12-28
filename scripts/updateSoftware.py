@@ -27,7 +27,7 @@ class UpdateSoftware(QObject):
         os.system("sudo reboot")
 
         # self._downloader = Downloader(
-        #     "http://app.aptinet.com/api/APP/download")
+        #     "https://app.aptinet.com/api/APP/download")
         # self._downloader.setTotalProgressSignal.connect(
         #     self.setTotalProgressSignal)
         # self._downloader.setCurrentProgressSignal.connect(
@@ -76,7 +76,7 @@ class UpdateFiles(QObject):
     @Slot()
     def startDownload(self):
         self._downloader = Downloader(
-            "http://app.aptinet.com/api/APP/downloadProdpics")
+            "https://app.aptinet.com/api/APP/downloadProdpics")
         self._downloader.setTotalProgressSignal.connect(
             self.setTotalProgressSignal)
         self._downloader.setCurrentProgressSignal.connect(

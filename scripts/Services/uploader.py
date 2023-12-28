@@ -27,7 +27,7 @@ class Uploader(QThread):
         super().__init__()
 
     def run(self):
-        url = 'http://app.aptinet.com/api/APP/upload-file'
+        url = 'https://app.aptinet.com/api/APP/upload-file'
         multiPart = QHttpMultiPart(QHttpMultiPart.FormDataType)
         filePart = QHttpPart()
         file = QFile("/home/aptinet/aptinet.db")

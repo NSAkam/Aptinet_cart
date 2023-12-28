@@ -45,7 +45,7 @@ class restAPI(QObject):
 #     app = QGuiApplication(sys.argv)
 
 #     api =  restAPI()
-#     api.Get("http://basket.mykast.ir/Products/GetData") 
+#     api.Get("s://basket.mykast.ir/Products/GetData") 
 
 
 #     engine = QQmlApplicationEngine()

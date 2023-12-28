@@ -44,8 +44,8 @@ class ShopPage(QObject):
     _lightestWeightForLightWeightProduct: int = 8
     _basketWeightTolerance: int = 20  # better fit: 25
     _pluCodeLength: int = 4
-    _mailServiceURL = "http://app.aptinet.com/api/APP/sendMail"
-    _saveFactorURL = "http://app.aptinet.com/api/APP/saveFactor"
+    _mailServiceURL = "https://app.aptinet.com/api/APP/sendMail"
+    _saveFactorURL = "https://app.aptinet.com/api/APP/saveFactor"
 
 
     ######################################################################################################### Models ###

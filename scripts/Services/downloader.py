@@ -23,7 +23,7 @@ class Downloader(QThread):
 
     @Slot(QNetworkReply)
     def downloadFinished(self, reply: QNetworkReply):
-        if (reply.size() > 2):
+        if (reply.size() > 1):
             if (reply.error() == QNetworkReply.NoError):
                 print("start save file")
                 dfile = QFile("/home/aptinet/AptinetFiles.zip")
@@ -38,13 +38,11 @@ class Downloader(QThread):
         self.loop = QEventLoop()
         manager = QtNetwork.QNetworkAccessManager()
         netAcc = manager.networkAccessible
-        if (netAcc == QNetworkAccessManager.Accessible):
+        manager.finished.connect(self.downloadFinished)
+        req = QNetworkRequest(self.url)
 
-            manager.finished.connect(self.downloadFinished)
-            req = QNetworkRequest(self.url)
-
-            rep = manager.get(req)
-            rep.downloadProgress.connect(self.progressbar)
+        rep = manager.get(req)
+        rep.downloadProgress.connect(self.progressbar)
 
         self.loop.exec_()
         print("exitted")
