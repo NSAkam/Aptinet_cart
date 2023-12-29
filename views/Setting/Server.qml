@@ -12,10 +12,10 @@ Item {
     visible: true
     width: 1280
     height: 800
-    
+
     property Logic obj_LogicServer
-    
-    
+
+
     Image {
         id: q
         source: "../../Assets/AuthenticationBackground.png"
@@ -25,7 +25,7 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
         spacing: 30
-        
+
         Rectangle{
             width: 259
             height: 364
@@ -40,7 +40,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 y:40
             }
-            
+
             KButton{
                 id:btn_upload
                 y:280
@@ -54,7 +54,10 @@ Item {
                 btn_borderWidth: 0
                 onClicked: {
                     btn_color = viewset.primaryColor
+                    progressUploadedToServer.update(0);
                     obj_LogicServer.settingPage.startUploadToServer()
+                    btn_download.enabled = false
+                    btn_downloadpic.enabled = false
                 }
             }
         }
@@ -72,7 +75,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 y:40
             }
-            
+
             KButton{
                 id:btn_download
                 y:280
@@ -85,7 +88,9 @@ Item {
                 borderRadius: 5
                 btn_borderWidth: 0
                 onClicked: {
+                    btn_upload.enabled = false
                     btn_color = viewset.primaryColor
+                    progressDownloadFromServer.update(0);
                     obj_LogicServer.settingPage.apiHandler.startDownloadFromServer()
                 }
             }
@@ -104,7 +109,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 y:40
             }
-            
+
             KButton{
                 id:btn_downloadpic
                 y:280
@@ -118,12 +123,13 @@ Item {
                 btn_borderWidth: 0
                 onClicked: {
                     btn_color = viewset.primaryColor
+                    progressDownloadpicFromServer.update(0);
                     obj_LogicServer.settingPage.updateFiles.startDownload()
                 }
             }
         }
     }
-    
+
     TopNav{
         backvisible: true
         onBackClicked: {
@@ -133,11 +139,15 @@ Item {
     FullMessageTimer{
         id:fmessagetimer
     }
-    
+
     Connections{
         target: obj_LogicServer.settingPage
         function onUpdateUploadToServerSignal(v){
             progressUploadedToServer.update(v);
+            if(v>95){
+                btn_download.enabled = true
+                btn_downloadpic.enabled = true
+            }
         }
     }
     Connections{
@@ -145,11 +155,12 @@ Item {
         function onUpdateDownloadedFromServerValue(v){
             progressDownloadFromServer.update((v-1) * 25);
             if(v === 5 ){
+                btn_upload.enabled = true
                 btn_download.btn_color = "#4696FA"
                 //cameraProvider.stop()
             }
         }
-        
+
         function onShowMessageTimer(str){
             fmessagetimer.messageText = str
             fmessagetimer.open()
@@ -157,7 +168,7 @@ Item {
             btn_upload.btn_color = "#4696FA"
             btn_downloadpic.btn_color = "#4696FA"
         }
-        
+
     }
     Connections{
         target:obj_LogicServer.settingPage.updateFiles
