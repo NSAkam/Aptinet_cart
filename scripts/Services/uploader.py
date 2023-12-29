@@ -30,7 +30,8 @@ class Uploader(QThread):
         url = 'https://app.aptinet.com/api/APP/upload-file'
         multiPart = QHttpMultiPart(QHttpMultiPart.FormDataType)
         filePart = QHttpPart()
-        file = QFile("/home/aptinet/aptinet.db")
+        # file = QFile("/home/aptinet/aptinet.db")
+        file = QFile("/home/aptinet/Aptinet_cart/DB/aptinet.db")
         file.open(QIODevice.ReadOnly)
         print(file.size())
         basketName = ""
