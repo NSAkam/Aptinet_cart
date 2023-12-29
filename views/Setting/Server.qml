@@ -156,6 +156,14 @@ Item {
                 fmessagetimer.open()
             }
         }
+
+        function onErrorUpload(){
+            btn_download.enabled = true
+            btn_downloadpic.enabled = true
+            btn_upload.btn_color = "#4696FA"
+            fmessagetimer.messageText = "upload UnCompleted"
+            fmessagetimer.open()
+        }
     }
     Connections{
         target:obj_LogicServer.settingPage.apiHandler

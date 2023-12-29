@@ -10,6 +10,7 @@ class Uploader(QThread):
 
     setCurrentProgress = Signal(int, arguments=["v"])
     succeeded = Signal()
+    errorUpload = Signal()
 
     @Slot(QNetworkReply)
     def UploadFinished(self, reply: QNetworkReply):
@@ -27,35 +28,38 @@ class Uploader(QThread):
         super().__init__()
 
     def run(self):
-        url = 'https://app.aptinet.com/api/APP/upload-file'
-        multiPart = QHttpMultiPart(QHttpMultiPart.FormDataType)
-        filePart = QHttpPart()
-        # file = QFile("/home/aptinet/aptinet.db")
-        file = QFile("/home/aptinet/Aptinet_cart/DB/aptinet.db")
-        file.open(QIODevice.ReadOnly)
-        print(file.size())
-        basketName = ""
-        with open("/home/aptinet/basketName.txt", 'r') as f:
-            basketName = str(f.readline())
-            basketName = basketName[:-1] + ".db"
-            # print(basketName)
+        try:
+            url = 'https://app.aptinet.com/api/APP/upload-file'
+            multiPart = QHttpMultiPart(QHttpMultiPart.FormDataType)
+            filePart = QHttpPart()
+            # file = QFile("/home/aptinet/aptinet.db")
+            file = QFile("/home/aptinet/Aptinet_cart/DB/aptinet.db")
+            file.open(QIODevice.ReadOnly)
+            print(file.size())
+            basketName = ""
+            with open("/home/aptinet/basketName.txt", 'r') as f:
+                basketName = str(f.readline())
+                basketName = basketName[:-1] + ".db"
+                # print(basketName)
 
-        filePart.setHeader(QNetworkRequest.ContentTypeHeader,
-                           "application/database")
-        filePart.setHeader(QNetworkRequest.ContentDispositionHeader,
-                           "form-data; name=\"file\";filename=\"" + basketName + "\"")
-        filePart.setHeader(QNetworkRequest.ContentLengthHeader, file.size())
+            filePart.setHeader(QNetworkRequest.ContentTypeHeader,
+                               "application/database")
+            filePart.setHeader(QNetworkRequest.ContentDispositionHeader,
+                               "form-data; name=\"file\";filename=\"" + basketName + "\"")
+            filePart.setHeader(QNetworkRequest.ContentLengthHeader, file.size())
 
-        filePart.setBodyDevice(file)
-        multiPart.append(filePart)
+            filePart.setBodyDevice(file)
+            multiPart.append(filePart)
 
-        loop = QEventLoop()
-        manager = QtNetwork.QNetworkAccessManager()
-        manager.finished.connect(self.UploadFinished)
-        manager.finished.connect(loop.quit)
-        req = QNetworkRequest(url)
-        rep = manager.post(req, multiPart)
-        multiPart.setParent(rep)
-        rep.uploadProgress.connect(self.progressbar)
-        loop.exec_()
-        # print("exitted")
+            loop = QEventLoop()
+            manager = QtNetwork.QNetworkAccessManager()
+            manager.finished.connect(self.UploadFinished)
+            manager.finished.connect(loop.quit)
+            req = QNetworkRequest(url)
+            rep = manager.post(req, multiPart)
+            multiPart.setParent(rep)
+            rep.uploadProgress.connect(self.progressbar)
+            loop.exec_()
+            # print("exitted")
+        except:
+            self.errorUpload.emit()

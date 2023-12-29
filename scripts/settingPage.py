@@ -4,7 +4,7 @@ from Services.dal import DAL
 from Repositories.configRepository import ConfigRepositories
 from Models.config import Config
 from API.apiHandler import Apihandler
-from updateSoftware import UpdateSoftware,UpdateFiles
+from updateSoftware import UpdateSoftware, UpdateFiles
 from Services.wifi import WirelessModel
 from Services.sound import *
 from Services.gpio import *
@@ -33,13 +33,12 @@ class SettingPage(QObject):
     _lastSoftwareVersion: str
     _wifimodel: WirelessModel
     _weightsensorval: WeighSensorCalibration
-    _updateSoftware:UpdateSoftware
-    _updateFiles:UpdateFiles
-    _uploader : Uploader
-    _uploadedPercentage : int = 0
+    _updateSoftware: UpdateSoftware
+    _updateFiles: UpdateFiles
+    _uploader: Uploader
+    _uploadedPercentage: int = 0
     _lastCalibrationDate: str = ""
     _readBarcode: str = ""
-
 
     def __init__(self, dal: DAL, scanner: ScannerHelper, language: languageReader):
         super().__init__()
@@ -50,14 +49,13 @@ class SettingPage(QObject):
         self._configs = Config()
         self.set_configs(self._configsRepository.get_Config())
         self._apiHandler = Apihandler(self._dal)
-        self._apiHandler.appVersionRecievedSignal.connect(self.set_lastSoftwareVersion)
+        self._apiHandler.appVersionRecievedSignal.connect(
+            self.set_lastSoftwareVersion)
         self._updateSoftware = None
         self._weightsensorval = WeighSensorCalibration()
         self._scanner = scanner
         self._scanner.readBarcodeSignal.connect(self.scanner_read)
         self._updateFiles = UpdateFiles()
-
-
 
     ### Signals ########################################################################################################
     changedSignal = Signal()
@@ -66,6 +64,7 @@ class SettingPage(QObject):
     updateAvailableSignal = Signal()
     updateUploadToServerSignal = Signal(int)
     expiredCalibrationSignal = Signal(bool)   # if expired True else False
+    errorUpload = Signal(str)
 
     ### Properties #####################################################################################################
     def get_configs(self):
@@ -84,7 +83,8 @@ class SettingPage(QObject):
         self._apiHandler = val
         self.changedSignal.emit()
 
-    apiHandler = Property(Apihandler, get_apiHandler, set_apiHandler, notify=changedSignal)
+    apiHandler = Property(Apihandler, get_apiHandler,
+                          set_apiHandler, notify=changedSignal)
 
     def get_lastSoftwareVersion(self):
         return self._lastSoftwareVersion
@@ -94,7 +94,8 @@ class SettingPage(QObject):
         self._lastSoftwareVersion = val
         self.changedSignal.emit()
 
-    lastSoftwareVersion = Property(str, get_lastSoftwareVersion, set_lastSoftwareVersion, notify=changedSignal)
+    lastSoftwareVersion = Property(
+        str, get_lastSoftwareVersion, set_lastSoftwareVersion, notify=changedSignal)
 
     def get_updateSoftware(self):
         return self._updateSoftware
@@ -103,7 +104,8 @@ class SettingPage(QObject):
         self._updateSoftware = val
         self.changedSignal.emit()
 
-    updateSoftware = Property(UpdateSoftware, get_updateSoftware, set_updateSoftware, notify=changedSignal)
+    updateSoftware = Property(
+        UpdateSoftware, get_updateSoftware, set_updateSoftware, notify=changedSignal)
 
     def get_updateFiles(self):
         return self._updateFiles
@@ -112,7 +114,8 @@ class SettingPage(QObject):
         self._updateFiles = val
         self.changedSignal.emit()
 
-    updateFiles = Property(UpdateFiles, get_updateFiles, set_updateFiles, notify=changedSignal)
+    updateFiles = Property(UpdateFiles, get_updateFiles,
+                           set_updateFiles, notify=changedSignal)
 
     def getwifiModel(self):
         return self._wifimodel
@@ -126,26 +129,30 @@ class SettingPage(QObject):
         self._weightsensorval = val
         self.changedSignal.emit()
 
-    weightsensor = Property(WeighSensorCalibration, get_weightSensor, set_weightSensor, notify=changedSignal)
+    weightsensor = Property(
+        WeighSensorCalibration, get_weightSensor, set_weightSensor, notify=changedSignal)
 
     def get_uploadedPercentage(self):
         return self._uploadedPercentage
 
     @Slot(int)
-    def set_uploadedPercentage(self,v:int):
+    def set_uploadedPercentage(self, v: int):
         self._uploadedPercentage = v
         self.updateUploadToServerSignal.emit(v)
 
-    uploadedPercentage = Property(int,get_uploadedPercentage,set_uploadedPercentage,notify=updateUploadToServerSignal)
+    uploadedPercentage = Property(
+        int, get_uploadedPercentage, set_uploadedPercentage, notify=updateUploadToServerSignal)
 
     def get_lastCalibrationDate(self):
-        return self._lastCalibrationDate   # datetime.fromtimestamp(self._configs.get_calibrationDate())
+        # datetime.fromtimestamp(self._configs.get_calibrationDate())
+        return self._lastCalibrationDate
 
     def set_lastCalibrationDate(self, v: str):
         self._lastCalibrationDate = v
         self.changedSignal.emit()
 
-    lastCalibrationDate = Property(str, get_lastCalibrationDate, set_lastCalibrationDate, notify=changedSignal)
+    lastCalibrationDate = Property(
+        str, get_lastCalibrationDate, set_lastCalibrationDate, notify=changedSignal)
 
     def get_readBarcode(self):
         return self._readBarcode
@@ -154,7 +161,8 @@ class SettingPage(QObject):
         self._readBarcode = v
         self.changedSignal.emit()
 
-    readBarcode = Property(str,get_readBarcode, set_readBarcode, notify=changedSignal)
+    readBarcode = Property(str, get_readBarcode,
+                           set_readBarcode, notify=changedSignal)
 
     ### Sluts ##########################################################################################################
     # @Slot(str, str)
@@ -171,7 +179,8 @@ class SettingPage(QObject):
             self.updateAvailableSignal.emit()
             self.set_updateSoftware(UpdateSoftware())
 
-        lastCalibrationDate = datetime.fromtimestamp(float(self._configs.get_calibrationDate()))
+        lastCalibrationDate = datetime.fromtimestamp(
+            float(self._configs.get_calibrationDate()))
         days = (datetime.now() - lastCalibrationDate).days
         if days >= self._calibrationPeriod:
             self.set_lastCalibrationDate(str(lastCalibrationDate.date()))
@@ -179,8 +188,6 @@ class SettingPage(QObject):
         else:
             self.set_lastCalibrationDate(str(lastCalibrationDate.date()))
             self.expiredCalibrationSignal.emit(False)
-
-
 
     @Slot()
     def gotoWifiSettings(self):
@@ -196,7 +203,8 @@ class SettingPage(QObject):
 
     @Slot()
     def scanner_read(self):
-        self.set_readBarcode(self._scanner._scannerWorker.get_readBytes()[1:-1].decode('latin1'))
+        self.set_readBarcode(self._scanner._scannerWorker.get_readBytes()[
+                             1:-1].decode('latin1'))
 
     @Slot()
     def startUploadToServer(self):
@@ -204,8 +212,13 @@ class SettingPage(QObject):
         self._uploader = Uploader()
         self._uploader.succeeded.connect(self.uploadFinished)
         self._uploader.setCurrentProgress.connect(self.set_uploadedPercentage)
+        self._uploader.errorUpload.connect(self.errorOnUpload)
         self._uploader.start()
-    
+
+    @Slot()
+    def errorOnUpload(self):
+        self.errorUpload.emit()
+
     @Slot()
     def uploadFinished(self):
         pass
