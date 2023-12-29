@@ -121,6 +121,9 @@ Item {
             stackview.pop()
         }
     }
+    FullMessageTimer{
+        id:fmessagetimer
+    }
 
     Connections{
         target: obj_LogicServer.settingPage
@@ -136,6 +139,12 @@ Item {
                 cameraProvider.stop()
             }
         }
+
+        function onShowMessageTimer(str){
+            fmessagetimer.messageText = str
+            fmessagetimer.open()
+        }
+
     }
     Connections{
         target:obj_LogicServer.settingPage.updateFiles

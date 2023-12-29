@@ -37,6 +37,8 @@ class Apihandler(QObject):
 
     changedSignal = Signal()
     updateDownloadedFromServerValue = Signal(int)
+    showMessageTimer = Signal(str)
+
 
     def get_tedadToDownload(self):
         return self._tedadToDownload
@@ -85,42 +87,49 @@ class Apihandler(QObject):
     @Slot(str)
     def all_productsRecived(self, v: str):
         print("all_productsRecived")
-        self._productRepository.deleteAll()
-        lst = json.loads(v)
-        self.set_tedadToDownload(len(lst))
-        QtGui.QGuiApplication.processEvents()
+        try:
+            lst = json.loads(v)
+            if(len(lst) > 1):
+                self._productRepository.deleteAll()
+                self.set_tedadToDownload(len(lst))
+                QtGui.QGuiApplication.processEvents()
 
-        for i, x in enumerate(lst):
-            name: str = lst[i]["name"]
-            description: str = lst[i]["description"]
-            rate: int = lst[i]["rate"]
-            commentCount: int = lst[i]["commentCount"]
-            w1: int = lst[i]["w1"]
-            w2: int = lst[i]["w2"]
-            w3: int = lst[i]["w3"]
-            w4: int = lst[i]["w4"]
-            w5: int = lst[i]["w5"]
-            w6: int = lst[i]["w6"]
-            w7: int = lst[i]["w7"]
-            w8: int = lst[i]["w8"]
-            w9: int = lst[i]["w9"]
-            w10: int = lst[i]["w10"]
-            price: float = lst[i]["price"]
-            finalprice: float = lst[i]["finalprice"]
-            meanWeight: int = lst[i]["meanWeight"]
-            tolerance: int = lst[i]["tolerance"]
-            insertedWeight: int = lst[i]["insertedWeighted"]
-            barcode: str = lst[i]["barcode"]
-            isOffer: int = lst[i]["isOffer"]
-            isPlu: int = lst[i]["isPlu"]
-            tax: int = lst[i]["tax"]
-            qrCode: str = lst[i]["qrCode"]
-            productType: str = lst[i]["productType"]
+                for i, x in enumerate(lst):
+                    name: str = lst[i]["name"]
+                    description: str = lst[i]["description"]
+                    rate: int = lst[i]["rate"]
+                    commentCount: int = lst[i]["commentCount"]
+                    w1: int = lst[i]["w1"]
+                    w2: int = lst[i]["w2"]
+                    w3: int = lst[i]["w3"]
+                    w4: int = lst[i]["w4"]
+                    w5: int = lst[i]["w5"]
+                    w6: int = lst[i]["w6"]
+                    w7: int = lst[i]["w7"]
+                    w8: int = lst[i]["w8"]
+                    w9: int = lst[i]["w9"]
+                    w10: int = lst[i]["w10"]
+                    price: float = lst[i]["price"]
+                    finalprice: float = lst[i]["finalprice"]
+                    meanWeight: int = lst[i]["meanWeight"]
+                    tolerance: int = lst[i]["tolerance"]
+                    insertedWeight: int = lst[i]["insertedWeighted"]
+                    barcode: str = lst[i]["barcode"]
+                    isOffer: int = lst[i]["isOffer"]
+                    isPlu: int = lst[i]["isPlu"]
+                    tax: int = lst[i]["tax"]
+                    qrCode: str = lst[i]["qrCode"]
+                    productType: str = lst[i]["productType"]
 
-            res = self._productRepository.insertData(name, description, rate, commentCount, w1, w2, w3, w4, w5, w6, w7, w8, w9, w10,price, finalprice, meanWeight, tolerance, insertedWeight, barcode, isOffer, isPlu, tax, qrCode, productType)
+                    res = self._productRepository.insertData(name, description, rate, commentCount, w1, w2, w3, w4, w5, w6, w7, w8, w9, w10,price, finalprice, meanWeight, tolerance, insertedWeight, barcode, isOffer, isPlu, tax, qrCode, productType)
 
-        self.set_tedadDownloaded(self.get_tedadDownloaded() + 1)
-        QtGui.QGuiApplication.processEvents()
+                self.set_tedadDownloaded(self.get_tedadDownloaded() + 1)
+                QtGui.QGuiApplication.processEvents()
+                self.showMessageTimer.emit("the Connection is valid")
+            else:
+                self.showMessageTimer.emit("the Connection is not valid")
+        except:
+            self.showMessageTimer.emit("the Connection is not valid")
 
     @Slot()
     def download_suggesstions(self):
@@ -131,19 +140,26 @@ class Apihandler(QObject):
     @Slot(str)
     def all_suggesstionsRecived(self, v: str):
         print("all_suggesstionsRecived")
-        self._suggestionRepository.deleteAll()
-        lst = json.loads(v)
-        self.set_tedadToDownload(len(lst))
-        QtGui.QGuiApplication.processEvents()
+        try:
+            lst = json.loads(v)
+            if(len(lst)>0):
+                self._suggestionRepository.deleteAll()
+                self.set_tedadToDownload(len(lst))
+                QtGui.QGuiApplication.processEvents()
 
-        for i, x in enumerate(lst):
-            productBarcode: str = lst[i]["productBarcode"]
-            sugProductBarcode: str = lst[i]["sugProductBarcode"]
+                for i, x in enumerate(lst):
+                    productBarcode: str = lst[i]["productBarcode"]
+                    sugProductBarcode: str = lst[i]["sugProductBarcode"]
 
-            res = self._suggestionRepository.insertData(
-                productBarcode, sugProductBarcode)
-        self.set_tedadDownloaded(self.get_tedadDownloaded() + 1)
-        QtGui.QGuiApplication.processEvents()
+                    res = self._suggestionRepository.insertData(
+                        productBarcode, sugProductBarcode)
+                self.set_tedadDownloaded(self.get_tedadDownloaded() + 1)
+                QtGui.QGuiApplication.processEvents()
+                self.showMessageTimer.emit("the Connection is valid")
+            else:
+                self.showMessageTimer.emit("the Connection is not valid")
+        except:
+            self.showMessageTimer.emit("the Connection is not valid")
 
     @Slot()
     def download_admins(self):
@@ -154,19 +170,26 @@ class Apihandler(QObject):
     @Slot(str)
     def all_adminsRecived(self, v: str):
         print("all_adminsRecived")
-        self._adminRepository.deleteAll()
-        lst = json.loads(v)
-        self.set_tedadToDownload(len(lst))
-        QtGui.QGuiApplication.processEvents()
+        try:
+            lst = json.loads(v)
+            if(len(lst)>0):
+                self._adminRepository.deleteAll()
+                self.set_tedadToDownload(len(lst))
+                QtGui.QGuiApplication.processEvents()
 
-        for i, x in enumerate(lst):
-            productBarcode: str = lst[i]["barcode"]
-            sugProductBarcode: str = lst[i]["name"]
+                for i, x in enumerate(lst):
+                    productBarcode: str = lst[i]["barcode"]
+                    sugProductBarcode: str = lst[i]["name"]
 
-            res = self._adminRepository.insertData(
-                productBarcode, sugProductBarcode)
-        self.set_tedadDownloaded(self.get_tedadDownloaded() + 1)
-        QtGui.QGuiApplication.processEvents()
+                    res = self._adminRepository.insertData(
+                        productBarcode, sugProductBarcode)
+                self.set_tedadDownloaded(self.get_tedadDownloaded() + 1)
+                QtGui.QGuiApplication.processEvents()
+                self.showMessageTimer.emit("the Connection is valid")
+            else:
+                self.showMessageTimer.emit("the Connection is not valid")
+        except:
+            self.showMessageTimer.emit("the Connection is not valid")
 
     @Slot()
     def download_userServer(self):
@@ -177,16 +200,23 @@ class Apihandler(QObject):
     @Slot(str)
     def all_userServerRecived(self, v: str):
         print("all_userServerRecived")
-        self._userServerRepository.deleteAll()
-        lst = json.loads(v)
-        self.set_tedadToDownload(len(lst))
-        QtGui.QGuiApplication.processEvents()
+        try:
+            lst = json.loads(v)
+            if(len(lst)>0):
+                self._userServerRepository.deleteAll()
+                self.set_tedadToDownload(len(lst))
+                QtGui.QGuiApplication.processEvents()
 
-        for i, x in enumerate(lst):
-            res = self._userServerRepository.insertData(lst[i]["id"], lst[i]["loyalityBarcode"], lst[i]["name"], lst[i]
-                                                        ["email"], lst[i]["phone"], lst[i]["offerPercentage"], lst[i]["offerLimitedPercentage"], lst[i]["offerMount"])
-        self.set_tedadDownloaded(self.get_tedadDownloaded() + 1)
-        QtGui.QGuiApplication.processEvents()
+                for i, x in enumerate(lst):
+                    res = self._userServerRepository.insertData(lst[i]["id"], lst[i]["loyalityBarcode"], lst[i]["name"], lst[i]
+                                                                ["email"], lst[i]["phone"], lst[i]["offerPercentage"], lst[i]["offerLimitedPercentage"], lst[i]["offerMount"])
+                self.set_tedadDownloaded(self.get_tedadDownloaded() + 1)
+                QtGui.QGuiApplication.processEvents()
+                self.showMessageTimer.emit("the Connection is valid")
+            else:
+                self.showMessageTimer.emit("the Connection is not valid")
+        except:
+            self.showMessageTimer.emit("the Connection is not valid")
 
     @Slot()
     def get_appVersion(self):
