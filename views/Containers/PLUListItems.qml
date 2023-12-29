@@ -8,9 +8,6 @@ import KAST.Logic 1.0
 Item {
     id: root
     signal back()
-    signal focusc()
-
-
     width: 890
     height: 800
 
@@ -61,8 +58,7 @@ Item {
                 property string placeholderText: ""
 
                 onFocusChanged: {
-                    root.focusc()
-
+                    kkey.visible = true
                 }
                 Text {
                     text: txt_Name.placeholderText
@@ -150,6 +146,18 @@ Item {
 
         }
     }
+
+    KKeyboard{
+        id:kkey
+        inputtext:txt_Name
+        leftpad:-50
+        toppad:-500
+        x:-390
+        y:input_enterName.y + 240 + 58
+        anchors.top: input_enterPassword.bottom
+        visible: false
+    }
+
 
 
     KButton{

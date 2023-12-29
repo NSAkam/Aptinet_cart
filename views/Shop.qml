@@ -641,17 +641,6 @@ Item {
 
     }
 
-    KKeyboard{
-        id:kkey
-        inputtext:txt_Name
-        leftpad:-50
-        toppad:-500
-        x:-12
-        y:input_enterName.y + 140 + 58
-        anchors.top: input_enterPassword.bottom
-        visible: false
-    }
-
 
     Component{
         id:newProductHandler
@@ -768,10 +757,6 @@ Item {
             obj_LogicContainerPLUListItems: obj_LogicContainerShop
             onBack: {
                 stackviewContainer.pop()
-            }
-
-            onFocusc: {
-                kkey.visible = true
             }
         }
     }
