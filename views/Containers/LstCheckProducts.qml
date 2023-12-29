@@ -291,7 +291,8 @@ Item {
             font.pixelSize: 20
             x:344
             y:42
-            color: viewset.primaryColor
+            color: "#36EB00"
+            //color: viewset.primaryColor
             font.bold: false
         }
         Text {

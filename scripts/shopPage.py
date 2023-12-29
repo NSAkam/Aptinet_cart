@@ -38,7 +38,7 @@ class ShopPage(QObject):
     _insertProductTime: int = 8  # actual time = n -1
     _timerOffset: int = 3
     _validInsertedWeightForCalTol: int = 5  # Accept inserted product without checking weight under this limit
-    _basketWeightLimit: int = 35000  # grams
+    _basketWeightLimit: int = 45000  # grams
     _lightestProductWeight: int = 11  # grams
     _lightestWeightForHeavyProduct: int = 25  # grams
     _lightestWeightForLightWeightProduct: int = 8
