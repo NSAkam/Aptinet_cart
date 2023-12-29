@@ -67,7 +67,7 @@ class Apihandler(QObject):
     @Slot()
     def startDownloadFromServer(self):
         self.set_tedadToDownload(0)
-        self.set_tedadToDownload(0)
+        self.set_tedadDownloaded(0)
 
         
         self.download_products()
