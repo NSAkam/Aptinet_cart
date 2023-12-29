@@ -42,6 +42,7 @@ Item {
             }
 
             KButton{
+                id:btn_upload
                 y:280
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: obj_LogicServer.lang.btn_Upload
@@ -71,6 +72,7 @@ Item {
             }
 
             KButton{
+                id:btn_download
                 y:280
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: obj_LogicServer.lang.btn_Download
@@ -100,6 +102,7 @@ Item {
             }
 
             KButton{
+                id:btn_downloadpic
                 y:280
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: obj_LogicServer.lang.btn_Download_Pictures
@@ -136,13 +139,16 @@ Item {
         function onUpdateDownloadedFromServerValue(v){
             progressDownloadFromServer.update((v-1) * 25);
             if(v ===5 ){
-                cameraProvider.stop()
+                //cameraProvider.stop()
             }
         }
 
         function onShowMessageTimer(str){
             fmessagetimer.messageText = str
             fmessagetimer.open()
+            btn_download.btn_color = "#4696FA"
+            btn_upload.btn_color = "#4696FA"
+            btn_downloadpic.btn_color = "#4696FA"
         }
 
     }
