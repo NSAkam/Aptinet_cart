@@ -434,9 +434,9 @@ class Product(QObject):
             return ""
         else:
             if self.dataModelShow == 1:
-                return "$ " + "{:.2f}".format(self.productWeightInBasket / 1000 * (self.price - self.finalPrice))
+                return "-$ " + "{:.2f}".format(self.productWeightInBasket / 1000 * (self.price - self.finalPrice))
             else:
-                return "$ " + "{:.2f}".format(self.countInBasket * (self.price - self.finalPrice))
+                return "-$ " + "{:.2f}".format(self.countInBasket * (self.price - self.finalPrice))
 
     totalSavingQML = Property(str, get_totalSavingQML, notify=changedSignal)
 
