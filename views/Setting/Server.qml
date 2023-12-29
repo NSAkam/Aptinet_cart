@@ -54,6 +54,7 @@ Item {
                 btn_borderWidth: 0
                 onClicked: {
                     btn_color = viewset.primaryColor
+                    progressUploadedToServer.value = 0
                     progressUploadedToServer.update(0);
                     obj_LogicServer.settingPage.startUploadToServer()
                     btn_download.enabled = false
@@ -90,6 +91,7 @@ Item {
                 onClicked: {
                     btn_upload.enabled = false
                     btn_color = viewset.primaryColor
+                    progressDownloadFromServer.value = 0
                     progressDownloadFromServer.update(0);
                     obj_LogicServer.settingPage.apiHandler.startDownloadFromServer()
                 }
@@ -123,6 +125,7 @@ Item {
                 btn_borderWidth: 0
                 onClicked: {
                     btn_color = viewset.primaryColor
+                    progressDownloadpicFromServer.value = 0
                     progressDownloadpicFromServer.update(0);
                     obj_LogicServer.settingPage.updateFiles.startDownload()
                 }
