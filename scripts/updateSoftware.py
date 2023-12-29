@@ -98,7 +98,7 @@ class UpdateFiles(QObject):
             os.remove(f)
 
     def downloadFinished(self):
-        self.showMessageTimer("download Completed")
+        self.showMessageTimer.emit("download Completed")
         print("download Compeleted")
         try:
             print("unzipping")
