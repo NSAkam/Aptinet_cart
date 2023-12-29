@@ -67,13 +67,13 @@ class Apihandler(QObject):
         self.set_tedadToDownload(0)
         self.set_tedadToDownload(0)
 
-        self._productRepository.deleteAll()
+        
         self.download_products()
-        self._suggestionRepository.deleteAll()
+        
         self.download_suggesstions()
-        self._adminRepository.deleteAll()
+        
         self.download_admins()
-        self._userServerRepository.deleteAll()
+        
         self.download_userServer()
 
     @Slot()
@@ -85,6 +85,7 @@ class Apihandler(QObject):
     @Slot(str)
     def all_productsRecived(self, v: str):
         print("all_productsRecived")
+        self._productRepository.deleteAll()
         lst = json.loads(v)
         self.set_tedadToDownload(len(lst))
         QtGui.QGuiApplication.processEvents()
@@ -130,6 +131,7 @@ class Apihandler(QObject):
     @Slot(str)
     def all_suggesstionsRecived(self, v: str):
         print("all_suggesstionsRecived")
+        self._suggestionRepository.deleteAll()
         lst = json.loads(v)
         self.set_tedadToDownload(len(lst))
         QtGui.QGuiApplication.processEvents()
@@ -152,6 +154,7 @@ class Apihandler(QObject):
     @Slot(str)
     def all_adminsRecived(self, v: str):
         print("all_adminsRecived")
+        self._adminRepository.deleteAll()
         lst = json.loads(v)
         self.set_tedadToDownload(len(lst))
         QtGui.QGuiApplication.processEvents()
@@ -174,7 +177,7 @@ class Apihandler(QObject):
     @Slot(str)
     def all_userServerRecived(self, v: str):
         print("all_userServerRecived")
-
+        self._userServerRepository.deleteAll()
         lst = json.loads(v)
         self.set_tedadToDownload(len(lst))
         QtGui.QGuiApplication.processEvents()
