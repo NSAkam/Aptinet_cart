@@ -72,6 +72,9 @@ class UpdateFiles(QObject):
     setTotalProgressSignal = Signal(int, arguments=["v"])
     setCurrentProgressSignal = Signal(int, arguments=["v"])
     succeededSignal = Signal()
+    
+    showMessageTimer = Signal(str)
+
 
     @Slot()
     def startDownload(self):
@@ -95,6 +98,7 @@ class UpdateFiles(QObject):
             os.remove(f)
 
     def downloadFinished(self):
+        self.showMessageTimer("download Completed")
         print("download Compeleted")
         try:
             print("unzipping")

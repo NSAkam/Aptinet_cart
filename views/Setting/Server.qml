@@ -148,8 +148,12 @@ Item {
         function onUpdateUploadToServerSignal(v){
             progressUploadedToServer.update(v);
             if(v>95){
+
                 btn_download.enabled = true
                 btn_downloadpic.enabled = true
+                btn_upload.btn_color = "#4696FA"
+                fmessagetimer.messageText = "upload Completed"
+                fmessagetimer.open()
             }
         }
     }
@@ -180,6 +184,16 @@ Item {
         }
         function onSetCurrentProgressSignal(v){
             progressDownloadpicFromServer.update(v)
+            if(v>95){
+                btn_downloadpic.btn_color = "#4696FA"
+            }
+        }
+        function onShowMessageTimer(str){
+            fmessagetimer.messageText = str
+            fmessagetimer.open()
+            btn_download.btn_color = "#4696FA"
+            btn_upload.btn_color = "#4696FA"
+            btn_downloadpic.btn_color = "#4696FA"
         }
     }
 }
