@@ -8,6 +8,8 @@ import KAST.Logic 1.0
 Item {
     id: root
     signal back()
+    width: 890
+    height: 800
 
     property Logic obj_LogicContainerPLUListItems
 
@@ -33,6 +35,46 @@ Item {
             font.weight: Font.DemiBold
             x: 0
             y: -(94 -28)
+        }
+
+        Rectangle{
+            id:input_enterName
+            width: 300
+            height: 56
+            color: "white"
+            radius: 5
+            border.color: "#C6C5CE"
+            x: 527
+            y: -(104 -28)
+            TextEdit{
+                id:txt_Name
+                anchors.fill: parent
+                font.pixelSize: 20
+                layer.enabled: true
+                x:50
+                //horizontalAlignment: TextInput.AlignHCenter
+                verticalAlignment:  TextInput.AlignVCenter
+                font.family: viewset.danaFuNumFont
+                property string placeholderText: ""
+
+                onFocusChanged: {
+                    kkey.visible = true
+                }
+                Text {
+                    text: txt_Name.placeholderText
+                    color: "white"
+                    visible: !txt_Name.text
+                    font.pixelSize: 18
+                    anchors.verticalCenter: parent.verticalCenter
+                    x:50
+                    //anchors.horizontalCenter: parent.horizontalCenter
+                    font.family: viewset.danaFuNumFont
+                }
+
+                onTextChanged: {
+                    obj_LogicContainerPLUListItems.shopPage.search_plu(txt_Name.text)
+                }
+            }
         }
 
         model: obj_LogicContainerPLUListItems.shopPage.pluList
@@ -103,6 +145,16 @@ Item {
             }
 
         }
+    }
+
+    KKeyboard{
+        id:kkey
+        inputtext:txt_Name
+        leftpad:-50
+        toppad:-500
+        x:-12
+        y:input_enterName.y + 140 + 58
+        anchors.top: input_enterPassword.bottom
     }
 
 

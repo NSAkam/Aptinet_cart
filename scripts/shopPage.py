@@ -1130,6 +1130,10 @@ class ShopPage(QObject):
             playSound(self._lang.lst["sound_Tanks_for_yor_rating"])
 
 
+    @Slot(str)
+    def search_plu(self,s:str):
+        self._pluList.searchByName(s)
+
     ###################################################################################################### Functions ###
     def print_states(self):
         if self.state == -1:

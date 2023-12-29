@@ -247,6 +247,15 @@ class ProductModel(QAbstractListModel):
                 self.m_data.append(p)
         self.endResetModel()
 
+    def searchByName(self,s:str):
+        lsm = [Product]
+        for m in self.m_data:
+            if(m.name.startswith(s)):
+                lsm.append(m)
+        self.clearData()
+        self.insert_productList(lsm)
+        self.m_data
+
     def initialize_productList(self, prods: [Product]):
         self.beginResetModel()
         self.m_data = prods
