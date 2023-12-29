@@ -59,6 +59,7 @@ Item {
                     obj_LogicServer.settingPage.startUploadToServer()
                     btn_download.enabled = false
                     btn_downloadpic.enabled = false
+                    btn_upload.enabled = false
                 }
             }
         }
@@ -148,7 +149,7 @@ Item {
         function onUpdateUploadToServerSignal(v){
             progressUploadedToServer.update(v);
             if(v>95){
-
+                btn_upload.enabled = true
                 btn_download.enabled = true
                 btn_downloadpic.enabled = true
                 btn_upload.btn_color = "#4696FA"
@@ -158,6 +159,7 @@ Item {
         }
 
         function onErrorUpload(){
+            btn_upload.enabled = true
             btn_download.enabled = true
             btn_downloadpic.enabled = true
             btn_upload.btn_color = "#4696FA"
