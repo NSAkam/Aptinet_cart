@@ -389,9 +389,9 @@ class Product(QObject):
 
     def get_totalFinalPriceQML(self):   # total price with discount
         if self.dataModelShow == 1:
-            return "$ " + "{:.2f}".format(self.finalPrice * self.productWeightInBasket/1000)
+            return "$ " + "{:.2f}".format(self.price * self.productWeightInBasket/1000)
         else:
-            return "$ " + "{:.2f}".format(self.finalPrice * self.countInBasket)
+            return "$ " + "{:.2f}".format(self.price * self.countInBasket)
 
     totalFinalPriceQML = Property(str, get_totalFinalPriceQML, notify=changedSignal)
 
