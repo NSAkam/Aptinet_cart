@@ -863,7 +863,7 @@ Item {
         function onCloseAllPopUpSignal(){
             popUp_RemoveProducts.close()
 
-            popUp_bypass.close()
+            //popUp_bypass.close()
 
             popUp_MessageTimer.close()
 
