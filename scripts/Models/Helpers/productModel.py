@@ -256,7 +256,7 @@ class ProductModel(QAbstractListModel):
         else:
             lsm = []
             for m in self.m_data:
-                if(m.name.lower().startswith(s)):
+                if(s in m.name.lower()):
                     lsm.append(m)
                 self.beginResetModel()
                 self.m_data = lsm
