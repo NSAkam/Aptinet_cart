@@ -156,6 +156,7 @@ Item {
         y:input_enterName.y + 240 + 58
         anchors.top: input_enterPassword.bottom
         visible: false
+        z:1000
     }
 
 
