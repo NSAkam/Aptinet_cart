@@ -282,8 +282,9 @@ Item {
         borderRadius: 5
 
         onClicked: {
-            obj_LogicContainerAddPluItems.shopPage.back_addPLUItemsClicked()
             root.back()
+            obj_LogicContainerAddPluItems.shopPage.back_addPLUItemsClicked()
+
         }
 
     }
