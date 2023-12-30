@@ -881,7 +881,7 @@ Item {
         inputtext : txt_Name
         toppad: 500
         leftpad: 500
-        y:parent.height - 0
+        y:parent.height - 458
         x:0
         visible: true
 
