@@ -694,10 +694,13 @@ Item {
             obj_LogicContainerAddPluItems: obj_LogicContainerShop
             onSeeAll: {
                 stackviewContainer.push(plulist)
+                txt_Name.visible = true
+                kkey.visible = false
             }
 
             onBack: {
-
+                txt_Name.visible = false
+                kkey.visible = false
             }
         }
     }
@@ -844,7 +847,8 @@ Item {
         radius: 5
         border.color: "#C6C5CE"
         x: 527 + 390
-        y: (104 -28)
+        y: 104
+        visible: false
         TextEdit{
             id:txt_Name
             anchors.fill: parent
