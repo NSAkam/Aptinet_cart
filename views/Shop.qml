@@ -883,7 +883,7 @@ Item {
         leftpad: 500
         y:parent.height - 458
         x:0
-        visible: true
+        visible: false
 
         Behavior on y{
             NumberAnimation{duration: 500}

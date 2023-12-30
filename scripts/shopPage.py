@@ -1133,6 +1133,7 @@ class ShopPage(QObject):
 
     @Slot(str)
     def search_plu(self,s:str):
+        print(s)
         self._pluList.searchByName(s)
 
     ###################################################################################################### Functions ###
