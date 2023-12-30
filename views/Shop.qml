@@ -836,6 +836,59 @@ Item {
             obj_LogicContainerGuidTips: obj_LogicContainerShop
         }
     }
+    Rectangle{
+        id:input_enterName
+        width: 300
+        height: 56
+        color: "white"
+        radius: 5
+        border.color: "#C6C5CE"
+        x: 527 + 390
+        y: -(104 -28)
+        TextEdit{
+            id:txt_Name
+            anchors.fill: parent
+            font.pixelSize: 20
+            layer.enabled: true
+            x:50
+            //horizontalAlignment: TextInput.AlignHCenter
+            verticalAlignment:  TextInput.AlignVCenter
+            font.family: viewset.danaFuNumFont
+            property string placeholderText: ""
+
+            onFocusChanged: {
+                kkey.visible = true
+            }
+            Text {
+                text: txt_Name.placeholderText
+                color: "white"
+                visible: !txt_Name.text
+                font.pixelSize: 18
+                anchors.verticalCenter: parent.verticalCenter
+                x:50
+                //anchors.horizontalCenter: parent.horizontalCenter
+                font.family: viewset.danaFuNumFont
+            }
+
+            onTextChanged: {
+                obj_LogicContainerShop.shopPage.search_plu(txt_Name.text)
+            }
+        }
+    }
+
+    KKeyboard{
+        id:keyboard
+        inputtext : txt_Name
+        toppad: 500
+        leftpad: 500
+        y:parent.height - 0
+        x:0
+        visible: true
+
+        Behavior on y{
+            NumberAnimation{duration: 500}
+        }
+    }
 
 
     Connections{

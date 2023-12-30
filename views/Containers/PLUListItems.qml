@@ -37,45 +37,45 @@ Item {
             y: -(94 -28)
         }
 
-        Rectangle{
-            id:input_enterName
-            width: 300
-            height: 56
-            color: "white"
-            radius: 5
-            border.color: "#C6C5CE"
-            x: 527
-            y: -(104 -28)
-            TextEdit{
-                id:txt_Name
-                anchors.fill: parent
-                font.pixelSize: 20
-                layer.enabled: true
-                x:50
-                //horizontalAlignment: TextInput.AlignHCenter
-                verticalAlignment:  TextInput.AlignVCenter
-                font.family: viewset.danaFuNumFont
-                property string placeholderText: ""
+//        Rectangle{
+//            id:input_enterName
+//            width: 300
+//            height: 56
+//            color: "white"
+//            radius: 5
+//            border.color: "#C6C5CE"
+//            x: 527
+//            y: -(104 -28)
+//            TextEdit{
+//                id:txt_Name
+//                anchors.fill: parent
+//                font.pixelSize: 20
+//                layer.enabled: true
+//                x:50
+//                //horizontalAlignment: TextInput.AlignHCenter
+//                verticalAlignment:  TextInput.AlignVCenter
+//                font.family: viewset.danaFuNumFont
+//                property string placeholderText: ""
 
-                onFocusChanged: {
-                    kkey.visible = true
-                }
-                Text {
-                    text: txt_Name.placeholderText
-                    color: "white"
-                    visible: !txt_Name.text
-                    font.pixelSize: 18
-                    anchors.verticalCenter: parent.verticalCenter
-                    x:50
-                    //anchors.horizontalCenter: parent.horizontalCenter
-                    font.family: viewset.danaFuNumFont
-                }
+//                onFocusChanged: {
+//                    kkey.visible = true
+//                }
+//                Text {
+//                    text: txt_Name.placeholderText
+//                    color: "white"
+//                    visible: !txt_Name.text
+//                    font.pixelSize: 18
+//                    anchors.verticalCenter: parent.verticalCenter
+//                    x:50
+//                    //anchors.horizontalCenter: parent.horizontalCenter
+//                    font.family: viewset.danaFuNumFont
+//                }
 
-                onTextChanged: {
-                    obj_LogicContainerPLUListItems.shopPage.search_plu(txt_Name.text)
-                }
-            }
-        }
+//                onTextChanged: {
+//                    obj_LogicContainerPLUListItems.shopPage.search_plu(txt_Name.text)
+//                }
+//            }
+//        }
 
         model: obj_LogicContainerPLUListItems.shopPage.pluList
         delegate:
@@ -145,18 +145,6 @@ Item {
             }
 
         }
-    }
-
-    KKeyboard{
-        id:kkey
-        inputtext:txt_Name
-        leftpad:-50
-        toppad:-500
-        x:-390
-        y:input_enterName.y + 240 + 58
-        anchors.top: input_enterPassword.bottom
-        visible: false
-        z:1000
     }
 
 
