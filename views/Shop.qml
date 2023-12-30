@@ -877,7 +877,7 @@ Item {
     }
 
     KKeyboard{
-        id:keyboard
+        id:kkey
         inputtext : txt_Name
         toppad: 500
         leftpad: 500
