@@ -249,10 +249,11 @@ class ProductModel(QAbstractListModel):
 
     def searchByName(self,s:str):
         print("asdasd +++ " + s)
-        lsm = [Product]
+        lsm = []
         for m in self.m_data:
             if(m.name.startswith(s)):
                 lsm.append(m)
+                print(m.name)
         self.initialize_productList(lsm)
 
     def initialize_productList(self, prods: [Product]):
