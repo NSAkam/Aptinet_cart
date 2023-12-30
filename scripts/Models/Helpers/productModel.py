@@ -36,6 +36,7 @@ class ProductModel(QAbstractListModel):
     m_validBarcodeSetForDelete = []
     m_removedWeightMin: int = 0
     m_removedWeightMax: int = 0
+    cm_data = [Product]
 
     _priceNoDiscount: float = 0
     _finalprice: float = 0
@@ -248,15 +249,18 @@ class ProductModel(QAbstractListModel):
         self.endResetModel()
 
     def searchByName(self,s:str):
-        print("asdasd +++ " + s)
-        lsm = []
-        for m in self.m_data:
-            if(m.name.startswith(s)):
-                lsm.append(m)
-                print(m.name)
-        self.initialize_productList(lsm)
+        if(s == ""):
+            self.initialize_productList(self.cm_data)
+        else:
+            lsm = []
+            for m in self.m_data:
+                if(m.name.lower().startswith(s)):
+                    lsm.append(m)
+                    print(m.name)
+            self.initialize_productList(lsm)
 
     def initialize_productList(self, prods: [Product]):
+        self.cm_data = self.m_data
         self.beginResetModel()
         self.m_data = prods
         self.endResetModel()

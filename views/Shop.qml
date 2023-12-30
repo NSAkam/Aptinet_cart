@@ -884,6 +884,9 @@ Item {
         y:parent.height - 458
         x:0
         visible: false
+        onEnter: {
+            kkey.visible = false
+        }
 
         Behavior on y{
             NumberAnimation{duration: 500}
