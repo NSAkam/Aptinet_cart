@@ -250,20 +250,23 @@ class ProductModel(QAbstractListModel):
 
     def searchByName(self,s:str):
         if(s == ""):
-            self.initialize_productList(self.cm_data)
+            self.beginResetModel()
+            self.m_data = self.cm_data
+            self.endResetModel()
         else:
             lsm = []
             for m in self.m_data:
                 if(m.name.lower().startswith(s)):
                     lsm.append(m)
-                    print(m.name)
-            self.initialize_productList(lsm)
+                self.beginResetModel()
+                self.m_data = lsm
+                self.endResetModel()
 
     def initialize_productList(self, prods: [Product]):
-        self.cm_data = self.m_data
         self.beginResetModel()
         self.m_data = prods
         self.endResetModel()
+        self.cm_data = self.m_data
 
     def removeProducts(self, prods: [Product]):
         for prod in prods:
