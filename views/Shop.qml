@@ -761,6 +761,7 @@ Item {
             obj_LogicContainerPLUListItems: obj_LogicContainerShop
             onBack: {
                 stackviewContainer.pop()
+                input_enterName.visible = false
             }
         }
     }
