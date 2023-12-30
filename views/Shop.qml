@@ -696,6 +696,7 @@ Item {
                 stackviewContainer.push(plulist)
                 input_enterName.visible = true
                 kkey.visible = false
+                txt_Name.text=""
             }
 
             onBack: {
