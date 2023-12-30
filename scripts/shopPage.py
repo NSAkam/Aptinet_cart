@@ -1012,6 +1012,7 @@ class ShopPage(QObject):
             self.clear_stackView()
             self._inByPass = False
             self.closeAllPopUpSignal.emit()
+            self.closePopupByPassSignal.emit()
 
             self.state = 1
             self._countDownTimer = -60
