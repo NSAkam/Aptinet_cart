@@ -694,12 +694,12 @@ Item {
             obj_LogicContainerAddPluItems: obj_LogicContainerShop
             onSeeAll: {
                 stackviewContainer.push(plulist)
-                txt_Name.visible = true
+                input_enterName.visible = true
                 kkey.visible = false
             }
 
             onBack: {
-                txt_Name.visible = false
+                input_enterName.visible = false
                 kkey.visible = false
             }
         }
