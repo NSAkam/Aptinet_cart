@@ -844,7 +844,7 @@ Item {
         radius: 5
         border.color: "#C6C5CE"
         x: 527 + 390
-        y: -(104 -28)
+        y: (104 -28)
         TextEdit{
             id:txt_Name
             anchors.fill: parent
