@@ -265,9 +265,9 @@ Item {
             id: img_UserCaptured
             source: "image://KCameraProvider/1"
             width: 326
-            height: 184
+            height: 200
             x:32
-            y:105
+            y:100
             property bool counter: false
             cache: false
 
@@ -430,9 +430,9 @@ Item {
             id: img_UserCapturedadsPanel
             source: "image://KCameraProvider/1"
             width: 326
-            height: 184
+            height: 200
             x:32
-            y:105
+            y:100
             cache: false
             property bool counter: false
 
@@ -564,9 +564,9 @@ Item {
             id: img_UserCapturedadsPanel1
             source: "image://KCameraProvider/1"
             width: 326
-            height: 184
+            height: 200
             x:32
-            y:105
+            y:100
             property bool counter: false
             cache: false
 

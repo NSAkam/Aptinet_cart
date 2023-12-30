@@ -73,7 +73,7 @@ class CameraWorker(QThread):
                 if frame1 is not None:
                     tempFrame = cv2.flip(np.ascontiguousarray(frame1[80:400, 140:500]), 1)
                     # frame1 = cv2.cvtColor(frame1, cv2.COLOR_RGB2BGR)
-                    image = QImage(frame1, frame1.shape[1], frame1.shape[0], frame1.strides[0], QImage.Format_BGR888)
+                    image = QImage(tempFrame, tempFrame.shape[1], tempFrame.shape[0], tempFrame.strides[0], QImage.Format_BGR888)
                     # frame1 = cv2.cvtColor(frame1, cv2.COLOR_RGB2BGR)
                     # image = QImage(frame1, frame1.shape[1], frame1.shape[0],
                     #                frame1.strides[0], QImage.Format_RGB888)
