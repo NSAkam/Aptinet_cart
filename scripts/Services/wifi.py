@@ -255,7 +255,7 @@ class WirelessModel(QAbstractListModel):
             psks[ssids.index(self.SelectedSSID)] = new_psk
 
         config = open('/etc/wpa_supplicant/wpa_supplicant.conf', 'w')
-        config.write("ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev\nupdate_config=1\ncountry=IR\n\n")
+        config.write("ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev\nupdate_config=1\ncountry=US\n\n")
         for i in range(len(ssids)):
             if ssids[i] == self.SelectedSSID:
                 config.write('network={\n' +

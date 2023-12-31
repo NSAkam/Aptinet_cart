@@ -29,7 +29,7 @@ class ScannerWorker(QThread):
             self._readBytes = self._ser.read(32)
             if self._readBytes != b'':
                 self.barcodeValueReadSignal.emit()
-                time.sleep(0.5)
+                #time.sleep(0.5)
 
     def stop(self):
         self._canReadBarcode = False
