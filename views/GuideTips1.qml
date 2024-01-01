@@ -229,7 +229,7 @@ Item {
         borderRadius: 5
         fontsize: 20
         opacity: 1
-        x:251
+        x:170
         y:677
         btn_color: viewset.secondaryColor
         btn_borderWidth: 0
