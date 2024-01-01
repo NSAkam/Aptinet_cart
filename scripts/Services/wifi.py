@@ -237,41 +237,43 @@ class WirelessModel(QAbstractListModel):
 
     @Slot(str)
     def wifiConfig(self, new_psk:str):
-        os.chmod('/etc/wpa_supplicant/wpa_supplicant.conf', stat.S_IRWXU)
-        with open('/etc/wpa_supplicant/wpa_supplicant.conf', 'r') as f:
-            old_config = f.readlines()
-        ssids = []
-        psks = []
-        for line in old_config:
-            if re.search('.*ssid=(.*?)\n', line) is not None:
-                ssids.append(re.search('.*ssid=(.*?)\n', line).group(1)[1:-1])
-            if re.search('.*psk=(.*?)\n', line) is not None:
-                psks.append(re.search('.*psk=(.*?)\n', line).group(1)[1:-1])
-
-        if self.SelectedSSID not in ssids:
-            ssids.append(self.SelectedSSID)
-            psks.append(new_psk)
-        else:
-            psks[ssids.index(self.SelectedSSID)] = new_psk
-
-        config = open('/etc/wpa_supplicant/wpa_supplicant.conf', 'w')
-        config.write("ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev\nupdate_config=1\ncountry=US\n\n")
-        for i in range(len(ssids)):
-            if ssids[i] == self.SelectedSSID:
-                config.write('network={\n' +
-                             '\tssid=\"' + ssids[i] + '\"\n' +
-                             '\tpsk=\"' + psks[i] + '\"\n' +
-                             '\tpriority=' + str(10) +'\n'+
-                             '}\n\n')
+        new_psk = new_psk.replace(" ","")
+        if(len(new_psk)):
+            os.chmod('/etc/wpa_supplicant/wpa_supplicant.conf', stat.S_IRWXU)
+            with open('/etc/wpa_supplicant/wpa_supplicant.conf', 'r') as f:
+                old_config = f.readlines()
+            ssids = []
+            psks = []
+            for line in old_config:
+                if re.search('.*ssid=(.*?)\n', line) is not None:
+                    ssids.append(re.search('.*ssid=(.*?)\n', line).group(1)[1:-1])
+                if re.search('.*psk=(.*?)\n', line) is not None:
+                    psks.append(re.search('.*psk=(.*?)\n', line).group(1)[1:-1])
+    
+            if self.SelectedSSID not in ssids:
+                ssids.append(self.SelectedSSID)
+                psks.append(new_psk)
             else:
-                config.write('network={\n' +
-                             '\tssid=\"' + ssids[i] + '\"\n' +
-                             '\tpsk=\"' + psks[i] + '\"\n' +
-                             '\tpriority=' + str(1) +'\n'+
-                             '}\n\n')
-        config.close()
-        sleep(1)
-        os.system("sudo wpa_cli -i wlan0 reconfigure")
+                psks[ssids.index(self.SelectedSSID)] = new_psk
+    
+            config = open('/etc/wpa_supplicant/wpa_supplicant.conf', 'w')
+            config.write("ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev\nupdate_config=1\ncountry=US\n\n")
+            for i in range(len(ssids)):
+                if ssids[i] == self.SelectedSSID:
+                    config.write('network={\n' +
+                                 '\tssid=\"' + ssids[i] + '\"\n' +
+                                 '\tpsk=\"' + psks[i] + '\"\n' +
+                                 '\tpriority=' + str(10) +'\n'+
+                                 '}\n\n')
+                else:
+                    config.write('network={\n' +
+                                 '\tssid=\"' + ssids[i] + '\"\n' +
+                                 '\tpsk=\"' + psks[i] + '\"\n' +
+                                 '\tpriority=' + str(1) +'\n'+
+                                 '}\n\n')
+            config.close()
+            sleep(1)
+            os.system("sudo wpa_cli -i wlan0 reconfigure")
 
     @Slot(int)
     def selectedWifi(self,index:int):

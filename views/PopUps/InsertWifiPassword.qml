@@ -80,8 +80,10 @@ Popup {
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
-                        setting_obj.settingPage.wifimodel.wifiConfig(txt_password.text)
-                        popup_SetPasssword.close()
+                        if(txt_password.text != ""){
+                            setting_obj.settingPage.wifimodel.wifiConfig(txt_password.text)
+                            popup_SetPasssword.close()
+                        }
                     }
                 }
             }

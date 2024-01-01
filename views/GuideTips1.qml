@@ -221,6 +221,27 @@ Item {
             }
         }
     }
+    
+    KButton {
+        text:  "skip"
+        //color: viewset.secondaryColor
+        width: 150
+        borderRadius: 5
+        fontsize: 20
+        opacity: 0
+        x:251
+        y:677
+        visible: false
+        btn_color: viewset.secondaryColor
+        btn_borderWidth: 0
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                stackview.pop()
+                stackview.pop()
+            }
+        }
+    }
     Component{
         id:g2
         GuideTips2{
