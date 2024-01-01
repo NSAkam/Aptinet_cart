@@ -60,8 +60,6 @@ class ScannerHelper(QObject):
         LoyaltyCardBarcodeLength = self._LoyaltyCardBarcodeLength + self._scannerWorker.get_extraCharacter()
         couponLength = self._couponBarcodeLength + self._scannerWorker.get_extraCharacter()
 
-        print(len(self._scannerWorker.get_readBytes()))
-
         self.readBarcodeSignal.emit()
 
         if len(self._scannerWorker.get_readBytes()) == productBarcodeLength:
