@@ -228,7 +228,7 @@ Item {
         width: 150
         borderRadius: 5
         fontsize: 20
-        opacity: 0
+        opacity: 1
         x:251
         y:677
         btn_color: viewset.secondaryColor
