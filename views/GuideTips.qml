@@ -229,7 +229,6 @@ Item {
         opacity: 0
         x:251
         y:677
-        visible: false
         btn_color: viewset.secondaryColor
         btn_borderWidth: 0
         MouseArea{
