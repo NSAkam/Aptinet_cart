@@ -210,10 +210,10 @@ class Logic(QObject):
 
     @Slot()
     def go_toSettingClicked(self):
-        self._scanner.IDBarcodeReadSignal.disconnect()
-        self.set_settingPage(SettingPage(self._dal, self._scanner, self._lang))
-        self._scanner.go_outOfLogic()
         if self._adminRepository.Login(self._scanner.get_IDBarcode()):
+            self._scanner.IDBarcodeReadSignal.disconnect()
+            self.set_settingPage(SettingPage(self._dal, self._scanner, self._lang))
+            self._scanner.go_outOfLogic()
             self.goToSettingPageSignal.emit()
         else:
             self.showPopupMessageTimerSignal.emit(self._lang.lst["mess_Not_Authorized"])
