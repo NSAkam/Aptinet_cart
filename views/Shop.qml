@@ -782,6 +782,7 @@ Item {
         onGotowifi: {
             obj_LogicContainerShop.shopPage.gotoWifiSettings()
             stackview.push(wifi)
+            popUp_bypass.close()
         }
     }
 
@@ -846,7 +847,7 @@ Item {
             obj_LogicContainerGuidTips: obj_LogicContainerShop
         }
     }
-    
+
     Component {
         id: wifi
         WifiPage{
