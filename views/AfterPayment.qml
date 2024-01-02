@@ -330,6 +330,15 @@ Item {
 
         }
 
+        Timer{
+            interval:  180000
+            onTriggered: {
+                cameraProvider.stop()
+            }
+            running: true
+            repeat: true
+        }
+
         KButton{
             id:btn_reset
             anchors.horizontalCenter: parent.horizontalCenter

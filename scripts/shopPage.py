@@ -659,10 +659,10 @@ class ShopPage(QObject):
                     if abs(val2 - self._basketWeightShouldBe) > 50:
                         # self._basketWeightShouldBe = val1
                         self.turn_offGreenlight()
-                        self.openPopupMessageSignal.emit(
-                            self._lang.lst["mess_Cant_add_or_remove_product_in_this_session"])
-                        playSound(
-                            self._lang.lst["sound_Cant_add_or_remove_product_in_this_session"])
+                        # self.openPopupMessageSignal.emit(
+                        #     self._lang.lst["mess_Cant_add_or_remove_product_in_this_session"])
+                        # playSound(
+                        #     self._lang.lst["sound_Cant_add_or_remove_product_in_this_session"])
                         self.state = 13
 
                 elif self.state == 13:
@@ -791,10 +791,10 @@ class ShopPage(QObject):
                 elif self.state == 12:
                     if abs(val2 - self._basketWeightShouldBe) > 50:
                         # self._basketWeightShouldBe = val1
-                        self.openPopupMessageSignal.emit(
-                            self._lang.lst["mess_Cant_add_or_remove_product_in_this_session"])
-                        playSound(
-                            self._lang.lst["sound_Cant_add_or_remove_product_in_this_session"])
+                        # self.openPopupMessageSignal.emit(
+                        #     self._lang.lst["mess_Cant_add_or_remove_product_in_this_session"])
+                        # playSound(
+                        #     self._lang.lst["sound_Cant_add_or_remove_product_in_this_session"])
                         self.turn_offGreenlight()
                         self.state = 13
 
