@@ -21,7 +21,7 @@ Item {
 
 
     Image {
-        source: "../../Assets/AuthenticationBackground.png"
+        source: "../Assets/AuthenticationBackground.png"
         anchors.fill: parent
     }
 
@@ -33,7 +33,7 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         radius: 12
         Image {
-            source: "../../Assets/tik.png"
+            source: "../Assets/tik.png"
             x:24
             anchors.verticalCenter: parent.verticalCenter
         }
@@ -59,7 +59,7 @@ Item {
 //            color: "gray"
 //        }
         Image {
-            source: "../../Assets/wifi1.png"
+            source: "../Assets/wifi1.png"
             x:662
             anchors.verticalCenter: parent.verticalCenter
         }
@@ -104,7 +104,7 @@ Item {
                         anchors.bottom: parent.bottom
                     }
                     Image {
-                        source: "../../Assets/wifi1.png"
+                        source: "../Assets/wifi1.png"
                         x:662
                         anchors.verticalCenter: parent.verticalCenter
                     }
