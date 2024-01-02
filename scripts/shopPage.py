@@ -119,6 +119,7 @@ class ShopPage(QObject):
         self._user = user
         self._logger = LogStash(self._dal)
         self._restAPI = restAPI()
+        self._restAPI.recived.connect()
 
         #### Repositories #########################################
         self._userRepository = UserRepository(self._dal)
@@ -1503,3 +1504,10 @@ class ShopPage(QObject):
             factor["products"].append(prod)
         jsonFactorString = json.dumps(factor)
         self._restAPI.Post(self._saveFactorURL, jsonFactorString)
+    
+    @Slot(str)
+    def data_recivedFromServer(self,s:str):
+        if(s is not "-1"):
+            self.closePopupMessageSignal.emit()
+            self._requestForSendingEmail = False
+
