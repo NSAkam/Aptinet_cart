@@ -137,6 +137,14 @@ Item {
                 font.family: viewset.danaFuNumFont
                 property string placeholderText: obj_LogicContainerCheckoutPage.lang.txt_Enter_Discount_Code
 
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        numpad.inputtext = txt_OfferCodeInput
+                        numpad.visible = true
+                    }
+                }
+
                 onFocusChanged: {
                     numpad.inputtext = txt_OfferCodeInput
                     numpad.visible = true
