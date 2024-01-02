@@ -60,8 +60,8 @@ Popup {
                 source: "../../Assets/wifi.png"
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
-                width: 70
-                height: 70
+                width: 50
+                height: 50
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
