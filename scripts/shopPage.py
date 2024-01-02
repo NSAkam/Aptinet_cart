@@ -1177,7 +1177,8 @@ class ShopPage(QObject):
                 self._couponCode = "221222"
                 self._logger.insertLog(
                     "apply coupon", str(code), self._user.get_id())
-                self.factorList.set_offerCouponPercentage(10.0)
+                x = self.factorList.set_offerCouponPercentage(10.0)
+                self.openPopupMessageTimerSignal.emit("The amount of $"+x+" was reduced")
             else:
                 self.openPopupMessageTimerSignal.emit(
                     self._lang.lst["mess_Invalid_code_please_check_the_code"])
