@@ -11,21 +11,21 @@ import KAST.Logic 1.0
 Popup {
     id: popupBypass
     property Logic obj_logicByPassPopup
-    
+
     signal ok()
     signal gotowifi()
-    
-    
-    
+
+
+
     property string messageText:"value"
-    
+
     topMargin: 0
     bottomMargin: 0
     x: 0
     width: parent.width
     height: parent.height
     focus: false
-    
+
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
     background:
         Item {
@@ -58,7 +58,10 @@ Popup {
             color: "white"
             Image {
                 source: "../../Assets/wifi.png"
-                anchors.fill:parent
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                width: 70
+                height: 70
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
@@ -80,9 +83,9 @@ Popup {
                 }
             }
         }
-        
+
     }
-    
+
     contentItem: Item {
         Rectangle{
             id:lstfBypass
@@ -93,10 +96,10 @@ Popup {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
             radius: 15
-            
+
             Component{
                 id:factorDelegate
-                
+
                 Item {
                     id: itemFactorItem
                     x:5
@@ -137,7 +140,7 @@ Popup {
                             height: 30
                             x:108
                             anchors.verticalCenter: parent.verticalCenter
-                            
+
                             MouseArea{
                                 anchors.fill: parent
                                 onClicked: {
@@ -166,7 +169,7 @@ Popup {
                                 color: "white"
                             }
                         }
-                        
+
                         Image {
                             id: btnUpCount
                             source: "../../Assets/up.png"
@@ -183,8 +186,8 @@ Popup {
                                 }
                             }
                         }
-                        
-                        
+
+
                     }
                     DropShadow {
                         id: rectFactorItemshadow
@@ -199,7 +202,7 @@ Popup {
                     }
                 }
             }
-            
+
             ListView {
                 id:lst_prd
                 y:10
@@ -230,5 +233,5 @@ Popup {
             }
         }
     }
-    
+
 }
