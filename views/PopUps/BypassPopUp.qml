@@ -13,6 +13,7 @@ Popup {
     property Logic obj_logicByPassPopup
 
     signal ok()
+    signal gotowifi()
 
 
 
@@ -45,6 +46,17 @@ Popup {
                 anchors.fill: parent
                 onClicked: {
                     cameraProvider.stop()
+                }
+            }
+        }
+        Image {
+            source: "../../Assets/wifi.png"
+            width: 76
+            height: 76
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    popupBypass.gotowifi()
                 }
             }
         }

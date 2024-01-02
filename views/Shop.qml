@@ -9,6 +9,7 @@ import "Components"
 import "Containers"
 import "Utiles" as Util
 import "PopUps"
+import "Setting"
 import KAST.Logic 1.0
 
 
@@ -265,9 +266,9 @@ Item {
             id: img_UserCaptured
             source: "image://KCameraProvider/1"
             width: 326
-            height: 200
+            height: 184
             x:32
-            y:100
+            y:105
             property bool counter: false
             cache: false
 
@@ -430,9 +431,9 @@ Item {
             id: img_UserCapturedadsPanel
             source: "image://KCameraProvider/1"
             width: 326
-            height: 200
+            height: 184
             x:32
-            y:100
+            y:105
             cache: false
             property bool counter: false
 
@@ -564,9 +565,9 @@ Item {
             id: img_UserCapturedadsPanel1
             source: "image://KCameraProvider/1"
             width: 326
-            height: 200
+            height: 184
             x:32
-            y:100
+            y:105
             property bool counter: false
             cache: false
 
@@ -778,6 +779,10 @@ Item {
         onOk: {
             obj_LogicContainerShop.shopPage.accept_byPassClicked()
         }
+        onGotowifi: {
+            obj_LogicContainerShop.shopPage.gotoWifiSettings()
+            stackview.push(wifi)
+        }
     }
 
     FullMessageTimer{
@@ -839,6 +844,13 @@ Item {
         id:guid
         GuideTips{
             obj_LogicContainerGuidTips: obj_LogicContainerShop
+        }
+    }
+    
+    Component {
+        id: wifi
+        WifiPage{
+            setting_objWifi: obj_LogicContainerShop
         }
     }
     Rectangle{

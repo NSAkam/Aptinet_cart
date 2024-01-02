@@ -23,6 +23,8 @@ from Services.nfc import nfc
 from Services.lang import languageReader
 from Services.logStash import LogStash
 from Services.restapi import restAPI
+from Services.wifi import WirelessModel
+
 
 from Helpers.scannerHelper import ScannerHelper
 # from Helpers.weightSensorHelper import WeightSensorHelper
@@ -59,6 +61,8 @@ class ShopPage(QObject):
     _bypassList: ProductModel
     _removeList: ProductModel
     _removeLookupList: ProductModel
+    _wifimodel: WirelessModel
+
 
     ################################################################################################### Repositories ###
     _userRepository: UserRepository
@@ -220,6 +224,11 @@ class ShopPage(QObject):
     closePopupByPassSignal = Signal()
 
     ##################################################################################################### Properties ###
+    def getwifiModel(self):
+        return self._wifimodel
+
+    wifimodel = Property(QObject, getwifiModel, constant=True)
+    
     def get_state(self):
         return self._state
 
@@ -852,6 +861,19 @@ class ShopPage(QObject):
             self._lang.lst["mess_Please_check_your_email_address"] + self._emailException)
         playSound(self._lang.lst["sound_Please_check_your_email_address"])
         self._requestForSendingEmail = False
+
+
+    @Slot()
+    def gotoWifiSettings(self):
+        self._wifimodel = WirelessModel()
+        # self._wifimodel.threadscanerFinished.connect(self.finishwifiscannerThread)
+
+    @Slot()
+    def backFromWifiSettigs(self):
+        time.sleep(1)
+        self._wifimodel.destroy()
+        # del self._wifimodel
+        # print("backed")
 
     ####################################################################################################### UI Sluts ###
     @Slot()
