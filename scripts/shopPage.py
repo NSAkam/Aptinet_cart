@@ -872,6 +872,8 @@ class ShopPage(QObject):
     def backFromWifiSettigs(self):
         time.sleep(1)
         self._wifimodel.destroy()
+        self._inByPass = False
+        self._state = 1
         # del self._wifimodel
         # print("backed")
 
