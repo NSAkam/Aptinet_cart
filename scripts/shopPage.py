@@ -119,7 +119,7 @@ class ShopPage(QObject):
         self._user = user
         self._logger = LogStash(self._dal)
         self._restAPI = restAPI()
-        self._restAPI.recived.connect()
+        self._restAPI.recived.connect(self.data_recivedFromServer)
 
         #### Repositories #########################################
         self._userRepository = UserRepository(self._dal)
