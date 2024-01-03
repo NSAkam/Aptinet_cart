@@ -21,7 +21,7 @@ class Apihandler(QObject):
     _userServerRepository: UserServerRepository
     _adminRepository: AdminRepository
 
-    url = "https://app.aptinet.com/"
+    url = "http://app.aptinet.com/"
 
     def __init__(self, dataAccessLayer: DAL):
         super().__init__()

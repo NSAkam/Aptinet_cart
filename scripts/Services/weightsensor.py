@@ -25,7 +25,7 @@ class WeightSensorWorker(QThread):
     last_weight = 0
     read_weight_buffer_size = 50  # buffer size for shifting weights to it
     read_weight_buffer = []  # buffer for shifting weights to it
-    lightest_weight = 8  # 8
+    lightest_weight = 8  # 8 ### changed
     lightest_weight_for_remove = 17  # 25 - 8
     acceptable_tolerance = 8
     ignored_bits = 0

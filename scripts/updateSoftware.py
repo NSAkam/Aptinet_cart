@@ -79,7 +79,7 @@ class UpdateFiles(QObject):
     @Slot()
     def startDownload(self):
         self._downloader = Downloader(
-            "https://app.aptinet.com/api/APP/downloadProdpics")
+            "http://app.aptinet.com/api/APP/downloadProdpics")
         self._downloader.setTotalProgressSignal.connect(
             self.setTotalProgressSignal)
         self._downloader.setCurrentProgressSignal.connect(
