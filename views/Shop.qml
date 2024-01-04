@@ -97,7 +97,7 @@ Item {
                 ishover: false
                 visible: obj_LogicContainerShop.shopPage.user.loggedInUser.name === "Guest" ? true:false
                 onClicked: {
-                   stackview.push(authpage)
+                    stackview.push(authpage)
                 }
             }
 
@@ -464,6 +464,31 @@ Item {
 
             }
         }
+
+        Timer{
+            property int adsI: 0
+            running: true
+            repeat: true
+            interval: 3000
+            onTriggered: {
+                if(adsI == 0)
+                {
+                    ads_Image.source = "/home/aptinet/files/Ads1.png";
+                    adsI =adsI+1
+                }
+                if(adsI == 1)
+                {
+                    ads_Image.source = "/home/aptinet/files/Ads2.png";
+                    adsI =adsI+1
+                }
+                if(adsI == 3)
+                {
+                    ads_Image.source = "/home/aptinet/files/Ads.png";
+                    adsI = 0
+                }
+            }
+        }
+
         Image {
             id: ads_Image
             source: "/home/aptinet/files/Ads.png"
@@ -471,6 +496,12 @@ Item {
             height: 184
             x:32
             y:309
+            onSourceChanged: {
+
+            }
+            transitions: Transition {
+                    NumberAnimation { properties: "scale, opacity"; easing.type: Easing.InOutQuad; duration: 1000  }
+                }
         }
         Text {
             text: obj_LogicContainerShop.lang.txt_Special_Deals
@@ -605,22 +636,22 @@ Item {
             y:326
             font.bold: true
         }
-//        Rectangle{
-//            width: 40
-//            height: 40
-//            radius: width / 2
-//            x:142
-//            y:321
-//            color: viewset.secondaryColor
-//            Text {
-//                text: "2"
-//                anchors.horizontalCenter: parent.horizontalCenter
-//                anchors.verticalCenter: parent.verticalCenter
-//                color: "white"
-//                font.pixelSize: 24
-//                font.bold: true
-//            }
-//        }
+        //        Rectangle{
+        //            width: 40
+        //            height: 40
+        //            radius: width / 2
+        //            x:142
+        //            y:321
+        //            color: viewset.secondaryColor
+        //            Text {
+        //                text: "2"
+        //                anchors.horizontalCenter: parent.horizontalCenter
+        //                anchors.verticalCenter: parent.verticalCenter
+        //                color: "white"
+        //                font.pixelSize: 24
+        //                font.bold: true
+        //            }
+        //        }
 
 
         ListView {
@@ -1140,7 +1171,7 @@ Item {
         function onShowPaymentPinSignal(){
             insertPopUp.open()
         }
-        
+
         function onPopStack(){
             stackview.pop()
         }
