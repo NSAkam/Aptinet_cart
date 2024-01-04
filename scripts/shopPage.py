@@ -1172,6 +1172,7 @@ class ShopPage(QObject):
 
     @Slot(str)
     def apply_couponCode(self, code):
+        print("plu :" + code)
         if self.state == 8:
             if code == "221222":
                 self._couponCode = "221222"
