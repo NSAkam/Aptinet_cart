@@ -1544,3 +1544,14 @@ class ShopPage(QObject):
         else:
             self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_not_valid_phone_number"])
 
+    @Slot(str)
+    def login_loyaltyCode(self, loyaltyCode: str):
+        serverUser = self._userServerRepository.loginByloyalityBarcode(
+            loyaltyCode)
+        if not serverUser.get_id() == "":
+            self._user.set_loggedInUser(serverUser)
+            self._userRepository.updateUserServerID(self._user.get_id(), serverUser.get_id())
+            self.popStack.emit()
+        else:
+            self.showPopupMessageTimerSignal.emit(self._lang.lst["mess_not_valid_loyalty_code"])
+
