@@ -73,6 +73,7 @@ Item {
                 }
             }
             Text {
+                id:txt_user_name
                 text: obj_LogicContainerShop.shopPage.user.loggedInUser.name
                 color: "#6D6D6D"
                 width: 148
@@ -84,6 +85,7 @@ Item {
             KButton{
                 id:btn_login
                 btn_color: "#9D9D9D"
+                anchors.left: txt_user_name.right
                 x:478 + 148
                 y:32
                 borderRadius: 5
