@@ -235,8 +235,8 @@ Popup {
     }
     SelectMessage{
         id:popUpSure
+        message: "Are tou Sure"
         onOk: {
-            message = "Are tou Sure"
             cameraProvider.stop()
         }
     }
