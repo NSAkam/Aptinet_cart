@@ -1521,7 +1521,7 @@ class ShopPage(QObject):
     @Slot(str)
     def data_recivedFromServer(self,s:str):
         print(s)
-        if(s != "-1"):
+        if(s != "-1" and s!= "1"):
             self.closePopupMessageSignal.emit()
             self.openPopupMessageTimerSignal.emit("Email not Sent")
             self._requestForSendingEmail = False
