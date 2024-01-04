@@ -887,6 +887,13 @@ Item {
             setting_objWifi: obj_LogicContainerShop
         }
     }
+
+    Component{
+        id:authpage
+        Authentication{
+        }
+    }
+
     Rectangle{
         id:input_enterName
         width: 300
@@ -944,9 +951,9 @@ Item {
             NumberAnimation{duration: 500}
         }
     }
-    Authentication{
-        id:authpage
-    }
+
+
+
 
 
     Connections{
