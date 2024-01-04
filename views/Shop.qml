@@ -97,7 +97,8 @@ Item {
                 ishover: false
                 visible: obj_LogicContainerShop.shopPage.user.loggedInUser.name === "Guest" ? true:false
                 onClicked: {
-                    stackview.push(authpage)
+                    popUpLoginInshopPage.open()
+                    
                 }
             }
 
@@ -982,6 +983,23 @@ Item {
 
         Behavior on y{
             NumberAnimation{duration: 500}
+        }
+    }
+    
+    LoginInShop{
+        id:popUpLoginInshopPage
+        onPhoneNumber: {
+            stackview.push(authpage)
+        }
+        onMemberShopCart: {
+            stackview.push(memberLoginInshop)
+        }
+    }
+    
+    Component{
+        id:memberLoginInshop
+        MembershipInShop{
+            obj_LogicContainerLoyalityAuth:obj_LogicContainerShop
         }
     }
 
