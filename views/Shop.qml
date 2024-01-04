@@ -718,7 +718,12 @@ Item {
 
             onCancel:
             {
-                stackviewContainer.pop()
+                if(stackviewContainer.depth == 1){
+                    stackviewContainer.clear()
+                }
+                else{
+                    stackviewContainer.pop()
+                }
             }
 
         }
@@ -728,7 +733,14 @@ Item {
         AddPluItemsCountedView{
             obj_LogicContainerAddPluItemsCountedView : obj_LogicContainerShop
             onCancel: {
-                stackviewContainer.pop()
+                if(stackviewContainer.depth == 1){
+                    stackviewContainer.clear()
+                }
+                else{
+                    stackviewContainer.pop()
+                }
+
+
             }
         }
     }
