@@ -21,7 +21,7 @@ from Services.lang import languageReader
 class Logic(QObject):
     ### Settings #######################################################################################################
     _batteryLevelForStop: int = 25
-    _batteryLevelForRestart: int = 30
+    _batteryLevelForRestart: int = 15
 
     ### Models #########################################################################################################
 
