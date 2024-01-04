@@ -892,7 +892,8 @@ Item {
 
     Component{
         id:authpage
-        Authentication{
+        AuthenticationInShop{
+            obj_LogicContainer: obj_LogicContainerShop
         }
     }
 
