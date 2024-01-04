@@ -347,7 +347,7 @@ Item {
     Connections{
         target :obj_LogicContainerCheckoutPage.shopPage
         function onSetcopun(v){
-            txt_copun.text = v
+            txt_copun.text = "$ " + v
             numpad.visible = false
             btn_apply.visible = false
             rectEnterPLU.visible = false
