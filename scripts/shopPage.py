@@ -487,7 +487,7 @@ class ShopPage(QObject):
                 if(self.basketIsFull == True):
                     self.openPopupMessageTimerSignal.emit(
                         self._lang.lst["mess_Basket_is_full"])
-                    pass
+                    return
                 if self.state == -1:
                     if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
                         self.state = 1
