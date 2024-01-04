@@ -132,7 +132,8 @@ class ShopPage(QObject):
         self._scanner.EAN13ReadSignal.connect(self.barcodeRead)
         self._scanner.IDBarcodeReadSignal.connect(self.IDBarcode_read)
         self._scanner.couponReadSignal.connect(self.apply_couponCode)
-
+        self._scanner.pluReadSignal.connect(self.pluBarcodeRead)
+            
         #### WeightSensor #########################################
         self._weightSensor = WeightSensorWorker()
         self._weightSensor.basketweight_changed.connect(
@@ -342,6 +343,9 @@ class ShopPage(QObject):
     user = Property(User, get_user, set_user, notify=changedSignal)
 
     ########################################################################################################## Sluts ###
+    @Slot()
+    def pluBarcodeRead(self):
+        self.item_PLUClicked(self._scanner.get_barcode())
     @Slot()
     def barcodeRead(self):
         self.closePopUpMessageTimer.emit()
@@ -1185,8 +1189,7 @@ class ShopPage(QObject):
                     self._lang.lst["mess_Invalid_code_please_check_the_code"])
                 playSound(
                     self._lang.lst["sound_Invalid_code_please_check_the_code"])
-        if self.state ==1:
-            self.item_PLUClicked(code)
+
 
     @Slot()
     def payment_clicked(self):
