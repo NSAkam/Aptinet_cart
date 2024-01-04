@@ -82,6 +82,24 @@ Item {
                 y:40
             }
             KButton{
+                id:btn_login
+                btn_color: "#9D9D9D"
+                x:478 + 148
+                y:32
+                borderRadius: 5
+                width: 100
+                height: 40
+                text: "login"
+                btn_borderWidth:0
+                fontsize: 16
+                ishover: false
+                visible: obj_LogicContainerShop.shopPage.user.loggedInUser.name === "Guest" ? true:false
+                onClicked: {
+                   stackview.push(authpage)
+                }
+            }
+
+            KButton{
                 id:btn_lookupbyname
                 btn_color: "#9D9D9D"
                 x:995 -40
@@ -735,7 +753,7 @@ Item {
             obj_LogicContainerAddPluItemsCountedView : obj_LogicContainerShop
             onCancel: {
                 obj_LogicContainerShop.shopPage.back_addPLUItemsClicked()
-                
+
                 if(stackviewContainer.depth == 1){
                     stackviewContainer.clear()
                 }
@@ -925,6 +943,9 @@ Item {
         Behavior on y{
             NumberAnimation{duration: 500}
         }
+    }
+    Authentication{
+        id:authpage
     }
 
 
