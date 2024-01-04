@@ -473,6 +473,10 @@ class ShopPage(QObject):
 
     @Slot(int, int)
     def basketWeightChanged(self, val2: int, val1: int):
+        if(val2 >= val1 and self.basketIsFull == True):
+                    self.openPopupMessageTimerSignal.emit(
+                        self._lang.lst["mess_Basket_is_full"])
+                    return
         if not self._inByPass:
             print("--------------> val 2:", val2)
             self.cal_basketLoad(val2)
@@ -484,10 +488,6 @@ class ShopPage(QObject):
             # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ADD Weight <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
             # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
             if val2 >= val1:
-                if(self.basketIsFull == True):
-                    self.openPopupMessageTimerSignal.emit(
-                        self._lang.lst["mess_Basket_is_full"])
-                    return
                 if self.state == -1:
                     if self._basketWeightShouldBe - self._basketWeightTolerance <= val2 <= self._basketWeightShouldBe + self._basketWeightTolerance:
                         self.state = 1
@@ -951,6 +951,9 @@ class ShopPage(QObject):
 
     @Slot()
     def show_addPLUItemsClicked(self):  # not in state 5
+        if(self.basketIsFull == True):
+            self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Basket_is_full"])
+            return
         if self.state == 1:
             self.showAddPLUItemsSignal.emit()
             self.hideTopBtnSignal.emit()
