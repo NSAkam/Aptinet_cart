@@ -1523,5 +1523,6 @@ class ShopPage(QObject):
         print(s)
         if(s != "-1"):
             self.closePopupMessageSignal.emit()
+            self.openPopupMessageTimerSignal.emit("Email not Sent")
             self._requestForSendingEmail = False
 
