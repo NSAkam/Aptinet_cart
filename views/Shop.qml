@@ -988,11 +988,14 @@ Item {
     
     LoginInShop{
         id:popUpLoginInshopPage
+        obj_logic: obj_LogicContainerShop
         onPhoneNumber: {
             stackview.push(authpage)
+            popUpLoginInshopPage.close()
         }
         onMemberShopCart: {
             stackview.push(memberLoginInshop)
+            popUpLoginInshopPage.close()
         }
     }
     
