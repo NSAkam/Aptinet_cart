@@ -118,6 +118,35 @@ Item {
             y: 156
             font.bold: true
         }
+        Text {
+            id: copuntext
+            text: "cupun"
+            font.pixelSize: 20
+            color: "#6D6D6D"
+            x: 48
+            y: 158+58
+        }
+
+        Rectangle {
+            id: copunline
+            width: 322
+            height: 0.51
+            color: "#D9D9D9"
+            border.color: "#D9D9D9"
+            border.width: 0.5
+            x: 149
+            y: 175+58
+        }
+
+        Text {
+            id:txt_copun
+            text: "$  123"
+            font.pixelSize: 24
+            color: viewset.primaryColor
+            x: 510
+            y: 156 + 58
+            font.bold: true
+        }
 
         Rectangle{
             id:rectEnterPLU
@@ -127,6 +156,7 @@ Item {
             height: 54
             color: "#F1F1F1"
             radius: 4
+            visible: true
             TextInput{
                 id:txt_OfferCodeInput
                 anchors.fill: parent
@@ -165,6 +195,8 @@ Item {
 
 
         KButton {
+            id:btn_apply
+            visible: true
             text: obj_LogicContainerCheckoutPage.lang.btn_Apply
             x: 465
             y: 214
@@ -312,6 +344,13 @@ Item {
             obj_LogicContainerCheckoutPage.shopPage.apply_couponCode(txt_OfferCodeInput.text)
         }
     }
-
-
+    Connections{
+        target :obj_LogicContainerCheckoutPage.shopPage
+        function onSetcopun(v){
+            txt_copun.text = v
+            numpad.visible = false
+            btn_apply.visible = false
+            rectEnterPLU.visible = false
+        }
+    }
 }

@@ -233,6 +233,8 @@ class ShopPage(QObject):
 
     popStack = Signal()
 
+    setcopun = Signal(str)
+
     ##################################################################################################### Properties ###
     def getwifiModel(self):
         return self._wifimodel
@@ -1209,6 +1211,7 @@ class ShopPage(QObject):
                 x = self.factorList.set_offerCouponPercentage(10.0)
                 self.openPopupMessageTimerSignal.emit(
                     "The amount of $"+str("{:.2f}".format(x))+" was reduced")
+                self.setcopun.emit(str("{:.2f}".format(x)))
             else:
                 self.openPopupMessageTimerSignal.emit(
                     self._lang.lst["mess_Invalid_code_please_check_the_code"])

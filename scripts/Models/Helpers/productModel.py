@@ -121,7 +121,7 @@ class ProductModel(QAbstractListModel):
     def set_offerCouponPercentage(self, percentage: float):
         self._offerCouponPercentage = percentage
         self.changed.emit()
-        return (self.finalprice + self.tax) * (self._offerCouponPercentage) / 100
+        return (self.finalprice) * (self._offerCouponPercentage) / 100
 
     # Function #################################################################
 
