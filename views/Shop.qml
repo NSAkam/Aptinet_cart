@@ -476,12 +476,12 @@ Item {
                     ads_Image.source = "/home/aptinet/files/Ads1.png";
                     adsI =adsI+1
                 }
-                if(adsI == 1)
+                else if(adsI == 1)
                 {
                     ads_Image.source = "/home/aptinet/files/Ads2.png";
                     adsI =adsI+1
                 }
-                if(adsI == 3)
+                else if(adsI == 3)
                 {
                     ads_Image.source = "/home/aptinet/files/Ads.png";
                     adsI = 0
