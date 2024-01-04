@@ -278,7 +278,7 @@ Item {
             color: "white"
         }
         Image {
-            source: "../Assets/AptinetText1.png"
+            source: "/home/aptinet/files/AptinetText.png"
             x:32
             y:32
         }
@@ -371,7 +371,7 @@ Item {
 
         }
         Image {
-            source: "../Assets/AptinetText1.png"
+            source: "/home/aptinet/files/AptinetText.png"
             x:32
             y:32
         }
@@ -607,7 +607,7 @@ Item {
             anchors.fill: parent
         }
         Image {
-            source: "../Assets/AptinetText1.png"
+            source: "/home/aptinet/files/AptinetText.png"
             x:32
             y:32
         }
