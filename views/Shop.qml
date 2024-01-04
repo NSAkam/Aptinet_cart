@@ -502,7 +502,7 @@ Item {
             onSourceChanged: {
 
             }
-            Behavior on opacity {NumberAnimation{duration: 500}}
+            Behavior on opacity {NumberAnimation{duration: 20}}
 
         }
         Text {
