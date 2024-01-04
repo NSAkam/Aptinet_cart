@@ -718,6 +718,7 @@ Item {
 
             onCancel:
             {
+                obj_LogicContainerShop.shopPage.back_addPLUItemsClicked()
                 if(stackviewContainer.depth == 1){
                     stackviewContainer.clear()
                 }
@@ -733,6 +734,8 @@ Item {
         AddPluItemsCountedView{
             obj_LogicContainerAddPluItemsCountedView : obj_LogicContainerShop
             onCancel: {
+                obj_LogicContainerShop.shopPage.back_addPLUItemsClicked()
+                
                 if(stackviewContainer.depth == 1){
                     stackviewContainer.clear()
                 }
