@@ -45,7 +45,7 @@ Popup {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    cameraProvider.stop()
+                    popUpSure.open()
                 }
             }
         }
@@ -231,6 +231,12 @@ Popup {
                     popupBypass.ok()
                 }
             }
+        }
+    }
+    SelectMessage{
+        id:popUpSure
+        onOk: {
+            cameraProvider.stop()
         }
     }
 
