@@ -1465,6 +1465,7 @@ class ShopPage(QObject):
 
     @Slot()
     def send_email(self):
+        print("email Send")
         self._userRepository.updateEmail(
                 self._user.get_id(), self._enteredEmail)
 
@@ -1510,8 +1511,9 @@ class ShopPage(QObject):
             prod["productTax"] = p.get_totalTaxQML()
             factor["products"].append(prod)
         jsonFactorString = json.dumps(factor)
-        # with open("/home/aptinet/factor.json", 'w', encoding='utf-8') as f:
-        #     f.write(jsonFactorString)
+
+        with open("/home/aptinet/factor.json", 'w', encoding='utf-8') as f:
+            f.write(jsonFactorString)
         self._restAPI.Post(self._mailServiceURL, jsonFactorString)
         self.closePopupMessageSignal.emit()
         self._requestForSendingEmail = False
