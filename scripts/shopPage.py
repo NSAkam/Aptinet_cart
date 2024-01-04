@@ -229,6 +229,8 @@ class ShopPage(QObject):
     openPopupByPassSignal = Signal()  # open by pass pop up
     closePopupByPassSignal = Signal()
 
+    popStack = Signal()
+
     ##################################################################################################### Properties ###
     def getwifiModel(self):
         return self._wifimodel
@@ -1524,4 +1526,14 @@ class ShopPage(QObject):
             self.closePopupMessageSignal.emit()
             self.openPopupMessageTimerSignal.emit("Email not Sent")
             self._requestForSendingEmail = False
+
+    @Slot(str)
+    def login_phoneNumber(self, phoneNumber: str):
+        serverUser = self._userServerRepository.loginByPhone(phoneNumber)
+        if not serverUser.get_id() == "":
+            self._user.set_loggedInUser(serverUser)
+            self._userRepository.updateUserServerID(self._user.get_id(), serverUser.get_id())
+            self.popStack.emit()
+        else:
+            self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_not_valid_phone_number"])
 

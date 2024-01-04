@@ -1140,5 +1140,9 @@ Item {
         function onShowPaymentPinSignal(){
             insertPopUp.open()
         }
+        
+        function onPopStack(){
+            stackview.pop()
+        }
     }
 }

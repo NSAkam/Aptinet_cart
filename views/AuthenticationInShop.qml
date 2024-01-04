@@ -143,7 +143,7 @@ Item {
         MouseArea{
             anchors.fill: parent
             onClicked: {
-                obj_LogicContainer.login_phoneNumber(txt_phone.text)
+                obj_LogicContainer.shopPage.login_phoneNumber(txt_phone.text)
             }
         }
     }
@@ -253,7 +253,7 @@ Item {
         }
         visible: false
         onEnter: {
-            obj_LogicContainer.login_phoneNumber(txt_phone.text)
+            obj_LogicContainer.shopPage.login_phoneNumber(txt_phone.text)
         }
     }
 
