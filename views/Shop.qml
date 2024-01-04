@@ -98,7 +98,7 @@ Item {
                 visible: obj_LogicContainerShop.shopPage.user.loggedInUser.name === "Guest" ? true:false
                 onClicked: {
                     popUpLoginInshopPage.open()
-                    
+
                 }
             }
 
@@ -866,6 +866,11 @@ Item {
 
     }
     NotificationPopUp{
+        id:popUp_fullBasket
+        message: "the Basket is Full"
+        
+    }
+    NotificationPopUp{
         id:popUp_MessageNoBarcodeScanned
         message: obj_LogicContainerShop.lang.mess_First_take_the_barcode_of_the_product_in_front_of_the_barcode_scanner_then_put_it_in_the_cart
     }
@@ -985,7 +990,7 @@ Item {
             NumberAnimation{duration: 500}
         }
     }
-    
+
     LoginInShop{
         id:popUpLoginInshopPage
         obj_logic: obj_LogicContainerShop
@@ -998,7 +1003,7 @@ Item {
             popUpLoginInshopPage.close()
         }
     }
-    
+
     Component{
         id:memberLoginInshop
         MembershipInShop{
@@ -1194,6 +1199,14 @@ Item {
 
         function onPopStack(){
             stackview.pop()
+        }
+        
+        function onShowBasketFull(){
+            popUp_fullBasket.open()
+        }
+        
+        function onCloseBasketFull(){
+            popUp_fullBasket.close()
         }
     }
 }

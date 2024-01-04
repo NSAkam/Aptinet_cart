@@ -63,7 +63,6 @@ class ShopPage(QObject):
     _removeLookupList: ProductModel
     _wifimodel: WirelessModel
 
-
     ################################################################################################### Repositories ###
     _userRepository: UserRepository
     _userServerRepository: UserServerRepository
@@ -133,7 +132,7 @@ class ShopPage(QObject):
         self._scanner.IDBarcodeReadSignal.connect(self.IDBarcode_read)
         self._scanner.couponReadSignal.connect(self.apply_couponCode)
         self._scanner.pluReadSignal.connect(self.pluBarcodeRead)
-            
+
         #### WeightSensor #########################################
         self._weightSensor = WeightSensorWorker()
         self._weightSensor.basketweight_changed.connect(
@@ -202,6 +201,9 @@ class ShopPage(QObject):
 
     sendStandardEmail = Signal()
 
+    showBasketFull = Signal()
+    closeBasketFull = Signal()
+
     #### Popup Signals ############################################
     closeAllPopUpSignal = Signal()
 
@@ -236,7 +238,7 @@ class ShopPage(QObject):
         return self._wifimodel
 
     wifimodel = Property(QObject, getwifiModel, constant=True)
-    
+
     def get_state(self):
         return self._state
 
@@ -352,6 +354,7 @@ class ShopPage(QObject):
     @Slot()
     def pluBarcodeRead(self):
         self.item_PLUClicked(self._scanner.get_barcode())
+
     @Slot()
     def barcodeRead(self):
         self.closePopUpMessageTimer.emit()
@@ -473,10 +476,18 @@ class ShopPage(QObject):
 
     @Slot(int, int)
     def basketWeightChanged(self, val2: int, val1: int):
-        if(val2 >= val1 and self.basketIsFull == True):
-                    self.openPopupMessageTimerSignal.emit(
-                        self._lang.lst["mess_Basket_is_full"])
-                    return
+        if (val2 >= val1 and self.basketIsFull == True):
+            self._basketWeightShouldBe = val1
+            self.state = 3
+            self.showBasketFull.emit()
+            return
+        elif (self._basketWeightShouldBe - self._basketWeightTolerance <= val2 < self._basketWeightShouldBe + self._basketWeightTolerance and self.basketIsFull == True):
+            self._basketWeightShouldBe = val2
+            self.closeBasketFull.emit()
+            self.clear_stackView()
+            self.state = 1
+            return
+
         if not self._inByPass:
             print("--------------> val 2:", val2)
             self.cal_basketLoad(val2)
@@ -877,7 +888,6 @@ class ShopPage(QObject):
         playSound(self._lang.lst["sound_Please_check_your_email_address"])
         self._requestForSendingEmail = False
 
-
     @Slot()
     def gotoWifiSettings(self):
         self._wifimodel = WirelessModel()
@@ -951,8 +961,9 @@ class ShopPage(QObject):
 
     @Slot()
     def show_addPLUItemsClicked(self):  # not in state 5
-        if(self.basketIsFull == True):
-            self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_Basket_is_full"])
+        if (self.basketIsFull == True):
+            self.openPopupMessageTimerSignal.emit(
+                self._lang.lst["mess_Basket_is_full"])
             return
         if self.state == 1:
             self.showAddPLUItemsSignal.emit()
@@ -1196,13 +1207,13 @@ class ShopPage(QObject):
                 self._logger.insertLog(
                     "apply coupon", str(code), self._user.get_id())
                 x = self.factorList.set_offerCouponPercentage(10.0)
-                self.openPopupMessageTimerSignal.emit("The amount of $"+str("{:.2f}".format(x))+" was reduced")
+                self.openPopupMessageTimerSignal.emit(
+                    "The amount of $"+str("{:.2f}".format(x))+" was reduced")
             else:
                 self.openPopupMessageTimerSignal.emit(
                     self._lang.lst["mess_Invalid_code_please_check_the_code"])
                 playSound(
                     self._lang.lst["sound_Invalid_code_please_check_the_code"])
-
 
     @Slot()
     def payment_clicked(self):
@@ -1398,7 +1409,6 @@ class ShopPage(QObject):
 
             self.sendStandardEmail.emit()
 
-
         except EmailNotValidError as e:
             self.closePopupMessageSignal.emit()
             self._emailException = str(e)
@@ -1476,7 +1486,7 @@ class ShopPage(QObject):
     def send_email(self):
         print("email Send")
         self._userRepository.updateEmail(
-                self._user.get_id(), self._enteredEmail)
+            self._user.get_id(), self._enteredEmail)
 
         factor = {}
         factor["emailAddress"] = self._enteredEmail
@@ -1526,10 +1536,10 @@ class ShopPage(QObject):
         self._restAPI.Post(self._mailServiceURL, jsonFactorString)
         self.closePopupMessageSignal.emit()
         self._requestForSendingEmail = False
-    
+
     @Slot(str)
-    def data_recivedFromServer(self,s:str):
-        if(s != "-1" and s!= "1"):
+    def data_recivedFromServer(self, s: str):
+        if (s != "-1" and s != "1"):
             self.closePopupMessageSignal.emit()
             self.openPopupMessageTimerSignal.emit("Email not Sent")
             self._requestForSendingEmail = False
@@ -1539,10 +1549,12 @@ class ShopPage(QObject):
         serverUser = self._userServerRepository.loginByPhone(phoneNumber)
         if not serverUser.get_id() == "":
             self._user.set_loggedInUser(serverUser)
-            self._userRepository.updateUserServerID(self._user.get_id(), serverUser.get_id())
+            self._userRepository.updateUserServerID(
+                self._user.get_id(), serverUser.get_id())
             self.popStack.emit()
         else:
-            self.openPopupMessageTimerSignal.emit(self._lang.lst["mess_not_valid_phone_number"])
+            self.openPopupMessageTimerSignal.emit(
+                self._lang.lst["mess_not_valid_phone_number"])
 
     @Slot(str)
     def login_loyaltyCode(self, loyaltyCode: str):
@@ -1550,8 +1562,9 @@ class ShopPage(QObject):
             loyaltyCode)
         if not serverUser.get_id() == "":
             self._user.set_loggedInUser(serverUser)
-            self._userRepository.updateUserServerID(self._user.get_id(), serverUser.get_id())
+            self._userRepository.updateUserServerID(
+                self._user.get_id(), serverUser.get_id())
             self.popStack.emit()
         else:
-            self.showPopupMessageTimerSignal.emit(self._lang.lst["mess_not_valid_loyalty_code"])
-
+            self.showPopupMessageTimerSignal.emit(
+                self._lang.lst["mess_not_valid_loyalty_code"])
