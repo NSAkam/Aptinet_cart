@@ -94,7 +94,7 @@ Item {
             text: "$  " + (obj_LogicContainerCheckoutPage.shopPage.factorList.finalprice *1).toFixed(2)
             font.pixelSize: 24
             color: viewset.primaryColor
-            x: 495
+            x: 510
             y: 40
             font.bold: true
         }
@@ -114,7 +114,7 @@ Item {
             text: "$  " + (obj_LogicContainerCheckoutPage.shopPage.factorList.profit * 1).toFixed(2)
             font.pixelSize: 24
             color: viewset.primaryColor
-            x: 495
+            x: 510
             y: 156
             font.bold: true
         }
