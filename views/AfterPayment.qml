@@ -331,7 +331,7 @@ Item {
         }
 
         Timer{
-            interval:  180000
+            interval:  300000
             onTriggered: {
                 cameraProvider.stop()
             }

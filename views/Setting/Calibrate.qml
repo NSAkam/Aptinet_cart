@@ -132,6 +132,7 @@ Item {
             color: "#F08C5A"
 
             Text {
+                id:txt_Unit
                 text: qsTr("gr")
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -149,6 +150,20 @@ Item {
             source: "../../Assets/menu.png"
             anchors.verticalCenter: parent.verticalCenter
             x:344
+
+        }
+        MouseArea{
+            anchors.fill:parent
+            onClicked: {
+                if(txt_Unit.text === "gr"){
+                    txt_Unit.text = "oz"
+                    obj_LogicCalibrate.settingPage.weightsensor.changeUnit("oz");
+                }
+                else{
+                    txt_Unit.text = "gr"
+                    obj_LogicCalibrate.settingPage.weightsensor.changeUnit("gr");
+                }
+            }
         }
         radius: 5
     }
@@ -198,7 +213,7 @@ Item {
             font.pixelSize: 20
         }
         Image {
-            source: "../../Assets/menu.png"
+            //source: "../../Assets/menu.png"
             anchors.verticalCenter: parent.verticalCenter
             x:344
         }
@@ -210,6 +225,29 @@ Item {
         anchors.top: rect_insertWeight.bottom
         anchors.topMargin: 10
         inputtext: txt_weight
+        Rectangle{
+            width: 100
+            height: 50
+            anchors.bottomMargin: 40
+            color: white
+            anchors.right: parent.left
+            anchors.bottom:parent.bottom
+                Text{
+                    text: "."
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        var i = txt_weight.text.indexOf(".")
+                        if(i === -1){
+                            txt_weight.text += "."
+                        }
+
+                    }
+                }
+        }
     }
 
 

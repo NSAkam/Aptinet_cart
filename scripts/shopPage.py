@@ -1184,6 +1184,8 @@ class ShopPage(QObject):
                     self._lang.lst["mess_Invalid_code_please_check_the_code"])
                 playSound(
                     self._lang.lst["sound_Invalid_code_please_check_the_code"])
+        if self.state ==1:
+            self.item_PLUClicked(code)
 
     @Slot()
     def payment_clicked(self):

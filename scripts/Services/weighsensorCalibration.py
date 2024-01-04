@@ -8,11 +8,13 @@ from statistics import mean
 
 
 class WeighSensorCalibration(QObject):
+    _unit:str = "gr"
+
     _raw_digit = []
     _raw_wight = []
     _offset : float
     _scale : float
-    _w1:int
+    _w1:float
     _w2:int
     _w3:int
 
@@ -198,7 +200,13 @@ class WeighSensorCalibration(QObject):
         self._raw_wight.append(0)
 
     @Slot(str)
+    def changeUnit(self,r:str):
+        self._unit = r
+
+    @Slot(str)
     def setWeightW1(self,v:str):
+        if(self._unit == "oz"):
+            v = v * 453.59237
         self.setw1(v)
 
         weights = []
