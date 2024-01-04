@@ -469,10 +469,12 @@ Item {
             property int adsI: 0
             running: true
             repeat: true
-            interval: 3000
+            interval: 5000
             onTriggered: {
+                ads_Image.opacity = 0
                 if(adsI == 0)
                 {
+
                     ads_Image.source = "/home/aptinet/files/Ads1.png";
                     adsI =adsI+1
                 }
@@ -486,6 +488,7 @@ Item {
                     ads_Image.source = "/home/aptinet/files/Ads.png";
                     adsI = 0
                 }
+                ads_Image.opacity = 1
             }
         }
 
@@ -499,9 +502,8 @@ Item {
             onSourceChanged: {
 
             }
-            transitions: Transition {
-                    NumberAnimation { properties: "scale, opacity"; easing.type: Easing.InOutQuad; duration: 1000  }
-                }
+            Behavior on opacity {NumberAnimation{duration: 500}}
+
         }
         Text {
             text: obj_LogicContainerShop.lang.txt_Special_Deals
