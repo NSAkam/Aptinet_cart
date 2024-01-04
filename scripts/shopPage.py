@@ -1520,6 +1520,7 @@ class ShopPage(QObject):
     
     @Slot(str)
     def data_recivedFromServer(self,s:str):
+        print(s)
         if(s != "-1"):
             self.closePopupMessageSignal.emit()
             self._requestForSendingEmail = False
