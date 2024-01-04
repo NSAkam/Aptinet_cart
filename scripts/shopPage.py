@@ -524,9 +524,9 @@ class ShopPage(QObject):
                             self.openPopupNoBarcodeScannedSignal.emit()
                             playSound(
                                 self._lang.lst["sound_First_take_the_barcode_of_the_product_in_front_of_the_barcode_scanner_then_put_it_in_the_cart"])
-                            if abs(value) > 20:
-                                # notifSound()
-                                playSound(self._lang.lst["sound_notif"])
+                            # if abs(value) > 20:
+                            #     # notifSound()
+                            #     playSound(self._lang.lst["sound_notif"])
                             self._basketWeightShouldBe = val1
                             self.state = 4
 
@@ -534,9 +534,9 @@ class ShopPage(QObject):
                         self.openPopupNoBarcodeScannedSignal.emit()
                         playSound(
                             self._lang.lst["sound_First_take_the_barcode_of_the_product_in_front_of_the_barcode_scanner_then_put_it_in_the_cart"])
-                        if abs(value) > 20:
-                            # notifSound()
-                            playSound(self._lang.lst["sound_notif"])
+                        # if abs(value) > 20:
+                        #     # notifSound()
+                        #     playSound(self._lang.lst["sound_notif"])
                         self._basketWeightShouldBe = val1
                         self.state = 4
                         self._shouldBarcodeToBeScannToAddProduct = True
