@@ -1553,6 +1553,7 @@ class ShopPage(QObject):
                 self._user.get_id(), serverUser.get_id())
             self.popStack.emit()
         else:
+            playSound(self._lang.lst["sound_not_valid_phone_number"])
             self.openPopupMessageTimerSignal.emit(
                 self._lang.lst["mess_not_valid_phone_number"])
 

@@ -16,6 +16,8 @@ from Models.Helpers.langModel import LangModel
 import os
 import sys
 from Services.lang import languageReader
+from Services.sound import *
+
 
 
 class Logic(QObject):
@@ -154,6 +156,7 @@ class Logic(QObject):
             # self.validPhoneNumberSignal.emit()
             self.continue_clicked()
         else:
+            playSound(self._lang.lst["sound_not_valid_phone_number"])
             self.showPopupMessageTimerSignal.emit(self._lang.lst["mess_not_valid_phone_number"])
 
 
