@@ -471,7 +471,6 @@ Item {
             repeat: true
             interval: 5000
             onTriggered: {
-                ads_Image.opacity = 0
                 if(adsI == 0)
                 {
 
@@ -488,7 +487,6 @@ Item {
                     ads_Image.source = "/home/aptinet/files/Ads.png";
                     adsI = 0
                 }
-                ads_Image.opacity = 1
             }
         }
 
@@ -502,7 +500,6 @@ Item {
             onSourceChanged: {
 
             }
-            Behavior on opacity {NumberAnimation{duration: 20}}
 
         }
         Text {
