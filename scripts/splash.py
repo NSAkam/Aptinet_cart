@@ -6,7 +6,7 @@ from PySide2.QtQml import QQmlApplicationEngine
 
 
 if __name__ == "__main__":
-    QGuiApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
+    #QGuiApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
 
     app = QGuiApplication(sys.argv)
     app.setOverrideCursor(Qt.BlankCursor)
