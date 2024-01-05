@@ -18,6 +18,7 @@ if __name__ == "__main__":
     qml_file = "../views/sp.qml"
     # qml_file = "../views/test.qml"
     engine.load(str(qml_file))
+    sys.exit()
     if not engine.rootObjects():
         sys.exit(-1)
     sys.exit(app.exec_())
