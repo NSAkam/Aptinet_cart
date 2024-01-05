@@ -132,6 +132,7 @@ class ShopPage(QObject):
         self._scanner.IDBarcodeReadSignal.connect(self.IDBarcode_read)
         self._scanner.couponReadSignal.connect(self.apply_couponCode)
         self._scanner.pluReadSignal.connect(self.pluBarcodeRead)
+        self._scanner.loyaltyCardBarcodeReadSignal.connect(self.login_loyaltyCart)
 
         #### WeightSensor #########################################
         self._weightSensor = WeightSensorWorker()
@@ -1572,3 +1573,15 @@ class ShopPage(QObject):
         else:
             self.showPopupMessageTimerSignal.emit(
                 self._lang.lst["mess_not_valid_loyalty_code"])
+            
+    @Slot()
+    def login_loyaltyCart(self):
+        serverUser = self._userServerRepository.loginByloyalityBarcode(
+            self._scanner.get_loyaltyCardBarcode())
+        if not serverUser.get_id() == "":
+            self._scanner.loyaltyCardBarcodeReadSignal.disconnect()
+            self._user.set_loggedInUser(serverUser)
+            self._userRepository.updateUserServerID(self._user.get_id(), serverUser.get_id())
+            self.continue_clicked()
+        else:
+            self.showPopupMessageTimerSignal.emit(self._lang.lst["mess_not_valid_loyalty_card"])
