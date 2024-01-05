@@ -111,6 +111,7 @@ class CameraWorker(QThread):
         self._canTimerTick = False
         self._camera1.release()
         self._camera2.release()
+        os.system("dd if=/dev/zero of=/dev/fb0")
         os.execl(sys.executable, sys.executable, *sys.argv)
 
     def timerSlot(self):
