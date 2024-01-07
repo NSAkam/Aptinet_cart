@@ -144,7 +144,7 @@ Popup {
                     width: 100
                     anchors.top: rectEnterBarcode.top
                     onClicked: {
-                        obj_logicRemoveProductList.shopPage.resetRemoveProducts
+                        obj_logicRemoveProductList.shopPage.resetRemoveProducts()
                     }
                 }
 
