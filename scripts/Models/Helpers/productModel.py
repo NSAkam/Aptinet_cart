@@ -216,6 +216,8 @@ class ProductModel(QAbstractListModel):
     #     self.endResetModel()
 
     def clearData(self):
+        self.m_removedWeightMax = 0
+        self.m_removedWeightMin = 0
         self.beginResetModel()
         self.m_data.clear()
         self.changed.emit()
