@@ -1018,8 +1018,12 @@ class ShopPage(QObject):
                     self._lang.lst["mess_Taring_Please_dont_move_basket"])
                 playSound(self._lang.lst["sound_Taring_Please_dont_move_basket"])
                 if self._canCreatePLUCheckThread:
-                    self._PLUThread = Thread(target=self.taringPLU)
-                    self._PLUThread.start()
+                    self._pluStartWeight = self._weightSensor._BasketWeight2
+                    self._basketWeightShouldBe = self._pluStartWeight
+                    self.closePopupMessageSignal.emit()
+                    self._canCreatePLUCheckThread = True
+                    # self._PLUThread = Thread(target=self.taringPLU)
+                    # self._PLUThread.start()
         else:
             self.openPopupMessageTimerSignal.emit(
                     self._lang.lst["mess_Please_wait"])
