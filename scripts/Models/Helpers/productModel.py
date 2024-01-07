@@ -349,7 +349,10 @@ class ProductModel(QAbstractListModel):
                 acceptableBarcode = True
                 self.m_validBarcodeSetForDelete.remove(product.barcode)
                 self.beginResetModel()
-                self.insertProduct(product, 1)
+                if product.productType == "counted":
+                    self.insertProduct(product, product.get_countInBasket())
+                else:
+                    self.insertProduct(product, 1)
                 self.endResetModel()
                 self.changed.emit()
                 self.m_removedWeightMin = self.m_removedWeightMin - \
