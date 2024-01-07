@@ -1058,7 +1058,8 @@ class ShopPage(QObject):
         elif self.state == 15:
             if self._weightSensor.isstable:
                 if self.newProduct.countInBasket != 0:
-                    self._basketWeightShouldBe = self._weightSensor.readbasketweight()
+                    # self._basketWeightShouldBe = self._weightSensor.readbasketweight()
+                    self._basketWeightShouldBe = self._pluStartWeight + self.newProduct.productWeightInBasket
                     print("asd => "+ str(self._basketWeightShouldBe))
                     self._logger.insertLog("add counted product", str(self._newProduct.countInBasket),
                                            self._user.get_id())
