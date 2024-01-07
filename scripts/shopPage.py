@@ -990,27 +990,32 @@ class ShopPage(QObject):
 
     @Slot(str)
     def item_PLUClicked(self, pluCode: str):
-        self.newProduct = self._productRepository.get_product(pluCode)
-        self._logger.insertLog("lookup by name", pluCode, self._user.get_id())
-        if self.newProduct.get_productType() == "weighted":
-            self.state = 14
-            self.showWeightedPLUItemsSignal.emit()
-            self.openPopupMessageSignal.emit(
-                self._lang.lst["mess_Taring_Please_dont_move_basket"])
-            playSound(self._lang.lst["sound_Taring_Please_dont_move_basket"])
-            if self._canCreatePLUCheckThread:
-                self._PLUThread = Thread(target=self.taringPLU)
-                self._PLUThread.start()
+        if self._weightSensor.isstable:
+            self.newProduct = self._productRepository.get_product(pluCode)
+            self._logger.insertLog("lookup by name", pluCode, self._user.get_id())
+            if self.newProduct.get_productType() == "weighted":
+                self.state = 14
+                self.showWeightedPLUItemsSignal.emit()
+                self.openPopupMessageSignal.emit(
+                    self._lang.lst["mess_Taring_Please_dont_move_basket"])
+                playSound(self._lang.lst["sound_Taring_Please_dont_move_basket"])
+                if self._canCreatePLUCheckThread:
+                    self._PLUThread = Thread(target=self.taringPLU)
+                    self._PLUThread.start()
 
-        elif self.newProduct.get_productType() == "counted":
-            self.state = 15
-            self.showCountedPLUItemsSignal.emit()
-            self.openPopupMessageSignal.emit(
-                self._lang.lst["mess_Taring_Please_dont_move_basket"])
-            playSound(self._lang.lst["sound_Taring_Please_dont_move_basket"])
-            if self._canCreatePLUCheckThread:
-                self._PLUThread = Thread(target=self.taringPLU)
-                self._PLUThread.start()
+            elif self.newProduct.get_productType() == "counted":
+                self.state = 15
+                self.showCountedPLUItemsSignal.emit()
+                self.openPopupMessageSignal.emit(
+                    self._lang.lst["mess_Taring_Please_dont_move_basket"])
+                playSound(self._lang.lst["sound_Taring_Please_dont_move_basket"])
+                if self._canCreatePLUCheckThread:
+                    self._PLUThread = Thread(target=self.taringPLU)
+                    self._PLUThread.start()
+        else:
+            self.openPopupMessageTimerSignal.emit(
+                    self._lang.lst["mess_Please_wait"])
+            playSound(self._lang.lst["sound_Please_wait"])
 
     @Slot()
     def confirm_PLUItemClicked(self):
