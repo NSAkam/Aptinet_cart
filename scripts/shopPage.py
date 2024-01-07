@@ -1058,9 +1058,11 @@ class ShopPage(QObject):
         elif self.state == 15:
             if self._weightSensor.isstable:
                 if self.newProduct.countInBasket != 0:
-                    # self._basketWeightShouldBe = self._weightSensor.readbasketweight()
-                    self._basketWeightShouldBe = self._pluStartWeight + self.newProduct.productWeightInBasket
-                    print("asd => "+ str(self._basketWeightShouldBe))
+                    if(self.newProduct.productWeightInBasket < 8):
+                        self.openPopupMessageTimerSignal.emit(
+                        self._lang.lst["mess_Please_wait"])
+                        playSound(self._lang.lst["sound_Please_wait"])
+                        return
                     self._logger.insertLog("add counted product", str(self._newProduct.countInBasket),
                                            self._user.get_id())
                     self._factorList.insertProduct(
@@ -1069,6 +1071,7 @@ class ShopPage(QObject):
                         self.newProduct.copy_product(), self.newProduct.countInBasket)
                     self.state = 1
                     self.clear_stackView()
+                    self._basketWeightShouldBe = self._weightSensor.readbasketweight()
                     self.cal_basketLoad(self._basketWeightShouldBe)
                     
                     # insertSound()
