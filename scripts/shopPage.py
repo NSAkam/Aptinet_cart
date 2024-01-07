@@ -1058,16 +1058,18 @@ class ShopPage(QObject):
         elif self.state == 15:
             if self._weightSensor.isstable:
                 if self.newProduct.countInBasket != 0:
+                    self._basketWeightShouldBe = self._weightSensor.readbasketweight()
+                    print("asd => "+ self._basketWeightShouldBe)
                     self._logger.insertLog("add counted product", str(self._newProduct.countInBasket),
                                            self._user.get_id())
                     self._factorList.insertProduct(
                         self.newProduct, self.newProduct.countInBasket)
                     self._bypassList.insertProduct(
                         self.newProduct.copy_product(), self.newProduct.countInBasket)
-                    self.clear_stackView()
-                    self._basketWeightShouldBe = self._weightSensor.readbasketweight()
-                    self.cal_basketLoad(self._basketWeightShouldBe)
                     self.state = 1
+                    self.clear_stackView()
+                    self.cal_basketLoad(self._basketWeightShouldBe)
+                    
                     # insertSound()
                     playSound(self._lang.lst["sound_insert"])
                 else:
