@@ -231,6 +231,7 @@ class ProductModel(QAbstractListModel):
                 ix = self.index(index, 0)
                 if prod.get_productType() == "weighted":
                     self.m_data[index].set_productWeightInBasket(self.m_data[index].get_productWeightInBasket() + prod.get_productWeightInBasket())
+                    self.m_data[index].set_countInBasket(1)
                 else:
                     self.m_data[index].set_countInBasket(self.m_data[index].countInBasket + count)
                 self.dataChanged.emit(ix, ix, self.roleNames())
