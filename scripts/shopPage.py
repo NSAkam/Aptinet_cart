@@ -836,8 +836,11 @@ class ShopPage(QObject):
                         self.turn_onGreenLight()
 
                 elif self.state == 14:
-                    self.newProduct.set_productWeightInBasket(
-                        val2 - self._pluStartWeight)
+                    if( val2 - self._pluStartWeight < self._basketWeightTolerance):
+                        self.newProduct.set_productWeightInBasket(0)
+                    else:
+                        self.newProduct.set_productWeightInBasket(
+                            val2 - self._pluStartWeight)
 
                 elif self.state == 15:
                     self.newProduct.set_productWeightInBasket(
