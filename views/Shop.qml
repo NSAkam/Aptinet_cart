@@ -769,6 +769,7 @@ Item {
 
             onCancel:
             {
+                input_enterName.visible = false
                 obj_LogicContainerShop.shopPage.back_addPLUItemsClicked()
                 if(stackviewContainer.depth == 1){
                     stackviewContainer.clear()
@@ -785,6 +786,7 @@ Item {
         AddPluItemsCountedView{
             obj_LogicContainerAddPluItemsCountedView : obj_LogicContainerShop
             onCancel: {
+                input_enterName.visible = false
                 obj_LogicContainerShop.shopPage.back_addPLUItemsClicked()
 
                 if(stackviewContainer.depth == 1){
@@ -868,7 +870,7 @@ Item {
     NotificationPopUp{
         id:popUp_fullBasket
         message: "the Basket is Full"
-        
+
     }
     NotificationPopUp{
         id:popUp_MessageNoBarcodeScanned
@@ -1200,11 +1202,11 @@ Item {
         function onPopStack(){
             stackview.pop()
         }
-        
+
         function onShowBasketFull(){
             popUp_fullBasket.open()
         }
-        
+
         function onCloseBasketFull(){
             popUp_fullBasket.close()
         }
