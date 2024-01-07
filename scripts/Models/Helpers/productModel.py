@@ -382,7 +382,7 @@ class ProductModel(QAbstractListModel):
         # self.m_data[index].settedad(self.m_data[index].gettedad() + 1)
         # self.beginResetModel()
         if self.m_data[index].get_countInBasket() > 0:
-            limit = self.m_data[index].get_countInBasket() - 1
+            limit = self.m_data[index].get_countInBasket()
             if(limit > 0):
                 self.m_data[index].set_countInBasket(self.m_data[index].get_countInBasket() - 1)
             if self.m_data[index].productType == "weighted":

@@ -236,6 +236,8 @@ class ShopPage(QObject):
 
     setcopun = Signal(str)
 
+
+
     ##################################################################################################### Properties ###
     def getwifiModel(self):
         return self._wifimodel
@@ -1582,6 +1584,6 @@ class ShopPage(QObject):
             self._scanner.loyaltyCardBarcodeReadSignal.disconnect()
             self._user.set_loggedInUser(serverUser)
             self._userRepository.updateUserServerID(self._user.get_id(), serverUser.get_id())
-            self.continue_clicked()
+            self.popStack.emit()
         else:
             self.showPopupMessageTimerSignal.emit(self._lang.lst["mess_not_valid_loyalty_card"])
