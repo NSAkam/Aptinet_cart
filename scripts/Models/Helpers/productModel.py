@@ -375,6 +375,9 @@ class ProductModel(QAbstractListModel):
         # else:
             self.m_data[index].set_countInBasket(self.m_data[index].get_countInBasket() + 1)
         # self.endResetModel()
+        else:
+            if(self.m_data[index].get_countInBasket() == 0):
+                self.m_data[index].set_countInBasket(self.m_data[index].get_countInBasket() + 1)
         self.dataChanged.emit(ix, ix, self.roleNames())
 
     @Slot(int)
