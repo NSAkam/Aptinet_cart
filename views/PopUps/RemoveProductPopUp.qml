@@ -198,28 +198,28 @@ Popup {
                                 font.weight: Font.Bold
                                 color: "#F08C5A"
                             }
-                            KButton{
-                                visible: model.productType === "counted" ? true:false
-                                width: 35
-                                height: 35
-                                text: "-"
-                                x: 625
-                                y: 45
-                                onClicked: {
-                                    obj_logicRemoveProductList.shopPage.product_removeDecreaseClicked(index)
-                                }
-                            }
-                            KButton{
-                                visible: model.productType === "counted" ? true:false
-                                text: "+"
-                                width: 35
-                                height: 35
-                                x: 665
-                                y: 45
-                                onClicked: {
-                                    obj_logicRemoveProductList.shopPage.product_removeIncreaseClicked(index)
-                                }
-                            }
+                            //                            KButton{
+                            //                                visible: model.productType === "counted" ? true:false
+                            //                                width: 35
+                            //                                height: 35
+                            //                                text: "-"
+                            //                                x: 625
+                            //                                y: 45
+                            //                                onClicked: {
+                            //                                    obj_logicRemoveProductList.shopPage.product_removeDecreaseClicked(index)
+                            //                                }
+                            //                            }
+                            //                            KButton{
+                            //                                visible: model.productType === "counted" ? true:false
+                            //                                text: "+"
+                            //                                width: 35
+                            //                                height: 35
+                            //                                x: 665
+                            //                                y: 45
+                            //                                onClicked: {
+                            //                                    obj_logicRemoveProductList.shopPage.product_removeIncreaseClicked(index)
+                            //                                }
+                            //                            }
 
                             //                        Text {
                             //                            text: model.finalPrice
