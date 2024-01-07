@@ -1060,10 +1060,10 @@ class ShopPage(QObject):
                         self.newProduct, self.newProduct.countInBasket)
                     self._bypassList.insertProduct(
                         self.newProduct.copy_product(), self.newProduct.countInBasket)
-                    self.state = 1
                     self.clear_stackView()
                     self._basketWeightShouldBe = self._weightSensor.readbasketweight()
                     self.cal_basketLoad(self._basketWeightShouldBe)
+                    self.state = 1
                     # insertSound()
                     playSound(self._lang.lst["sound_insert"])
                 else:
