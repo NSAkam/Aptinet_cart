@@ -1600,3 +1600,7 @@ class ShopPage(QObject):
             self.popStack.emit()
         else:
             self.showPopupMessageTimerSignal.emit(self._lang.lst["mess_not_valid_loyalty_card"])
+
+    @Slot()
+    def resetRemoveProducts(self):
+        self._removeList.clearData()

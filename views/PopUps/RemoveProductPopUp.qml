@@ -135,6 +135,18 @@ Popup {
                     }
                 }
 
+                KButton{
+                    text: "reset"
+                    height: 54
+                    borderRadius: 5
+                    anchors.right: rectEnterBarcode.left
+                    anchors.rightMargin: 10
+                    width: 100
+                    anchors.top: rectEnterBarcode.top
+                    onClicked: {
+                        obj_logicRemoveProductList.shopPage.resetRemoveProducts
+                    }
+                }
 
                 ListView {
                     id:slideshow
