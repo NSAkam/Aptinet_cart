@@ -90,7 +90,16 @@ Item {
 
         Text {
             id: addtocarttext
-            text: obj_LogicContainerAddPluItemsView.shopPage.newProduct.mountQML
+            text:{
+                if(obj_LogicContainerAddPluItemsView.shopPage.newProduct.productWeightInBasket === 0){
+                    return "Please Wait"
+                }
+                else{
+                    return obj_LogicContainerAddPluItemsView.shopPage.newProduct.mountQML
+                }
+            }
+
+
             font.pixelSize: 32
             x: 108
             y: 262
