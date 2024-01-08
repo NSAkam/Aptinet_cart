@@ -764,7 +764,7 @@ Item {
             obj_LogicContainerAddPluItemsView: obj_LogicContainerShop
             onConfirm:
             {
-
+                input_enterName.visible = false
             }
 
             onCancel:
@@ -785,6 +785,10 @@ Item {
         id:addPluItemCountedview
         AddPluItemsCountedView{
             obj_LogicContainerAddPluItemsCountedView : obj_LogicContainerShop
+            onConfirm: {
+                input_enterName.visible = false
+            }
+
             onCancel: {
                 input_enterName.visible = false
                 obj_LogicContainerShop.shopPage.back_addPLUItemsClicked()
