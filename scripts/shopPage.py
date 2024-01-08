@@ -403,7 +403,7 @@ class ShopPage(QObject):
                 else:
                     self.openPopupMessageTimerSignal.emit(
                         self._lang.lst["mess_Basket_is_full"])
-                    playSound(self._lang.lst["sound_Not_valid_Product"])
+                    playSound(self._lang.lst["mess_Basket_is_full"])
 
             elif self.state == 2:
                 if self.newProduct.barcode == self._scanner.get_barcode():
