@@ -340,7 +340,7 @@ class ProductModel(QAbstractListModel):
             tolerance = 25
         elif product.productType == "counted":
             avgWeight = product.productWeightInBasket#/product.countInBasket   # product.meanWeight
-            tolerance = 100
+            tolerance = 25
         else:
             avgWeight = product.meanWeight
             tolerance = product.tolerance
@@ -365,8 +365,8 @@ class ProductModel(QAbstractListModel):
                     removeSuccessfullyBefor = True
         if self.m_removedWeightMin <= 0 and self.m_removedWeightMax >= 0:
             removeAllProduct = True
-        # print(self.m_removedWeightMax)
-        # print(self.m_removedWeightMin)
+        print(self.m_removedWeightMax)
+        print(self.m_removedWeightMin)
         return acceptableBarcode, removeAllProduct, removeSuccessfullyBefor
 
     @Slot(int)
