@@ -485,12 +485,14 @@ class ShopPage(QObject):
     @Slot(int, int)
     def basketWeightChanged(self, val2: int, val1: int):
         if (val2 >= val1 and self.basketIsFull == True and self._weightAddedWhileBasketIsFull == False):
+            print("asd 1")
             self._basketWeightShouldBe = val1
             self.state = 3
             self.showBasketFull.emit()
             self._weightAddedWhileBasketIsFull = True
             return
         elif ((self.basketIsFull == True) and self._basketWeightShouldBe - self._basketWeightTolerance-25 <= val2 < self._basketWeightShouldBe + self._basketWeightTolerance+25 ):
+            print("asd 2")
             self._basketWeightShouldBe = val2
             self.closeBasketFull.emit()
             self.clear_stackView()
@@ -498,6 +500,7 @@ class ShopPage(QObject):
             self._weightAddedWhileBasketIsFull = False
             return
         elif(self.basketIsFull == True and self._weightAddedWhileBasketIsFull == True):
+            print("asd 3")
             return
 
         if not self._inByPass:
