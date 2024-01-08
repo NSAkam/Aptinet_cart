@@ -495,7 +495,7 @@ class ShopPage(QObject):
             self.closeBasketFull.emit()
             self.clear_stackView()
             self.state = 1
-            self._weightAddedWhileBasketIsFull == False
+            self._weightAddedWhileBasketIsFull = False
             return
 
         if not self._inByPass:
