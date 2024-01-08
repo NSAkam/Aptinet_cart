@@ -340,6 +340,7 @@ class ProductModel(QAbstractListModel):
             tolerance = 25
         elif product.productType == "counted":
             avgWeight = product.productWeightInBasket#/product.countInBasket   # product.meanWeight
+            print(avgWeight)
             tolerance = 25
         else:
             avgWeight = product.meanWeight
