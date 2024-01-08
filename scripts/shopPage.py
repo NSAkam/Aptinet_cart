@@ -105,6 +105,8 @@ class ShopPage(QObject):
     _emailException: str = ""
     _couponCode: str = ""
 
+    _removedWeight :int = 0
+
     ######################################################################################################## Modules ###
     _weightSensor: WeightSensorWorker
     _nfc: nfc
@@ -723,6 +725,7 @@ class ShopPage(QObject):
                     self._shouldBarcodeToBeScannToAddProduct = True
                     self._removeList.validBarcodeSetForRemove(
                         self._factorList.m_data, abs(value))
+                    self._removedWeight = abs(value)
                     if not len(self._removeList.m_validBarcodeSetForDelete) == 0:
                         self._removeLookupList.clearData()
                         for prod in self._factorList.m_data:
@@ -739,6 +742,7 @@ class ShopPage(QObject):
                     self._shouldBarcodeToBeScannToAddProduct = True
                     self._removeList.validBarcodeSetForRemove(
                         self._factorList.m_data, abs(value))
+                    self._removedWeight = abs(value)
                     self.clear_stackView()
                     self.openPopupDeleteProductSignal.emit()
                     # notifSound2()
@@ -1615,3 +1619,5 @@ class ShopPage(QObject):
     def resetRemoveProducts(self):
         #self._removeList = ProductModel()
         self._removeList.clearData()
+        self._removeList.validBarcodeSetForRemove(
+                        self._factorList.m_data, abs(self._removedWeight))
