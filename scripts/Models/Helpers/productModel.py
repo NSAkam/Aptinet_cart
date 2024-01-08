@@ -36,6 +36,9 @@ class ProductModel(QAbstractListModel):
     m_validBarcodeSetForDelete = []
     m_removedWeightMin: int = 0
     m_removedWeightMax: int = 0
+
+    m_removedWeightMinTemp: int = 0
+    m_removedWeightMaxTemp: int = 0
     cm_data = [Product]
 
     _priceNoDiscount: float = 0
@@ -216,9 +219,6 @@ class ProductModel(QAbstractListModel):
     #     self.endResetModel()
 
     def clearData(self):
-        self.m_removedWeightMax = 0
-        self.m_removedWeightMin = 0
-        self.m_validBarcodeSetForDelete = []
         self.beginResetModel()
         self.m_data.clear()
         self.changed.emit()
@@ -357,15 +357,15 @@ class ProductModel(QAbstractListModel):
                     self.insertProduct(product, 1)
                 self.endResetModel()
                 self.changed.emit()
-                self.m_removedWeightMin = self.m_removedWeightMin - \
+                self.m_removedWeightMinTemp = self.m_removedWeightMin - \
                                           avgWeight - (tolerance + 8)
-                self.m_removedWeightMax = self.m_removedWeightMax - \
+                self.m_removedWeightMaxTemp = self.m_removedWeightMax - \
                                           avgWeight + (tolerance + 8)
         if not acceptableBarcode:
             for prod in self.m_data:
                 if product.barcode == prod.barcode:
                     removeSuccessfullyBefor = True
-        if self.m_removedWeightMin <= 0 and self.m_removedWeightMax >= 0:
+        if self.m_removedWeightMinTemp <= 0 and self.m_removedWeightMaxTemp >= 0:
             removeAllProduct = True
         print(self.m_removedWeightMax)
         print(self.m_removedWeightMin)

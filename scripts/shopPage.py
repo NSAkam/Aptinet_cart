@@ -1613,5 +1613,5 @@ class ShopPage(QObject):
 
     @Slot()
     def resetRemoveProducts(self):
-        self._removeList = ProductModel()
-        #self._removeList.clearData()
+        #self._removeList = ProductModel()
+        self._removeList.clearData()
