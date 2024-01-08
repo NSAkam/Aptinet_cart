@@ -182,6 +182,7 @@ Item {
 
             }
             onClicked: {
+                root.confirm()
                 obj_LogicContainerAddPluItemsCountedView.shopPage.confirm_PLUItemClicked()
             }
         }
