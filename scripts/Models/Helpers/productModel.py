@@ -218,6 +218,7 @@ class ProductModel(QAbstractListModel):
     def clearData(self):
         self.m_removedWeightMax = 0
         self.m_removedWeightMin = 0
+        self.m_validBarcodeSetForDelete = []
         self.beginResetModel()
         self.m_data.clear()
         self.changed.emit()
