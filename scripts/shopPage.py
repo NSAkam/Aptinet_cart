@@ -488,7 +488,7 @@ class ShopPage(QObject):
             self.state = 3
             self.showBasketFull.emit()
             return
-        elif (self._basketWeightShouldBe - self._basketWeightTolerance <= val2 < self._basketWeightShouldBe + self._basketWeightTolerance and self.basketIsFull == True):
+        elif ((self.basketIsFull == True) and self._basketWeightShouldBe - self._basketWeightTolerance-25 <= val2 < self._basketWeightShouldBe + self._basketWeightTolerance+25 ):
             self._basketWeightShouldBe = val2
             self.closeBasketFull.emit()
             self.clear_stackView()
