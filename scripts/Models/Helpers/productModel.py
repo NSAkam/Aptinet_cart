@@ -237,6 +237,7 @@ class ProductModel(QAbstractListModel):
                     self.m_data[index].set_countInBasket(1)
                 else:
                     self.m_data[index].set_countInBasket(self.m_data[index].countInBasket + count)
+                    self.m_data[index].set_countInBasket(self.m_data[index].productWeightInBasket + prod.productWeightInBasket)
                 self.dataChanged.emit(ix, ix, self.roleNames())
                 temp = True
         if temp == False:
