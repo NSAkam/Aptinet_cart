@@ -497,7 +497,7 @@ class ShopPage(QObject):
             self.state = 1
             self._weightAddedWhileBasketIsFull = False
             return
-        elif(self.basketIsFull == True):
+        elif(self.basketIsFull == True and self._weightAddedWhileBasketIsFull == True):
             return
 
         if not self._inByPass:
