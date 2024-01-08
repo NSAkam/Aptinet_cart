@@ -1158,7 +1158,8 @@ class ShopPage(QObject):
 
     @Slot(str)
     def product_removeLookupSelected(self, plu: str):
-        self.product_removeManualBarcodeEntered(plu)
+        if(len(self._removeList.m_data)==0):
+            self.product_removeManualBarcodeEntered(plu)
 
     @Slot(int)
     def product_removeIncreaseClicked(self, index: int):
