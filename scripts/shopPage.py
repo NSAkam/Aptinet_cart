@@ -106,6 +106,7 @@ class ShopPage(QObject):
     _couponCode: str = ""
 
     _removedWeight :int = 0
+    _weightAddedWhileBasketIsFull = False
 
     ######################################################################################################## Modules ###
     _weightSensor: WeightSensorWorker
@@ -483,16 +484,18 @@ class ShopPage(QObject):
 
     @Slot(int, int)
     def basketWeightChanged(self, val2: int, val1: int):
-        if (val2 >= val1 and self.basketIsFull == True):
+        if (val2 >= val1 and self.basketIsFull == True and self._weightAddedWhileBasketIsFull == False):
             self._basketWeightShouldBe = val1
             self.state = 3
             self.showBasketFull.emit()
+            self._weightAddedWhileBasketIsFull = True
             return
         elif ((self.basketIsFull == True) and self._basketWeightShouldBe - self._basketWeightTolerance-25 <= val2 < self._basketWeightShouldBe + self._basketWeightTolerance+25 ):
             self._basketWeightShouldBe = val2
             self.closeBasketFull.emit()
             self.clear_stackView()
             self.state = 1
+            self._weightAddedWhileBasketIsFull == False
             return
 
         if not self._inByPass:
