@@ -42,7 +42,7 @@ class ShopPage(QObject):
     _timerOffset: int = 3
     # Accept inserted product without checking weight under this limit
     _validInsertedWeightForCalTol: int = 5
-    _basketWeightLimit: int = 1000  # grams
+    _basketWeightLimit: int = 45000  # grams
     _lightestProductWeight: int = 11  # grams
     _lightestWeightForHeavyProduct: int = 25  # grams
     _lightestWeightForLightWeightProduct: int = 8
@@ -491,7 +491,7 @@ class ShopPage(QObject):
             self.showBasketFull.emit()
             self._weightAddedWhileBasketIsFull = True
             return
-        elif ((self.basketIsFull == True) and self._basketWeightShouldBe - self._basketWeightTolerance-25 <= val2 < self._basketWeightShouldBe + self._basketWeightTolerance+25 ):
+        elif ((self.basketIsFull == True) and self._basketWeightShouldBe - self._basketWeightTolerance <= val2 < self._basketWeightShouldBe + self._basketWeightTolerance and self._weightAddedWhileBasketIsFull == True):
             print("asd 2")
             self._basketWeightShouldBe = val2
             self.closeBasketFull.emit()
@@ -1400,8 +1400,7 @@ class ShopPage(QObject):
         self._logger.insertLog("basket load", str(load), self._user.get_id())
         print("------------------ load :", load)
         self.set_basketLoad(load)
-        self.set_basketIsFull(
-            True) if load == 100 else self.set_basketIsFull(False)
+        self.set_basketIsFull(True) if load == 100 else self.set_basketIsFull(False)
 
     def turn_onGreenLight(self):
         self.greenLight = GreenLight(True)
