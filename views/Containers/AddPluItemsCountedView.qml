@@ -174,6 +174,7 @@ Item {
             borderRadius: 4
             btn_color: viewset.secondaryColor
             btn_bordercolor: viewset.secondaryColor
+            ishover: false
 
             Image {
                 source: "../../Assets/goRightInItemView.png"
