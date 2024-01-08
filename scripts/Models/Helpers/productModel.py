@@ -318,7 +318,7 @@ class ProductModel(QAbstractListModel):
         lst_1 = []
         for item in data:
             if item.productType == "weighted":
-                if item.productWeightInBasket <= RemovedWight + 8:
+                if item.productWeightInBasket <= RemovedWight + 25:
                     lst_1.append(item.barcode)
             elif item.productType == "counted":
                 for i in range(item.countInBasket):
@@ -369,6 +369,7 @@ class ProductModel(QAbstractListModel):
             removeAllProduct = True
         print(self.m_removedWeightMax)
         print(self.m_removedWeightMin)
+        print(str(acceptableBarcode))
         return acceptableBarcode, removeAllProduct, removeSuccessfullyBefor
 
     @Slot(int)
