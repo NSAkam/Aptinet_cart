@@ -56,6 +56,7 @@ Item {
                     width: 90
                     height: 90
                     x:35
+                    anchors.leftMargin: 15
                     anchors.verticalCenter: parent.verticalCenter
 
                 }
@@ -63,7 +64,7 @@ Item {
                 Text {
                     id: factorItemName
                     text: modelData.name
-                    font.pixelSize: 19
+                    font.pixelSize: 24
                     anchors.left: factorItemPic.right
                     width: 562
                     height: 22
@@ -163,7 +164,7 @@ Item {
                 Text {
                     id: factorItemName
                     text: modelData.name
-                    font.pixelSize: 19
+                    font.pixelSize: 24
                     anchors.left: factorItemPic.right
                     width: 562
                     height: 22
@@ -289,7 +290,7 @@ Item {
         Text {
             id:check_TotalSaved
             text: "$  " + (obj_LogicContainerLstCheckProducts.shopPage.factorList.priceNoDiscount - obj_LogicContainerLstCheckProducts.shopPage.factorList.finalprice).toFixed(2)
-            font.pixelSize: 20
+            font.pixelSize: 24
             x:344
             y:42
             color: "#36EB00"
@@ -306,7 +307,7 @@ Item {
         Text {
             id:check_TotalPrice
             text: "$  " + (obj_LogicContainerLstCheckProducts.shopPage.factorList.finalprice *1).toFixed(2)
-            font.pixelSize: 32
+            font.pixelSize: 24
             x:463
             y:32
             color: viewset.secondaryColor

@@ -18,13 +18,13 @@ Item {
     id: root
     width: 1280
     height: 800
-    
+
     property Logic obj_LogicContainerShop
-    
+
     property bool isfactorlistview: false
-    
+
     //    signal addpluitemsClicked()
-    
+
     Util.ViewSettings{
         id:viewset
     }
@@ -36,12 +36,12 @@ Item {
             loader.opacity = 0
         }
     }
-    
+
     Image {
         source: "/home/aptinet/files/AuthenticationBackground.png"
         anchors.fill: parent
     }
-    
+
     Rectangle{
         width: parent.width
         height: 92
@@ -57,17 +57,17 @@ Item {
             height: parent.height
             x:0
             y:0
-            
+
             Image {
                 source: obj_LogicContainerShop.shopPage.user.loggedInUser.pic
                 x:421
                 y:25
                 width: 50 - 4
                 height: 50 -4
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
+//                anchors.horizontalCenter: parent.horizontalCenter
+//                anchors.verticalCenter: parent.verticalCenter
             }
-            
+
             Text {
                 id:txt_user_name
                 text: obj_LogicContainerShop.shopPage.user.loggedInUser.name
@@ -94,10 +94,10 @@ Item {
                 visible: obj_LogicContainerShop.shopPage.user.loggedInUser.name === "Guest" ? true:false
                 onClicked: {
                     popUpLoginInshopPage.open()
-                    
+
                 }
             }
-            
+
             KButton{
                 id:btn_lookupbyname
                 btn_color: "#9D9D9D"
@@ -157,10 +157,10 @@ Item {
                     }
                 }
             }
-            
+
         }
     }
-    
+
     Item {
         id:main_Panel
         Text {
@@ -211,9 +211,9 @@ Item {
                 NumberAnimation{duration: 1000}
             }
         }
-        
-        
-        
+
+
+
         //        KButton{
         //            id:btn_entermanualBarcode
         //            text: "+ Lookup By Number"
@@ -223,12 +223,12 @@ Item {
         //            height: 62
         //            borderRadius: 4
         //            onClicked: {
-        
+
         //                stackviewContainer.push(manualBarcodeHandler)
-        
+
         //            }
         //        }
-        
+
         StackView
         {
             id:stackviewContainer
@@ -261,14 +261,14 @@ Item {
             }
         }
     }
-    
-    
+
+
     Item{
         id:addPlupanel
         visible: false
         width: 390
         height: parent.height
-        
+
         Rectangle {
             id:rect_Suggestion
             anchors.fill: parent
@@ -288,7 +288,7 @@ Item {
             y:105
             property bool counter: false
             cache: false
-            
+
             function reloadImage() {
                 counter = !counter
                 source = "image://KCameraProvider/?id=" + counter
@@ -324,7 +324,7 @@ Item {
                 verticalAlignment:  TextInput.AlignVCenter
                 font.family: viewset.danaFuNumFont
                 property string placeholderText: " "
-                
+
                 onFocusChanged: {
                     numpad.inputtext = txt_PLUBarcodeInput
                 }
@@ -344,7 +344,7 @@ Item {
                     }
                 }
             }
-            
+
         }
         Numpad{
             id:numpad
@@ -354,26 +354,26 @@ Item {
             x:32
         }
     }
-    
+
     Item {
         id: adsPanel
         visible: true
         width: 390
         height: parent.height
-        
+
         Image {
             id:rect_SuggestionadsPanel
             source: "../Assets/leftSideBar.png"
             anchors.fill: parent
-            
+
         }
         Image {
             source: "/home/aptinet/files/AptinetText.png"
             x:32
             y:32
         }
-        
-        
+
+
         //        Loader{
         //            width: 326
         //            height: 184
@@ -381,8 +381,8 @@ Item {
         //            y:105
         //            Item{
         //                anchors.fill: parent
-        
-        
+
+
         //                property int cid: 0
         //                Timer{
         //                    interval: 5000
@@ -395,14 +395,14 @@ Item {
         //                            vo2.visible = true
         //                        }
         //                        else{
-        
+
         //                            parent.cid = 1
         //                            vo1.visible = true
         //                            vo2.visible = false
         //                        }
         //                    }
         //                }
-        
+
         //                Camera{
         //                    id:camera1
         //                    imageProcessing.whiteBalanceMode: CameraImageProcessing.WhiteBalanceFlash
@@ -411,7 +411,7 @@ Item {
         //                    viewfinder.resolution.height: 480
         //                    videoRecorder.frameRate: 15
         //                }
-        
+
         //                Camera{
         //                    id:camera2
         //                    imageProcessing.whiteBalanceMode: CameraImageProcessing.WhiteBalanceFlash
@@ -419,16 +419,16 @@ Item {
         //                    viewfinder.resolution.width: 640
         //                    viewfinder.resolution.height: 480
         //                    videoRecorder.frameRate: 15
-        
+
         //                }
-        
-        
+
+
         //                VideoOutput{
         //                    id: vo1
-        
+
         //                    source: camera1
         //                    anchors.fill: parent
-        
+
         //                    anchors.left: parent.left
         //                    fillMode: VideoOutput.PreserveAspectCrop
         //                    flushMode: VideoOutput.LastFrame
@@ -443,7 +443,7 @@ Item {
         //                }
         //            }
         //        }
-        
+
         Image {
             id: img_UserCapturedadsPanel
             source: "image://KCameraProvider/1"
@@ -453,15 +453,15 @@ Item {
             y:105
             cache: false
             property bool counter: false
-            
-            
+
+
             function reloadImage() {
                 counter = !counter
                 source = "image://KCameraProvider/?id=" + counter
-                
+
             }
         }
-        
+
         Timer{
             property int adsI: 0
             running: true
@@ -470,7 +470,7 @@ Item {
             onTriggered: {
                 if(adsI == 0)
                 {
-                    
+
                     ads_Image.source = "/home/aptinet/files/Ads1.png";
                     adsI =adsI+1
                 }
@@ -486,7 +486,7 @@ Item {
                 }
             }
         }
-        
+
         Image {
             id: ads_Image
             source: "/home/aptinet/files/Ads.png"
@@ -495,9 +495,9 @@ Item {
             x:32
             y:309
             onSourceChanged: {
-                
+
             }
-            
+
         }
         Text {
             text: obj_LogicContainerShop.lang.txt_Special_Deals
@@ -527,7 +527,7 @@ Item {
             height: 800 - y
             x:32
             y:571
-            
+
             clip: true
             spacing: 10
             model: obj_LogicContainerShop.shopPage.offersList
@@ -542,17 +542,17 @@ Item {
                     color: "white"
                     opacity: 0.3
                 }
-                
+
                 Rectangle{
                     width: 326
                     height: 144
                     color: "transparent"
-                    
+
                     Rectangle{
                         width: 144
                         height: 144
                         color: "white"
-                        
+
                         Image {
                             source: model.pic
                             width: 106
@@ -561,7 +561,7 @@ Item {
                             anchors.horizontalCenter: parent.horizontalCenter
                         }
                     }
-                    
+
                     Text {
                         text: model.name
                         width: 134
@@ -590,14 +590,14 @@ Item {
                 }
             }
         }
-        
+
     }
     Item {
         id: checkoutPanel
         visible: false
         width: 390
         height: parent.height
-        
+
         Rectangle {
             color: "white"
             id:rect_SuggestionadsPanel1
@@ -617,13 +617,13 @@ Item {
             y:105
             property bool counter: false
             cache: false
-            
+
             function reloadImage() {
                 counter = !counter
                 source = "image://KCameraProvider/?id=" + counter
             }
         }
-        
+
         Text {
             text: obj_LogicContainerShop.lang.txt_My_Cart
             font.pixelSize: 24
@@ -648,15 +648,15 @@ Item {
         //                font.bold: true
         //            }
         //        }
-        
-        
+
+
         ListView {
             id:slideshow1
             width: 326
             height: 800 - y
             x:32
             y:360
-            
+
             clip: true
             spacing: 10
             model: obj_LogicContainerShop.shopPage.factorList
@@ -686,35 +686,35 @@ Item {
                 }
             }
         }
-        
+
     }
-    
-    
+
+
     Component{
         id:newProductHandler
         BarcodeScanned{
             obj_LogicContainerBarcodeScanned: obj_LogicContainerShop
-            
+
             onPass: {
-                
+
             }
-            
+
             onCancel: {
-                
+
             }
         }
     }
-    
+
     Component{
         id:lstProductFactor
         LstCheckProducts{
             obj_LogicContainerLstCheckProducts: obj_LogicContainerShop
             onGocheckout: {
-                
+
             }
         }
     }
-    
+
     Component{
         id:manualBarcodeHandler
         ManualBarcode{
@@ -722,7 +722,7 @@ Item {
             onOk: {
                 stackviewContainer.replace(newProductHandler)
             }
-            
+
             onCancle: {
                 if(stackviewContainer.depth == 1)
                 {
@@ -732,7 +732,7 @@ Item {
                 {
                     stackviewContainer.pop()
                 }
-                
+
             }
         }
     }
@@ -746,14 +746,14 @@ Item {
                 kkey.visible = false
                 txt_Name.text=""
             }
-            
+
             onBack: {
                 input_enterName.visible = false
                 kkey.visible = false
             }
         }
     }
-    
+
     Component{
         id:addPluItemview
         AddPluItemsView{
@@ -762,7 +762,7 @@ Item {
             {
                 input_enterName.visible = false
             }
-            
+
             onCancel:
             {
                 input_enterName.visible = false
@@ -774,7 +774,7 @@ Item {
                     stackviewContainer.pop()
                 }
             }
-            
+
         }
     }
     Component{
@@ -784,46 +784,46 @@ Item {
             onConfirm: {
                 input_enterName.visible = false
             }
-            
+
             onCancel: {
                 input_enterName.visible = false
                 obj_LogicContainerShop.shopPage.back_addPLUItemsClicked()
-                
+
                 if(stackviewContainer.depth == 1){
                     stackviewContainer.clear()
                 }
                 else{
                     stackviewContainer.pop()
                 }
-                
-                
+
+
             }
         }
     }
-    
+
     Component {
         id: checkout
         Checkoutpage {
             obj_LogicContainerCheckoutPage: obj_LogicContainerShop
             onNfcPaymentClicked: {
-                
+
             }
-            
+
             onBack: {
-                
+
             }
         }
     }
-    
+
     Component {
         id: nfcpayment
         PaymentviaNFC {
             obj_LogicContainerPaymentNFC: obj_LogicContainerShop
-            
+
         }
     }
-    
-    
+
+
     Component{
         id: plulist
         PLUListItems {
@@ -835,12 +835,12 @@ Item {
         }
     }
     ///////////////////////////////////////////POPUPS
-    
+
     RemoveProductPopUp{
         id:popUp_RemoveProducts
         obj_logicRemoveProductList: obj_LogicContainerShop
     }
-    
+
     BypassPopUp{
         id:popUp_bypass
         obj_logicByPassPopup: obj_LogicContainerShop
@@ -853,24 +853,24 @@ Item {
             popUp_bypass.close()
         }
     }
-    
+
     FullMessageTimer{
         id:popUp_MessageTimer
     }
-    
+
     NotificationPopUp{
         id:popUp_message
     }
-    
+
     NotificationPopUp{
         id:popUp_MessageNotBarcodedProduct
         message: obj_LogicContainerShop.lang.mess_Please_put_the_product_you_scanned_into_the_cart
-        
+
     }
     NotificationPopUp{
         id:popUp_fullBasket
         message: "the Basket is Full"
-        
+
     }
     NotificationPopUp{
         id:popUp_MessageNoBarcodeScanned
@@ -880,7 +880,7 @@ Item {
         id:popUpMessageNotAllowedChangeWeight
         message: obj_LogicContainerShop.lang.mess_You_cannot_add_or_subtract_products_to_the_cart_during_checkout
     }
-    
+
     InsertPupUp{
         id:insertPopUp
         obj_settingLogicInsertPopUp: obj_LogicContainerShop
@@ -895,8 +895,8 @@ Item {
         }
     }
     ////////////////////////////////////////////////////
-    
-    
+
+
     Component{
         id: specialdealslist
         LstSpecialDeals {
@@ -906,13 +906,13 @@ Item {
             }
         }
     }
-    
+
     Component{
         id:paymentQRCode
         PaymentQR{
             obj_LogicContainerPaymentQr: obj_LogicContainerShop
         }
-        
+
     }
     Component{
         id:guid
@@ -920,21 +920,21 @@ Item {
             obj_LogicContainerGuidTips: obj_LogicContainerShop
         }
     }
-    
+
     Component {
         id: wifi
         WifiPage{
             setting_objWifi: obj_LogicContainerShop
         }
     }
-    
+
     Component{
         id:authpage
         AuthenticationInShop{
             obj_LogicContainer: obj_LogicContainerShop
         }
     }
-    
+
     Rectangle{
         id:input_enterName
         width: 300
@@ -955,7 +955,7 @@ Item {
             verticalAlignment:  TextInput.AlignVCenter
             font.family: viewset.danaFuNumFont
             property string placeholderText: ""
-            
+
             onFocusChanged: {
                 kkey.visible = true
             }
@@ -969,13 +969,13 @@ Item {
                 //anchors.horizontalCenter: parent.horizontalCenter
                 font.family: viewset.danaFuNumFont
             }
-            
+
             onTextChanged: {
                 obj_LogicContainerShop.shopPage.search_plu(txt_Name.text)
             }
         }
     }
-    
+
     KKeyboard{
         id:kkey
         inputtext : txt_Name
@@ -987,12 +987,12 @@ Item {
         onEnter: {
             kkey.visible = false
         }
-        
+
         Behavior on y{
             NumberAnimation{duration: 500}
         }
     }
-    
+
     LoginInShop{
         id:popUpLoginInshopPage
         obj_logic: obj_LogicContainerShop
@@ -1005,18 +1005,18 @@ Item {
             popUpLoginInshopPage.close()
         }
     }
-    
+
     Component{
         id:memberLoginInshop
         MembershipInShop{
             obj_LogicContainerLoyalityAuth:obj_LogicContainerShop
         }
     }
-    
-    
-    
-    
-    
+
+
+
+
+
     Connections{
         target: cameraProvider
         function onNewFrameReadSignal() {
@@ -1026,7 +1026,7 @@ Item {
             if(adsPanel.visible === true){
                 img_UserCapturedadsPanel.reloadImage()
             }
-            
+
             if(addPlupanel.visible === true){
                 img_UserCaptured.reloadImage()
             }
@@ -1034,100 +1034,100 @@ Item {
     }
     Connections{
         target: obj_LogicContainerShop.shopPage
-        
+
         function onOpenPopupMessageTimerSignal(text){
             popUp_MessageTimer.messageText = text
             popUp_MessageTimer.open()
         }
         function onCloseAllPopUpSignal(){
             popUp_RemoveProducts.close()
-            
+
             //popUp_bypass.close()
-            
+
             popUp_MessageTimer.close()
-            
+
             popUp_message.close()
-            
+
             popUp_MessageNotBarcodedProduct.close()
-            
+
             popUp_MessageNoBarcodeScanned.close()
-            
+
             popUpMessageNotAllowedChangeWeight.close()
         }
-        
-        
+
+
         function onOpenPopupMessageSignal(text){
             popUp_message.message = text
             popUp_message.open()
         }
-        
+
         function onClosePopupMessageSignal(){
             popUp_message.close()
         }
-        
+
         function onOpenPopupWeightNotMatchWithBarcodeSignal(){
             popUp_MessageNotBarcodedProduct.open()
         }
-        
+
         function onClosePopupWeightNotMatchWithBarcodeSignal(){
             popUp_MessageNotBarcodedProduct.close()
         }
-        
+
         function onOpenPopupNoBarcodeScannedSignal(){
             popUp_MessageNoBarcodeScanned.open()
         }
-        
+
         function onClosePopupNoBarcodeScannedSignal(){
             popUp_MessageNoBarcodeScanned.close()
         }
-        
+
         function onOpenPopupDeleteProductSignal(){
             popUp_RemoveProducts.open()
         }
-        
+
         function onClosePopupDeleteProductSignal(){
             popUp_RemoveProducts.close()
         }
-        
+
         function onOpenPopUpMessageNotAllowedChangeWeightSignal(){
             popUpMessageNotAllowedChangeWeight.open()
         }
-        
+
         function onClosePopUpMessageNotAllowedChangeWeightSignal(){
             popUpMessageNotAllowedChangeWeight.close()
         }
-        
+
         function onOpenPopupByPassSignal(){
             popUp_bypass.open()
         }
-        
+
         function onClosePopupByPassSignal(){
             popUp_bypass.close()
         }
-        
+
         function onClosePopUpMessageTimer(){
             popUp_MessageTimer.close()
         }
-        
+
         /////////////////////////////////////
-        
+
         function onShowAllOfferListSignal(){
             stackviewContainer.push(specialdealslist)
         }
-        
+
         function onShowManualBarcodeSignal(){
             stackviewContainer.push(manualBarcodeHandler)
         }
-        
+
         function onShowFactorListSignal(){
             stackviewContainer.push(lstProductFactor)
         }
-        
+
         function onShowNewProductScannedSignal(){
             stackviewContainer.push(newProductHandler)
             slideshow.model = obj_LogicContainerShop.shopPage.suggestedList
         }
-        
+
         function onClearStackViewSignal(){
             stackviewContainer.clear()
             slideshow.model = obj_LogicContainerShop.shopPage.offersList
@@ -1135,7 +1135,7 @@ Item {
             checkoutPanel.visible=false
             addPlupanel.visible = false
         }
-        
+
         function onCloseTopStackViewSignal(){
             stackviewContainer.pop()
             //            if(stackviewContainer.depth == 1)
@@ -1149,43 +1149,43 @@ Item {
             //            {
             //                stackviewContainer.pop()
             //            }
-            
+
         }
-        
+
         function onShowAddPLUItemsSignal()
         {
             adsPanel.visible = false
             checkoutPanel.visible=false
             addPlupanel.visible = true
             stackviewContainer.push(addPluItem)
-            
+
         }
-        
+
         function onShowWeightedPLUItemsSignal(){
             stackviewContainer.push(addPluItemview)
         }
-        
+
         function onShowCountedPLUItemsSignal(){
             stackviewContainer.push(addPluItemCountedview)
         }
-        
+
         function onShowCheckOutSignal(){
             adsPanel.visible = false
             checkoutPanel.visible=true
             addPlupanel.visible = false
             stackviewContainer.push(checkout)
         }
-        
+
         function onShowTopBtnSignal(){
             btn_lookupbynumber.visible = true
             btn_lookupbyname.visible = true
         }
-        
+
         function onHideTopBtnSignal(){
             btn_lookupbynumber.visible = false
             btn_lookupbyname.visible = false
         }
-        
+
         function onShowPaymentSignal(v){
             if(v === 0){
                 stackview.push(nfcpayment)
@@ -1194,19 +1194,19 @@ Item {
                 stackview.push(paymentQRCode)
             }
         }
-        
+
         function onShowPaymentPinSignal(){
             insertPopUp.open()
         }
-        
+
         function onPopStack(){
             stackview.pop()
         }
-        
+
         function onShowBasketFull(){
             popUp_fullBasket.open()
         }
-        
+
         function onCloseBasketFull(){
             popUp_fullBasket.close()
         }
