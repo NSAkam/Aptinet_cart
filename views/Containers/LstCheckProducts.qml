@@ -275,7 +275,7 @@ Item {
             text: obj_LogicContainerLstCheckProducts.shopPage.factorList.totalcount
             font.pixelSize: 24
             x:259
-            y:39
+            y:42
             color: viewset.primaryColor
             font.bold: true
 
@@ -309,7 +309,7 @@ Item {
             text: "$  " + (obj_LogicContainerLstCheckProducts.shopPage.factorList.finalprice *1).toFixed(2)
             font.pixelSize: 24
             x:463
-            y:32
+            y:42
             color: viewset.secondaryColor
             font.bold: true
         }
