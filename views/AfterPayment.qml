@@ -86,7 +86,7 @@ Item {
         height: parent.height
 
         Image {
-            source: "../Assets/AptinetText1.png"
+            source: "/home/aptinet/files/AptinetText.png"
             x:32
             y:32
         }
@@ -331,7 +331,7 @@ Item {
         }
 
         Timer{
-            interval:  300000
+            interval:  180000
             onTriggered: {
                 cameraProvider.stop()
             }

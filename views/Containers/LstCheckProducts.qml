@@ -55,14 +55,15 @@ Item {
                     anchors.left: parent.left
                     width: 90
                     height: 90
-                    x:25
+                    x:35
                     anchors.verticalCenter: parent.verticalCenter
+
                 }
 
                 Text {
                     id: factorItemName
                     text: modelData.name
-                    font.pixelSize: 16
+                    font.pixelSize: 19
                     anchors.left: factorItemPic.right
                     width: 562
                     height: 22
@@ -162,7 +163,7 @@ Item {
                 Text {
                     id: factorItemName
                     text: modelData.name
-                    font.pixelSize: 16
+                    font.pixelSize: 19
                     anchors.left: factorItemPic.right
                     width: 562
                     height: 22

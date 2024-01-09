@@ -205,6 +205,7 @@ Item {
             borderRadius: 4
             btn_color: viewset.secondaryColor
             btn_bordercolor: viewset.secondaryColor
+            ishover: false
             onClicked: {
                 obj_LogicContainerCheckoutPage.shopPage.apply_couponCode(txt_OfferCodeInput.text)
             }
@@ -258,6 +259,7 @@ Item {
             borderRadius: 4
             width: 205
             height: 60
+            ishover: false
             onClicked: {
                 obj_LogicContainerCheckoutPage.shopPage.checkout_backClicked()
             }
@@ -273,7 +275,7 @@ Item {
             borderRadius: 4
             btn_color: viewset.secondaryColor
             btn_bordercolor: viewset.secondaryColor
-
+            ishover: false
             Text {
                 font.pixelSize: 24
                 anchors.verticalCenter: parent.verticalCenter
@@ -300,7 +302,7 @@ Item {
             borderRadius: 4
             btn_color: viewset.secondaryColor
             btn_bordercolor: viewset.secondaryColor
-
+            ishover: false
             onClicked: {
                 obj_LogicContainerCheckoutPage.shopPage.payment_viaQRClicked()
             }
@@ -347,10 +349,10 @@ Item {
     Connections{
         target :obj_LogicContainerCheckoutPage.shopPage
         function onSetcopun(v){
-            txt_copun.text = "$ " + v
+            //txt_copun.text = "$ " + v
             numpad.visible = false
-            btn_apply.visible = false
-            rectEnterPLU.visible = false
+            //btn_apply.visible = false
+            //rectEnterPLU.visible = false
         }
     }
 }
