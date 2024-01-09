@@ -105,7 +105,7 @@ Item {
                 }
             }
             Text {
-                text: obj_LogicContainerAddPluItems.logic.txt_Enter_product_code
+                text: obj_LogicContainerAddPluItems.lang.txt_Enter_product_code
                 horizontalAlignment:  TextInput.AlignHCenter
                 y:44
                 anchors.horizontalCenter: parent.horizontalCenter

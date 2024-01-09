@@ -320,6 +320,8 @@ Item {
         font.pixelSize: 16
         y: 590.5 + 25 - 3
         x: 553 - 390
+        font.bold: true
+
     }
 
     Image {
@@ -333,6 +335,7 @@ Item {
         font.pixelSize: 16
         y: 634.5 + 25 - 2
         x: 553 - 390
+        font.bold: true
     }
 
 
