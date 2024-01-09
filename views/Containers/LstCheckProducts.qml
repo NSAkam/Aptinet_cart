@@ -317,7 +317,7 @@ Item {
             text: obj_LogicContainerLstCheckProducts.lang.txt_Subtotal
             color: "#6D6D6D"
             font.pixelSize: 16
-            x:489
+            x:463
             y:83
         }
         Image {

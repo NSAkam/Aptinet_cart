@@ -76,9 +76,10 @@ Item {
                 color: "#6D6D6D"
                 width: 148
                 height: 15
-                font.pixelSize: 14
+                font.pixelSize: 16
                 x:478
                 y:40
+                font.bold: true
             }
             KButton{
                 id:btn_login
