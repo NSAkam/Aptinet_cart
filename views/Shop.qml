@@ -23,6 +23,8 @@ Item {
 
     property bool isfactorlistview: false
 
+
+    property bool isInloyalotyLogin: false
     //    signal addpluitemsClicked()
 
     Util.ViewSettings{
@@ -64,8 +66,8 @@ Item {
                 y:25
                 width: 50 - 4
                 height: 50 -4
-//                anchors.horizontalCenter: parent.horizontalCenter
-//                anchors.verticalCenter: parent.verticalCenter
+                //                anchors.horizontalCenter: parent.horizontalCenter
+                //                anchors.verticalCenter: parent.verticalCenter
             }
 
             Text {
@@ -997,10 +999,12 @@ Item {
         id:popUpLoginInshopPage
         obj_logic: obj_LogicContainerShop
         onPhoneNumber: {
+            root.isInloyalotyLogin = true
             stackview.push(authpage)
             popUpLoginInshopPage.close()
         }
         onMemberShopCart: {
+            root.isInloyalotyLogin = true
             stackview.push(memberLoginInshop)
             popUpLoginInshopPage.close()
         }
@@ -1200,7 +1204,11 @@ Item {
         }
 
         function onPopStack(){
-            stackview.pop()
+            if(root.isInloyalotyLogin === true){
+                stackview.pop()
+
+            }
+
         }
 
         function onShowBasketFull(){
